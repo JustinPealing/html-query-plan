@@ -4,9 +4,18 @@ li
 	list-style: none;
 	display: table;
 }
-div.op, ul  
+div.qp-td
 {
 	display: table-cell;
+}
+canvas
+{
+	position: absolute;
+}
+#qp-root
+{
+	position: absolute;
+	z-index: 1;
 }
 
 /* Styling */
@@ -18,19 +27,65 @@ table
 {
 	border: solid 1px;
 }
+div.qp-node
+{
+	position: relative;
+	background-color: #FFFFCC;
+	margin: 5px;
+	padding: 5px;
+	white-space: nowrap;
+	border: 1px solid black;
+}
+div.qp-label
+{
+	font-family: Monospace;
+	text-align: center;
+}
+div[class|='qp-icon']
+{
+	height: 32px;
+	width: 32px;
+	margin-left: auto;
+	margin-right: auto;
+	background-repeat: no-repeat;
+}
+div.qp-tt
+{
+	position: absolute;
+	top: 2em; 
+	left: 2em;
+	border: 1px solid black;
+	background-color: #FFFFEE;
+	display: none;
+	z-index: 1;
+	padding: 2px;
+}
+div.qp-node:hover div.qp-tt
+{
+	display: block;
+}
+div.qp-tt table
+{
+	border-width: 0px;
+	white-space: nowrap;
+	font-size: 0.7em;
+	text-align: left;
+}
+div.qp-tt td
+{
+	padding-left: 10px;
+}
 
 /* Icons */
-div.icon-ClusteredIndexSeek
+div.qp-icon-ClusteredIndexSeek
 {
 	background-image: url('images/clustered_index_seek.gif');
 }
-div.icon-NestedLoops
+div.qp-icon-NestedLoops
 {
 	background-image: url('images/nested_loops.gif');
 }
-
-div[class|='icon']
+div.qp-icon-Result
 {
-	height: 32px;
-	background-repeat: no-repeat;
+	background-image: url('images/result.gif');
 }

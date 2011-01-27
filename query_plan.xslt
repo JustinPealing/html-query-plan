@@ -9,13 +9,16 @@
     <html>
       <head>
         <title>Execution plan</title>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+        <script src="jquery.min.js" type="text/javascript"></script>
         <script src="query_plan.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="query_plan.css" />
+        <script type="text/javascript">
+          $(document).ready( function() { qp_drawLines($("#qp-canvas")[0]); } );
+        </script>
       </head>
       <body>
-        <ul><xsl:apply-templates select="sh:ShowPlanXML/sh:BatchSequence/sh:Batch/sh:Statements/sh:StmtSimple" /></ul>
-        <canvas id="canvas"></canvas>
+        <ul id="qp-root"><xsl:apply-templates select="sh:ShowPlanXML/sh:BatchSequence/sh:Batch/sh:Statements/sh:StmtSimple" /></ul>
+        <canvas id="qp-canvas"></canvas>
       </body>
     </html>
   </xsl:template>
@@ -23,48 +26,47 @@
   <!-- Matches a statement -->
   <xsl:template match="sh:StmtSimple">
     <li>
-      <table>
-        <tr><th>Name</th><th>Value</th></tr>
-        <tr>
-          <td>Statement type</td>
-          <td><xsl:value-of select="@StatementType" /></td>
-        </tr>
-        <tr>
-          <td>Statement text</td>
-          <td><pre><xsl:value-of select="@StatementText" /></pre></td>
-        </tr>
-      </table>
-      <ul><xsl:apply-templates select="*/sh:RelOp" /></ul>
+      <div class="qp-td">
+        <div class="qp-node">
+          <xsl:element name="div">
+            <xsl:attribute name="class">qp-icon-Result</xsl:attribute>
+          </xsl:element>
+          <div class="qp-label"><xsl:value-of select="@StatementType" /></div>
+          <div class="qp-tt">Query information</div>
+        </div>
+      </div>
+      <ul class="qp-td"><xsl:apply-templates select="*/sh:RelOp" /></ul>
     </li>
   </xsl:template>
   
   <!-- Matches a branch in the query plan -->
   <xsl:template match="sh:RelOp">
     <li>
-      <div class="op">
-        <xsl:element name="div">
-          <xsl:attribute name="class">icon-<xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:attribute>
-        </xsl:element>
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Value</th>
-          </tr>
-          <tr>
-            <td>Logical operation</td>
-            <td>
-              <xsl:value-of select="@LogicalOp" />
-            </td>
-          </tr>
-          <tr>
-            <td>Physical operation</td>
-            <td>
-              <xsl:value-of select="@PhysicalOp" />
-            </td>
-          </tr>
-        </table>
+      <div class="qp-td">
+        <div class="qp-node">
+          <xsl:element name="div">
+            <xsl:attribute name="class">qp-icon-<xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:attribute>
+          </xsl:element>
+          <div class="qp-label"><xsl:value-of select="@PhysicalOp" /></div>
+          <div class="qp-tt">
+            <table>
+              <tr>
+                <th>Average row size:</th>
+                <td><xsl:value-of select="@AvgRowSize" /></td>
+              </tr>
+              <tr>
+                <th>Estimate rows:</th>
+                <td><xsl:value-of select="@EstimateRows" /></td>
+              </tr>
+              <tr>
+                <th>Estimated total subtree cost:</th>
+                <td><xsl:value-of select="@EstimatedTotalSubtreeCost" /></td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
-      <ul><xsl:apply-templates select="*/sh:RelOp" /></ul>
+      <ul class="qp-td"><xsl:apply-templates select="*/sh:RelOp" /></ul>
     </li>
   </xsl:template>
 </xsl:stylesheet>

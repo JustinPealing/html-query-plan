@@ -1,9 +1,20 @@
 ﻿function qp_drawLines(canvas) {
-    canvas.width = $("#qp-root").width();
-    canvas.height = $("#qp-root").height();
-    var context = canvas.getContext("2d");
+    window.setTimeout(function () {
+        var canvasOffset = canvas.offset();
+        var context = canvas[0].getContext("2d");
 
-    context.moveTo(20, 20);
-    context.lineTo(100, 100);
-    context.stroke();
+        $(".qp-node").each(function () {
+            var from = $(this).parent().offset();
+
+            // This is horrible and needs fixing pronto!
+            $("> ul > li > div > div", $(this).parent().parent()).each(function () {
+                var to = $(this).offset();
+                debugger;
+                context.moveTo(from.left, from.top);
+                context.lineTo(to.left, to.top);
+            });
+        });
+
+        context.stroke();
+    }, 10);
 }

@@ -32,8 +32,8 @@ div.qp-node
 {
 	position: relative;
 	background-color: #FFFFCC;
-	/* margin: 5px;
-	padding: 5px; */
+	margin: 5px;
+	padding: 5px;
 	white-space: nowrap;
 	border: 1px solid black;
 }

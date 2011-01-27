@@ -13,7 +13,7 @@
         <script src="query_plan.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="query_plan.css" />
         <script type="text/javascript">
-          $(document).ready( function() { qp_drawLines($("#qp-canvas")); } );
+          $(document).ready( function() { qp_drawLines($("#qp-canvas"), $("#qp-root")); } );
         </script>
       </head>
       <body>

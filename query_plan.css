@@ -121,7 +121,7 @@ div.qp-tt td
 .qp-icon-NonclusteredIndexDelete{background-image:url('images/nonclustered_index_delete.gif')}
 .qp-icon-NonclusteredIndexInsert{background-image:url('images/nonclustered_index_insert.gif')}
 .qp-icon-NonclusteredIndexScan{background-image:url('images/nonclustered_index_scan.gif')}
-.qp-icon-NonclusteredIndexSeek{background-image:url('images/nonclustered_index_seek.gif')}
+.qp-icon-IndexSeek{background-image:url('images/nonclustered_index_seek.gif')}
 .qp-icon-NonclusteredIndexSpool{background-image:url('images/nonclustered_index_spool.gif')}
 .qp-icon-NonclusteredIndexUpdate{background-image:url('images/nonclustered_index_update.gif')}
 .qp-icon-OnlineIndexInsert{background-image:url('images/online_index_insert.gif')}

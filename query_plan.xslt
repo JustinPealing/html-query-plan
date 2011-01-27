@@ -121,8 +121,12 @@
     <div>(<xsl:value-of select="../@LogicalOp" />)</div>
   </xsl:template>
   
-  <!-- Writes the node label for Clustered Index Seeps -->
+  <!-- Writes the node label for Clustered Index Seeks -->
   <xsl:template match="s:IndexScan" mode="NodeLabel">
-    <div><xsl:value-of select="s:Object/@Table" />.<xsl:value-of select="s:Object/@Index" /></div>
+    <xsl:variable name="IndexName" select="concat(s:Object/@Table, '.', s:Object/@Index)" />
+    <div>
+      <xsl:value-of select="substring($IndexName, 0, 36)" />
+      <xsl:if test="string-length($IndexName) >= 36">…</xsl:if>
+    </div>
   </xsl:template>
 </xsl:stylesheet>

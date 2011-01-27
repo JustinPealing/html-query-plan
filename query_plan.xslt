@@ -4,6 +4,9 @@
   xmlns:s="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
   <xsl:output method="html" indent="no"/>
 
+  <!-- Disable built-in recursive processing templates -->
+  <xsl:template match="*|/|text()|@*" mode="NodeLabel" />
+
   <!-- TODO: Percentage costs -->
   
   <!-- Root template -->
@@ -34,7 +37,7 @@
             <xsl:attribute name="class">qp-icon-Result</xsl:attribute>
           </xsl:element>
           <div><xsl:value-of select="@StatementType" /></div>
-          <xsl:apply-templates select="*" mode="NodeLabel" />
+          <xsl:apply-templates select="./*" mode="NodeLabel" />
         </div>
       </div>
       <ul class="qp-td"><xsl:apply-templates select="*/s:RelOp" /></ul>

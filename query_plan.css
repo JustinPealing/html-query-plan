@@ -1,0 +1,36 @@
+﻿/* Layout */
+li 
+{
+	list-style: none;
+	display: table;
+}
+div.op, ul  
+{
+	display: table-cell;
+}
+
+/* Styling */
+body  
+{
+	font-family: Sans-Serif;
+}
+table 
+{
+	border: solid 1px;
+}
+
+/* Icons */
+div.icon-ClusteredIndexSeek
+{
+	background-image: url('images/clustered_index_seek.gif');
+}
+div.icon-NestedLoops
+{
+	background-image: url('images/nested_loops.gif');
+}
+
+div[class|='icon']
+{
+	height: 32px;
+	background-repeat: no-repeat;
+}

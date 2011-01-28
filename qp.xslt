@@ -14,8 +14,8 @@
       <head>
         <title>Execution plan</title>
         <script src="jquery.min.js" type="text/javascript"></script>
-        <script src="query_plan.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="query_plan.css" />
+        <script src="qp.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="qp.css" />
         <script type="text/javascript">
           $(document).ready( function() { qp_drawLines($("#qp-canvas"), $("#qp-root")); } );
         </script>

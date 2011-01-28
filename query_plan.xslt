@@ -21,6 +21,17 @@
         <script type="text/javascript">
           $(document).ready( function() { qp_drawLines($("#qp-canvas"), $("#qp-root")); } );
         </script>
+        <style type="text/css">
+          canvas
+          {
+              position: absolute;
+          }
+          #qp-root
+          {
+              position: absolute;
+              z-index: 1;
+          }
+        </style>
       </head>
       <body>
         <ul id="qp-root"><xsl:apply-templates select="s:ShowPlanXML/s:BatchSequence/s:Batch/s:Statements/s:StmtSimple" /></ul>
@@ -73,11 +84,9 @@
     </div>
   </xsl:template>
 
-  <!-- Template used when there is no operation-specific tool tip template -->
+  <!-- Tool tip template used when there is no operation-type specific template -->
   <xsl:template match="*" mode="ToolTipContent">
-    <table>
-      <xsl:call-template name="DefaultToolTipColumns" />
-    </table>
+    <table><xsl:call-template name="DefaultToolTipColumns" /></table>
   </xsl:template>
 
   <!-- Writes default tool-tip columns common to most nodes -->
@@ -134,12 +143,17 @@
     </tr>
   </xsl:template>
 
-  <!-- Writes the node label for Nested Loops -->
+  <!--
+  ================================
+  Operator specific node labels
+  ================================
+  The following section contains templates used for writing operator-type specific node labels.
+  -->
+  
   <xsl:template match="*[s:NestedLoops]" mode="NodeLabel">
     <div class="qp-label">(<xsl:value-of select="@LogicalOp" />)</div>
   </xsl:template>
   
-  <!-- Writes the node label for Clustered Index Seeks -->
   <xsl:template match="*[s:IndexScan]" mode="NodeLabel">
     <xsl:variable name="IndexName" select="concat(s:IndexScan/s:Object/@Table, '.', s:IndexScan/s:Object/@Index)" />
     <div class="qp-label">
@@ -148,7 +162,13 @@
     </div>
   </xsl:template>
 
-  <!-- Writes the node label for Nested Loops -->
+  <!--
+  ================================
+  Operator specific tool tips
+  ================================
+  The following section contains templates used for writing operator-type specific tool tips.
+  -->
+
   <xsl:template match="*[s:NestedLoops]" mode="ToolTipContent">
     <div>For each row in the top (outer) input, scan the bottom (inner) input, and output matching rows.</div>
     <table>

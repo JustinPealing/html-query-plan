@@ -1,39 +1,13 @@
-﻿/* Layout */
-li 
-{
-	list-style: none;
-	display: table;
-}
-div.qp-td
-{
-	display: table-cell;
-}
-canvas
-{
-	position: absolute;
-}
-#qp-root
-{
-	position: absolute;
-	z-index: 1;
-}
-
-/* Styling */
-.qp-tt-header
+﻿.qp-tt-header
 {
 	font-weight: bold;
-}
-table 
-{
-	border: solid 1px;
+	text-align: center;
 }
 div.qp-node
 {
-	position: relative;
 	background-color: #FFFFCC;
 	margin: 5px;
 	padding: 5px;
-	white-space: nowrap;
 	border: 1px solid black;
 }
 .qp-label
@@ -51,25 +25,17 @@ div[class|='qp-icon']
 }
 div.qp-tt
 {
-	position: absolute;
 	top: 2em; 
 	left: 2em;
 	border: 1px solid black;
 	background-color: #FFFFEE;
-	display: none;
-	z-index: 1;
 	padding: 2px;
 	font-size: 0.7em;
 	font-family: Sans-Serif;
 }
-div.qp-node:hover div.qp-tt
-{
-	display: block;
-}
 div.qp-tt table
 {
 	border-width: 0px;
-	white-space: nowrap;
 	text-align: left;
 	font-size: 1em;
 	font-family: Sans-Serif;
@@ -157,3 +123,34 @@ div.qp-tt td
 .qp-icon-Udx{background-image:url('images/udx.gif')}
 .qp-icon-Update{background-image:url('images/update.gif')}
 .qp-icon-Write{background-image:url('images/write.gif')}
+
+/* Layout - can't touch this */
+div.qp-tt
+{
+	position: absolute;
+	display: none;
+	z-index: 1;
+}
+div.qp-node:hover div.qp-tt
+{
+	display: block;
+}
+div.qp-tt table
+{
+	white-space: nowrap;
+}
+div.qp-node
+{
+	position: relative;
+	white-space: nowrap;
+}
+div.qp-td
+{
+	display: table-cell;
+}
+/* TODO: Make qp specific */
+li
+{
+	list-style: none;
+	display: table;
+}

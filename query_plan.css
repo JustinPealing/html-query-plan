@@ -1,9 +1,10 @@
 ﻿div.qp-node
 {
 	background-color: #FFFFCC;
-	margin: 5px;
-	padding: 5px;
+	margin: 2px;
+	padding: 2px;
 	border: 1px solid black;
+	font-size: 11px;
 }
 .qp-label
 {
@@ -20,12 +21,11 @@ div[class|='qp-icon']
 }
 .qp-tt
 {
-	top: 2em; 
+	top: 4em; 
 	left: 2em;
 	border: 1px solid black;
 	background-color: #FFFFEE;
 	padding: 2px;
-	font-size: 0.7em;
 	font-family: Sans-Serif;
 }
 .qp-tt table
@@ -35,7 +35,7 @@ div[class|='qp-icon']
 	margin-top: 10px;
 	margin-bottom: 10px;
 	width: 100%;
-	font-size: 1em;
+	font-size: 11px;
 }
 .qp-tt td
 {

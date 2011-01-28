@@ -7,37 +7,12 @@
   <!-- Disable built-in recursive processing templates -->
   <xsl:template match="*|/|text()|@*" mode="NodeLabel" />
   <xsl:template match="/|text()|@*" mode="ToolTipContent" />
-  
-  <!-- Root template -->
-  <xsl:template match="/">
-    <html>
-      <head>
-        <title>Execution plan</title>
-        <script src="jquery.min.js" type="text/javascript"></script>
-        <script src="qp.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="qp.css" />
-        <script type="text/javascript">
-          $(document).ready( function() { qp_drawLines($("#qp-canvas"), $("#qp-root")); } );
-        </script>
-        <style type="text/css">
-          canvas
-          {
-              position: absolute;
-          }
-          #qp-root
-          {
-              position: absolute;
-              z-index: 1;
-          }
-        </style>
-      </head>
-      <body>
-        <ul id="qp-root"><xsl:apply-templates select="s:ShowPlanXML/s:BatchSequence/s:Batch/s:Statements/s:StmtSimple" /></ul>
-        <canvas id="qp-canvas"></canvas>
-      </body>
-    </html>
-  </xsl:template>
 
+  <!-- Default template -->
+  <xsl:template match="/">
+    <xsl:apply-templates select="s:ShowPlanXML/s:BatchSequence/s:Batch/s:Statements/s:StmtSimple" />
+  </xsl:template>
+  
   <!-- Matches a statement -->
   <xsl:template match="s:StmtSimple">
     <li>

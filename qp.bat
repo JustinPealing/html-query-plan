@@ -8,11 +8,11 @@
 @echo off
 SETLOCAL
 
-"%~dp0msxsl.exe" %1 "%~dp0query_plan.xslt" -o %~n1.html
+"%~dp0msxsl.exe" %1 "%~dp0qp_page.xslt" -o %~n1.html
 xcopy "%~dp0images" images /IQY
 xcopy "%~dp0jquery.min.js" /QY
-xcopy "%~dp0query_plan.css" /QY
-xcopy  "%~dp0query_plan.js" /QY
+xcopy "%~dp0qp.css" /QY
+xcopy "%~dp0qp.js" /QY
 
 %~n1.html
 

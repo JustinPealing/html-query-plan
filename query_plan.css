@@ -19,10 +19,9 @@ canvas
 }
 
 /* Styling */
-body  
+.qp-tt-header
 {
-	font-family: Sans-Serif;
-	width: 100%
+	font-weight: bold;
 }
 table 
 {
@@ -37,7 +36,7 @@ div.qp-node
 	white-space: nowrap;
 	border: 1px solid black;
 }
-div.qp-node div
+.qp-label
 {
 	font-family: Monospace;
 	text-align: center;
@@ -60,6 +59,8 @@ div.qp-tt
 	display: none;
 	z-index: 1;
 	padding: 2px;
+	font-size: 0.7em;
+	font-family: Sans-Serif;
 }
 div.qp-node:hover div.qp-tt
 {
@@ -69,9 +70,9 @@ div.qp-tt table
 {
 	border-width: 0px;
 	white-space: nowrap;
-	font-size: 0.7em;
-	font-family: Sans-Serif;
 	text-align: left;
+	font-size: 1em;
+	font-family: Sans-Serif;
 }
 div.qp-tt td
 {

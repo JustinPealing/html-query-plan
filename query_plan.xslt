@@ -6,7 +6,7 @@
 
   <!-- Disable built-in recursive processing templates -->
   <xsl:template match="*|/|text()|@*" mode="NodeLabel" />
-  <xsl:template match="*|/|text()|@*" mode="ToolTipContent" />
+  <xsl:template match="/|text()|@*" mode="ToolTipContent" />
 
   <!-- TODO: Percentage costs -->
   
@@ -37,8 +37,8 @@
           <xsl:element name="div">
             <xsl:attribute name="class">qp-icon-Result</xsl:attribute>
           </xsl:element>
-          <div><xsl:value-of select="@StatementType" /></div>
-          <xsl:apply-templates select="./*" mode="NodeLabel" />
+          <div class="qp-label"><xsl:value-of select="@StatementType" /></div>
+          <xsl:apply-templates select="." mode="NodeLabel" />
           <xsl:call-template name="ToolTip" />
         </div>
       </div>
@@ -55,7 +55,7 @@
             <xsl:attribute name="class">qp-icon-<xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:attribute>
           </xsl:element>
           <div class="qp-label"><xsl:value-of select="@PhysicalOp" /></div>
-          <xsl:apply-templates select="*" mode="NodeLabel" />
+          <xsl:apply-templates select="." mode="NodeLabel" />
           <xsl:call-template name="ToolTip" />
         </div>
       </div>
@@ -69,31 +69,38 @@
   <xsl:template name="ToolTip">
     <div class="qp-tt">
       <div class="qp-tt-header"><xsl:value-of select="@PhysicalOp" /></div>
-      <xsl:apply-templates select="*" mode="ToolTipContent" />
+      <xsl:apply-templates select="." mode="ToolTipContent" />
     </div>
+  </xsl:template>
+
+  <!-- Template used when there is no operation-specific tool tip template -->
+  <xsl:template match="*" mode="ToolTipContent">
+    <table>
+      <xsl:call-template name="DefaultToolTipColumns" />
+    </table>
   </xsl:template>
 
   <!-- Writes default tool-tip columns common to most nodes -->
   <xsl:template name="DefaultToolTipColumns">
     <tr>
       <th>Physical Operation</th>
-      <td><xsl:value-of select="../@PhysicalOp" /></td>
+      <td><xsl:value-of select="@PhysicalOp" /></td>
     </tr>
     <tr>
       <th>Logical Operation</th>
-      <td><xsl:value-of select="../@LogicalOp" /></td>
+      <td><xsl:value-of select="@LogicalOp" /></td>
     </tr>
     <tr>
       <th>Actual Number of Rows</th>
-      <td><xsl:value-of select="../s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRows" /></td>
+      <td><xsl:value-of select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRows" /></td>
     </tr>
     <tr>
       <th>Estimated I/O Cost</th>
-      <td><xsl:value-of select="../@EstimateIO" /></td>
+      <td><xsl:value-of select="@EstimateIO" /></td>
     </tr>
     <tr>
       <th>Estimated CPU Cost</th>
-      <td><xsl:value-of select="../@EstimateCPU" /></td>
+      <td><xsl:value-of select="@EstimateCPU" /></td>
     </tr>
     <!-- TODO <tr>
         <th>Estimated Number of Executions</th>
@@ -101,40 +108,40 @@
       </tr> -->
     <tr>
       <th>Number of Executions</th>
-      <td><xsl:value-of select="../s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutions" /></td>
+      <td><xsl:value-of select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutions" /></td>
     </tr>
     <!-- TODO: Estimated Operator Cost -->
     <tr>
       <th>Estimated Subtree Cost</th>
-      <td><xsl:value-of select="../@EstimatedTotalSubtreeCost" /></td>
+      <td><xsl:value-of select="@EstimatedTotalSubtreeCost" /></td>
     </tr>
     <tr>
       <th>Estimated Number of Rows</th>
       <td>
-        <xsl:value-of select="../@EstimateRows" />
+        <xsl:value-of select="@EstimateRows" />
       </td>
     </tr>
     <!-- TODO: Check this -->
     <tr>
       <th>Estimated Row Size</th>
-      <td><xsl:value-of select="../@AvgRowSize" />B</td>
+      <td><xsl:value-of select="@AvgRowSize" />B</td>
     </tr>
     <!-- TODO: Actual Rebinds
          TODO: Actual Rewinds -->
     <tr>
       <th>Node ID</th>
-      <td><xsl:value-of select="../@NodeId" />B</td>
+      <td><xsl:value-of select="@NodeId" />B</td>
     </tr>
   </xsl:template>
 
   <!-- Writes the node label for Nested Loops -->
-  <xsl:template match="s:NestedLoops" mode="NodeLabel">
-    <div class="qp-label">(<xsl:value-of select="../@LogicalOp" />)</div>
+  <xsl:template match="*[s:NestedLoops]" mode="NodeLabel">
+    <div class="qp-label">(<xsl:value-of select="@LogicalOp" />)</div>
   </xsl:template>
   
   <!-- Writes the node label for Clustered Index Seeks -->
-  <xsl:template match="s:IndexScan" mode="NodeLabel">
-    <xsl:variable name="IndexName" select="concat(s:Object/@Table, '.', s:Object/@Index)" />
+  <xsl:template match="*[s:IndexScan]" mode="NodeLabel">
+    <xsl:variable name="IndexName" select="concat(s:IndexScan/s:Object/@Table, '.', s:IndexScan/s:Object/@Index)" />
     <div class="qp-label">
       <xsl:value-of select="substring($IndexName, 0, 36)" />
       <xsl:if test="string-length($IndexName) >= 36">…</xsl:if>
@@ -142,7 +149,7 @@
   </xsl:template>
 
   <!-- Writes the node label for Nested Loops -->
-  <xsl:template match="s:NestedLoops" mode="ToolTipContent">
+  <xsl:template match="*[s:NestedLoops]" mode="ToolTipContent">
     <div>For each row in the top (outer) input, scan the bottom (inner) input, and output matching rows.</div>
     <table>
       <xsl:call-template name="DefaultToolTipColumns" />

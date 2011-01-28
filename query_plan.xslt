@@ -174,7 +174,12 @@
     <table>
       <xsl:call-template name="DefaultToolTipColumns" />
     </table>
-    <div class="tt-bold">Outer References</div>
-    <div>NotYetImplemented</div>
+    <div class="qp-bold">Outer References</div>
+    <div>
+      <xsl:value-of select="s:NestedLoops/s:OuterReferences/s:ColumnReference/@Database" />.
+      <xsl:value-of select="s:NestedLoops/s:OuterReferences/s:ColumnReference/@Schema" />.
+      <xsl:value-of select="s:NestedLoops/s:OuterReferences/s:ColumnReference/@Table" />.
+      <xsl:value-of select="s:NestedLoops/s:OuterReferences/s:ColumnReference/@Column" />
+    </div>
   </xsl:template>
 </xsl:stylesheet>

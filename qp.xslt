@@ -7,7 +7,7 @@
   <!-- Disable built-in recursive processing templates -->
   <xsl:template match="*|/|text()|@*" mode="NodeLabel" />
   <xsl:template match="*|/|text()|@*" mode="ToolTipDescription" />
-  <xsl:template match="/|text()|@*" mode="ToolTipContent" />
+  <xsl:template match="*|/|text()|@*" mode="ToolTipDetails" />
 
   <!-- Default template -->
   <xsl:template match="/">
@@ -50,91 +50,86 @@
 
   <!-- Writes the tool tip -->
   <xsl:template name="ToolTip">
-    <div class="qp-tt"><xsl:apply-templates select="." mode="ToolTipContent" /></div>
+    <div class="qp-tt">
+      <div class="qp-tt-header"><xsl:value-of select="@PhysicalOp | @StatementType" /></div>
+      <div><xsl:apply-templates select="." mode="ToolTipDescription" /></div>
+      <xsl:call-template name="ToolTipGrid" />
+      <xsl:apply-templates select="* | @* | */* | */@*" mode="ToolTipDetails" />
+    </div>
   </xsl:template>
 
-  <!-- Tool tip template used when there is no operation-type specific template -->
-  <xsl:template match="*" mode="ToolTipContent">
-    <div class="qp-tt-header"><xsl:value-of select="@PhysicalOp | @StatementType" /></div>
-    <div><xsl:apply-templates select="." mode="ToolTipDescription" /></div>
-    <table><xsl:call-template name="DefaultToolTipColumns" /></table>
-    <xsl:call-template name="ToolTip-Statement" />
-    <xsl:call-template name="ToolTip-Object" />
-    <xsl:call-template name="ToolTip-Predicate" />
-    <xsl:call-template name="ToolTip-OutputList" />
-    <xsl:call-template name="ToolTip-OrderBy" />
-  </xsl:template>
-
-  <!-- Writes default tool-tip columns common to most nodes -->
-  <xsl:template name="DefaultToolTipColumns">
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Condition" select="s:QueryPlan/@CachedPlanSize" />
-      <xsl:with-param name="Label">Cached plan size</xsl:with-param>
-      <xsl:with-param name="Value" select="concat(s:QueryPlan/@CachedPlanSize, ' B')" />
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Physical Operation</xsl:with-param>
-      <xsl:with-param name="Value" select="@PhysicalOp" />
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Logical Operation</xsl:with-param>
-      <xsl:with-param name="Value" select="@LogicalOp" />
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Actual Number of Rows</xsl:with-param>
-      <xsl:with-param name="Value" select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRows" />
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Estimated I/O Cost</xsl:with-param>
-      <xsl:with-param name="Value" select="@EstimateIO" />
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Estimated CPU Cost</xsl:with-param>
-      <xsl:with-param name="Value" select="@EstimateCPU" />
-    </xsl:call-template>
-    <!-- TODO: Estimated Number of Executions -->
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Number of Executions</xsl:with-param>
-      <xsl:with-param name="Value" select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutions" />
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Degree of Parallelism</xsl:with-param>
-      <xsl:with-param name="Value" select="s:QueryPlan/@DegreeOfParallelism" />
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Memory Grant</xsl:with-param>
-      <xsl:with-param name="Value" select="s:QueryPlan/@MemoryGrant" />
-    </xsl:call-template>
-    <!-- TODO: Estimated Operator Cost -->
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Estimated Subtree Cost</xsl:with-param>
-      <xsl:with-param name="Value" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Estimated Number of Rows</xsl:with-param>
-      <xsl:with-param name="Value" select="@StatementEstRows | @EstimateRows" />
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Condition" select="@AvgRowSize" />
-      <xsl:with-param name="Label">Estimated Row Size</xsl:with-param>
-      <xsl:with-param name="Value" select="concat(@AvgRowSize, ' B')" />
-    </xsl:call-template>
-    <!-- TODO: Actual Rebinds
-         TODO: Actual Rewinds -->
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Condition" select="s:IndexScan/@Ordered" />
-      <xsl:with-param name="Label">Ordered</xsl:with-param>
-      <xsl:with-param name="Value">
-        <xsl:choose>
-          <xsl:when test="s:IndexScan/@Ordered = 1">True</xsl:when>
-          <xsl:otherwise>False</xsl:otherwise>
-        </xsl:choose>
-      </xsl:with-param>
-    </xsl:call-template>
-    <xsl:call-template name="ToolTipRow">
-      <xsl:with-param name="Label">Node ID</xsl:with-param>
-      <xsl:with-param name="Value" select="@NodeId" />
-    </xsl:call-template>
+  <!-- Writes the grid of node properties to the tool tip -->
+  <xsl:template name="ToolTipGrid">
+    <table>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="s:QueryPlan/@CachedPlanSize" />
+        <xsl:with-param name="Label">Cached plan size</xsl:with-param>
+        <xsl:with-param name="Value" select="concat(s:QueryPlan/@CachedPlanSize, ' B')" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Physical Operation</xsl:with-param>
+        <xsl:with-param name="Value" select="@PhysicalOp" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Logical Operation</xsl:with-param>
+        <xsl:with-param name="Value" select="@LogicalOp" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Actual Number of Rows</xsl:with-param>
+        <xsl:with-param name="Value" select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRows" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated I/O Cost</xsl:with-param>
+        <xsl:with-param name="Value" select="@EstimateIO" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated CPU Cost</xsl:with-param>
+        <xsl:with-param name="Value" select="@EstimateCPU" />
+      </xsl:call-template>
+      <!-- TODO: Estimated Number of Executions -->
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Number of Executions</xsl:with-param>
+        <xsl:with-param name="Value" select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutions" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Degree of Parallelism</xsl:with-param>
+        <xsl:with-param name="Value" select="s:QueryPlan/@DegreeOfParallelism" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Memory Grant</xsl:with-param>
+        <xsl:with-param name="Value" select="s:QueryPlan/@MemoryGrant" />
+      </xsl:call-template>
+      <!-- TODO: Estimated Operator Cost -->
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated Subtree Cost</xsl:with-param>
+        <xsl:with-param name="Value" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated Number of Rows</xsl:with-param>
+        <xsl:with-param name="Value" select="@StatementEstRows | @EstimateRows" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@AvgRowSize" />
+        <xsl:with-param name="Label">Estimated Row Size</xsl:with-param>
+        <xsl:with-param name="Value" select="concat(@AvgRowSize, ' B')" />
+      </xsl:call-template>
+      <!-- TODO: Actual Rebinds
+           TODO: Actual Rewinds -->
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="s:IndexScan/@Ordered" />
+        <xsl:with-param name="Label">Ordered</xsl:with-param>
+        <xsl:with-param name="Value">
+          <xsl:choose>
+            <xsl:when test="s:IndexScan/@Ordered = 1">True</xsl:when>
+            <xsl:otherwise>False</xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Node ID</xsl:with-param>
+        <xsl:with-param name="Value" select="@NodeId" />
+      </xsl:call-template>
+    </table>
   </xsl:template>
 
   <!-- Renders a row in the tool tip details table -->
@@ -162,67 +157,55 @@
   ================================
   Tool tip detail sections
   ================================
-  The following section contains templates used for writing the detail sections in the tool tips,
-  for example the list of outputs, or information about the object to which an operator applies.
+  The following section contains templates used for writing the detail sections at the bottom of the tool tip,
+  for example listing outputs, or information about the object to which an operator applies.
   -->
 
-  <xsl:template name="ToolTip-Object">
+  <xsl:template match="*/s:Object" mode="ToolTipDetails">
     <!-- TODO: Make sure this works all the time -->
-    <xsl:if test="*/s:Object">
-      <div class="qp-bold">Object</div>
-      <div><xsl:apply-templates select="*/s:Object" mode="ObjectName" /></div>
-    </xsl:if>
+    <div class="qp-bold">Object</div>
+    <div><xsl:apply-templates select="." mode="ObjectName" /></div>
   </xsl:template>
 
-  <xsl:template name="ToolTip-Predicate">
-    <xsl:if test="*/s:SetPredicate/s:ScalarOperator/@ScalarString">
-      <div class="qp-bold">Predicate</div>
-      <div><xsl:value-of select="*/s:SetPredicate/s:ScalarOperator/@ScalarString" /></div>
-    </xsl:if>
+  <xsl:template match="s:SetPredicate[s:ScalarOperator/@ScalarString]" mode="ToolTipDetails">
+    <div class="qp-bold">Predicate</div>
+    <div><xsl:value-of select="s:ScalarOperator/@ScalarString" /></div>
   </xsl:template>
 
-  <xsl:template name="ToolTip-OutputList">
-    <xsl:if test="count(s:OutputList/s:ColumnReference) > 0">
-      <div class="qp-bold">Output List</div>
-      <xsl:for-each select="s:OutputList/s:ColumnReference">
-        <div><xsl:apply-templates select="." mode="ObjectName" /></div>
-      </xsl:for-each>
-    </xsl:if>
-  </xsl:template>
-  
-  <xsl:template name="ToolTip-SeekPredicates">
-    <!-- TODO: Seek Predicates -->
-  </xsl:template>
-
-  <xsl:template name="ToolTip-OuterReferences">
-    <xsl:if test="count(s:NestedLoops/s:OuterReferences/s:ColumnReference) > 0">
-      <div class="qp-bold">Outer References</div>
+  <xsl:template match="s:OutputList[count(s:ColumnReference) > 0]" mode="ToolTipDetails">
+    <div class="qp-bold">Output List</div>
+    <xsl:for-each select="s:ColumnReference">
       <div><xsl:apply-templates select="." mode="ObjectName" /></div>
-    </xsl:if>
+    </xsl:for-each>
   </xsl:template>
 
-  <xsl:template name="ToolTip-Statement">
-    <xsl:if test="@StatementText">
-      <div class="qp-bold">Statement</div>
-      <div><xsl:value-of select="@StatementText" /></div>
-    </xsl:if>
+  <xsl:template match="s:NestedLoops/s:OuterReferences[count(s:ColumnReference) > 0]" mode="ToolTipDetails">
+    <div class="qp-bold">Outer References</div>
+    <xsl:for-each select="s:ColumnReference">
+      <div><xsl:apply-templates select="." mode="ObjectName" /></div>
+    </xsl:for-each>
   </xsl:template>
 
-  <xsl:template name="ToolTip-OrderBy">
-    <xsl:if test="count(s:Sort/s:OrderBy/s:OrderByColumn/s:ColumnReference) > 0">
-      <div class="qp-bold">Order By</div>
-      <xsl:for-each select="s:Sort/s:OrderBy/s:OrderByColumn">
-        <div>
-          <xsl:apply-templates select="s:ColumnReference" mode="ObjectName" />
-          <xsl:choose>
-            <xsl:when test="@Ascending = 1"> Ascending</xsl:when>
-            <xsl:otherwise> Descending</xsl:otherwise>
-          </xsl:choose>
-        </div>
-      </xsl:for-each>
-    </xsl:if>
+  <xsl:template match="@StatementText" mode="ToolTipDetails">
+    <div class="qp-bold">Statement</div>
+    <div><xsl:value-of select="." /></div>
   </xsl:template>
-  
+
+  <xsl:template match="s:Sort/s:OrderBy[count(s:OrderByColumn/s:ColumnReference) > 0]" mode="ToolTipDetails">
+    <div class="qp-bold">Order By</div>
+    <xsl:for-each select="s:OrderByColumn">
+      <div>
+        <xsl:apply-templates select="s:ColumnReference" mode="ObjectName" />
+        <xsl:choose>
+          <xsl:when test="@Ascending = 1"> Ascending</xsl:when>
+          <xsl:otherwise> Descending</xsl:otherwise>
+        </xsl:choose>
+      </div>
+    </xsl:for-each>
+  </xsl:template>
+
+  <!-- TODO: Seek Predicates -->
+
   <!--
   ================================
   Operator specific node labels

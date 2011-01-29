@@ -62,6 +62,7 @@
     <xsl:call-template name="ToolTip-Object" />
     <xsl:call-template name="ToolTip-Predicate" />
     <xsl:call-template name="ToolTip-OutputList" />
+    <xsl:call-template name="ToolTip-OrderBy" />
   </xsl:template>
 
   <!-- Writes default tool-tip columns common to most nodes -->
@@ -100,6 +101,10 @@
       <xsl:with-param name="Label">Degree of Parallelism</xsl:with-param>
       <xsl:with-param name="Value" select="s:QueryPlan/@DegreeOfParallelism" />
     </xsl:call-template>
+    <xsl:call-template name="ToolTipRow">
+      <xsl:with-param name="Label">Memory Grant</xsl:with-param>
+      <xsl:with-param name="Value" select="s:QueryPlan/@MemoryGrant" />
+    </xsl:call-template>
     <!-- TODO: Estimated Operator Cost -->
     <xsl:call-template name="ToolTipRow">
       <xsl:with-param name="Label">Estimated Subtree Cost</xsl:with-param>
@@ -114,9 +119,18 @@
       <xsl:with-param name="Label">Estimated Row Size</xsl:with-param>
       <xsl:with-param name="Value" select="concat(@AvgRowSize, ' B')" />
     </xsl:call-template>
-    <!-- TODO:
-         TODO: Actual Rebinds
+    <!-- TODO: Actual Rebinds
          TODO: Actual Rewinds -->
+    <xsl:call-template name="ToolTipRow">
+      <xsl:with-param name="Condition" select="s:IndexScan/@Ordered" />
+      <xsl:with-param name="Label">Ordered</xsl:with-param>
+      <xsl:with-param name="Value">
+        <xsl:choose>
+          <xsl:when test="s:IndexScan/@Ordered = 1">True</xsl:when>
+          <xsl:otherwise>False</xsl:otherwise>
+        </xsl:choose>
+      </xsl:with-param>
+    </xsl:call-template>
     <xsl:call-template name="ToolTipRow">
       <xsl:with-param name="Label">Node ID</xsl:with-param>
       <xsl:with-param name="Value" select="@NodeId" />
@@ -136,16 +150,12 @@
     </xsl:if>
   </xsl:template>
 
-  <!-- Displays an object name -->
-  <!-- TODO: Work on column names -->
-  <xsl:template name="ObjectName">
-    <xsl:param name="Object" select="." />
-    <xsl:value-of select="$Object/@Database" />
-    <xsl:if test="$Object/@Schema">.<xsl:value-of select="$Object/@Schema" /></xsl:if>
-    <xsl:if test="$Object/@Table">.<xsl:value-of select="$Object/@Table" /></xsl:if>
-    <xsl:if test="$Object/@Index">.<xsl:value-of select="$Object/@Index" /></xsl:if>
-    <xsl:if test="$Object/@Column">.<xsl:value-of select="$Object/@Column" /></xsl:if>
-    <xsl:if test="$Object/@Alias">.<xsl:value-of select="$Object/@Alias" /></xsl:if>
+  <!-- Prints the name of an object -->
+  <xsl:template match="s:Object | s:ColumnReference" mode="ObjectName">
+    <xsl:for-each select="@Database | @Schema | @Table | @Index | @Column | @Alias">
+      <xsl:value-of select="." />
+      <xsl:if test="position() != last()">.</xsl:if>
+    </xsl:for-each>
   </xsl:template>
   
   <!-- 
@@ -160,11 +170,7 @@
     <!-- TODO: Make sure this works all the time -->
     <xsl:if test="*/s:Object">
       <div class="qp-bold">Object</div>
-      <div>
-        <xsl:call-template name="ObjectName">
-          <xsl:with-param name="Object" select="*/s:Object" />
-        </xsl:call-template>
-      </div>
+      <div><xsl:apply-templates select="*/s:Object" mode="ObjectName" /></div>
     </xsl:if>
   </xsl:template>
 
@@ -179,7 +185,7 @@
     <xsl:if test="count(s:OutputList/s:ColumnReference) > 0">
       <div class="qp-bold">Output List</div>
       <xsl:for-each select="s:OutputList/s:ColumnReference">
-        <div><xsl:value-of select="@Column" /></div>
+        <div><xsl:apply-templates select="." mode="ObjectName" /></div>
       </xsl:for-each>
     </xsl:if>
   </xsl:template>
@@ -191,7 +197,7 @@
   <xsl:template name="ToolTip-OuterReferences">
     <xsl:if test="count(s:NestedLoops/s:OuterReferences/s:ColumnReference) > 0">
       <div class="qp-bold">Outer References</div>
-      <div><xsl:call-template name="ObjectName" /></div>
+      <div><xsl:apply-templates select="." mode="ObjectName" /></div>
     </xsl:if>
   </xsl:template>
 
@@ -199,6 +205,21 @@
     <xsl:if test="@StatementText">
       <div class="qp-bold">Statement</div>
       <div><xsl:value-of select="@StatementText" /></div>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="ToolTip-OrderBy">
+    <xsl:if test="count(s:Sort/s:OrderBy/s:OrderByColumn/s:ColumnReference) > 0">
+      <div class="qp-bold">Order By</div>
+      <xsl:for-each select="s:Sort/s:OrderBy/s:OrderByColumn">
+        <div>
+          <xsl:apply-templates select="s:ColumnReference" mode="ObjectName" />
+          <xsl:choose>
+            <xsl:when test="@Ascending = 1"> Ascending</xsl:when>
+            <xsl:otherwise> Descending</xsl:otherwise>
+          </xsl:choose>
+        </div>
+      </xsl:for-each>
     </xsl:if>
   </xsl:template>
   
@@ -233,15 +254,16 @@
 
   <!-- 
   ================================
-  Tool tip description
+  Tool tip descriptions
   ================================
   The following section contains templates used for writing the description shown in the tool tip.
   -->
 
   <xsl:template match="*[@PhysicalOp = 'Table Insert']" mode="ToolTipDescription">Insert input rows into the table specified in Argument field.</xsl:template>
   <xsl:template match="*[@PhysicalOp = 'Compute Scalar']" mode="ToolTipDescription">Compute new values from existing values in a row.</xsl:template>
+  <xsl:template match="*[@PhysicalOp = 'Sort']" mode="ToolTipDescription">Sort the input.</xsl:template>
+  <xsl:template match="*[@PhysicalOp = 'Clustered Index Scan']" mode="ToolTipDescription">Scanning a clustered index, entirely or only a range.</xsl:template>
   <xsl:template match="*[s:TableScan]" mode="ToolTipDescription">Scan rows from a table.</xsl:template>
   <xsl:template match="*[s:NestedLoops]" mode="ToolTipDescription">For each row in the top (outer) input, scan the bottom (inner) input, and output matching rows.</xsl:template>
   <xsl:template match="*[s:Top]" mode="ToolTipDescription">Select the first few rows based on a sort order.</xsl:template>
-  <xsl:template match="*[s:IndexScan]" mode="ToolTipDescription">Scanning a particular range of rows from a clustered index.</xsl:template>
 </xsl:stylesheet>

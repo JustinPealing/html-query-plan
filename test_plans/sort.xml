@@ -1,0 +1,60 @@
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.1" Build="10.50.1600.1">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementText="SELECT * FROM People&#xa;ORDER BY Age DESC" StatementId="1" StatementCompId="1" StatementType="SELECT" StatementSubTreeCost="0.0146444" StatementEstRows="1" StatementOptmLevel="TRIVIAL" QueryHash="0x64B3BD2E2C4B53AF" QueryPlanHash="0x8DF41BBA23CD131C">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="false" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false"/>
+          <QueryPlan DegreeOfParallelism="0" MemoryGrant="1024" CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="64">
+            <RelOp NodeId="0" PhysicalOp="Sort" LogicalOp="Sort" EstimateRows="1" EstimateIO="0.0112613" EstimateCPU="0.000100071" AvgRowSize="71" EstimatedTotalSubtreeCost="0.0146444" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+              <OutputList>
+                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="firstname"/>
+                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="lastname"/>
+                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="age"/>
+                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="id"/>
+              </OutputList>
+              <MemoryFractions Input="1" Output="1"/>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1"/>
+              </RunTimeInformation>
+              <Sort Distinct="0">
+                <OrderBy>
+                  <OrderByColumn Ascending="0">
+                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="age"/>
+                  </OrderByColumn>
+                </OrderBy>
+                <RelOp NodeId="1" PhysicalOp="Clustered Index Scan" LogicalOp="Clustered Index Scan" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="71" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="1" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                  <OutputList>
+                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="firstname"/>
+                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="lastname"/>
+                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="age"/>
+                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="id"/>
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualEndOfScans="1" ActualExecutions="1"/>
+                  </RunTimeInformation>
+                  <IndexScan Ordered="0" ForcedIndex="0" NoExpandHint="0">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="firstname"/>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="lastname"/>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="age"/>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="id"/>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Index="[PK_People_id]" IndexKind="Clustered"/>
+                  </IndexScan>
+                </RelOp>
+              </Sort>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

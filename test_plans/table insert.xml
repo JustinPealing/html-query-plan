@@ -1,0 +1,66 @@
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.1" Build="10.50.1600.1">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementText="INSERT INTO [SpecOps]([number],[description]) values(@1,@2)" StatementId="1" StatementCompId="1" StatementType="INSERT" StatementSubTreeCost="0.0100022" StatementEstRows="1" StatementOptmLevel="TRIVIAL" QueryHash="0xDDFC4F84F64AF28C" QueryPlanHash="0xCF47C45DE305F869">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="false" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false"/>
+          <QueryPlan DegreeOfParallelism="0" CachedPlanSize="8" CompileTime="0" CompileCPU="0" CompileMemory="64">
+            <RelOp NodeId="0" PhysicalOp="Table Insert" LogicalOp="Insert" EstimateRows="1" EstimateIO="0.01" EstimateCPU="1e-006" AvgRowSize="9" EstimatedTotalSubtreeCost="0.0100022" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+              <OutputList/>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualEndOfScans="1" ActualExecutions="1"/>
+              </RunTimeInformation>
+              <ScalarInsert>
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Column="Expr1004"/>
+                    <ScalarOperator ScalarString="CONVERT_IMPLICIT(varchar(255),[@2],0)">
+                      <Convert DataType="varchar" Length="255" Style="0" Implicit="1">
+                        <ScalarOperator>
+                          <Identifier>
+                            <ColumnReference Column="@2"/>
+                          </Identifier>
+                        </ScalarOperator>
+                      </Convert>
+                    </ScalarOperator>
+                  </DefinedValue>
+                </DefinedValues>
+                <Object Database="[StackOverflow]" Schema="[dbo]" Table="[SpecOps]" IndexKind="Heap"/>
+                <SetPredicate>
+                  <ScalarOperator ScalarString="[StackOverflow].[dbo].[SpecOps].[number] = [@1],[StackOverflow].[dbo].[SpecOps].[description] = [Expr1004]">
+                    <ScalarExpressionList>
+                      <ScalarOperator>
+                        <MultipleAssign>
+                          <Assign>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[SpecOps]" Column="number"/>
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="@1"/>
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[SpecOps]" Column="description"/>
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1004"/>
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                        </MultipleAssign>
+                      </ScalarOperator>
+                    </ScalarExpressionList>
+                  </ScalarOperator>
+                </SetPredicate>
+              </ScalarInsert>
+            </RelOp>
+            <ParameterList>
+              <ColumnReference Column="@2" ParameterCompiledValue="&apos;ChronoGuard&apos;" ParameterRuntimeValue="&apos;ChronoGuard&apos;"/>
+              <ColumnReference Column="@1" ParameterCompiledValue="(13)" ParameterRuntimeValue="(13)"/>
+            </ParameterList>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

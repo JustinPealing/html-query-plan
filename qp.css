@@ -83,7 +83,7 @@ div[class|='qp-icon']
 .qp-icon-Delete{background-image:url('images/table_delete.gif')}
 .qp-icon-DistributeStreams{background-image:url('images/distribute_streams.gif')}
 .qp-icon-Dynamic{background-image:url('images/dynamic.gif')}
-.qp-icon-EagerSpool{background-image:url('images/eager_spool.gif')}
+.qp-icon-EagerSpool{background-image:url('images/spool.gif')}
 .qp-icon-FetchQuery{background-image:url('images/fetch_query.gif')}
 .qp-icon-Filter{background-image:url('images/filter.gif')}
 .qp-icon-GatherStreams{background-image:url('images/gather_streams.gif')}
@@ -97,7 +97,7 @@ div[class|='qp-icon']
 .qp-icon-IteratorCatchall{background-image:url('images/bitmap.gif')}
 .qp-icon-Keyset{background-image:url('images/keyset.gif')}
 .qp-icon-LanguageElementCatchall{background-image:url('images/bitmap.gif')}
-.qp-icon-LazySpool{background-image:url('images/lazy_spool.gif')}
+.qp-icon-LazySpool{background-image:url('images/spool.gif')}
 .qp-icon-LogRowScan{background-image:url('images/log_row_scan.gif')}
 .qp-icon-MergeInterval{background-image:url('images/merge_interval.gif')}
 .qp-icon-MergeJoin{background-image:url('images/merge_join.gif')}

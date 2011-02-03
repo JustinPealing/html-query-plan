@@ -163,12 +163,12 @@ div.qp-node:hover .qp-tt
 	position: relative;
 	white-space: nowrap;
 }
-.qp-td
+.qp-tr
+{
+	display: table;
+}
+.qp-tr > div
 {
 	display: table-cell;
 	padding-left: 15px;
-}
-.qp-li
-{
-	display: table;
 }

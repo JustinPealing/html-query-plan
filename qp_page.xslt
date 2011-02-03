@@ -12,11 +12,7 @@
         <link rel="stylesheet" type="text/css" href="qp.css" />
         <script src="jquery.min.js" type="text/javascript"></script>
         <script src="qp.js" type="text/javascript"></script>
-        <script type="text/javascript">
-          $(document).ready( function() {
-            QP.drawLines($("#qp-root"));
-          });
-        </script>
+        <script type="text/javascript">$(document).ready( function() { QP.drawLines($("#qp-root")); });</script>
       </head>
       <body>
         <div id="qp-root">

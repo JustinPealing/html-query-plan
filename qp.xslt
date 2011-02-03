@@ -16,8 +16,8 @@
   
   <!-- Matches a statement -->
   <xsl:template match="s:StmtSimple">
-    <div class="qp-li">
-      <div class="qp-td">
+    <div class="qp-tr">
+      <div>
         <div class="qp-node">
           <xsl:element name="div">
             <xsl:attribute name="class">qp-icon-Statement</xsl:attribute>
@@ -27,14 +27,14 @@
           <xsl:call-template name="ToolTip" />
         </div>
       </div>
-      <div class="qp-td"><xsl:apply-templates select="*/s:RelOp" /></div>
+      <div><xsl:apply-templates select="*/s:RelOp" /></div>
     </div>
   </xsl:template>
   
   <!-- Matches a branch in the query plan -->
   <xsl:template match="s:RelOp">
-    <div class="qp-li">
-      <div class="qp-td">
+    <div class="qp-tr">
+      <div>
         <div class="qp-node">
           <xsl:element name="div">
             <xsl:attribute name="class">qp-icon-<xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:attribute>
@@ -44,7 +44,7 @@
           <xsl:call-template name="ToolTip" />
         </div>
       </div>
-      <div class="qp-td"><xsl:apply-templates select="*/s:RelOp" /></div>
+      <div><xsl:apply-templates select="*/s:RelOp" /></div>
     </div>
   </xsl:template>
 

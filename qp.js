@@ -8,7 +8,6 @@ if (typeof (QP) == "undefined" || !QP) {
     /* Draws the lines linking nodes in query plan diagram.
     root - The document element in which the diagram is contained. */
     QP.drawLines = function(root) {
-        debugger;
         if (root === null || root === undefined) {
             // Try and find it ourselves
             root = $(".qp-root:parent");
@@ -23,7 +22,7 @@ if (typeof (QP) == "undefined" || !QP) {
     function internalDrawLines(root) {
         var canvas = getCanvas(root);
         var canvasElm = canvas[0];
-        
+
         // Check for browser compatability
         if (canvasElm.getContext !== null && canvasElm.getContext !== undefined) {
             // Chrome is usually too quick with document.ready
@@ -33,10 +32,9 @@ if (typeof (QP) == "undefined" || !QP) {
                 canvasElm.height = root.outerHeight(true);
                 var offset = canvas.offset();
 
-                $(".qp-node", root).each(function() {
-                    var from = $(this);
-                    // TODO: This is horrible and needs fixing pronto!
-                    $("> .qp-td > .qp-li > div > div", $(this).parent().parent()).each(function() {
+                $(".qp-tr", root).each(function() {
+                    var from = $("> * > .qp-node", $(this));
+                    $("> * > .qp-tr > * > .qp-node", $(this)).each(function() {
                         drawLine(context, offset, from, $(this));
                     });
                 });

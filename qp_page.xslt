@@ -3,37 +3,25 @@
     xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl"
     xmlns:s="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
     <xsl:output method="xml" indent="no" omit-xml-declaration="yes" />
-
   <xsl:include href="qp.xslt" />
   
-  <!-- Default template -->
   <xsl:template match="/">
     <html>
       <head>
         <title>Execution plan</title>
+        <link rel="stylesheet" type="text/css" href="qp.css" />
         <script src="jquery.min.js" type="text/javascript"></script>
         <script src="qp.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="qp.css" />
         <script type="text/javascript">
-          $(document).ready( function() { qp_drawLines($("#qp-canvas"), $("#qp-root")); } );
+          $(document).ready( function() {
+            QP.drawLines($("#qp-root"));
+          });
         </script>
-        <style type="text/css">
-          canvas
-          {
-            position: absolute;
-          }
-          #qp-root
-          {
-            position: absolute;
-            z-index: 1;
-          }
-        </style>
       </head>
       <body>
-        <ul id="qp-root">
+        <div id="qp-root">
           <xsl:apply-templates select="s:ShowPlanXML/s:BatchSequence/s:Batch/s:Statements/s:StmtSimple" />
-        </ul>
-        <canvas id="qp-canvas"></canvas>
+        </div>
       </body>
     </html>
   </xsl:template>

@@ -16,7 +16,7 @@
   
   <!-- Matches a statement -->
   <xsl:template match="s:StmtSimple">
-    <li>
+    <div class="qp-li">
       <div class="qp-td">
         <div class="qp-node">
           <xsl:element name="div">
@@ -27,13 +27,13 @@
           <xsl:call-template name="ToolTip" />
         </div>
       </div>
-      <ul class="qp-td"><xsl:apply-templates select="*/s:RelOp" /></ul>
-    </li>
+      <div class="qp-td"><xsl:apply-templates select="*/s:RelOp" /></div>
+    </div>
   </xsl:template>
   
   <!-- Matches a branch in the query plan -->
   <xsl:template match="s:RelOp">
-    <li>
+    <div class="qp-li">
       <div class="qp-td">
         <div class="qp-node">
           <xsl:element name="div">
@@ -44,8 +44,8 @@
           <xsl:call-template name="ToolTip" />
         </div>
       </div>
-      <ul class="qp-td"><xsl:apply-templates select="*/s:RelOp" /></ul>
-    </li>
+      <div class="qp-td"><xsl:apply-templates select="*/s:RelOp" /></div>
+    </div>
   </xsl:template>
 
   <!-- Writes the tool tip -->

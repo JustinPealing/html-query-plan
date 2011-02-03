@@ -168,9 +168,7 @@ div.qp-node:hover .qp-tt
 	display: table-cell;
 	padding-left: 15px;
 }
-/* TODO: Make qp specific */
-li
+.qp-li
 {
-	list-style: none;
 	display: table;
 }

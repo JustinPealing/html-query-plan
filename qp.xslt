@@ -11,10 +11,17 @@
 
   <!-- Default template -->
   <xsl:template match="/">
-    <xsl:apply-templates select="s:ShowPlanXML/s:BatchSequence/s:Batch/s:Statements/s:StmtSimple" />
+    <xsl:apply-templates select="s:ShowPlanXML" />
+  </xsl:template>
+
+  <!-- Outermost div that contains all statement plans. -->
+  <xsl:template match="s:ShowPlanXML">
+    <div class="qp-root">
+      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/s:StmtSimple" />  
+    </div>
   </xsl:template>
   
-  <!-- Matches a statement -->
+  <!-- Matches a statement. -->
   <xsl:template match="s:StmtSimple">
     <div class="qp-tr">
       <div>
@@ -31,7 +38,7 @@
     </div>
   </xsl:template>
   
-  <!-- Matches a branch in the query plan -->
+  <!-- Matches a branch in the query plan. -->
   <xsl:template match="s:RelOp">
     <div class="qp-tr">
       <div>

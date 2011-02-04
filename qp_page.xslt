@@ -12,11 +12,11 @@
         <link rel="stylesheet" type="text/css" href="qp.css" />
         <script src="jquery.min.js" type="text/javascript"></script>
         <script src="qp.js" type="text/javascript"></script>
-        <script type="text/javascript">$(document).ready( function() { QP.drawLines($("#qp-root")); });</script>
+        <script type="text/javascript">$(document).ready( function() { QP.drawLines(); });</script>
       </head>
       <body>
-        <div id="qp-root">
-          <xsl:apply-templates select="s:ShowPlanXML/s:BatchSequence/s:Batch/s:Statements/s:StmtSimple" />
+        <div>
+          <xsl:apply-templates select="s:ShowPlanXML" />
         </div>
       </body>
     </html>

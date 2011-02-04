@@ -7,7 +7,7 @@
 	font-size: 11px;
 	line-height: normal;
 }
-.qp-node div:not(.qp-tt)
+.qp-node > div:not(.qp-tt)
 {
 	font-family: Monospace;
 	text-align: center;

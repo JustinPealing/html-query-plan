@@ -79,12 +79,22 @@
         <xsl:with-param name="Value" select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRows" />
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@EstimateIO" />
         <xsl:with-param name="Label">Estimated I/O Cost</xsl:with-param>
-        <xsl:with-param name="Value" select="@EstimateIO" />
+        <xsl:with-param name="Value">
+          <xsl:call-template name="round">
+            <xsl:with-param name="value" select="@EstimateIO" />
+          </xsl:call-template>
+        </xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@EstimateCPU" />
         <xsl:with-param name="Label">Estimated CPU Cost</xsl:with-param>
-        <xsl:with-param name="Value" select="@EstimateCPU" />
+        <xsl:with-param name="Value">
+          <xsl:call-template name="round">
+            <xsl:with-param name="value" select="@EstimateCPU" />
+          </xsl:call-template>
+        </xsl:with-param>
       </xsl:call-template>
       <!-- TODO: Estimated Number of Executions -->
       <xsl:call-template name="ToolTipRow">
@@ -99,10 +109,14 @@
         <xsl:with-param name="Label">Memory Grant</xsl:with-param>
         <xsl:with-param name="Value" select="s:QueryPlan/@MemoryGrant" />
       </xsl:call-template>
-      <!-- TODO: Estimated Operator Cost -->
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
         <xsl:with-param name="Label">Estimated Subtree Cost</xsl:with-param>
-        <xsl:with-param name="Value" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
+        <xsl:with-param name="Value">
+          <xsl:call-template name="round">
+            <xsl:with-param name="value" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
+          </xsl:call-template>
+        </xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Estimated Number of Rows</xsl:with-param>
@@ -249,4 +263,79 @@
   <xsl:template match="*[s:TableScan]" mode="ToolTipDescription">Scan rows from a table.</xsl:template>
   <xsl:template match="*[s:NestedLoops]" mode="ToolTipDescription">For each row in the top (outer) input, scan the bottom (inner) input, and output matching rows.</xsl:template>
   <xsl:template match="*[s:Top]" mode="ToolTipDescription">Select the first few rows based on a sort order.</xsl:template>
+
+  <!-- 
+  ================================
+  Number handling
+  ================================
+  The following section contains templates used for handling numbers (scientific notation, rounding etc...)
+  -->
+
+  <!-- Outputs a number rounded to 7 decimal places - to be used for displaying all numbers.
+  This template accepts numbers in scientific notation. -->
+  <xsl:template name="round">
+    <xsl:param name="value" select="0" />
+    <xsl:variable name="number">
+      <xsl:call-template name="convertSciToNumString">
+        <xsl:with-param name="inputVal" select="$value" />
+      </xsl:call-template>      
+    </xsl:variable>
+    <xsl:value-of select="round(number($number) * 10000000) div 10000000" />
+  </xsl:template>
+  
+  <!-- Template for handling of scientific numbers
+  See: http://www.orm-designer.com/article/xslt-convert-scientific-notation-to-decimal-number -->
+  <xsl:variable name="max-exp">
+    <xsl:value-of select="'0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'"/>
+  </xsl:variable>
+
+  <xsl:template name="convertSciToNumString" >
+    <xsl:param name="inputVal" select="0"/>
+
+    <xsl:variable name="numInput">
+      <xsl:value-of select="translate(string($inputVal),'e','E')"/>
+    </xsl:variable>
+
+    <xsl:choose>
+      <xsl:when test="number($numInput) = $numInput">
+          <xsl:value-of select="$numInput"/>
+      </xsl:when> 
+      <xsl:otherwise>
+
+          <!-- ==== Mantisa ==== -->
+          <xsl:variable name="numMantisa">
+              <xsl:value-of select="number(substring-before($numInput,'E'))"/>
+          </xsl:variable>
+
+          <!-- ==== Exponent ==== -->
+          <xsl:variable name="numExponent">
+              <xsl:choose>
+                  <xsl:when test="contains($numInput,'E+')">
+                      <xsl:value-of select="substring-after($numInput,'E+')"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                      <xsl:value-of select="substring-after($numInput,'E')"/>
+                  </xsl:otherwise>
+              </xsl:choose>
+          </xsl:variable>
+
+          <!-- ==== Coefficient ==== -->
+          <xsl:variable name="numCoefficient">
+              <xsl:choose>
+                  <xsl:when test="$numExponent > 0">
+                      <xsl:text>1</xsl:text>
+                      <xsl:value-of select="substring($max-exp, 1, number($numExponent))"/>
+                  </xsl:when>
+                  <xsl:when test="$numExponent &lt; 0">
+                      <xsl:text>0.</xsl:text>
+                      <xsl:value-of select="substring($max-exp, 1, -number($numExponent)-1)"/>
+                      <xsl:text>1</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+          </xsl:variable>
+          <xsl:value-of select="number($numCoefficient) * number($numMantisa)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 </xsl:stylesheet>

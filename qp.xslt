@@ -6,7 +6,7 @@
   <xsl:output method="html" indent="no" omit-xml-declaration="yes" />
 
   <!-- Disable built-in recursive processing templates -->
-  <xsl:template match="*|/|text()|@*" mode="NodeLabel" />
+  <xsl:template match="*|/|text()|@*" mode="NodeLabel2" />
   <xsl:template match="*|/|text()|@*" mode="ToolTipDescription" />
   <xsl:template match="*|/|text()|@*" mode="ToolTipDetails" />
 
@@ -22,29 +22,14 @@
     </div>
   </xsl:template>
   
-  <!-- Matches a statement. -->
-  <xsl:template match="s:StmtSimple">
+  <!-- Matches a branch in the query plan (either an operation or a statement) -->
+  <xsl:template match="s:RelOp|s:StmtSimple">
     <div class="qp-tr">
       <div>
         <div class="qp-node">
           <xsl:apply-templates select="." mode="NodeIcon" />
-          <div><xsl:value-of select="@StatementType" /></div>
           <xsl:apply-templates select="." mode="NodeLabel" />
-          <xsl:call-template name="ToolTip" />
-        </div>
-      </div>
-      <div><xsl:apply-templates select="*/s:RelOp" /></div>
-    </div>
-  </xsl:template>
-  
-  <!-- Matches a branch in the query plan. -->
-  <xsl:template match="s:RelOp">
-    <div class="qp-tr">
-      <div>
-        <div class="qp-node">
-          <xsl:apply-templates select="." mode="NodeIcon" />
-          <div><xsl:value-of select="@PhysicalOp" /></div>
-          <xsl:apply-templates select="." mode="NodeLabel" />
+          <xsl:apply-templates select="." mode="NodeLabel2" />
           <xsl:apply-templates select="." mode="NodeCostLabel" />
           <xsl:call-template name="ToolTip" />
         </div>
@@ -198,12 +183,33 @@
 
   <!-- Prints the name of an object. -->
   <xsl:template match="s:Object | s:ColumnReference" mode="ObjectName">
-    <xsl:for-each select="@Database | @Schema | @Table | @Index | @Column | @Alias">
-      <xsl:value-of select="." />
-      <xsl:if test="position() != last()">.</xsl:if>
-    </xsl:for-each>
+    <xsl:param name="ExcludeDatabaseName" select="false()" />
+    <xsl:choose>
+      <xsl:when test="$ExcludeDatabaseName">
+        <xsl:for-each select="@Table | @Index | @Column | @Alias">
+          <xsl:value-of select="." />
+          <xsl:if test="position() != last()">.</xsl:if>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:for-each select="@Database | @Schema | @Table | @Index | @Column | @Alias">
+          <xsl:value-of select="." />
+          <xsl:if test="position() != last()">.</xsl:if>
+        </xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
-  
+
+  <!-- Displays the node cost label. -->
+  <xsl:template match="s:RelOp" mode="NodeCostLabel">
+    <xsl:variable name="EstimatedOperatorCost"><xsl:call-template name="EstimatedOperatorCost" /></xsl:variable>
+    <xsl:variable name="TotalCost"><xsl:value-of select="ancestor::s:StmtSimple/@StatementSubTreeCost" /></xsl:variable>
+    <div>Cost: <xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" /></div>
+  </xsl:template>
+
+  <!-- Dont show the node cost for statements. -->
+  <xsl:template match="s:StmtSimple" mode="NodeCostLabel" />
+
   <!-- 
   ================================
   Tool tip detail sections
@@ -288,44 +294,48 @@
     <div class="qp-icon-Catchall"></div>
   </xsl:template>
 
-  <!--
+  <!-- 
   ================================
-  Operator specific node labels
+  Node labels
   ================================
-  The following section contains templates used for writing operator-type specific node labels.
+  The following section contains templates used to determine the first (main) label for a node.
   -->
 
-  <xsl:template match="s:RelOp" mode="NodeCostLabel">
-    <xsl:variable name="EstimatedOperatorCost">
-      <xsl:call-template name="EstimatedOperatorCost" />
-    </xsl:variable>
-    <xsl:variable name="TotalCost">
-      <xsl:value-of select="ancestor::s:StmtSimple/@StatementSubTreeCost" />
-    </xsl:variable>
-    <div>Cost: <xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" /></div>
+  <xsl:template match="s:RelOp" mode="NodeLabel">
+    <div><xsl:value-of select="@PhysicalOp" /></div>
   </xsl:template>
-  
-  <!-- Node label for "Nested Loops" operation -->
-  <xsl:template match="*[s:NestedLoops]" mode="NodeLabel">
+
+  <xsl:template match="s:StmtSimple" mode="NodeLabel">
+    <div><xsl:value-of select="@StatementType" /></div>
+  </xsl:template>
+
+  <!--
+  ================================
+  Node alternate labels
+  ================================
+  The following section contains templates used to determine the second label to be displayed for a node.
+  -->
+
+  <!-- Display the object for any node that has one -->
+  <xsl:template match="*[*/s:Object]" mode="NodeLabel2">
+    <xsl:variable name="ObjectName">
+      <xsl:apply-templates select="*/s:Object" mode="ObjectName">
+        <xsl:with-param name="ExcludeDatabaseName" select="true()" />
+      </xsl:apply-templates>
+    </xsl:variable>
+    <div>
+      <xsl:value-of select="substring($ObjectName, 0, 36)" />
+      <xsl:if test="string-length($ObjectName) >= 36">…</xsl:if>
+    </div>
+  </xsl:template>
+
+  <!-- Display the logical operation for any node where it is not the same as the physical operation. -->
+  <xsl:template match="s:RelOp[@LogicalOp != @PhysicalOp]" mode="NodeLabel2">
     <div>(<xsl:value-of select="@LogicalOp" />)</div>
   </xsl:template>
 
-  <!-- Node label for "Index Scan" operation -->
-  <xsl:template match="*[s:IndexScan]" mode="NodeLabel">
-    <xsl:variable name="IndexName" select="concat(s:IndexScan/s:Object/@Table, '.', s:IndexScan/s:Object/@Index)" />
-    <div>
-      <xsl:value-of select="substring($IndexName, 0, 36)" />
-      <xsl:if test="string-length($IndexName) >= 36">…</xsl:if>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="*[s:TableScan]" mode="NodeLabel">
-    <xsl:variable name="IndexName" select="concat(s:TableScan/s:Object/@Schema, '.', s:TableScan/s:Object/@Table)" />
-    <div>
-      <xsl:value-of select="substring($IndexName, 0, 36)" />
-      <xsl:if test="string-length($IndexName) >= 36">…</xsl:if>
-    </div>
-  </xsl:template>
+  <!-- Disable the default template -->
+  <xsl:template match="*" mode="NodeLabel2" />
 
   <!-- 
   ================================

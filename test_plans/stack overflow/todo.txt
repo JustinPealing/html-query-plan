@@ -1,27 +1,18 @@
 Merge Join
 	Description
-	Logical operation
 
 Hash Match
-	Description
-	Logical operation
 	Hash keys probe
-	
-Parallelism
-	Icons
-	Description
-	Logical operation
 
 Stream Aggregate
-	Description
-	Logical operation
 	Group by
 	
 Clustered Index Seek
-	Description
 	Seek Predicates
 
 Key Lookup
+    Identify as different from index seek
 	Description
 	Object
-	
+
+Fix "alias" in object names

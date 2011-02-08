@@ -27,9 +27,7 @@
     <div class="qp-tr">
       <div>
         <div class="qp-node">
-          <xsl:element name="div">
-            <xsl:attribute name="class">qp-icon-Statement</xsl:attribute>
-          </xsl:element>
+          <xsl:apply-templates select="." mode="NodeIcon" />
           <div><xsl:value-of select="@StatementType" /></div>
           <xsl:apply-templates select="." mode="NodeLabel" />
           <xsl:call-template name="ToolTip" />
@@ -44,9 +42,7 @@
     <div class="qp-tr">
       <div>
         <div class="qp-node">
-          <xsl:element name="div">
-            <xsl:attribute name="class">qp-icon-<xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:attribute>
-          </xsl:element>
+          <xsl:apply-templates select="." mode="NodeIcon" />
           <div><xsl:value-of select="@PhysicalOp" /></div>
           <xsl:apply-templates select="." mode="NodeLabel" />
           <xsl:apply-templates select="." mode="NodeCostLabel" />
@@ -260,6 +256,37 @@
   </xsl:template>
 
   <!-- TODO: Seek Predicates -->
+
+  <!-- 
+  ================================
+  Node icons
+  ================================
+  The following templates determine what icon should be shown for a given node
+  -->
+
+  <!-- Use the logical operation to determine the icon for the "Parallelism" operators. -->
+  <xsl:template match="s:RelOp[@PhysicalOp = 'Parallelism']" mode="NodeIcon" priority="1">
+    <xsl:element name="div">
+      <xsl:attribute name="class">qp-icon-<xsl:value-of select="translate(@LogicalOp, ' ', '')" /></xsl:attribute>
+    </xsl:element>
+  </xsl:template>
+
+  <!-- Use the physical operation to determine icon if it is present. -->
+  <xsl:template match="*[@PhysicalOp]" mode="NodeIcon">
+    <xsl:element name="div">
+      <xsl:attribute name="class">qp-icon-<xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:attribute>
+    </xsl:element>
+  </xsl:template>
+  
+  <!-- Matches all statements. -->
+  <xsl:template match="s:StmtSimple" mode="NodeIcon">
+    <div class="qp-icon-Statement"></div>
+  </xsl:template>
+
+  <!-- Fallback template - show the Bitmap icon. -->
+  <xsl:template match="*" mode="NodeIcon">
+    <div class="qp-icon-Catchall"></div>
+  </xsl:template>
 
   <!--
   ================================

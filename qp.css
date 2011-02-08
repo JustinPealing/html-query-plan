@@ -66,6 +66,7 @@ div[class|='qp-icon']
 }
 
 /* Icons */
+.qp-icon-Catchall{background-image:url('images/bitmap.gif')}
 .qp-icon-ArithmeticExpression{background-image:url('images/arithmetic_expression.gif')}
 .qp-icon-Assert{background-image:url('images/assert.gif')}
 .qp-icon-Assign{background-image:url('images/assign.gif')}

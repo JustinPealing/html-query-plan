@@ -1,1 +1,477 @@
-<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.1" Build="10.50.1746.0"><BatchSequence><Batch><Statements><StmtSimple StatementText="SELECT --TOP 20 &#xA;    TagName,&#xA;    COUNT(*) AS UpVotes &#xA;FROM Tags&#xA;    INNER JOIN PostTags ON PostTags.TagId = Tags.id&#xA;    INNER JOIN Posts ON Posts.ParentId = PostTags.PostId&#xA;    INNER JOIN Votes ON Votes.PostId = Posts.Id and VoteTypeId = 2&#xA;WHERE &#xA;    Posts.OwnerUserId = @UserId&#xA;GROUP BY TagName &#xA;ORDER BY UpVotes DESC" StatementId="1" StatementCompId="2" StatementType="SELECT" StatementSubTreeCost="45.9617" StatementEstRows="196.106" StatementOptmLevel="FULL" QueryHash="0x471784E35D81B328" QueryPlanHash="0x27254AC1E2EFC6F8"><StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="false" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" /><QueryPlan DegreeOfParallelism="8" MemoryGrant="12800" CachedPlanSize="72" CompileTime="79" CompileCPU="79" CompileMemory="1536"><MissingIndexes><MissingIndexGroup Impact="76.9098"><MissingIndex Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]"><ColumnGroup Usage="EQUALITY"><Column Name="[VoteTypeId]" ColumnId="4" /></ColumnGroup><ColumnGroup Usage="INCLUDE"><Column Name="[PostId]" ColumnId="3" /></ColumnGroup></MissingIndex></MissingIndexGroup><MissingIndexGroup Impact="99.2377"><MissingIndex Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]"><ColumnGroup Usage="EQUALITY"><Column Name="[PostId]" ColumnId="3" /><Column Name="[VoteTypeId]" ColumnId="4" /></ColumnGroup></MissingIndex></MissingIndexGroup></MissingIndexes><RelOp NodeId="0" PhysicalOp="Sort" LogicalOp="Sort" EstimateRows="196.106" EstimateIO="0.0112613" EstimateCPU="0.00242981" AvgRowSize="36" EstimatedTotalSubtreeCost="45.9617" Parallel="0" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /><ColumnReference Column="Expr1012" /></OutputList><MemoryFractions Input="0.285714" Output="1" /><RunTimeInformation><RunTimeCountersPerThread Thread="0" ActualRows="262" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" /></RunTimeInformation><Sort Distinct="0"><OrderBy><OrderByColumn Ascending="0"><ColumnReference Column="Expr1012" /></OrderByColumn></OrderBy><RelOp NodeId="1" PhysicalOp="Parallelism" LogicalOp="Gather Streams" EstimateRows="196.106" EstimateIO="0" EstimateCPU="0.0287001" AvgRowSize="36" EstimatedTotalSubtreeCost="45.948" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /><ColumnReference Column="Expr1012" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="0" ActualRows="262" ActualEndOfScans="1" ActualExecutions="1" /></RunTimeInformation><Parallelism><RelOp NodeId="2" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="196.106" EstimateIO="0" EstimateCPU="9.08085e-005" AvgRowSize="36" EstimatedTotalSubtreeCost="45.9193" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /><ColumnReference Column="Expr1012" /></OutputList><ComputeScalar><DefinedValues><DefinedValue><ColumnReference Column="Expr1012" /><ScalarOperator ScalarString="CONVERT_IMPLICIT(int,[Expr1017],0)"><Convert DataType="int" Style="0" Implicit="1"><ScalarOperator><Identifier><ColumnReference Column="Expr1017" /></Identifier></ScalarOperator></Convert></ScalarOperator></DefinedValue></DefinedValues><RelOp NodeId="3" PhysicalOp="Stream Aggregate" LogicalOp="Aggregate" EstimateRows="196.106" EstimateIO="0" EstimateCPU="9.08085e-005" AvgRowSize="36" EstimatedTotalSubtreeCost="45.9193" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /><ColumnReference Column="Expr1017" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="4" ActualRows="17" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="8" ActualRows="34" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="7" ActualRows="31" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="3" ActualRows="38" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="6" ActualRows="28" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="5" ActualRows="45" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="2" ActualRows="37" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="1" ActualRows="32" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><StreamAggregate><DefinedValues><DefinedValue><ColumnReference Column="Expr1017" /><ScalarOperator ScalarString="Count(*)"><Aggregate AggType="countstar" Distinct="0" /></ScalarOperator></DefinedValue></DefinedValues><GroupBy><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /></GroupBy><RelOp NodeId="4" PhysicalOp="Sort" LogicalOp="Sort" EstimateRows="441.968" EstimateIO="0.00281532" EstimateCPU="0.00153974" AvgRowSize="32" EstimatedTotalSubtreeCost="45.9192" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /></OutputList><MemoryFractions Input="0.166667" Output="0.714286" /><RunTimeInformation><RunTimeCountersPerThread Thread="4" ActualRows="632" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="8" ActualRows="481" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="7" ActualRows="436" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="3" ActualRows="652" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="6" ActualRows="634" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="2" ActualRows="393" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="5" ActualRows="567" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="1" ActualRows="583" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualRebinds="0" ActualRewinds="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><Sort Distinct="0"><OrderBy><OrderByColumn Ascending="1"><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /></OrderByColumn></OrderBy><RelOp NodeId="5" PhysicalOp="Parallelism" LogicalOp="Repartition Streams" EstimateRows="441.968" EstimateIO="0" EstimateCPU="0.0290507" AvgRowSize="32" EstimatedTotalSubtreeCost="45.9148" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="7" ActualRows="436" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="8" ActualRows="481" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="4" ActualRows="632" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="6" ActualRows="634" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="3" ActualRows="652" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="5" ActualRows="567" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="2" ActualRows="393" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="1" ActualRows="583" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><Parallelism PartitioningType="Hash"><PartitionColumns><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /></PartitionColumns><RelOp NodeId="6" PhysicalOp="Hash Match" LogicalOp="Inner Join" EstimateRows="441.968" EstimateIO="0" EstimateCPU="9.20178" AvgRowSize="32" EstimatedTotalSubtreeCost="45.8858" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /></OutputList><MemoryFractions Input="1" Output="0.833333" /><RunTimeInformation><RunTimeCountersPerThread Thread="8" ActualRows="737" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="6" ActualRows="201" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="3" ActualRows="514" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="5" ActualRows="403" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="2" ActualRows="801" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="4" ActualRows="443" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="7" ActualRows="711" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="1" ActualRows="568" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><Hash><DefinedValues /><HashKeysBuild><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /></HashKeysBuild><HashKeysProbe><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="PostId" /></HashKeysProbe><RelOp NodeId="7" PhysicalOp="Bitmap" LogicalOp="Bitmap Create" EstimateRows="25.898" EstimateIO="0" EstimateCPU="0.0286057" AvgRowSize="36" EstimatedTotalSubtreeCost="0.202971" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="8" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="5" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="7" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="3" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="6" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="4" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="2" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><Bitmap><DefinedValues><DefinedValue><ColumnReference Column="Bitmap1016" /></DefinedValue></DefinedValues><HashKeys><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /></HashKeys><RelOp NodeId="8" PhysicalOp="Parallelism" LogicalOp="Distribute Streams" EstimateRows="25.898" EstimateIO="0" EstimateCPU="0.0286057" AvgRowSize="36" EstimatedTotalSubtreeCost="0.202971" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="8" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="5" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="7" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="3" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="6" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="2" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="4" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><Parallelism PartitioningType="Broadcast"><RelOp NodeId="9" PhysicalOp="Nested Loops" LogicalOp="Inner Join" EstimateRows="25.898" EstimateIO="0" EstimateCPU="0.000108254" AvgRowSize="36" EstimatedTotalSubtreeCost="0.174365" Parallel="0" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><NestedLoops Optimized="0" WithUnorderedPrefetch="1"><OuterReferences><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" /><ColumnReference Column="Expr1015" /></OuterReferences><RelOp NodeId="11" PhysicalOp="Parallelism" LogicalOp="Gather Streams" EstimateRows="25.898" EstimateIO="0" EstimateCPU="0.028517" AvgRowSize="15" EstimatedTotalSubtreeCost="0.098443" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" /><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><Parallelism><RelOp NodeId="12" PhysicalOp="Nested Loops" LogicalOp="Inner Join" EstimateRows="25.898" EstimateIO="0" EstimateCPU="2.70808e-005" AvgRowSize="15" EstimatedTotalSubtreeCost="0.069926" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" /><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="7" ActualRows="64" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="6" ActualRows="62" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="8" ActualRows="53" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="5" ActualRows="73" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="3" ActualRows="63" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="1" ActualRows="64" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="4" ActualRows="58" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="2" ActualRows="58" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><NestedLoops Optimized="0"><OuterReferences><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" /></OuterReferences><RelOp NodeId="13" PhysicalOp="Parallelism" LogicalOp="Distribute Streams" EstimateRows="12.5504" EstimateIO="0" EstimateCPU="0.028533" AvgRowSize="15" EstimatedTotalSubtreeCost="0.0318288" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="7" ActualRows="22" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="6" ActualRows="22" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="8" ActualRows="22" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="5" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="3" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="1" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="4" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="2" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><Parallelism PartitioningType="RoundRobin"><RelOp NodeId="14" PhysicalOp="Index Seek" LogicalOp="Index Seek" EstimateRows="12.5504" EstimateIO="0.003125" EstimateCPU="0.000170805" AvgRowSize="15" EstimatedTotalSubtreeCost="0.00329581" TableCardinality="4.18708e+006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="1" ActualRows="181" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" NoExpandHint="0"><DefinedValues><DefinedValue><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" /></DefinedValue><DefinedValue><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" /></DefinedValue></DefinedValues><Object Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Index="[idxPostOwner]" IndexKind="NonClustered" /><SeekPredicates><SeekPredicateNew><SeekKeys><Prefix ScanType="EQ"><RangeColumns><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="OwnerUserId" /></RangeColumns><RangeExpressions><ScalarOperator ScalarString="[@UserId]"><Identifier><ColumnReference Column="@UserId" /></Identifier></ScalarOperator></RangeExpressions></Prefix></SeekKeys></SeekPredicateNew></SeekPredicates></IndexScan></RelOp></Parallelism></RelOp><RelOp NodeId="15" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="2.06484" EstimateIO="0.003125" EstimateCPU="0.000159271" AvgRowSize="11" EstimatedTotalSubtreeCost="0.03807" TableCardinality="3.77902e+006" Parallel="1" EstimateRebinds="11.5504" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="7" ActualRows="64" ActualEndOfScans="22" ActualExecutions="22" /><RunTimeCountersPerThread Thread="8" ActualRows="53" ActualEndOfScans="22" ActualExecutions="22" /><RunTimeCountersPerThread Thread="6" ActualRows="62" ActualEndOfScans="22" ActualExecutions="22" /><RunTimeCountersPerThread Thread="5" ActualRows="73" ActualEndOfScans="23" ActualExecutions="23" /><RunTimeCountersPerThread Thread="3" ActualRows="63" ActualEndOfScans="23" ActualExecutions="23" /><RunTimeCountersPerThread Thread="1" ActualRows="64" ActualEndOfScans="23" ActualExecutions="23" /><RunTimeCountersPerThread Thread="4" ActualRows="58" ActualEndOfScans="23" ActualExecutions="23" /><RunTimeCountersPerThread Thread="2" ActualRows="58" ActualEndOfScans="23" ActualExecutions="23" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" NoExpandHint="0"><DefinedValues><DefinedValue><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" /></DefinedValue></DefinedValues><Object Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Index="[PostTagsIndex]" IndexKind="Clustered" /><SeekPredicates><SeekPredicateNew><SeekKeys><Prefix ScanType="EQ"><RangeColumns><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="PostId" /></RangeColumns><RangeExpressions><ScalarOperator ScalarString="[StackOverflow.Exported].[dbo].[Posts].[ParentId]"><Identifier><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" /></Identifier></ScalarOperator></RangeExpressions></Prefix></SeekKeys></SeekPredicateNew></SeekPredicates></IndexScan></RelOp></NestedLoops></RelOp></Parallelism></RelOp><RelOp NodeId="16" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="32" EstimatedTotalSubtreeCost="0.0758142" TableCardinality="27745" Parallel="0" EstimateRebinds="24.898" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="0" ActualExecutions="495" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" NoExpandHint="0"><DefinedValues><DefinedValue><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" /></DefinedValue></DefinedValues><Object Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Index="[idxId]" IndexKind="Clustered" /><SeekPredicates><SeekPredicateNew><SeekKeys><Prefix ScanType="EQ"><RangeColumns><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="Id" /></RangeColumns><RangeExpressions><ScalarOperator ScalarString="[StackOverflow.Exported].[dbo].[PostTags].[TagId]"><Identifier><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" /></Identifier></ScalarOperator></RangeExpressions></Prefix></SeekKeys></SeekPredicateNew></SeekPredicates></IndexScan></RelOp></NestedLoops></RelOp></Parallelism></RelOp></Bitmap></RelOp><RelOp NodeId="17" PhysicalOp="Clustered Index Scan" LogicalOp="Clustered Index Scan" EstimateRows="8.02419e+006" EstimateIO="32.3728" EstimateCPU="2.86019" AvgRowSize="12" EstimatedTotalSubtreeCost="35.2329" TableCardinality="1.04006e+007" Parallel="1" EstimateRebinds="0" EstimateRewinds="0"><OutputList><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="PostId" /></OutputList><RunTimeInformation><RunTimeCountersPerThread Thread="8" ActualRows="258" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="5" ActualRows="139" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="3" ActualRows="184" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="6" ActualRows="72" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="4" ActualRows="166" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="2" ActualRows="288" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="7" ActualRows="276" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="1" ActualRows="209" ActualEndOfScans="1" ActualExecutions="1" /><RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" /></RunTimeInformation><IndexScan Ordered="0" ForcedIndex="0" NoExpandHint="0"><DefinedValues><DefinedValue><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="PostId" /></DefinedValue></DefinedValues><Object Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Index="[idxId]" IndexKind="Clustered" /><Predicate><ScalarOperator ScalarString="[StackOverflow.Exported].[dbo].[Votes].[VoteTypeId]=(2) AND PROBE([Bitmap1016],[StackOverflow.Exported].[dbo].[Votes].[PostId],N'[IN ROW]')"><Logical Operation="AND"><ScalarOperator><Compare CompareOp="EQ"><ScalarOperator><Identifier><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="VoteTypeId" /></Identifier></ScalarOperator><ScalarOperator><Const ConstValue="(2)" /></ScalarOperator></Compare></ScalarOperator><ScalarOperator><Intrinsic FunctionName="PROBE"><ScalarOperator><Identifier><ColumnReference Column="Bitmap1016" /></Identifier></ScalarOperator><ScalarOperator><Identifier><ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="PostId" /></Identifier></ScalarOperator><ScalarOperator><Const ConstValue="N'[IN ROW]'" /></ScalarOperator></Intrinsic></ScalarOperator></Logical></ScalarOperator></Predicate></IndexScan></RelOp></Hash></RelOp></Parallelism></RelOp></Sort></RelOp></StreamAggregate></RelOp></ComputeScalar></RelOp></Parallelism></RelOp></Sort></RelOp><ParameterList><ColumnReference Column="@UserId" ParameterRuntimeValue="(1)" /></ParameterList></QueryPlan></StmtSimple></Statements></Batch></BatchSequence></ShowPlanXML>
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.1" Build="10.50.1746.0">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementText="SELECT --TOP 20 &#xA;    TagName,&#xA;    COUNT(*) AS UpVotes &#xA;FROM Tags&#xA;    INNER JOIN PostTags ON PostTags.TagId = Tags.id&#xA;    INNER JOIN Posts ON Posts.ParentId = PostTags.PostId&#xA;    INNER JOIN Votes ON Votes.PostId = Posts.Id and VoteTypeId = 2&#xA;WHERE &#xA;    Posts.OwnerUserId = @UserId&#xA;GROUP BY TagName &#xA;ORDER BY UpVotes DESC" StatementId="1" StatementCompId="2" StatementType="SELECT" StatementSubTreeCost="45.9617" StatementEstRows="196.106" StatementOptmLevel="FULL" QueryHash="0x471784E35D81B328" QueryPlanHash="0x27254AC1E2EFC6F8">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="false" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+          <QueryPlan DegreeOfParallelism="8" MemoryGrant="12800" CachedPlanSize="72" CompileTime="79" CompileCPU="79" CompileMemory="1536">
+            <MissingIndexes>
+              <MissingIndexGroup Impact="76.9098">
+                <MissingIndex Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]">
+                  <ColumnGroup Usage="EQUALITY">
+                    <Column Name="[VoteTypeId]" ColumnId="4" />
+                  </ColumnGroup>
+                  <ColumnGroup Usage="INCLUDE">
+                    <Column Name="[PostId]" ColumnId="3" />
+                  </ColumnGroup>
+                </MissingIndex>
+              </MissingIndexGroup>
+              <MissingIndexGroup Impact="99.2377">
+                <MissingIndex Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]">
+                  <ColumnGroup Usage="EQUALITY">
+                    <Column Name="[PostId]" ColumnId="3" />
+                    <Column Name="[VoteTypeId]" ColumnId="4" />
+                  </ColumnGroup>
+                </MissingIndex>
+              </MissingIndexGroup>
+            </MissingIndexes>
+            <RelOp NodeId="0" PhysicalOp="Sort" LogicalOp="Sort" EstimateRows="196.106" EstimateIO="0.0112613" EstimateCPU="0.00242981" AvgRowSize="36" EstimatedTotalSubtreeCost="45.9617" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+              <OutputList>
+                <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                <ColumnReference Column="Expr1012" />
+              </OutputList>
+              <MemoryFractions Input="0.285714" Output="1" />
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="262" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" />
+              </RunTimeInformation>
+              <Sort Distinct="0">
+                <OrderBy>
+                  <OrderByColumn Ascending="0">
+                    <ColumnReference Column="Expr1012" />
+                  </OrderByColumn>
+                </OrderBy>
+                <RelOp NodeId="1" PhysicalOp="Parallelism" LogicalOp="Gather Streams" EstimateRows="196.106" EstimateIO="0" EstimateCPU="0.0287001" AvgRowSize="36" EstimatedTotalSubtreeCost="45.948" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                  <OutputList>
+                    <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                    <ColumnReference Column="Expr1012" />
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="262" ActualEndOfScans="1" ActualExecutions="1" />
+                  </RunTimeInformation>
+                  <Parallelism>
+                    <RelOp NodeId="2" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="196.106" EstimateIO="0" EstimateCPU="9.08085e-005" AvgRowSize="36" EstimatedTotalSubtreeCost="45.9193" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                        <ColumnReference Column="Expr1012" />
+                      </OutputList>
+                      <ComputeScalar>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Expr1012" />
+                            <ScalarOperator ScalarString="CONVERT_IMPLICIT(int,[Expr1017],0)">
+                              <Convert DataType="int" Style="0" Implicit="1">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="Expr1017" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Convert>
+                            </ScalarOperator>
+                          </DefinedValue>
+                        </DefinedValues>
+                        <RelOp NodeId="3" PhysicalOp="Stream Aggregate" LogicalOp="Aggregate" EstimateRows="196.106" EstimateIO="0" EstimateCPU="9.08085e-005" AvgRowSize="36" EstimatedTotalSubtreeCost="45.9193" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                            <ColumnReference Column="Expr1017" />
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="4" ActualRows="17" ActualEndOfScans="1" ActualExecutions="1" />
+                            <RunTimeCountersPerThread Thread="8" ActualRows="34" ActualEndOfScans="1" ActualExecutions="1" />
+                            <RunTimeCountersPerThread Thread="7" ActualRows="31" ActualEndOfScans="1" ActualExecutions="1" />
+                            <RunTimeCountersPerThread Thread="3" ActualRows="38" ActualEndOfScans="1" ActualExecutions="1" />
+                            <RunTimeCountersPerThread Thread="6" ActualRows="28" ActualEndOfScans="1" ActualExecutions="1" />
+                            <RunTimeCountersPerThread Thread="5" ActualRows="45" ActualEndOfScans="1" ActualExecutions="1" />
+                            <RunTimeCountersPerThread Thread="2" ActualRows="37" ActualEndOfScans="1" ActualExecutions="1" />
+                            <RunTimeCountersPerThread Thread="1" ActualRows="32" ActualEndOfScans="1" ActualExecutions="1" />
+                            <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                          </RunTimeInformation>
+                          <StreamAggregate>
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1017" />
+                                <ScalarOperator ScalarString="Count(*)">
+                                  <Aggregate AggType="countstar" Distinct="0" />
+                                </ScalarOperator>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <GroupBy>
+                              <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                            </GroupBy>
+                            <RelOp NodeId="4" PhysicalOp="Sort" LogicalOp="Sort" EstimateRows="441.968" EstimateIO="0.00281532" EstimateCPU="0.00153974" AvgRowSize="32" EstimatedTotalSubtreeCost="45.9192" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                              <OutputList>
+                                <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                              </OutputList>
+                              <MemoryFractions Input="0.166667" Output="0.714286" />
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="4" ActualRows="632" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" />
+                                <RunTimeCountersPerThread Thread="8" ActualRows="481" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" />
+                                <RunTimeCountersPerThread Thread="7" ActualRows="436" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" />
+                                <RunTimeCountersPerThread Thread="3" ActualRows="652" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" />
+                                <RunTimeCountersPerThread Thread="6" ActualRows="634" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" />
+                                <RunTimeCountersPerThread Thread="2" ActualRows="393" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" />
+                                <RunTimeCountersPerThread Thread="5" ActualRows="567" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" />
+                                <RunTimeCountersPerThread Thread="1" ActualRows="583" ActualRebinds="1" ActualRewinds="0" ActualEndOfScans="1" ActualExecutions="1" />
+                                <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualRebinds="0" ActualRewinds="0" ActualEndOfScans="0" ActualExecutions="0" />
+                              </RunTimeInformation>
+                              <Sort Distinct="0">
+                                <OrderBy>
+                                  <OrderByColumn Ascending="1">
+                                    <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                                  </OrderByColumn>
+                                </OrderBy>
+                                <RelOp NodeId="5" PhysicalOp="Parallelism" LogicalOp="Repartition Streams" EstimateRows="441.968" EstimateIO="0" EstimateCPU="0.0290507" AvgRowSize="32" EstimatedTotalSubtreeCost="45.9148" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                                  <OutputList>
+                                    <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                                  </OutputList>
+                                  <RunTimeInformation>
+                                    <RunTimeCountersPerThread Thread="7" ActualRows="436" ActualEndOfScans="1" ActualExecutions="1" />
+                                    <RunTimeCountersPerThread Thread="8" ActualRows="481" ActualEndOfScans="1" ActualExecutions="1" />
+                                    <RunTimeCountersPerThread Thread="4" ActualRows="632" ActualEndOfScans="1" ActualExecutions="1" />
+                                    <RunTimeCountersPerThread Thread="6" ActualRows="634" ActualEndOfScans="1" ActualExecutions="1" />
+                                    <RunTimeCountersPerThread Thread="3" ActualRows="652" ActualEndOfScans="1" ActualExecutions="1" />
+                                    <RunTimeCountersPerThread Thread="5" ActualRows="567" ActualEndOfScans="1" ActualExecutions="1" />
+                                    <RunTimeCountersPerThread Thread="2" ActualRows="393" ActualEndOfScans="1" ActualExecutions="1" />
+                                    <RunTimeCountersPerThread Thread="1" ActualRows="583" ActualEndOfScans="1" ActualExecutions="1" />
+                                    <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                  </RunTimeInformation>
+                                  <Parallelism PartitioningType="Hash">
+                                    <PartitionColumns>
+                                      <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                                    </PartitionColumns>
+                                    <RelOp NodeId="6" PhysicalOp="Hash Match" LogicalOp="Inner Join" EstimateRows="441.968" EstimateIO="0" EstimateCPU="9.20178" AvgRowSize="32" EstimatedTotalSubtreeCost="45.8858" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                                      <OutputList>
+                                        <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                                      </OutputList>
+                                      <MemoryFractions Input="1" Output="0.833333" />
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="8" ActualRows="737" ActualEndOfScans="1" ActualExecutions="1" />
+                                        <RunTimeCountersPerThread Thread="6" ActualRows="201" ActualEndOfScans="1" ActualExecutions="1" />
+                                        <RunTimeCountersPerThread Thread="3" ActualRows="514" ActualEndOfScans="1" ActualExecutions="1" />
+                                        <RunTimeCountersPerThread Thread="5" ActualRows="403" ActualEndOfScans="1" ActualExecutions="1" />
+                                        <RunTimeCountersPerThread Thread="2" ActualRows="801" ActualEndOfScans="1" ActualExecutions="1" />
+                                        <RunTimeCountersPerThread Thread="4" ActualRows="443" ActualEndOfScans="1" ActualExecutions="1" />
+                                        <RunTimeCountersPerThread Thread="7" ActualRows="711" ActualEndOfScans="1" ActualExecutions="1" />
+                                        <RunTimeCountersPerThread Thread="1" ActualRows="568" ActualEndOfScans="1" ActualExecutions="1" />
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                      </RunTimeInformation>
+                                      <Hash>
+                                        <DefinedValues />
+                                        <HashKeysBuild>
+                                          <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                        </HashKeysBuild>
+                                        <HashKeysProbe>
+                                          <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="PostId" />
+                                        </HashKeysProbe>
+                                        <RelOp NodeId="7" PhysicalOp="Bitmap" LogicalOp="Bitmap Create" EstimateRows="25.898" EstimateIO="0" EstimateCPU="0.0286057" AvgRowSize="36" EstimatedTotalSubtreeCost="0.202971" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                                          <OutputList>
+                                            <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                                            <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                          </OutputList>
+                                          <RunTimeInformation>
+                                            <RunTimeCountersPerThread Thread="8" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="5" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="7" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="3" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="6" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="4" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="2" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                          </RunTimeInformation>
+                                          <Bitmap>
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Bitmap1016" />
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <HashKeys>
+                                              <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                            </HashKeys>
+                                            <RelOp NodeId="8" PhysicalOp="Parallelism" LogicalOp="Distribute Streams" EstimateRows="25.898" EstimateIO="0" EstimateCPU="0.0286057" AvgRowSize="36" EstimatedTotalSubtreeCost="0.202971" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                                              <OutputList>
+                                                <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                                                <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                              </OutputList>
+                                              <RunTimeInformation>
+                                                <RunTimeCountersPerThread Thread="8" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                <RunTimeCountersPerThread Thread="5" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                <RunTimeCountersPerThread Thread="7" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                <RunTimeCountersPerThread Thread="3" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                <RunTimeCountersPerThread Thread="6" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                <RunTimeCountersPerThread Thread="2" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                <RunTimeCountersPerThread Thread="4" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                <RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                              </RunTimeInformation>
+                                              <Parallelism PartitioningType="Broadcast">
+                                                <RelOp NodeId="9" PhysicalOp="Nested Loops" LogicalOp="Inner Join" EstimateRows="25.898" EstimateIO="0" EstimateCPU="0.000108254" AvgRowSize="36" EstimatedTotalSubtreeCost="0.174365" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                                                  <OutputList>
+                                                    <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                                                    <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                                  </OutputList>
+                                                  <RunTimeInformation>
+                                                    <RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                    <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                                  </RunTimeInformation>
+                                                  <NestedLoops Optimized="0" WithUnorderedPrefetch="1">
+                                                    <OuterReferences>
+                                                      <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" />
+                                                      <ColumnReference Column="Expr1015" />
+                                                    </OuterReferences>
+                                                    <RelOp NodeId="11" PhysicalOp="Parallelism" LogicalOp="Gather Streams" EstimateRows="25.898" EstimateIO="0" EstimateCPU="0.028517" AvgRowSize="15" EstimatedTotalSubtreeCost="0.098443" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                                                      <OutputList>
+                                                        <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" />
+                                                        <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                                      </OutputList>
+                                                      <RunTimeInformation>
+                                                        <RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="1" ActualExecutions="1" />
+                                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                                      </RunTimeInformation>
+                                                      <Parallelism>
+                                                        <RelOp NodeId="12" PhysicalOp="Nested Loops" LogicalOp="Inner Join" EstimateRows="25.898" EstimateIO="0" EstimateCPU="2.70808e-005" AvgRowSize="15" EstimatedTotalSubtreeCost="0.069926" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                                                          <OutputList>
+                                                            <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" />
+                                                            <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                                          </OutputList>
+                                                          <RunTimeInformation>
+                                                            <RunTimeCountersPerThread Thread="7" ActualRows="64" ActualEndOfScans="1" ActualExecutions="1" />
+                                                            <RunTimeCountersPerThread Thread="6" ActualRows="62" ActualEndOfScans="1" ActualExecutions="1" />
+                                                            <RunTimeCountersPerThread Thread="8" ActualRows="53" ActualEndOfScans="1" ActualExecutions="1" />
+                                                            <RunTimeCountersPerThread Thread="5" ActualRows="73" ActualEndOfScans="1" ActualExecutions="1" />
+                                                            <RunTimeCountersPerThread Thread="3" ActualRows="63" ActualEndOfScans="1" ActualExecutions="1" />
+                                                            <RunTimeCountersPerThread Thread="1" ActualRows="64" ActualEndOfScans="1" ActualExecutions="1" />
+                                                            <RunTimeCountersPerThread Thread="4" ActualRows="58" ActualEndOfScans="1" ActualExecutions="1" />
+                                                            <RunTimeCountersPerThread Thread="2" ActualRows="58" ActualEndOfScans="1" ActualExecutions="1" />
+                                                            <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                                          </RunTimeInformation>
+                                                          <NestedLoops Optimized="0">
+                                                            <OuterReferences>
+                                                              <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" />
+                                                            </OuterReferences>
+                                                            <RelOp NodeId="13" PhysicalOp="Parallelism" LogicalOp="Distribute Streams" EstimateRows="12.5504" EstimateIO="0" EstimateCPU="0.028533" AvgRowSize="15" EstimatedTotalSubtreeCost="0.0318288" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                                                              <OutputList>
+                                                                <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                                                <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" />
+                                                              </OutputList>
+                                                              <RunTimeInformation>
+                                                                <RunTimeCountersPerThread Thread="7" ActualRows="22" ActualEndOfScans="1" ActualExecutions="1" />
+                                                                <RunTimeCountersPerThread Thread="6" ActualRows="22" ActualEndOfScans="1" ActualExecutions="1" />
+                                                                <RunTimeCountersPerThread Thread="8" ActualRows="22" ActualEndOfScans="1" ActualExecutions="1" />
+                                                                <RunTimeCountersPerThread Thread="5" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" />
+                                                                <RunTimeCountersPerThread Thread="3" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" />
+                                                                <RunTimeCountersPerThread Thread="1" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" />
+                                                                <RunTimeCountersPerThread Thread="4" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" />
+                                                                <RunTimeCountersPerThread Thread="2" ActualRows="23" ActualEndOfScans="1" ActualExecutions="1" />
+                                                                <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                                              </RunTimeInformation>
+                                                              <Parallelism PartitioningType="RoundRobin">
+                                                                <RelOp NodeId="14" PhysicalOp="Index Seek" LogicalOp="Index Seek" EstimateRows="12.5504" EstimateIO="0.003125" EstimateCPU="0.000170805" AvgRowSize="15" EstimatedTotalSubtreeCost="0.00329581" TableCardinality="4.18708e+006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                                                                  <OutputList>
+                                                                    <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                                                    <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" />
+                                                                  </OutputList>
+                                                                  <RunTimeInformation>
+                                                                    <RunTimeCountersPerThread Thread="1" ActualRows="181" ActualEndOfScans="1" ActualExecutions="1" />
+                                                                    <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                                                  </RunTimeInformation>
+                                                                  <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" NoExpandHint="0">
+                                                                    <DefinedValues>
+                                                                      <DefinedValue>
+                                                                        <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="Id" />
+                                                                      </DefinedValue>
+                                                                      <DefinedValue>
+                                                                        <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" />
+                                                                      </DefinedValue>
+                                                                    </DefinedValues>
+                                                                    <Object Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Index="[idxPostOwner]" IndexKind="NonClustered" />
+                                                                    <SeekPredicates>
+                                                                      <SeekPredicateNew>
+                                                                        <SeekKeys>
+                                                                          <Prefix ScanType="EQ">
+                                                                            <RangeColumns>
+                                                                              <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="OwnerUserId" />
+                                                                            </RangeColumns>
+                                                                            <RangeExpressions>
+                                                                              <ScalarOperator ScalarString="[@UserId]">
+                                                                                <Identifier>
+                                                                                  <ColumnReference Column="@UserId" />
+                                                                                </Identifier>
+                                                                              </ScalarOperator>
+                                                                            </RangeExpressions>
+                                                                          </Prefix>
+                                                                        </SeekKeys>
+                                                                      </SeekPredicateNew>
+                                                                    </SeekPredicates>
+                                                                  </IndexScan>
+                                                                </RelOp>
+                                                              </Parallelism>
+                                                            </RelOp>
+                                                            <RelOp NodeId="15" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="2.06484" EstimateIO="0.003125" EstimateCPU="0.000159271" AvgRowSize="11" EstimatedTotalSubtreeCost="0.03807" TableCardinality="3.77902e+006" Parallel="1" EstimateRebinds="11.5504" EstimateRewinds="0">
+                                                              <OutputList>
+                                                                <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" />
+                                                              </OutputList>
+                                                              <RunTimeInformation>
+                                                                <RunTimeCountersPerThread Thread="7" ActualRows="64" ActualEndOfScans="22" ActualExecutions="22" />
+                                                                <RunTimeCountersPerThread Thread="8" ActualRows="53" ActualEndOfScans="22" ActualExecutions="22" />
+                                                                <RunTimeCountersPerThread Thread="6" ActualRows="62" ActualEndOfScans="22" ActualExecutions="22" />
+                                                                <RunTimeCountersPerThread Thread="5" ActualRows="73" ActualEndOfScans="23" ActualExecutions="23" />
+                                                                <RunTimeCountersPerThread Thread="3" ActualRows="63" ActualEndOfScans="23" ActualExecutions="23" />
+                                                                <RunTimeCountersPerThread Thread="1" ActualRows="64" ActualEndOfScans="23" ActualExecutions="23" />
+                                                                <RunTimeCountersPerThread Thread="4" ActualRows="58" ActualEndOfScans="23" ActualExecutions="23" />
+                                                                <RunTimeCountersPerThread Thread="2" ActualRows="58" ActualEndOfScans="23" ActualExecutions="23" />
+                                                                <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                                              </RunTimeInformation>
+                                                              <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" NoExpandHint="0">
+                                                                <DefinedValues>
+                                                                  <DefinedValue>
+                                                                    <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" />
+                                                                  </DefinedValue>
+                                                                </DefinedValues>
+                                                                <Object Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Index="[PostTagsIndex]" IndexKind="Clustered" />
+                                                                <SeekPredicates>
+                                                                  <SeekPredicateNew>
+                                                                    <SeekKeys>
+                                                                      <Prefix ScanType="EQ">
+                                                                        <RangeColumns>
+                                                                          <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="PostId" />
+                                                                        </RangeColumns>
+                                                                        <RangeExpressions>
+                                                                          <ScalarOperator ScalarString="[StackOverflow.Exported].[dbo].[Posts].[ParentId]">
+                                                                            <Identifier>
+                                                                              <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Posts]" Column="ParentId" />
+                                                                            </Identifier>
+                                                                          </ScalarOperator>
+                                                                        </RangeExpressions>
+                                                                      </Prefix>
+                                                                    </SeekKeys>
+                                                                  </SeekPredicateNew>
+                                                                </SeekPredicates>
+                                                              </IndexScan>
+                                                            </RelOp>
+                                                          </NestedLoops>
+                                                        </RelOp>
+                                                      </Parallelism>
+                                                    </RelOp>
+                                                    <RelOp NodeId="16" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="32" EstimatedTotalSubtreeCost="0.0758142" TableCardinality="27745" Parallel="0" EstimateRebinds="24.898" EstimateRewinds="0">
+                                                      <OutputList>
+                                                        <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                                                      </OutputList>
+                                                      <RunTimeInformation>
+                                                        <RunTimeCountersPerThread Thread="1" ActualRows="495" ActualEndOfScans="0" ActualExecutions="495" />
+                                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                                      </RunTimeInformation>
+                                                      <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" NoExpandHint="0">
+                                                        <DefinedValues>
+                                                          <DefinedValue>
+                                                            <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="TagName" />
+                                                          </DefinedValue>
+                                                        </DefinedValues>
+                                                        <Object Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Index="[idxId]" IndexKind="Clustered" />
+                                                        <SeekPredicates>
+                                                          <SeekPredicateNew>
+                                                            <SeekKeys>
+                                                              <Prefix ScanType="EQ">
+                                                                <RangeColumns>
+                                                                  <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Tags]" Column="Id" />
+                                                                </RangeColumns>
+                                                                <RangeExpressions>
+                                                                  <ScalarOperator ScalarString="[StackOverflow.Exported].[dbo].[PostTags].[TagId]">
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[PostTags]" Column="TagId" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </RangeExpressions>
+                                                              </Prefix>
+                                                            </SeekKeys>
+                                                          </SeekPredicateNew>
+                                                        </SeekPredicates>
+                                                      </IndexScan>
+                                                    </RelOp>
+                                                  </NestedLoops>
+                                                </RelOp>
+                                              </Parallelism>
+                                            </RelOp>
+                                          </Bitmap>
+                                        </RelOp>
+                                        <RelOp NodeId="17" PhysicalOp="Clustered Index Scan" LogicalOp="Clustered Index Scan" EstimateRows="8.02419e+006" EstimateIO="32.3728" EstimateCPU="2.86019" AvgRowSize="12" EstimatedTotalSubtreeCost="35.2329" TableCardinality="1.04006e+007" Parallel="1" EstimateRebinds="0" EstimateRewinds="0">
+                                          <OutputList>
+                                            <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="PostId" />
+                                          </OutputList>
+                                          <RunTimeInformation>
+                                            <RunTimeCountersPerThread Thread="8" ActualRows="258" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="5" ActualRows="139" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="3" ActualRows="184" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="6" ActualRows="72" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="4" ActualRows="166" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="2" ActualRows="288" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="7" ActualRows="276" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="1" ActualRows="209" ActualEndOfScans="1" ActualExecutions="1" />
+                                            <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0" />
+                                          </RunTimeInformation>
+                                          <IndexScan Ordered="0" ForcedIndex="0" NoExpandHint="0">
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="PostId" />
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <Object Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Index="[idxId]" IndexKind="Clustered" />
+                                            <Predicate>
+                                              <ScalarOperator ScalarString="[StackOverflow.Exported].[dbo].[Votes].[VoteTypeId]=(2) AND PROBE([Bitmap1016],[StackOverflow.Exported].[dbo].[Votes].[PostId],N'[IN ROW]')">
+                                                <Logical Operation="AND">
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="VoteTypeId" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(2)" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="PROBE">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Bitmap1016" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[StackOverflow.Exported]" Schema="[dbo]" Table="[Votes]" Column="PostId" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="N'[IN ROW]'" />
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Logical>
+                                              </ScalarOperator>
+                                            </Predicate>
+                                          </IndexScan>
+                                        </RelOp>
+                                      </Hash>
+                                    </RelOp>
+                                  </Parallelism>
+                                </RelOp>
+                              </Sort>
+                            </RelOp>
+                          </StreamAggregate>
+                        </RelOp>
+                      </ComputeScalar>
+                    </RelOp>
+                  </Parallelism>
+                </RelOp>
+              </Sort>
+            </RelOp>
+            <ParameterList>
+              <ColumnReference Column="@UserId" ParameterRuntimeValue="(1)" />
+            </ParameterList>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

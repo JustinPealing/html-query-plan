@@ -1,6 +1,4 @@
-﻿// TODO: Proper use of namespaces
-
-if (typeof (QP) == "undefined" || !QP) {
+﻿if (typeof (QP) == "undefined" || !QP) {
     var QP = {}
 };
 
@@ -10,7 +8,7 @@ if (typeof (QP) == "undefined" || !QP) {
     QP.drawLines = function(root) {
         if (root === null || root === undefined) {
             // Try and find it ourselves
-            root = $(".qp-root:parent");
+            root = $(".qp-root").parent();
         } else {
             // Make sure the object passed is jQuery wrapped
             root = $(root);
@@ -28,8 +26,11 @@ if (typeof (QP) == "undefined" || !QP) {
             // Chrome is usually too quick with document.ready
             window.setTimeout(function() {
                 var context = canvasElm.getContext("2d");
-                canvasElm.width = root.outerWidth(true);
-                canvasElm.height = root.outerHeight(true);
+
+                // The first root node may be smaller than the full query plan if using overflow
+                var firstNode = $(".qp-tr", root);
+                canvasElm.width = firstNode.outerWidth(true);
+                canvasElm.height = firstNode.outerHeight(true);
                 var offset = canvas.offset();
 
                 $(".qp-tr", root).each(function() {

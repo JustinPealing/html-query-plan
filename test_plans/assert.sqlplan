@@ -1,0 +1,195 @@
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.1" Build="10.50.1600.1">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementText="INSERT INTO [People]([firstname],[lastname],[age]) values(@1,@2,@3)" StatementId="1" StatementCompId="1" StatementType="INSERT" StatementSubTreeCost="0.0100025" StatementEstRows="1" StatementOptmLevel="TRIVIAL" QueryHash="0xA4A1CB54BD6DF3D1" QueryPlanHash="0x644137B8BD4771AE">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="false" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false"/>
+          <QueryPlan DegreeOfParallelism="0" CachedPlanSize="16" CompileTime="1" CompileCPU="1" CompileMemory="80">
+            <RelOp NodeId="0" PhysicalOp="Assert" LogicalOp="Assert" EstimateRows="1" EstimateIO="0" EstimateCPU="1.8e-007" AvgRowSize="9" EstimatedTotalSubtreeCost="0.0100025" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+              <OutputList/>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualEndOfScans="1" ActualExecutions="1"/>
+              </RunTimeInformation>
+              <Assert StartupExpression="0">
+                <RelOp NodeId="1" PhysicalOp="Clustered Index Insert" LogicalOp="Insert" EstimateRows="1" EstimateIO="0.01" EstimateCPU="1e-006" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0100024" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                  <OutputList>
+                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="age"/>
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualEndOfScans="1" ActualExecutions="1"/>
+                  </RunTimeInformation>
+                  <Update DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Index="[PK_People_id]" IndexKind="Clustered"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[StackOverflow].[dbo].[People].[firstname] = [Expr1004],[StackOverflow].[dbo].[People].[lastname] = [Expr1005],[StackOverflow].[dbo].[People].[age] = [@3],[StackOverflow].[dbo].[People].[id] = [Expr1003]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="firstname"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="Expr1004"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="lastname"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="Expr1005"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="age"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="@3"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="id"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="Expr1003"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <RelOp NodeId="2" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="67" EstimatedTotalSubtreeCost="1.357e-006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                      <OutputList>
+                        <ColumnReference Column="Expr1003"/>
+                        <ColumnReference Column="Expr1004"/>
+                        <ColumnReference Column="Expr1005"/>
+                      </OutputList>
+                      <ComputeScalar>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Expr1004"/>
+                            <ScalarOperator ScalarString="CONVERT_IMPLICIT(varchar(50),[@1],0)">
+                              <Convert DataType="varchar" Length="50" Style="0" Implicit="1">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="@1"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Convert>
+                            </ScalarOperator>
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Column="Expr1005"/>
+                            <ScalarOperator ScalarString="CONVERT_IMPLICIT(varchar(50),[@2],0)">
+                              <Convert DataType="varchar" Length="50" Style="0" Implicit="1">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="@2"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Convert>
+                            </ScalarOperator>
+                          </DefinedValue>
+                        </DefinedValues>
+                        <RelOp NodeId="3" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="11" EstimatedTotalSubtreeCost="1.257e-006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                          <OutputList>
+                            <ColumnReference Column="Expr1003"/>
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualEndOfScans="1" ActualExecutions="1"/>
+                          </RunTimeInformation>
+                          <ComputeScalar>
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1003"/>
+                                <ScalarOperator ScalarString="getidentity((2105058535),(6),NULL)">
+                                  <Intrinsic FunctionName="getidentity">
+                                    <ScalarOperator>
+                                      <Const ConstValue="(2105058535)"/>
+                                    </ScalarOperator>
+                                    <ScalarOperator>
+                                      <Const ConstValue="(6)"/>
+                                    </ScalarOperator>
+                                    <ScalarOperator>
+                                      <Const ConstValue="NULL"/>
+                                    </ScalarOperator>
+                                  </Intrinsic>
+                                </ScalarOperator>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <RelOp NodeId="4" PhysicalOp="Constant Scan" LogicalOp="Constant Scan" EstimateRows="1" EstimateIO="0" EstimateCPU="1.157e-006" AvgRowSize="9" EstimatedTotalSubtreeCost="1.157e-006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                              <OutputList/>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualEndOfScans="1" ActualExecutions="1"/>
+                              </RunTimeInformation>
+                              <ConstantScan/>
+                            </RelOp>
+                          </ComputeScalar>
+                        </RelOp>
+                      </ComputeScalar>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <Predicate>
+                  <ScalarOperator ScalarString="CASE WHEN [StackOverflow].[dbo].[People].[age]&lt;(0) OR [StackOverflow].[dbo].[People].[age]&gt;=(200) THEN (0) ELSE NULL END">
+                    <IF>
+                      <Condition>
+                        <ScalarOperator>
+                          <Logical Operation="OR">
+                            <ScalarOperator>
+                              <Compare CompareOp="LT">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="age"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                                <ScalarOperator>
+                                  <Const ConstValue="(0)"/>
+                                </ScalarOperator>
+                              </Compare>
+                            </ScalarOperator>
+                            <ScalarOperator>
+                              <Compare CompareOp="GE">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[People]" Column="age"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                                <ScalarOperator>
+                                  <Const ConstValue="(200)"/>
+                                </ScalarOperator>
+                              </Compare>
+                            </ScalarOperator>
+                          </Logical>
+                        </ScalarOperator>
+                      </Condition>
+                      <Then>
+                        <ScalarOperator>
+                          <Const ConstValue="(0)"/>
+                        </ScalarOperator>
+                      </Then>
+                      <Else>
+                        <ScalarOperator>
+                          <Const ConstValue="NULL"/>
+                        </ScalarOperator>
+                      </Else>
+                    </IF>
+                  </ScalarOperator>
+                </Predicate>
+              </Assert>
+            </RelOp>
+            <ParameterList>
+              <ColumnReference Column="@3" ParameterCompiledValue="(25)" ParameterRuntimeValue="(52)"/>
+              <ColumnReference Column="@2" ParameterCompiledValue="&apos;Pealing&apos;" ParameterRuntimeValue="&apos;Next&apos;"/>
+              <ColumnReference Column="@1" ParameterCompiledValue="&apos;Justin&apos;" ParameterRuntimeValue="&apos;Thursday&apos;"/>
+            </ParameterList>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

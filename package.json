@@ -1,0 +1,29 @@
+{
+  "name": "html-query-plan",
+  "version": "1.0.0",
+  "description": "Display SQL Server Execution Plans in HTML",
+  "devDependencies": {
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-mocha": "^1.1.1",
+    "karma-webpack": "^1.8.0",
+    "mocha": "^3.0.2",
+    "webpack": "^1.13.2"
+  },
+  "scripts": {
+    "test": "karma start karma.config.js --singleRun",
+    "watch:test": "karma start karma.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustinPealing/html-query-plan.git"
+  },
+  "author": "Justin Pealing",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JustinPealing/html-query-plan/issues"
+  },
+  "homepage": "https://github.com/JustinPealing/html-query-plan#readme"
+}

@@ -1,6 +1,7 @@
 // Karma configuration
+var webpackConfig = require('./webpack.config.js'); 
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -31,7 +32,12 @@ module.exports = function(config) {
     },
 
 
-    // test results reporter to use
+    webpack: {
+      module: webpackConfig.module
+    },
+
+
+    // test results reporter to use 
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['progress'],
@@ -56,7 +62,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox', 'IE', 'IE9', 'IE8', 'IE7'],
+    browsers: ['Chrome', 'Firefox', 'IE', 'IE9', 'IE8'],
 
 
     customLaunchers: {
@@ -67,10 +73,6 @@ module.exports = function(config) {
       IE8: {
         base: 'IE',
         'x-ua-compatible': 'IE=EmulateIE8'
-      },
-      IE7: {
-        base: 'IE',
-        'x-ua-compatible': 'IE=EmulateIE7'
       }
     },
 
@@ -83,6 +85,6 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-    
+
   })
 }

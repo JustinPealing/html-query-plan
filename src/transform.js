@@ -17,8 +17,8 @@ function setContentsUsingXslt(container, xml, xslt) {
         var result = xmlDoc.transformNode(xsltDoc)
         container.innerHTML = result;
     } else if (document.implementation && document.implementation.createDocument) {
-        var parser = new DOMParser()
-        xsltProcessor = new XSLTProcessor();
+        var parser = new DOMParser();
+        var xsltProcessor = new XSLTProcessor();
         xsltProcessor.importStylesheet(parser.parseFromString(xslt, "text/xml"));
         var result = xsltProcessor.transformToFragment(parser.parseFromString(xml, "text/xml"), document);
         container.innerHTML = '';

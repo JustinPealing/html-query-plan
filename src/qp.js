@@ -1,4 +1,4 @@
-﻿var transform = require('./transform.js');
+﻿import transform from './transform.js';
 var qpXslt = require('raw!./qp.xslt');
 
 /* Draws the lines linking nodes in query plan diagram.

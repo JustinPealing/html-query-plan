@@ -1,12 +1,12 @@
-var assert = require('assert');
-var QP = require('../src/qp');
+import assert from 'assert';
+import QP from '../src/qp';
 var testPlan = require('raw!../test_plans/clustered index delete.sqlplan');
 
-describe('qp.js', function () {
+describe('qp.js', () => {
 
-    describe('showPlan()', function () {
+    describe('showPlan()', () => {
 
-        it('Adds canvas to container', function () {
+        it('Adds canvas to container', () => {
             var container = document.createElement("div");
             QP.showPlan(container, testPlan);
 

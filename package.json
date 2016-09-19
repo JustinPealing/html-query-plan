@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Display SQL Server Execution Plans in HTML",
   "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
+    "babel-plugin-transform-es3-property-literals": "^6.8.0",
+    "babel-preset-es2015": "^6.14.0",
     "jquery": "^1.12.4",
     "karma": "^1.3.0",
     "karma-chrome-launcher": "^2.0.0",

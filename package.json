@@ -13,6 +13,8 @@
     "webpack": "^1.13.2"
   },
   "scripts": {
+    "build": "set NODE_ENV=production&&webpack",
+    "watch:build": "webpack --watch",
     "test": "karma start karma.config.js --singleRun",
     "watch:test": "karma start karma.config.js"
   },

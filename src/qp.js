@@ -1,4 +1,7 @@
-﻿/* Draws the lines linking nodes in query plan diagram.
+﻿var transform = require('./transform.js');
+var qpXslt = require('raw!./qp.xslt');
+
+/* Draws the lines linking nodes in query plan diagram.
 root - The document element in which the diagram is contained. */
 function drawLines(root) {
     if (root === null || root === undefined) {
@@ -73,4 +76,10 @@ function drawLine(context, offset, from, to) {
     context.lineTo(toOffset.left - offset.left, toOffset.top - offset.top);
 }
 
+function showPlan(container, planXml) {
+    transform.setContentsUsingXslt(container, planXml, qpXslt);
+    drawLines(container);
+}
+
 module.exports.drawLines = drawLines;
+module.exports.showPlan = showPlan;

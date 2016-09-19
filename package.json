@@ -10,6 +10,7 @@
     "karma-mocha": "^1.1.1",
     "karma-webpack": "^1.8.0",
     "mocha": "^3.0.2",
+    "raw-loader": "^0.5.1",
     "webpack": "^1.13.2"
   },
   "scripts": {

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+  xmlns:exslt="http://exslt.org/common"
   xmlns:s="http://schemas.microsoft.com/sqlserver/2004/07/showplan"
   exclude-result-prefixes="msxsl s xsl">
   <xsl:output method="html" indent="no" omit-xml-declaration="yes" />
@@ -112,9 +113,7 @@
           
           <xsl:call-template name="round">
             <xsl:with-param name="value" select="$EstimatedOperatorCost" />
-          </xsl:call-template>
-          (<xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" />)
-        </xsl:with-param>
+          </xsl:call-template> (<xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" />)</xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
@@ -155,17 +154,36 @@
 
   <!-- Calculates the estimated operator cost. -->
   <xsl:template name="EstimatedOperatorCost">
-    <xsl:variable name="EstimateIO">
+    <xsl:variable name="EstimatedTotalSubtreeCost">
       <xsl:call-template name="convertSciToNumString">
-        <xsl:with-param name="inputVal" select="@EstimateIO" />
+        <xsl:with-param name="inputVal" select="@EstimatedTotalSubtreeCost" />
       </xsl:call-template>
     </xsl:variable>
-    <xsl:variable name="EstimateCPU">
-      <xsl:call-template name="convertSciToNumString">
-        <xsl:with-param name="inputVal" select="@EstimateCPU" />
-      </xsl:call-template>
+    <xsl:variable name="ChildEstimatedSubtreeCost">
+      <xsl:for-each select="*/s:RelOp">
+        <value>
+          <xsl:call-template name="convertSciToNumString">
+            <xsl:with-param name="inputVal" select="@EstimatedTotalSubtreeCost" />
+          </xsl:call-template>
+        </value>
+      </xsl:for-each>
     </xsl:variable>
-    <xsl:value-of select="number($EstimateIO) + number($EstimateCPU)" />
+    <xsl:variable name="TotalChildEstimatedSubtreeCost">
+      <xsl:choose>
+        <xsl:when test="function-available('exslt:node-set')">
+          <xsl:value-of select='sum(exslt:node-set($ChildEstimatedSubtreeCost)/value)' />
+        </xsl:when>
+        <xsl:when test="function-available('msxsl:node-set')">
+          <xsl:value-of select='sum(msxsl:node-set($ChildEstimatedSubtreeCost)/value)' />
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="number($EstimatedTotalSubtreeCost) - number($TotalChildEstimatedSubtreeCost) &lt; 0">0</xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="number($EstimatedTotalSubtreeCost) - number($TotalChildEstimatedSubtreeCost)" />
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- Renders a row in the tool tip details table. -->
@@ -177,7 +195,7 @@
       <tr>
         <th><xsl:value-of select="$Label" /></th>
         <td><xsl:value-of select="$Value" /></td>
-      </tr>      
+      </tr>
     </xsl:if>
   </xsl:template>
 

@@ -96,6 +96,7 @@ describe('qp.js', () => {
             QP.showPlan(container, multiStatementPlan);
             
             assert.equal("248.183 (99%)", getProperty(findNodeById(container, "4", "6"), "Estimated Operator Cost"));
+            assert.equal("0.0032831 (100%)", getProperty(findNodeById(container, "3", "11"), "Estimated Operator Cost"));
 
         });
 

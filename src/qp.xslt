@@ -26,6 +26,9 @@
   <!-- Matches a branch in the query plan (either an operation or a statement) -->
   <xsl:template match="s:RelOp|s:StmtSimple">
     <div class="qp-tr">
+      <xsl:if test="@StatementId">
+        <xsl:attribute name="data-statement-id"><xsl:value-of select="@StatementId" /></xsl:attribute>
+      </xsl:if>
       <div>
         <div class="qp-node">
           <xsl:apply-templates select="." mode="NodeIcon" />

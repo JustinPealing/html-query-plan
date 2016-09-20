@@ -1,0 +1,1310 @@
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.2" Build="12.0.4439.1">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementText="CREATE PROCEDURE Cadastre.OwnerPersonProcess&#xD;&#xA;AS&#xD;&#xA;------------------------------------------------------ Zakladne zmazanie dat pred spustenim celeho procesu &#xD;&#xA;BEGIN&#xD;&#xA;		RAISERROR ('LOG : Table OwnerPersonDictionaryTemp is Truncating', 10,1) with nowait&#xD;&#xA;		" StatementId="1" StatementCompId="4" StatementType="RAISERROR" RetrievedFromCache="true" />
+        <StmtSimple StatementText="TRUNCATE TABLE [Cadastre].[OwnerPersonDictionaryTemp]&#xD;&#xA;		" StatementId="2" StatementCompId="5" StatementType="TRUNCATE TABLE" RetrievedFromCache="true" />
+        <StmtSimple StatementText="RAISERROR ('LOG : Index ix_Multiword has been disabled', 10,1) with nowait&#xD;&#xA;		" StatementId="3" StatementCompId="6" StatementType="RAISERROR" RetrievedFromCache="true" />
+        <StmtSimple StatementText="ALTER INDEX ix_Multiword ON Cadastre.OwnerPersonParsed DISABLE" StatementId="4" StatementCompId="7" StatementType="ALTER INDEX" RetrievedFromCache="true" />
+        <StmtSimple StatementText=";&#xD;&#xA;		RAISERROR ('LOG : Cadastre.OwnerPersonParsed is going set Multiword to NULL', 10,1) with nowait&#xD;&#xA;		" StatementId="5" StatementCompId="8" StatementType="RAISERROR" RetrievedFromCache="true" />
+        <StmtSimple StatementText="UPDATE Cadastre.OwnerPersonParsed SET Multiword = NULL WHERE Multiword IS NOT NULL" StatementId="6" StatementCompId="9" StatementType="UPDATE" RetrievedFromCache="true" StatementSubTreeCost="251.658" StatementEstRows="1" StatementOptmLevel="FULL" QueryHash="0xA24732910A3E904F" QueryPlanHash="0x27640CA9EA3C1570" CardinalityEstimationModelVersion="70">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+          <QueryPlan CachedPlanSize="16" CompileTime="2" CompileCPU="2" CompileMemory="296">
+            <ThreadStat Branches="1" />
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="313373" EstimatedPagesCached="156686" EstimatedAvailableDegreeOfParallelism="4" />
+            <RelOp NodeId="0" PhysicalOp="Clustered Index Update" LogicalOp="Update" EstimateRows="1" EstimateIO="0.01" EstimateCPU="1e-006" AvgRowSize="9" EstimatedTotalSubtreeCost="251.658" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+              <OutputList />
+              <Update DMLRequestSort="0">
+                <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Index="[PK_OwnerPersonParsed]" IndexKind="Clustered" Storage="RowStore" />
+                <SetPredicate>
+                  <ScalarOperator ScalarString="[mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] = [Expr1002]">
+                    <ScalarExpressionList>
+                      <ScalarOperator>
+                        <MultipleAssign>
+                          <Assign>
+                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1002" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                        </MultipleAssign>
+                      </ScalarOperator>
+                    </ScalarExpressionList>
+                  </ScalarOperator>
+                </SetPredicate>
+                <RelOp NodeId="1" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="12" EstimatedTotalSubtreeCost="251.648" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList>
+                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                    <ColumnReference Column="Expr1002" />
+                  </OutputList>
+                  <ComputeScalar>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1002" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp NodeId="2" PhysicalOp="Top" LogicalOp="Top" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="11" EstimatedTotalSubtreeCost="251.648" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                      </OutputList>
+                      <Top RowCount="1" IsPercent="0" WithTies="0">
+                        <TopExpression>
+                          <ScalarOperator ScalarString="(0)">
+                            <Const ConstValue="(0)" />
+                          </ScalarOperator>
+                        </TopExpression>
+                        <RelOp NodeId="3" PhysicalOp="Parallelism" LogicalOp="Gather Streams" EstimateRows="1" EstimateIO="0" EstimateCPU="0.0285019" AvgRowSize="11" EstimatedTotalSubtreeCost="251.648" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                          </OutputList>
+                          <Parallelism>
+                            <RelOp NodeId="4" PhysicalOp="Clustered Index Scan" LogicalOp="Clustered Index Scan" EstimateRows="1" EstimateIO="240.307" EstimateCPU="7.87599" AvgRowSize="12" EstimatedTotalSubtreeCost="248.183" TableCardinality="2.86398e+007" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                              <OutputList>
+                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                              </OutputList>
+                              <IndexScan Ordered="1" ForcedIndex="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Index="[PK_OwnerPersonParsed]" IndexKind="Clustered" Storage="RowStore" />
+                                <Predicate>
+                                  <ScalarOperator ScalarString="[mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] IS NOT NULL">
+                                    <Compare CompareOp="IS NOT">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="NULL" />
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                </Predicate>
+                              </IndexScan>
+                            </RelOp>
+                          </Parallelism>
+                        </RelOp>
+                      </Top>
+                    </RelOp>
+                  </ComputeScalar>
+                </RelOp>
+              </Update>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+        <StmtSimple StatementText="&#xD;&#xA;		RAISERROR ('LOG : Index ix_Multiword is going to REBUILD', 10,1) with nowait&#xD;&#xA;		" StatementId="7" StatementCompId="10" StatementType="RAISERROR" RetrievedFromCache="true" />
+        <StmtSimple StatementText="ALTER INDEX ix_Multiword ON Cadastre.OwnerPersonParsed REBUILD" StatementId="8" StatementCompId="11" StatementType="ALTER INDEX" RetrievedFromCache="true" />
+        <StmtSimple StatementText=";&#xD;&#xA;		RAISERROR ('LOG : Update Multiword by parameteres', 10,1) with nowait&#xD;&#xA;		" StatementId="9" StatementCompId="12" StatementType="RAISERROR" RetrievedFromCache="true" />
+        <StmtSimple StatementText="DECLARE @MapMIN INT = (SELECT ISNULL(MAX(RowId), 0) FROM Cadastre.OwnerPersonDictionaryMap)" StatementId="10" StatementCompId="13" StatementType="SELECT" RetrievedFromCache="true" StatementSubTreeCost="0.0032843" StatementEstRows="1" StatementOptmLevel="FULL" QueryHash="0x98ED63F5D3B66131" QueryPlanHash="0xC8B5CF143A0502AA" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="70">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+          <QueryPlan CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="368">
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="313373" EstimatedPagesCached="156686" EstimatedAvailableDegreeOfParallelism="4" />
+            <RelOp NodeId="0" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032843" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+              <OutputList>
+                <ColumnReference Column="Expr1005" />
+              </OutputList>
+              <ComputeScalar>
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Column="Expr1005" />
+                    <ScalarOperator ScalarString="isnull([Expr1003],(0))">
+                      <Intrinsic FunctionName="isnull">
+                        <ScalarOperator>
+                          <Identifier>
+                            <ColumnReference Column="Expr1003" />
+                          </Identifier>
+                        </ScalarOperator>
+                        <ScalarOperator>
+                          <Const ConstValue="(0)" />
+                        </ScalarOperator>
+                      </Intrinsic>
+                    </ScalarOperator>
+                  </DefinedValue>
+                </DefinedValues>
+                <RelOp NodeId="1" PhysicalOp="Stream Aggregate" LogicalOp="Aggregate" EstimateRows="1" EstimateIO="0" EstimateCPU="1.1e-006" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032842" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList>
+                    <ColumnReference Column="Expr1003" />
+                  </OutputList>
+                  <StreamAggregate>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1003" />
+                        <ScalarOperator ScalarString="MAX([mcLive].[Cadastre].[OwnerPersonDictionaryMap].[RowId])">
+                          <Aggregate Distinct="0" AggType="MAX">
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryMap]" Column="RowId" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Aggregate>
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp NodeId="2" PhysicalOp="Index Scan" LogicalOp="Index Scan" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryMap]" Column="RowId" />
+                      </OutputList>
+                      <IndexScan Ordered="0" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryMap]" Column="RowId" />
+                          </DefinedValue>
+                        </DefinedValues>
+                        <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryMap]" Index="[IX_DictionaryMap_RowId]" IndexKind="NonClustered" Storage="RowStore" />
+                      </IndexScan>
+                    </RelOp>
+                  </StreamAggregate>
+                </RelOp>
+              </ComputeScalar>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+        <StmtSimple StatementText="&#xD;&#xA;		DECLARE @ParsedMAX INT = (SELECT MAX(RowId) FROM Cadastre.OwnerPersonParsed)" StatementId="11" StatementCompId="14" StatementType="SELECT" RetrievedFromCache="true" StatementSubTreeCost="0.0032844" StatementEstRows="1" StatementOptmLevel="FULL" QueryHash="0xD548A1E6BB0F58C1" QueryPlanHash="0xD710C67B1FE8E1EC" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="70">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+          <QueryPlan CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="160">
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="313373" EstimatedPagesCached="156686" EstimatedAvailableDegreeOfParallelism="4" />
+            <RelOp NodeId="0" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032844" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+              <OutputList>
+                <ColumnReference Column="Expr1004" />
+              </OutputList>
+              <ComputeScalar>
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Column="Expr1004" />
+                    <ScalarOperator ScalarString="[Expr1002]">
+                      <Identifier>
+                        <ColumnReference Column="Expr1002" />
+                      </Identifier>
+                    </ScalarOperator>
+                  </DefinedValue>
+                </DefinedValues>
+                <RelOp NodeId="1" PhysicalOp="Stream Aggregate" LogicalOp="Aggregate" EstimateRows="1" EstimateIO="0" EstimateCPU="1.1e-006" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032843" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList>
+                    <ColumnReference Column="Expr1002" />
+                  </OutputList>
+                  <StreamAggregate>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1002" />
+                        <ScalarOperator ScalarString="MAX([mcLive].[Cadastre].[OwnerPersonParsed].[RowId])">
+                          <Aggregate Distinct="0" AggType="MAX">
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Aggregate>
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp NodeId="2" PhysicalOp="Top" LogicalOp="Top" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032832" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                      </OutputList>
+                      <Top RowCount="0" IsPercent="0" WithTies="0">
+                        <TopExpression>
+                          <ScalarOperator ScalarString="(1)">
+                            <Const ConstValue="(1)" />
+                          </ScalarOperator>
+                        </TopExpression>
+                        <RelOp NodeId="3" PhysicalOp="Clustered Index Scan" LogicalOp="Clustered Index Scan" EstimateRows="1" EstimateIO="240.307" EstimateCPU="31.504" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="2.86398e+007" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                          </OutputList>
+                          <IndexScan Ordered="1" ScanDirection="BACKWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                              </DefinedValue>
+                            </DefinedValues>
+                            <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Index="[PK_OwnerPersonParsed]" IndexKind="Clustered" Storage="RowStore" />
+                          </IndexScan>
+                        </RelOp>
+                      </Top>
+                    </RelOp>
+                  </StreamAggregate>
+                </RelOp>
+              </ComputeScalar>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+        <StmtSimple StatementText=";&#xD;&#xA;		UPDATE Cadastre.OwnerPersonParsed SET Multiword = 1 WHERE&#xD;&#xA;		(Surname COLLATE SQL_Latin1_General_CP1253_CI_AI LIKE '%[^a-Z0-9Ăź]%' COLLATE SQL_Latin1_General_CP1253_CI_AI OR &#xD;&#xA;		(Surname IS NULL AND BirthName IS NOT NULL) OR &#xD;&#xA;		(Surname IS NOT NULL AND BirthName IS NOT NULL AND Surname != BirthName) OR&#xD;&#xA;		(BirthName COLLATE SQL_Latin1_General_CP1253_CI_AI LIKE '%[^a-Z0-9Ăź]%' COLLATE SQL_Latin1_General_CP1253_CI_AI AND Surname IS NULL))&#xD;&#xA;		AND (RowId &gt;= @MapMIN AND RowId &lt;= @ParsedMAX)" StatementId="12" StatementCompId="15" StatementType="UPDATE" RetrievedFromCache="true" StatementSubTreeCost="114.569" StatementEstRows="1.08127e+006" StatementOptmLevel="FULL" QueryHash="0xAA144A9AE92F455" QueryPlanHash="0xEE50E09D799EAE78" CardinalityEstimationModelVersion="70">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+          <QueryPlan CachedPlanSize="48" CompileTime="5" CompileCPU="5" CompileMemory="736">
+            <ThreadStat Branches="1" />
+            <Warnings>
+              <PlanAffectingConvert ConvertIssue="Cardinality Estimate" Expression="CONVERT(varchar(150),[mcLive].[Cadastre].[OwnerPersonParsed].[Surname],0)" />
+              <PlanAffectingConvert ConvertIssue="Cardinality Estimate" Expression="CONVERT(varchar(150),[mcLive].[Cadastre].[OwnerPersonParsed].[BirthName],0)" />
+            </Warnings>
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="313373" EstimatedPagesCached="156686" EstimatedAvailableDegreeOfParallelism="4" />
+            <RelOp NodeId="1" PhysicalOp="Clustered Index Update" LogicalOp="Update" EstimateRows="1.08127e+006" EstimateIO="82.7592" EstimateCPU="1.08127" AvgRowSize="9" EstimatedTotalSubtreeCost="114.569" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+              <OutputList />
+              <Update DMLRequestSort="1">
+                <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Index="[PK_OwnerPersonParsed]" IndexKind="Clustered" Storage="RowStore" />
+                <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Index="[ix_Multiword]" Filtered="1" IndexKind="NonClustered" Storage="RowStore" />
+                <SetPredicate>
+                  <ScalarOperator ScalarString="[mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] = [Expr1002]">
+                    <ScalarExpressionList>
+                      <ScalarOperator>
+                        <MultipleAssign>
+                          <Assign>
+                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1002" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                        </MultipleAssign>
+                      </ScalarOperator>
+                    </ScalarExpressionList>
+                  </ScalarOperator>
+                </SetPredicate>
+                <RelOp NodeId="2" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1.08127e+006" EstimateIO="0" EstimateCPU="0.108127" AvgRowSize="16" EstimatedTotalSubtreeCost="30.7286" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList>
+                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                    <ColumnReference Column="Expr1002" />
+                    <ColumnReference Column="Expr1016" />
+                  </OutputList>
+                  <ComputeScalar>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1016" />
+                        <ScalarOperator ScalarString="[Expr1016]">
+                          <Identifier>
+                            <ColumnReference Column="Expr1016" />
+                          </Identifier>
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp NodeId="3" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1.08127e+006" EstimateIO="0" EstimateCPU="0.108127" AvgRowSize="16" EstimatedTotalSubtreeCost="30.7286" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                        <ColumnReference Column="Expr1002" />
+                        <ColumnReference Column="Expr1016" />
+                      </OutputList>
+                      <ComputeScalar>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Expr1016" />
+                            <ScalarOperator ScalarString="CASE WHEN IsFalseOrNull [mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] IS NOT NULL AND [Expr1002] IS NOT NULL THEN (4) ELSE CASE WHEN [mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] IS NOT NULL AND IsFalseOrNull [Expr1002] IS NOT NULL THEN (3) ELSE CASE WHEN [mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] IS NOT NULL AND [Expr1002] IS NOT NULL THEN CASE WHEN [Expr1005] THEN (0) ELSE (1) END ELSE (0) END END END">
+                              <IF>
+                                <Condition>
+                                  <ScalarOperator>
+                                    <Logical Operation="AND">
+                                      <ScalarOperator>
+                                        <Logical Operation="IsFalseOrNull">
+                                          <ScalarOperator>
+                                            <Compare CompareOp="IS NOT">
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                                </Identifier>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Const ConstValue="NULL" />
+                                              </ScalarOperator>
+                                            </Compare>
+                                          </ScalarOperator>
+                                        </Logical>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Compare CompareOp="IS NOT">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Column="Expr1002" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="NULL" />
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </Condition>
+                                <Then>
+                                  <ScalarOperator>
+                                    <Const ConstValue="(4)" />
+                                  </ScalarOperator>
+                                </Then>
+                                <Else>
+                                  <ScalarOperator>
+                                    <IF>
+                                      <Condition>
+                                        <ScalarOperator>
+                                          <Logical Operation="AND">
+                                            <ScalarOperator>
+                                              <Compare CompareOp="IS NOT">
+                                                <ScalarOperator>
+                                                  <Identifier>
+                                                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                                <ScalarOperator>
+                                                  <Const ConstValue="NULL" />
+                                                </ScalarOperator>
+                                              </Compare>
+                                            </ScalarOperator>
+                                            <ScalarOperator>
+                                              <Logical Operation="IsFalseOrNull">
+                                                <ScalarOperator>
+                                                  <Compare CompareOp="IS NOT">
+                                                    <ScalarOperator>
+                                                      <Identifier>
+                                                        <ColumnReference Column="Expr1002" />
+                                                      </Identifier>
+                                                    </ScalarOperator>
+                                                    <ScalarOperator>
+                                                      <Const ConstValue="NULL" />
+                                                    </ScalarOperator>
+                                                  </Compare>
+                                                </ScalarOperator>
+                                              </Logical>
+                                            </ScalarOperator>
+                                          </Logical>
+                                        </ScalarOperator>
+                                      </Condition>
+                                      <Then>
+                                        <ScalarOperator>
+                                          <Const ConstValue="(3)" />
+                                        </ScalarOperator>
+                                      </Then>
+                                      <Else>
+                                        <ScalarOperator>
+                                          <IF>
+                                            <Condition>
+                                              <ScalarOperator>
+                                                <Logical Operation="AND">
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="IS NOT">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="IS NOT">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1002" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                </Logical>
+                                              </ScalarOperator>
+                                            </Condition>
+                                            <Then>
+                                              <ScalarOperator>
+                                                <IF>
+                                                  <Condition>
+                                                    <ScalarOperator>
+                                                      <Identifier>
+                                                        <ColumnReference Column="Expr1005" />
+                                                      </Identifier>
+                                                    </ScalarOperator>
+                                                  </Condition>
+                                                  <Then>
+                                                    <ScalarOperator>
+                                                      <Const ConstValue="(0)" />
+                                                    </ScalarOperator>
+                                                  </Then>
+                                                  <Else>
+                                                    <ScalarOperator>
+                                                      <Const ConstValue="(1)" />
+                                                    </ScalarOperator>
+                                                  </Else>
+                                                </IF>
+                                              </ScalarOperator>
+                                            </Then>
+                                            <Else>
+                                              <ScalarOperator>
+                                                <Const ConstValue="(0)" />
+                                              </ScalarOperator>
+                                            </Else>
+                                          </IF>
+                                        </ScalarOperator>
+                                      </Else>
+                                    </IF>
+                                  </ScalarOperator>
+                                </Else>
+                              </IF>
+                            </ScalarOperator>
+                          </DefinedValue>
+                        </DefinedValues>
+                        <RelOp NodeId="4" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1.08127e+006" EstimateIO="0" EstimateCPU="0.108127" AvgRowSize="12" EstimatedTotalSubtreeCost="30.6205" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                            <ColumnReference Column="Expr1002" />
+                            <ColumnReference Column="Expr1005" />
+                          </OutputList>
+                          <ComputeScalar>
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1002" />
+                                <ScalarOperator ScalarString="(1)">
+                                  <Const ConstValue="(1)" />
+                                </ScalarOperator>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <RelOp NodeId="5" PhysicalOp="Top" LogicalOp="Top" EstimateRows="1.08127e+006" EstimateIO="0" EstimateCPU="0.108127" AvgRowSize="12" EstimatedTotalSubtreeCost="30.5123" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                              <OutputList>
+                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                <ColumnReference Column="Expr1005" />
+                              </OutputList>
+                              <Top RowCount="1" IsPercent="0" WithTies="0">
+                                <TopExpression>
+                                  <ScalarOperator ScalarString="(0)">
+                                    <Const ConstValue="(0)" />
+                                  </ScalarOperator>
+                                </TopExpression>
+                                <RelOp NodeId="6" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1.08127e+006" EstimateIO="0" EstimateCPU="0.0958986" AvgRowSize="12" EstimatedTotalSubtreeCost="30.4042" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                  <OutputList>
+                                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                    <ColumnReference Column="Expr1005" />
+                                  </OutputList>
+                                  <ComputeScalar>
+                                    <DefinedValues>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1005" />
+                                        <ScalarOperator ScalarString="CASE WHEN [mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] = (1) THEN (1) ELSE (0) END">
+                                          <IF>
+                                            <Condition>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="BINARY IS">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="(1)" />
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Condition>
+                                            <Then>
+                                              <ScalarOperator>
+                                                <Const ConstValue="(1)" />
+                                              </ScalarOperator>
+                                            </Then>
+                                            <Else>
+                                              <ScalarOperator>
+                                                <Const ConstValue="(0)" />
+                                              </ScalarOperator>
+                                            </Else>
+                                          </IF>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                    </DefinedValues>
+                                    <RelOp NodeId="7" PhysicalOp="Parallelism" LogicalOp="Gather Streams" EstimateRows="958986" EstimateIO="0" EstimateCPU="5.40494" AvgRowSize="12" EstimatedTotalSubtreeCost="30.3083" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                      <OutputList>
+                                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                      </OutputList>
+                                      <Parallelism>
+                                        <OrderBy>
+                                          <OrderByColumn Ascending="1">
+                                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                          </OrderByColumn>
+                                        </OrderBy>
+                                        <RelOp NodeId="8" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="958986" EstimateIO="21.6298" EstimateCPU="0.708875" AvgRowSize="29" EstimatedTotalSubtreeCost="22.3387" TableCardinality="2.86398e+007" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                          <OutputList>
+                                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                          </OutputList>
+                                          <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Index="[PK_OwnerPersonParsed]" IndexKind="Clustered" Storage="RowStore" />
+                                            <SeekPredicates>
+                                              <SeekPredicateNew>
+                                                <SeekKeys>
+                                                  <StartRange ScanType="GE">
+                                                    <RangeColumns>
+                                                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                                    </RangeColumns>
+                                                    <RangeExpressions>
+                                                      <ScalarOperator ScalarString="[@MapMIN]">
+                                                        <Identifier>
+                                                          <ColumnReference Column="@MapMIN" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </RangeExpressions>
+                                                  </StartRange>
+                                                  <EndRange ScanType="LE">
+                                                    <RangeColumns>
+                                                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                                    </RangeColumns>
+                                                    <RangeExpressions>
+                                                      <ScalarOperator ScalarString="[@ParsedMAX]">
+                                                        <Identifier>
+                                                          <ColumnReference Column="@ParsedMAX" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </RangeExpressions>
+                                                  </EndRange>
+                                                </SeekKeys>
+                                              </SeekPredicateNew>
+                                            </SeekPredicates>
+                                            <Predicate>
+                                              <ScalarOperator ScalarString="CONVERT(varchar(150),[mcLive].[Cadastre].[OwnerPersonParsed].[Surname],0) like '%[^a-Z0-9?]%' OR [mcLive].[Cadastre].[OwnerPersonParsed].[Surname] IS NULL AND [mcLive].[Cadastre].[OwnerPersonParsed].[BirthName] IS NOT NULL OR [mcLive].[Cadastre].[OwnerPersonParsed].[Surname]&lt;&gt;[mcLive].[Cadastre].[OwnerPersonParsed].[BirthName] AND [mcLive].[Cadastre].[OwnerPersonParsed].[Surname] IS NOT NULL AND [mcLive].[Cadastre].[OwnerPersonParsed].[BirthName] IS NOT NULL OR CONVERT(varchar(150),[mcLive].[Cadastre].[OwnerPersonParsed].[BirthName],0) like '%[^a-Z0-9?]%' AND [mcLive].[Cadastre].[OwnerPersonParsed].[Surname] IS NULL">
+                                                <Logical Operation="OR">
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="like">
+                                                      <ScalarOperator>
+                                                        <Convert DataType="varchar" Length="150" Style="0" Implicit="0">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Convert>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="'%[^a-Z0-9?]%'" />
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Logical Operation="AND">
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="IS">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="NULL" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="IS NOT">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="NULL" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Logical>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Logical Operation="AND">
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="NE">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="IS NOT">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="NULL" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="IS NOT">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="NULL" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Logical>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Logical Operation="AND">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="like">
+                                                          <ScalarOperator>
+                                                            <Convert DataType="varchar" Length="150" Style="0" Implicit="0">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Convert>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="'%[^a-Z0-9?]%'" />
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="IS">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="NULL" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Logical>
+                                                  </ScalarOperator>
+                                                </Logical>
+                                              </ScalarOperator>
+                                            </Predicate>
+                                          </IndexScan>
+                                        </RelOp>
+                                      </Parallelism>
+                                    </RelOp>
+                                  </ComputeScalar>
+                                </RelOp>
+                              </Top>
+                            </RelOp>
+                          </ComputeScalar>
+                        </RelOp>
+                      </ComputeScalar>
+                    </RelOp>
+                  </ComputeScalar>
+                </RelOp>
+              </Update>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+        <StmtSimple StatementText=";&#xD;&#xA;END;&#xD;&#xA;------------------------------------------------------ BIRTHNAME&#xD;&#xA;--- Parsovanie viac slovnych priezvisk do medzitabulky OwnerPersonDictionaryTemp&#xD;&#xA;BEGIN&#xD;&#xA;DECLARE @RowId INT = 0&#xD;&#xA;" StatementId="13" StatementCompId="16" StatementType="ASSIGN" RetrievedFromCache="true" />
+        <StmtSimple StatementText="DECLARE @SurnameVar VARCHAR(150)&#xD;&#xA;    PRINT N'Pusta sa proces spracovania ';&#xD;&#xA;" StatementId="14" StatementCompId="17" StatementType="PRINT" RetrievedFromCache="true" />
+        <StmtCond StatementText="WHILE (1 = 1)" StatementId="15" StatementCompId="18" StatementType="COND" RetrievedFromCache="true">
+          <Condition />
+          <Then>
+            <Statements>
+              <StmtSimple StatementText=" &#xD;&#xA;BEGIN&#xD;&#xA;   SELECT TOP 1 @RowId =RowId,  @SurnameVar = (CASE WHEN Surname IS NULL AND BirthName IS NOT NULL THEN BirthName &#xD;&#xA;			WHEN Surname = BirthName THEN Surname&#xD;&#xA;			WHEN BirthName IS NOT NULL THEN Surname + ' ' + BirthName&#xD;&#xA;			ELSE Surname END) FROM Cadastre.OwnerPersonParsed WHERE &#xD;&#xA;   RowId &gt; @RowId AND Multiword = 1 ORDER BY RowId ASC" StatementId="16" StatementCompId="19" StatementType="SELECT" RetrievedFromCache="true" StatementSubTreeCost="0.0032833" StatementEstRows="1" StatementOptmLevel="TRIVIAL" QueryHash="0x9D1B550DBC59E816" QueryPlanHash="0x4B6B044581CE8A4E" CardinalityEstimationModelVersion="70">
+                <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+                <QueryPlan CachedPlanSize="24" CompileTime="369" CompileCPU="368" CompileMemory="208">
+                  <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+                  <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="313373" EstimatedPagesCached="156686" EstimatedAvailableDegreeOfParallelism="4" />
+                  <RelOp NodeId="0" PhysicalOp="Top" LogicalOp="Top" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="90" EstimatedTotalSubtreeCost="0.0032833" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                    <OutputList>
+                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                      <ColumnReference Column="Expr1003" />
+                    </OutputList>
+                    <Top RowCount="0" IsPercent="0" WithTies="0">
+                      <TopExpression>
+                        <ScalarOperator ScalarString="(1)">
+                          <Const ConstValue="(1)" />
+                        </ScalarOperator>
+                      </TopExpression>
+                      <RelOp NodeId="1" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1" EstimateIO="0" EstimateCPU="0.318442" AvgRowSize="90" EstimatedTotalSubtreeCost="0.0032832" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                        <OutputList>
+                          <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                          <ColumnReference Column="Expr1003" />
+                        </OutputList>
+                        <ComputeScalar>
+                          <DefinedValues>
+                            <DefinedValue>
+                              <ColumnReference Column="Expr1003" />
+                              <ScalarOperator ScalarString="CONVERT_IMPLICIT(varchar(150),CASE WHEN [mcLive].[Cadastre].[OwnerPersonParsed].[Surname] IS NULL AND [mcLive].[Cadastre].[OwnerPersonParsed].[BirthName] IS NOT NULL THEN [mcLive].[Cadastre].[OwnerPersonParsed].[BirthName] ELSE CASE WHEN [mcLive].[Cadastre].[OwnerPersonParsed].[Surname]=[mcLive].[Cadastre].[OwnerPersonParsed].[BirthName] THEN [mcLive].[Cadastre].[OwnerPersonParsed].[Surname] ELSE CASE WHEN [mcLive].[Cadastre].[OwnerPersonParsed].[BirthName] IS NOT NULL THEN [mcLive].[Cadastre].[OwnerPersonParsed].[Surname]+' '+[mcLive].[Cadastre].[OwnerPersonParsed].[BirthName] ELSE [mcLive].[Cadastre].[OwnerPersonParsed].[Surname] END END END,0)">
+                                <Convert DataType="varchar" Length="150" Style="0" Implicit="1">
+                                  <ScalarOperator>
+                                    <IF>
+                                      <Condition>
+                                        <ScalarOperator>
+                                          <Logical Operation="AND">
+                                            <ScalarOperator>
+                                              <Compare CompareOp="IS">
+                                                <ScalarOperator>
+                                                  <Identifier>
+                                                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                                <ScalarOperator>
+                                                  <Const ConstValue="NULL" />
+                                                </ScalarOperator>
+                                              </Compare>
+                                            </ScalarOperator>
+                                            <ScalarOperator>
+                                              <Compare CompareOp="IS NOT">
+                                                <ScalarOperator>
+                                                  <Identifier>
+                                                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                                <ScalarOperator>
+                                                  <Const ConstValue="NULL" />
+                                                </ScalarOperator>
+                                              </Compare>
+                                            </ScalarOperator>
+                                          </Logical>
+                                        </ScalarOperator>
+                                      </Condition>
+                                      <Then>
+                                        <ScalarOperator>
+                                          <Identifier>
+                                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                          </Identifier>
+                                        </ScalarOperator>
+                                      </Then>
+                                      <Else>
+                                        <ScalarOperator>
+                                          <IF>
+                                            <Condition>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Condition>
+                                            <Then>
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                </Identifier>
+                                              </ScalarOperator>
+                                            </Then>
+                                            <Else>
+                                              <ScalarOperator>
+                                                <IF>
+                                                  <Condition>
+                                                    <ScalarOperator>
+                                                      <Compare CompareOp="IS NOT">
+                                                        <ScalarOperator>
+                                                          <Identifier>
+                                                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                                          </Identifier>
+                                                        </ScalarOperator>
+                                                        <ScalarOperator>
+                                                          <Const ConstValue="NULL" />
+                                                        </ScalarOperator>
+                                                      </Compare>
+                                                    </ScalarOperator>
+                                                  </Condition>
+                                                  <Then>
+                                                    <ScalarOperator>
+                                                      <Arithmetic Operation="ADD">
+                                                        <ScalarOperator>
+                                                          <Arithmetic Operation="ADD">
+                                                            <ScalarOperator>
+                                                              <Identifier>
+                                                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                              </Identifier>
+                                                            </ScalarOperator>
+                                                            <ScalarOperator>
+                                                              <Const ConstValue="' '" />
+                                                            </ScalarOperator>
+                                                          </Arithmetic>
+                                                        </ScalarOperator>
+                                                        <ScalarOperator>
+                                                          <Identifier>
+                                                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                                          </Identifier>
+                                                        </ScalarOperator>
+                                                      </Arithmetic>
+                                                    </ScalarOperator>
+                                                  </Then>
+                                                  <Else>
+                                                    <ScalarOperator>
+                                                      <Identifier>
+                                                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                                      </Identifier>
+                                                    </ScalarOperator>
+                                                  </Else>
+                                                </IF>
+                                              </ScalarOperator>
+                                            </Else>
+                                          </IF>
+                                        </ScalarOperator>
+                                      </Else>
+                                    </IF>
+                                  </ScalarOperator>
+                                </Convert>
+                              </ScalarOperator>
+                            </DefinedValue>
+                          </DefinedValues>
+                          <RelOp NodeId="2" PhysicalOp="Index Seek" LogicalOp="Index Seek" EstimateRows="1" EstimateIO="3.72164" EstimateCPU="3.50301" AvgRowSize="167" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="2.86398e+007" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                            <OutputList>
+                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                            </OutputList>
+                            <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                              <DefinedValues>
+                                <DefinedValue>
+                                  <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                </DefinedValue>
+                                <DefinedValue>
+                                  <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                                </DefinedValue>
+                                <DefinedValue>
+                                  <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="BirthName" />
+                                </DefinedValue>
+                              </DefinedValues>
+                              <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Index="[ix_Multiword]" Filtered="1" IndexKind="NonClustered" Storage="RowStore" />
+                              <SeekPredicates>
+                                <SeekPredicateNew>
+                                  <SeekKeys>
+                                    <Prefix ScanType="EQ">
+                                      <RangeColumns>
+                                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                      </RangeColumns>
+                                      <RangeExpressions>
+                                        <ScalarOperator ScalarString="(1)">
+                                          <Const ConstValue="(1)" />
+                                        </ScalarOperator>
+                                      </RangeExpressions>
+                                    </Prefix>
+                                    <StartRange ScanType="GT">
+                                      <RangeColumns>
+                                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                      </RangeColumns>
+                                      <RangeExpressions>
+                                        <ScalarOperator ScalarString="[@RowId]">
+                                          <Identifier>
+                                            <ColumnReference Column="@RowId" />
+                                          </Identifier>
+                                        </ScalarOperator>
+                                      </RangeExpressions>
+                                    </StartRange>
+                                  </SeekKeys>
+                                </SeekPredicateNew>
+                              </SeekPredicates>
+                            </IndexScan>
+                          </RelOp>
+                        </ComputeScalar>
+                      </RelOp>
+                    </Top>
+                  </RelOp>
+                </QueryPlan>
+              </StmtSimple>
+              <StmtCond StatementText="&#xD;&#xA;   IF @@ROWCOUNT = 0" StatementId="17" StatementCompId="20" StatementType="COND" RetrievedFromCache="true">
+                <Condition />
+                <Then>
+                  <Statements>
+                    <StmtSimple StatementText=" BREAK;&#xD;&#xA;   " StatementId="18" StatementCompId="21" StatementType="GOTO" RetrievedFromCache="true" />
+                  </Statements>
+                </Then>
+              </StmtCond>
+              <StmtSimple StatementText="EXEC [Cadastre].[WordsParser] @RowID = @RowId, @Surname = @SurnameVar&#xD;&#xA;" StatementId="19" StatementCompId="23" StatementType="EXECUTE PROC" RetrievedFromCache="true" />
+            </Statements>
+          </Then>
+        </StmtCond>
+        <StmtSimple StatementText="END;&#xD;&#xA;END;&#xD;&#xA;&#xD;&#xA;BEGIN&#xD;&#xA;--- parsovanie z tempu kde sa data dostali z predchadzajuceho procesu vyssie&#xD;&#xA;--- ide o spracovanie udajov ktore mali dlhsie ako standardnu dlzku stringu pre priezvisko (zle sparsovane a tak podobne)&#xD;&#xA;DECLARE @ProcessId1 INT = 0&#xD;&#xA;" StatementId="20" StatementCompId="26" StatementType="ASSIGN" RetrievedFromCache="true" />
+        <StmtSimple StatementText="DECLARE @RowId1 INT = 0&#xD;&#xA;" StatementId="21" StatementCompId="27" StatementType="ASSIGN" RetrievedFromCache="true" />
+        <StmtSimple StatementText="DECLARE @ID1 INT = 0&#xD;&#xA;" StatementId="22" StatementCompId="28" StatementType="ASSIGN" RetrievedFromCache="true" />
+        <StmtSimple StatementText="DECLARE @SurnameVar1 VARCHAR(150)&#xD;&#xA; PRINT N'Pusta sa proces parsovania zaznamov z OwnerPersonDictionaryTemp';&#xD;&#xA;" StatementId="23" StatementCompId="29" StatementType="PRINT" RetrievedFromCache="true" />
+        <StmtCond StatementText="WHILE (1 = 1)" StatementId="24" StatementCompId="30" StatementType="COND" RetrievedFromCache="true">
+          <Condition />
+          <Then>
+            <Statements>
+              <StmtSimple StatementText=" &#xD;&#xA;BEGIN  &#xD;&#xA;  SELECT TOP 1 @RowId1 = RowId, @SurnameVar1 = Surname,  @ProcessId1 = Id FROM Cadastre.OwnerPersonDictionaryTemp WHERE Id &gt; @ID1 ORDER BY Id ASC" StatementId="25" StatementCompId="31" StatementType="SELECT" RetrievedFromCache="true" StatementSubTreeCost="0.0032833" StatementEstRows="1" StatementOptmLevel="TRIVIAL" QueryHash="0xD00B2C28C57FDC7D" QueryPlanHash="0x8F7A1ACAB15CF63F" CardinalityEstimationModelVersion="70">
+                <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+                <QueryPlan CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="344">
+                  <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+                  <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="313373" EstimatedPagesCached="156686" EstimatedAvailableDegreeOfParallelism="4" />
+                  <RelOp NodeId="0" PhysicalOp="Top" LogicalOp="Top" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="94" EstimatedTotalSubtreeCost="0.0032833" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                    <OutputList>
+                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="Id" />
+                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="RowId" />
+                      <ColumnReference Column="Expr1002" />
+                    </OutputList>
+                    <Top RowCount="0" IsPercent="0" WithTies="0">
+                      <TopExpression>
+                        <ScalarOperator ScalarString="(1)">
+                          <Const ConstValue="(1)" />
+                        </ScalarOperator>
+                      </TopExpression>
+                      <RelOp NodeId="1" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="94" EstimatedTotalSubtreeCost="0.0032832" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                        <OutputList>
+                          <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="Id" />
+                          <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="RowId" />
+                          <ColumnReference Column="Expr1002" />
+                        </OutputList>
+                        <ComputeScalar>
+                          <DefinedValues>
+                            <DefinedValue>
+                              <ColumnReference Column="Expr1002" />
+                              <ScalarOperator ScalarString="CONVERT_IMPLICIT(varchar(150),[mcLive].[Cadastre].[OwnerPersonDictionaryTemp].[Surname],0)">
+                                <Convert DataType="varchar" Length="150" Style="0" Implicit="1">
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="Surname" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </Convert>
+                              </ScalarOperator>
+                            </DefinedValue>
+                          </DefinedValues>
+                          <RelOp NodeId="2" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="94" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                            <OutputList>
+                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="Id" />
+                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="RowId" />
+                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="Surname" />
+                            </OutputList>
+                            <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                              <DefinedValues>
+                                <DefinedValue>
+                                  <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="Id" />
+                                </DefinedValue>
+                                <DefinedValue>
+                                  <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="RowId" />
+                                </DefinedValue>
+                                <DefinedValue>
+                                  <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="Surname" />
+                                </DefinedValue>
+                              </DefinedValues>
+                              <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Index="[PK_DictionaryTemp_Id]" IndexKind="Clustered" Storage="RowStore" />
+                              <SeekPredicates>
+                                <SeekPredicateNew>
+                                  <SeekKeys>
+                                    <StartRange ScanType="GT">
+                                      <RangeColumns>
+                                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryTemp]" Column="Id" />
+                                      </RangeColumns>
+                                      <RangeExpressions>
+                                        <ScalarOperator ScalarString="[@ID1]">
+                                          <Identifier>
+                                            <ColumnReference Column="@ID1" />
+                                          </Identifier>
+                                        </ScalarOperator>
+                                      </RangeExpressions>
+                                    </StartRange>
+                                  </SeekKeys>
+                                </SeekPredicateNew>
+                              </SeekPredicates>
+                            </IndexScan>
+                          </RelOp>
+                        </ComputeScalar>
+                      </RelOp>
+                    </Top>
+                  </RelOp>
+                </QueryPlan>
+              </StmtSimple>
+              <StmtCond StatementText="&#xD;&#xA;  IF @@ROWCOUNT = 0" StatementId="26" StatementCompId="32" StatementType="COND" RetrievedFromCache="true">
+                <Condition />
+                <Then>
+                  <Statements>
+                    <StmtSimple StatementText=" BREAK;&#xD;&#xA;  " StatementId="27" StatementCompId="33" StatementType="GOTO" RetrievedFromCache="true" />
+                  </Statements>
+                </Then>
+              </StmtCond>
+              <StmtSimple StatementText="SET @ID1 = @ProcessId1;&#xD;&#xA;  " StatementId="28" StatementCompId="35" StatementType="ASSIGN" RetrievedFromCache="true" />
+              <StmtSimple StatementText="EXEC [Cadastre].[OwnerPersonRunner] @RowID = @RowId1, @Surname = @SurnameVar1, @ID = @ID1&#xD;&#xA;" StatementId="29" StatementCompId="36" StatementType="EXECUTE PROC" RetrievedFromCache="true" />
+            </Statements>
+          </Then>
+        </StmtCond>
+        <StmtSimple StatementText="END;&#xD;&#xA;END;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;BEGIN ----- spracovanie hlavnej davky, ide o data ktore su normalnej velkosti pre klasicke jednoslovne surname&#xD;&#xA;DECLARE @RowId2 INT = 0&#xD;&#xA;" StatementId="30" StatementCompId="39" StatementType="ASSIGN" RetrievedFromCache="true" />
+        <StmtSimple StatementText="DECLARE @SurnameVar2 VARCHAR(150)&#xD;&#xA;DECLARE @MapMIN2 INT = (SELECT MAX(RowId) FROM Cadastre.OwnerPersonDictionaryMap)" StatementId="31" StatementCompId="40" StatementType="SELECT" RetrievedFromCache="true" StatementSubTreeCost="0.0032843" StatementEstRows="1" StatementOptmLevel="FULL" QueryHash="0xC69E38922D64683" QueryPlanHash="0xC8B5CF143A0502AA" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="70">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+          <QueryPlan CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="368">
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="313373" EstimatedPagesCached="156686" EstimatedAvailableDegreeOfParallelism="4" />
+            <RelOp NodeId="0" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032843" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+              <OutputList>
+                <ColumnReference Column="Expr1005" />
+              </OutputList>
+              <ComputeScalar>
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Column="Expr1005" />
+                    <ScalarOperator ScalarString="[Expr1003]">
+                      <Identifier>
+                        <ColumnReference Column="Expr1003" />
+                      </Identifier>
+                    </ScalarOperator>
+                  </DefinedValue>
+                </DefinedValues>
+                <RelOp NodeId="1" PhysicalOp="Stream Aggregate" LogicalOp="Aggregate" EstimateRows="1" EstimateIO="0" EstimateCPU="1.1e-006" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032842" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList>
+                    <ColumnReference Column="Expr1003" />
+                  </OutputList>
+                  <StreamAggregate>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1003" />
+                        <ScalarOperator ScalarString="MAX([mcLive].[Cadastre].[OwnerPersonDictionaryMap].[RowId])">
+                          <Aggregate Distinct="0" AggType="MAX">
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryMap]" Column="RowId" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Aggregate>
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp NodeId="2" PhysicalOp="Index Scan" LogicalOp="Index Scan" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryMap]" Column="RowId" />
+                      </OutputList>
+                      <IndexScan Ordered="0" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryMap]" Column="RowId" />
+                          </DefinedValue>
+                        </DefinedValues>
+                        <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonDictionaryMap]" Index="[IX_DictionaryMap_RowId]" IndexKind="NonClustered" Storage="RowStore" />
+                      </IndexScan>
+                    </RelOp>
+                  </StreamAggregate>
+                </RelOp>
+              </ComputeScalar>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+        <StmtSimple StatementText="&#xD;&#xA;DECLARE @ParsedMAX2 INT = (SELECT MAX(RowId) FROM Cadastre.OwnerPersonParsed)" StatementId="32" StatementCompId="41" StatementType="SELECT" RetrievedFromCache="true" StatementSubTreeCost="0.0032844" StatementEstRows="1" StatementOptmLevel="FULL" QueryHash="0xD548A1E6BB0F58C1" QueryPlanHash="0xD710C67B1FE8E1EC" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="70">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+          <QueryPlan CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="376">
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="313373" EstimatedPagesCached="156686" EstimatedAvailableDegreeOfParallelism="4" />
+            <RelOp NodeId="0" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032844" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+              <OutputList>
+                <ColumnReference Column="Expr1004" />
+              </OutputList>
+              <ComputeScalar>
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Column="Expr1004" />
+                    <ScalarOperator ScalarString="[Expr1002]">
+                      <Identifier>
+                        <ColumnReference Column="Expr1002" />
+                      </Identifier>
+                    </ScalarOperator>
+                  </DefinedValue>
+                </DefinedValues>
+                <RelOp NodeId="1" PhysicalOp="Stream Aggregate" LogicalOp="Aggregate" EstimateRows="1" EstimateIO="0" EstimateCPU="1.1e-006" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032843" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList>
+                    <ColumnReference Column="Expr1002" />
+                  </OutputList>
+                  <StreamAggregate>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1002" />
+                        <ScalarOperator ScalarString="MAX([mcLive].[Cadastre].[OwnerPersonParsed].[RowId])">
+                          <Aggregate Distinct="0" AggType="MAX">
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Aggregate>
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp NodeId="2" PhysicalOp="Top" LogicalOp="Top" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032832" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                      </OutputList>
+                      <Top RowCount="0" IsPercent="0" WithTies="0">
+                        <TopExpression>
+                          <ScalarOperator ScalarString="(1)">
+                            <Const ConstValue="(1)" />
+                          </ScalarOperator>
+                        </TopExpression>
+                        <RelOp NodeId="3" PhysicalOp="Clustered Index Scan" LogicalOp="Clustered Index Scan" EstimateRows="1" EstimateIO="240.307" EstimateCPU="31.504" AvgRowSize="11" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="2.86398e+007" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                          </OutputList>
+                          <IndexScan Ordered="1" ScanDirection="BACKWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                              </DefinedValue>
+                            </DefinedValues>
+                            <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Index="[PK_OwnerPersonParsed]" IndexKind="Clustered" Storage="RowStore" />
+                          </IndexScan>
+                        </RelOp>
+                      </Top>
+                    </RelOp>
+                  </StreamAggregate>
+                </RelOp>
+              </ComputeScalar>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+        <StmtSimple StatementText=";&#xD;&#xA;PRINT N'Pusta sa proces cislo 3';&#xD;&#xA;" StatementId="33" StatementCompId="42" StatementType="PRINT" RetrievedFromCache="true" />
+        <StmtCond StatementText="WHILE (1 = 1)" StatementId="34" StatementCompId="43" StatementType="COND" RetrievedFromCache="true">
+          <Condition />
+          <Then>
+            <Statements>
+              <StmtSimple StatementText=" &#xD;&#xA;BEGIN  &#xD;&#xA;  SELECT TOP 1 @RowId2 = RowId, @SurnameVar2 = Surname FROM Cadastre.OwnerPersonParsed WHERE (RowId &gt;= @MapMIN2 AND RowId &lt;= @ParsedMAX2) AND&#xD;&#xA;    RowId &gt; @RowId2 AND Multiword IS NULL ORDER BY RowId ASC" StatementId="35" StatementCompId="44" StatementType="SELECT" RetrievedFromCache="true" StatementSubTreeCost="0.00330594" StatementEstRows="1" StatementOptmLevel="TRIVIAL" QueryHash="0x404DB4E7A2E916AC" QueryPlanHash="0x301BBCAC7DFD43CF" CardinalityEstimationModelVersion="70">
+                <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+                <QueryPlan CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="368">
+                  <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+                  <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="313373" EstimatedPagesCached="156686" EstimatedAvailableDegreeOfParallelism="4" />
+                  <RelOp NodeId="0" PhysicalOp="Top" LogicalOp="Top" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="90" EstimatedTotalSubtreeCost="0.00330594" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                    <OutputList>
+                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                      <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                    </OutputList>
+                    <Top RowCount="0" IsPercent="0" WithTies="0">
+                      <TopExpression>
+                        <ScalarOperator ScalarString="(1)">
+                          <Const ConstValue="(1)" />
+                        </ScalarOperator>
+                      </TopExpression>
+                      <RelOp NodeId="1" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="21.6298" EstimateCPU="2.8355" AvgRowSize="91" EstimatedTotalSubtreeCost="0.00330524" TableCardinality="2.86398e+007" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                        <OutputList>
+                          <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                          <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                          <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                        </OutputList>
+                        <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                          <DefinedValues>
+                            <DefinedValue>
+                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                            </DefinedValue>
+                            <DefinedValue>
+                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Surname" />
+                            </DefinedValue>
+                            <DefinedValue>
+                              <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                            </DefinedValue>
+                          </DefinedValues>
+                          <Object Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Index="[PK_OwnerPersonParsed]" IndexKind="Clustered" Storage="RowStore" />
+                          <SeekPredicates>
+                            <SeekPredicateNew>
+                              <SeekKeys>
+                                <StartRange ScanType="GE">
+                                  <RangeColumns>
+                                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                  </RangeColumns>
+                                  <RangeExpressions>
+                                    <ScalarOperator ScalarString="[@MapMIN2]">
+                                      <Identifier>
+                                        <ColumnReference Column="@MapMIN2" />
+                                      </Identifier>
+                                    </ScalarOperator>
+                                  </RangeExpressions>
+                                </StartRange>
+                                <EndRange ScanType="LE">
+                                  <RangeColumns>
+                                    <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                  </RangeColumns>
+                                  <RangeExpressions>
+                                    <ScalarOperator ScalarString="[@ParsedMAX2]">
+                                      <Identifier>
+                                        <ColumnReference Column="@ParsedMAX2" />
+                                      </Identifier>
+                                    </ScalarOperator>
+                                  </RangeExpressions>
+                                </EndRange>
+                              </SeekKeys>
+                            </SeekPredicateNew>
+                          </SeekPredicates>
+                          <Predicate>
+                            <ScalarOperator ScalarString="[mcLive].[Cadastre].[OwnerPersonParsed].[RowId]&gt;[@RowId2] AND [mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] IS NULL">
+                              <Logical Operation="AND">
+                                <ScalarOperator>
+                                  <Compare CompareOp="GT">
+                                    <ScalarOperator>
+                                      <Identifier>
+                                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="RowId" />
+                                      </Identifier>
+                                    </ScalarOperator>
+                                    <ScalarOperator>
+                                      <Identifier>
+                                        <ColumnReference Column="@RowId2" />
+                                      </Identifier>
+                                    </ScalarOperator>
+                                  </Compare>
+                                </ScalarOperator>
+                                <ScalarOperator>
+                                  <Compare CompareOp="IS">
+                                    <ScalarOperator>
+                                      <Identifier>
+                                        <ColumnReference Database="[mcLive]" Schema="[Cadastre]" Table="[OwnerPersonParsed]" Column="Multiword" />
+                                      </Identifier>
+                                    </ScalarOperator>
+                                    <ScalarOperator>
+                                      <Const ConstValue="NULL" />
+                                    </ScalarOperator>
+                                  </Compare>
+                                </ScalarOperator>
+                              </Logical>
+                            </ScalarOperator>
+                          </Predicate>
+                        </IndexScan>
+                      </RelOp>
+                    </Top>
+                  </RelOp>
+                </QueryPlan>
+              </StmtSimple>
+              <StmtCond StatementText="&#xD;&#xA;	IF @@ROWCOUNT = 0" StatementId="36" StatementCompId="45" StatementType="COND" RetrievedFromCache="true">
+                <Condition />
+                <Then>
+                  <Statements>
+                    <StmtSimple StatementText=" BREAK;&#xD;&#xA;  " StatementId="37" StatementCompId="46" StatementType="GOTO" RetrievedFromCache="true" />
+                  </Statements>
+                </Then>
+              </StmtCond>
+              <StmtSimple StatementText="EXEC [Cadastre].[OwnerPersonRunner] @RowID = @RowId2, @Surname = @SurnameVar2, @ID = null&#xD;&#xA;" StatementId="38" StatementCompId="48" StatementType="EXECUTE PROC" RetrievedFromCache="true" />
+            </Statements>
+          </Then>
+        </StmtCond>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

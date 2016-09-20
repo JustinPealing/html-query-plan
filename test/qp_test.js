@@ -1,15 +1,24 @@
 import assert from 'assert';
 import QP from '../src/qp';
 var testPlan = require('raw!../test_plans/issue1.sqlplan');
+var multiStatementPlan = require('raw!../test_plans/issue7.sqlplan');
 
-function findNodeById(container, nodeId) {
-    var nodes = container.querySelectorAll('.qp-node');
+function findNodeById(container, nodeId, statementId) {
+    var statmentElement = findStatmentElementById(container, statementId);
+    var nodes = statmentElement.querySelectorAll('.qp-node');
     for (var i = 0; i < nodes.length; i++) {
         var node = nodes[i];
         if (getProperty(node, 'Node ID') == nodeId) {
             return node;
         }
     }
+}
+
+function findStatmentElementById(container, statementId) {
+    if (statementId) {
+        return container.querySelector('div[data-statement-id="' + statementId + '"]');
+    }
+    return container.querySelector('.qp-tr');
 }
 
 function getProperty(node, key) {
@@ -79,6 +88,15 @@ describe('qp.js', () => {
 
             assert.equal("0.000001", getProperty(findNodeById(container, "0"), "Estimated CPU Cost"));
             
+        });
+
+        it('Works out cost percentages based on the current statement',  () => {
+
+            var container = document.createElement("div");
+            QP.showPlan(container, multiStatementPlan);
+            
+            assert.equal("248.183 (99%)", getProperty(findNodeById(container, "4", "6"), "Estimated Operator Cost"));
+
         });
 
     });

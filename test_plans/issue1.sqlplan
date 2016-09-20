@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.0" Build="9.00.5057.00">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementText="SELECT TOP 10 ID,SUBJECT,COMPANYID,REFERRERID,LEADID,ACTIVITYDATE,TYPE,TICKETID,VISITID FROM CRM_WORKACTIVITYSEARCH_VIEW WHERE (CASE WHEN COMPANYID IS NOT NULL THEN (SELECT ID FROM BASE_COMPANIES WHERE BASE_COMPANIES.ID=CRM_WORKACTIVITYSEARCH_VIEW.COMPANYID AND BASE_COMPANIES.LIMBO=0 AND BASE_COMPANIES.CUSTOMERID=1 AND (BASE_COMPANIES.OWNERID=12138 OR ( (BASE_COMPANIES.GROUPS IS NULL OR BASE_COMPANIES.GROUPS LIKE &apos;%|0|%&apos;) OR BASE_COMPANIES.GROUPS LIKE &apos;%|5061|%&apos;) )) WHEN REFERRERID IS NOT NULL THEN (SELECT ID FROM BASE_CONTACTS WHERE BASE_CONTACTS.ID=CRM_WORKACTIVITYSEARCH_VIEW.REFERRERID AND BASE_CONTACTS.LIMBO=0 AND BASE_CONTACTS.CUSTOMERID=1 AND ((BASE_CONTACTS.OWNERID=12138 OR ( (BASE_CONTACTS.GROUPS IS NULL OR BASE_CONTACTS.GROUPS LIKE &apos;%|0|%&apos;) OR BASE_CONTACTS.GROUPS LIKE &apos;%|5061|%&apos;) ) OR (EXISTS(SELECT * FROM BASE_COMPANIES WHERE BASE_COMPANIES.ID=BASE_CONTACTS.COMPANYID AND BASE_COMPANIES.LIMBO=0 AND BASE_COMPANIES.CUSTOMERID=1 AND (BASE_COMPANIES.OWNERID=12138 OR ( (BASE_COMPANIES.GROUPS IS NULL OR BASE_COMPANIES.GROUPS LIKE &apos;%|0|%&apos;) OR BASE_COMPANIES.GROUPS LIKE &apos;%|5061|%&apos;) ))))) WHEN LEADID IS NOT NULL THEN (SELECT ID FROM CRM_LEADS WHERE CRM_LEADS.ID=CRM_WORKACTIVITYSEARCH_VIEW.LEADID AND CRM_LEADS.LIMBO=0 AND CRM_LEADS.CUSTOMERID=1 AND (CRM_LEADS.OWNERID=12138 OR ( (CRM_LEADS.GROUPS IS NULL OR CRM_LEADS.GROUPS LIKE &apos;%|0|%&apos;) OR CRM_LEADS.GROUPS LIKE &apos;%|5061|%&apos;) )) END) IS NOT NULL AND ( OWNERID=12138 AND TODO=0 AND ACTIVITYDATE&lt;=&apos;20111110 23:59:59&apos; ) ORDER BY ACTIVITYDATE DESC &#xd;&#xa;&#xd;" StatementId="1" StatementCompId="2" StatementType="SELECT" StatementSubTreeCost="0.148391" StatementEstRows="10" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound">
+          <StatementSetOptions QUOTED_IDENTIFIER="false" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="false" ANSI_NULLS="false" ANSI_PADDING="false" ANSI_WARNINGS="false" NUMERIC_ROUNDABORT="false"/>
+          <QueryPlan DegreeOfParallelism="1" CachedPlanSize="83" CompileTime="43" CompileCPU="43" CompileMemory="1816">
+            <RelOp NodeId="0" PhysicalOp="Top" LogicalOp="Top" EstimateRows="10" EstimateIO="0" EstimateCPU="1e-006" AvgRowSize="1060" EstimatedTotalSubtreeCost="0.148391" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+              <OutputList>
+                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Type"/>
+                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Subject"/>
+                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ActivityDate"/>
+                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="VisitID"/>
+                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="TICKETID"/>
+              </OutputList>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="5" ActualEndOfScans="1" ActualExecutions="1"/>
+              </RunTimeInformation>
+              <Top RowCount="0" IsPercent="0" WithTies="0">
+                <TopExpression>
+                  <ScalarOperator ScalarString="(10)">
+                    <Const ConstValue="(10)"/>
+                  </ScalarOperator>
+                </TopExpression>
+                <RelOp NodeId="1" PhysicalOp="Nested Loops" LogicalOp="Left Outer Join" EstimateRows="10" EstimateIO="0" EstimateCPU="0.0001377" AvgRowSize="1060" EstimatedTotalSubtreeCost="0.14839" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                  <OutputList>
+                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Type"/>
+                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Subject"/>
+                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ActivityDate"/>
+                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="VisitID"/>
+                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="TICKETID"/>
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="5" ActualEndOfScans="1" ActualExecutions="1"/>
+                  </RunTimeInformation>
+                  <NestedLoops Optimized="0" WithOrderedPrefetch="1">
+                    <OuterReferences>
+                      <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                      <ColumnReference Column="Expr1042"/>
+                    </OuterReferences>
+                    <RelOp NodeId="3" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="10" EstimateIO="0" EstimateCPU="8.13414e-005" AvgRowSize="1060" EstimatedTotalSubtreeCost="0.121493" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                      <OutputList>
+                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Type"/>
+                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Subject"/>
+                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ActivityDate"/>
+                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="VisitID"/>
+                       <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="TICKETID"/>
+                      </OutputList>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="5" ActualEndOfScans="1" ActualExecutions="1"/>
+                      </RunTimeInformation>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="4" PhysicalOp="Nested Loops" LogicalOp="Left Outer Join" EstimateRows="12.4706" EstimateIO="0" EstimateCPU="0.000171721" AvgRowSize="1084" EstimatedTotalSubtreeCost="0.121468" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                          <OutputList>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Type"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Subject"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ActivityDate"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="VisitID"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="TICKETID"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="ID"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="ID"/>
+                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="ID"/>
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="5" ActualEndOfScans="1" ActualExecutions="1"/>
+                          </RunTimeInformation>
+                          <NestedLoops Optimized="0">
+                            <PassThru>
+                              <ScalarOperator ScalarString="[DB].[dbo].[CRM_WorkActivity].[CompanyID] IS NOT NULL OR [DB].[dbo].[CRM_WorkActivity].[ReferrerID] IS NOT NULL OR IsFalseOrNull [DB].[dbo].[CRM_WorkActivity].[LeadID] IS NOT NULL">
+                                <Logical Operation="OR">
+                                  <ScalarOperator>
+                                    <Compare CompareOp="IS NOT">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="NULL"/>
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Compare CompareOp="IS NOT">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="NULL"/>
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Logical Operation="IsFalseOrNull">
+                                      <ScalarOperator>
+                                        <Compare CompareOp="IS NOT">
+                                          <ScalarOperator>
+                                           <Identifier>
+                                              <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="NULL"/>
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </Logical>
+                              </ScalarOperator>
+                            </PassThru>
+                            <OuterReferences>
+                              <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                            </OuterReferences>
+                            <RelOp NodeId="5" PhysicalOp="Nested Loops" LogicalOp="Left Outer Join" EstimateRows="12.4706" EstimateIO="0" EstimateCPU="0.000171721" AvgRowSize="1076" EstimatedTotalSubtreeCost="0.0812697" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                              <OutputList>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Type"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Subject"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ActivityDate"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="VisitID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="TICKETID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="ID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="ID"/>
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="5" ActualEndOfScans="1" ActualExecutions="1"/>
+                              </RunTimeInformation>
+                              <NestedLoops Optimized="0">
+                                <PassThru>
+                                  <ScalarOperator ScalarString="[DB].[dbo].[CRM_WorkActivity].[CompanyID] IS NOT NULL OR IsFalseOrNull [DB].[dbo].[CRM_WorkActivity].[ReferrerID] IS NOT NULL">
+                                    <Logical Operation="OR">
+                                      <ScalarOperator>
+                                        <Compare CompareOp="IS NOT">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="NULL"/>
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Logical Operation="IsFalseOrNull">
+                                          <ScalarOperator>
+                                            <Compare CompareOp="IS NOT">
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                                                </Identifier>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Const ConstValue="NULL"/>
+                                              </ScalarOperator>
+                                            </Compare>
+                                          </ScalarOperator>
+                                        </Logical>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </PassThru>
+                                <OuterReferences>
+                                  <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                                </OuterReferences>
+                                <RelOp NodeId="6" PhysicalOp="Nested Loops" LogicalOp="Left Outer Join" EstimateRows="12.4706" EstimateIO="0" EstimateCPU="0.000171721" AvgRowSize="1068" EstimatedTotalSubtreeCost="0.0424874" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                                  <OutputList>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Type"/>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Subject"/>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ActivityDate"/>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="VisitID"/>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="TICKETID"/>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="ID"/>
+                                  </OutputList>
+                                  <RunTimeInformation>
+                                    <RunTimeCountersPerThread Thread="0" ActualRows="5" ActualEndOfScans="1" ActualExecutions="1"/>
+                                  </RunTimeInformation>
+                                  <NestedLoops Optimized="0">
+                                    <PassThru>
+                                      <ScalarOperator ScalarString="IsFalseOrNull [DB].[dbo].[CRM_WorkActivity].[CompanyID] IS NOT NULL">
+                                        <Logical Operation="IsFalseOrNull">
+                                          <ScalarOperator>
+                                            <Compare CompareOp="IS NOT">
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                                </Identifier>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Const ConstValue="NULL"/>
+                                              </ScalarOperator>
+                                            </Compare>
+                                          </ScalarOperator>
+                                        </Logical>
+                                      </ScalarOperator>
+                                    </PassThru>
+                                    <OuterReferences>
+                                      <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                    </OuterReferences>
+                                    <RelOp NodeId="7" PhysicalOp="Index Seek" LogicalOp="Index Seek" EstimateRows="12.4706" EstimateIO="0.003125" EstimateCPU="0.00020219" AvgRowSize="1060" EstimatedTotalSubtreeCost="0.00329572" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                                      <OutputList>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Type"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Subject"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ActivityDate"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="VisitID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="TICKETID"/>
+                                      </OutputList>
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="5" ActualEndOfScans="1" ActualExecutions="1"/>
+                                      </RunTimeInformation>
+                                      <IndexScan Ordered="1" ScanDirection="BACKWARD" ForcedIndex="0" NoExpandHint="0">
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Type"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="Subject"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ActivityDate"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="VisitID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="TICKETID"/>
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <Object Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Index="[_dta_index_CRM_WorkActivity_10_1234155492__K2_K32_K19_K1_K9_K4_K34_3_6_33_41]"/>
+                                        <SeekPredicates>
+                                          <SeekPredicate>
+                                            <Prefix ScanType="EQ">
+                                              <RangeColumns>
+                                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="OwnerID"/>
+                                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ToDo"/>
+                                              </RangeColumns>
+                                              <RangeExpressions>
+                                                <ScalarOperator ScalarString="(12138)">
+                                                  <Const ConstValue="(12138)"/>
+                                                </ScalarOperator>
+                                                <ScalarOperator ScalarString="(0)">
+                                                  <Const ConstValue="(0)"/>
+                                                </ScalarOperator>
+                                              </RangeExpressions>
+                                            </Prefix>
+                                            <EndRange ScanType="LE">
+                                              <RangeColumns>
+                                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ActivityDate"/>
+                                              </RangeColumns>
+                                              <RangeExpressions>
+                                                <ScalarOperator ScalarString="&apos;2011-11-11 00:00:00.000&apos;">
+                                                  <Const ConstValue="&apos;2011-11-11 00:00:00.000&apos;"/>
+                                                </ScalarOperator>
+                                              </RangeExpressions>
+                                            </EndRange>
+                                          </SeekPredicate>
+                                        </SeekPredicates>
+                                      </IndexScan>
+                                    </RelOp>
+                                    <RelOp NodeId="8" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="41" EstimatedTotalSubtreeCost="0.03992" Parallel="0" EstimateRebinds="12.4459" EstimateRewinds="0">
+                                      <OutputList>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="ID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="GROUPS"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="OWNERID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="LIMBO"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="CUSTOMERID"/>
+                                      </OutputList>
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="5" ActualEndOfScans="0" ActualExecutions="5"/>
+                                      </RunTimeInformation>
+                                      <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" NoExpandHint="0">
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="ID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="GROUPS"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="OWNERID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="LIMBO"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="CUSTOMERID"/>
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <Object Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Index="[PK_BASE_CONTACTS]" TableReferenceId="2"/>
+                                        <SeekPredicates>
+                                          <SeekPredicate>
+                                            <Prefix ScanType="EQ">
+                                              <RangeColumns>
+                                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="ID"/>
+                                              </RangeColumns>
+                                              <RangeExpressions>
+                                                <ScalarOperator ScalarString="[DB].[dbo].[CRM_WorkActivity].[CompanyID]">
+                                                  <Identifier>
+                                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                              </RangeExpressions>
+                                            </Prefix>
+                                          </SeekPredicate>
+                                        </SeekPredicates>
+                                        <Predicate>
+                                          <ScalarOperator ScalarString="[DB].[dbo].[BASE_COMPANIES].[LIMBO]=(0) AND [DB].[dbo].[BASE_COMPANIES].[CUSTOMERID]=(1) AND ([DB].[dbo].[BASE_COMPANIES].[OWNERID]=(12138) OR [DB].[dbo].[BASE_COMPANIES].[GROUPS] like &apos;%|0|%&apos; OR [DB].[dbo].[BASE_COMPANIES].[GROUPS] like &apos;%|5061|%&apos;)">
+                                            <Logical Operation="AND">
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="LIMBO"/>
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="(0)"/>
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="CUSTOMERID"/>
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="(1)"/>
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Logical Operation="OR">
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="OWNERID"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(12138)"/>
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="like">
+                                                     <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="GROUPS"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="&apos;%|0|%&apos;"/>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="like">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="GROUPS"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="&apos;%|5061|%&apos;"/>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Logical>
+                                              </ScalarOperator>
+                                            </Logical>
+                                          </ScalarOperator>
+                                        </Predicate>
+                                      </IndexScan>
+                                    </RelOp>
+                                  </NestedLoops>
+                                </RelOp>
+                                <RelOp NodeId="9" PhysicalOp="Nested Loops" LogicalOp="Left Semi Join" EstimateRows="1" EstimateIO="0" EstimateCPU="4.18e-006" AvgRowSize="15" EstimatedTotalSubtreeCost="0.039532" Parallel="0" EstimateRebinds="12.4459" EstimateRewinds="0">
+                                  <OutputList>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="ID"/>
+                                  </OutputList>
+                                  <RunTimeInformation>
+                                    <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0"/>
+                                  </RunTimeInformation>
+                                  <NestedLoops Optimized="0">
+                                    <OuterReferences>
+                                      <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="COMPANYID"/>
+                                      <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="OWNERID"/>
+                                      <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="GROUPS"/>
+                                    </OuterReferences>
+                                    <RelOp NodeId="10" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="45" EstimatedTotalSubtreeCost="0.0394237" Parallel="0" EstimateRebinds="12.4459" EstimateRewinds="0">
+                                      <OutputList>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="ID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="COMPANYID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="OWNERID"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="GROUPS"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="LIMBO"/>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="CUSTOMERID"/>
+                                      </OutputList>
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0"/>
+                                      </RunTimeInformation>
+                                      <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" NoExpandHint="0">
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="ID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="COMPANYID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="OWNERID"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="GROUPS"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="LIMBO"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="CUSTOMERID"/>
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <Object Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Index="[PK_BASE_REFERRING]" TableReferenceId="2"/>
+                                        <SeekPredicates>
+                                          <SeekPredicate>
+                                            <Prefix ScanType="EQ">
+                                              <RangeColumns>
+                                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="ID"/>
+                                              </RangeColumns>
+                                              <RangeExpressions>
+                                                <ScalarOperator ScalarString="[DB].[dbo].[CRM_WorkActivity].[ReferrerID]">
+                                                  <Identifier>
+                                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                              </RangeExpressions>
+                                            </Prefix>
+                                          </SeekPredicate>
+                                        </SeekPredicates>
+                                        <Predicate>
+                                          <ScalarOperator ScalarString="[DB].[dbo].[BASE_CONTACTS].[LIMBO]=(0) AND [DB].[dbo].[BASE_CONTACTS].[CUSTOMERID]=(1)">
+                                            <Logical Operation="AND">
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="LIMBO"/>
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="(0)"/>
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="CUSTOMERID"/>
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="(1)"/>
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Logical>
+                                          </ScalarOperator>
+                                        </Predicate>
+                                      </IndexScan>
+                                    </RelOp>
+                                    <RelOp NodeId="11" PhysicalOp="Concatenation" LogicalOp="Concatenation" EstimateRows="1" EstimateIO="0" EstimateCPU="2e-007" AvgRowSize="9" EstimatedTotalSubtreeCost="4.02258e-005" Parallel="0" EstimateRebinds="12.4459" EstimateRewinds="0">
+                                      <OutputList/>
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0"/>
+                                      </RunTimeInformation>
+                                      <Concat>
+                                        <DefinedValues/>
+                                        <RelOp NodeId="12" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="1" EstimateIO="0" EstimateCPU="1.98e-006" AvgRowSize="9" EstimatedTotalSubtreeCost="4.02258e-005" Parallel="0" EstimateRebinds="12.4459" EstimateRewinds="0">
+                                          <OutputList/>
+                                          <RunTimeInformation>
+                                            <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualRebinds="0" ActualRewinds="0" ActualEndOfScans="0" ActualExecutions="0"/>
+                                          </RunTimeInformation>
+                                          <Filter StartupExpression="1">
+                                            <RelOp NodeId="13" PhysicalOp="Constant Scan" LogicalOp="Constant Scan" EstimateRows="1" EstimateIO="0" EstimateCPU="1.157e-006" AvgRowSize="9" EstimatedTotalSubtreeCost="1.36029e-005" Parallel="0" EstimateRebinds="0" EstimateRewinds="12.4459">
+                                              <OutputList/>
+                                              <RunTimeInformation>
+                                                <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0"/>
+                                              </RunTimeInformation>
+                                              <ConstantScan/>
+                                            </RelOp>
+                                            <Predicate>
+                                              <ScalarOperator ScalarString="[DB].[dbo].[BASE_CONTACTS].[OWNERID]=(12138) OR [DB].[dbo].[BASE_CONTACTS].[GROUPS] like &apos;%|0|%&apos; OR [DB].[dbo].[BASE_CONTACTS].[GROUPS] like &apos;%|5061|%&apos;">
+                                                <Logical Operation="OR">
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="OWNERID"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(12138)"/>
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="like">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="GROUPS"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="&apos;%|0|%&apos;"/>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="like">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="GROUPS"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="&apos;%|5061|%&apos;"/>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Logical>
+                                              </ScalarOperator>
+                                            </Predicate>
+                                          </Filter>
+                                        </RelOp>
+                                        <RelOp NodeId="15" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="33" EstimatedTotalSubtreeCost="0.03992" Parallel="0" EstimateRebinds="12.4459" EstimateRewinds="0">
+                                          <OutputList>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="GROUPS"/>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="OWNERID"/>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="LIMBO"/>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="CUSTOMERID"/>
+                                          </OutputList>
+                                          <RunTimeInformation>
+                                            <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0"/>
+                                          </RunTimeInformation>
+                                          <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" NoExpandHint="0">
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="GROUPS"/>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="OWNERID"/>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="LIMBO"/>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="CUSTOMERID"/>
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <Object Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Index="[PK_BASE_CONTACTS]" TableReferenceId="3"/>
+                                            <SeekPredicates>
+                                              <SeekPredicate>
+                                                <Prefix ScanType="EQ">
+                                                  <RangeColumns>
+                                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="ID"/>
+                                                  </RangeColumns>
+                                                  <RangeExpressions>
+                                                    <ScalarOperator ScalarString="[DB].[dbo].[BASE_CONTACTS].[COMPANYID]">
+                                                      <Identifier>
+                                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="COMPANYID"/>
+                                                      </Identifier>
+                                                    </ScalarOperator>
+                                                  </RangeExpressions>
+                                                </Prefix>
+                                              </SeekPredicate>
+                                            </SeekPredicates>
+                                            <Predicate>
+                                              <ScalarOperator ScalarString="[DB].[dbo].[BASE_COMPANIES].[LIMBO]=(0) AND [DB].[dbo].[BASE_COMPANIES].[CUSTOMERID]=(1) AND ([DB].[dbo].[BASE_COMPANIES].[OWNERID]=(12138) OR [DB].[dbo].[BASE_COMPANIES].[GROUPS] like &apos;%|0|%&apos; OR [DB].[dbo].[BASE_COMPANIES].[GROUPS] like &apos;%|5061|%&apos;)">
+                                                <Logical Operation="AND">
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="LIMBO"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="CUSTOMERID"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Logical Operation="OR">
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="OWNERID"/>
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="(12138)"/>
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="like">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="GROUPS"/>
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="&apos;%|0|%&apos;"/>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="like">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="GROUPS"/>
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="&apos;%|5061|%&apos;"/>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Logical>
+                                                  </ScalarOperator>
+                                                </Logical>
+                                              </ScalarOperator>
+                                            </Predicate>
+                                          </IndexScan>
+                                        </RelOp>
+                                      </Concat>
+                                    </RelOp>
+                                  </NestedLoops>
+                                </RelOp>
+                              </NestedLoops>
+                            </RelOp>
+                            <RelOp NodeId="16" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="34" EstimatedTotalSubtreeCost="0.0409408" Parallel="0" EstimateRebinds="12.4459" EstimateRewinds="0">
+                              <OutputList>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="ID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="OwnerID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="Groups"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="Limbo"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="CustomerID"/>
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="0" ActualExecutions="0"/>
+                              </RunTimeInformation>
+                              <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" NoExpandHint="0">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="ID"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="OwnerID"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="Groups"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="Limbo"/>
+                                 </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="CustomerID"/>
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Index="[PK_CRM_Leads]" TableReferenceId="2"/>
+                                <SeekPredicates>
+                                  <SeekPredicate>
+                                    <Prefix ScanType="EQ">
+                                      <RangeColumns>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="ID"/>
+                                      </RangeColumns>
+                                      <RangeExpressions>
+                                        <ScalarOperator ScalarString="[DB].[dbo].[CRM_WorkActivity].[LeadID]">
+                                          <Identifier>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                                          </Identifier>
+                                        </ScalarOperator>
+                                      </RangeExpressions>
+                                    </Prefix>
+                                  </SeekPredicate>
+                                </SeekPredicates>
+                                <Predicate>
+                                  <ScalarOperator ScalarString="[DB].[dbo].[CRM_Leads].[Limbo]=(0) AND [DB].[dbo].[CRM_Leads].[CustomerID]=(1) AND ([DB].[dbo].[CRM_Leads].[OwnerID]=(12138) OR [DB].[dbo].[CRM_Leads].[Groups] like &apos;%|0|%&apos; OR [DB].[dbo].[CRM_Leads].[Groups] like &apos;%|5061|%&apos;)">
+                                    <Logical Operation="AND">
+                                      <ScalarOperator>
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="Limbo"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="(0)"/>
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="CustomerID"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="(1)"/>
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Logical Operation="OR">
+                                          <ScalarOperator>
+                                            <Compare CompareOp="EQ">
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="OwnerID"/>
+                                                </Identifier>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Const ConstValue="(12138)"/>
+                                              </ScalarOperator>
+                                            </Compare>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Intrinsic FunctionName="like">
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="Groups"/>
+                                                </Identifier>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Const ConstValue="&apos;%|0|%&apos;"/>
+                                              </ScalarOperator>
+                                            </Intrinsic>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Intrinsic FunctionName="like">
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="Groups"/>
+                                                </Identifier>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Const ConstValue="&apos;%|5061|%&apos;"/>
+                                              </ScalarOperator>
+                                            </Intrinsic>
+                                          </ScalarOperator>
+                                        </Logical>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </Predicate>
+                              </IndexScan>
+                            </RelOp>
+                          </NestedLoops>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="CASE WHEN [DB].[dbo].[CRM_WorkActivity].[CompanyID] IS NOT NULL THEN [DB].[dbo].[BASE_COMPANIES].[ID] ELSE CASE WHEN [DB].[dbo].[CRM_WorkActivity].[ReferrerID] IS NOT NULL THEN [DB].[dbo].[BASE_CONTACTS].[ID] ELSE CASE WHEN [DB].[dbo].[CRM_WorkActivity].[LeadID] IS NOT NULL THEN [DB].[dbo].[CRM_Leads].[ID] ELSE NULL END END END IS NOT NULL">
+                            <Compare CompareOp="IS NOT">
+                              <ScalarOperator>
+                                <IF>
+                                  <Condition>
+                                    <ScalarOperator>
+                                      <Compare CompareOp="IS NOT">
+                                        <ScalarOperator>
+                                          <Identifier>
+                                            <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="CompanyID"/>
+                                          </Identifier>
+                                        </ScalarOperator>
+                                        <ScalarOperator>
+                                          <Const ConstValue="NULL"/>
+                                        </ScalarOperator>
+                                      </Compare>
+                                    </ScalarOperator>
+                                  </Condition>
+                                  <Then>
+                                    <ScalarOperator>
+                                      <Identifier>
+                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_COMPANIES]" Column="ID"/>
+                                      </Identifier>
+                                    </ScalarOperator>
+                                  </Then>
+                                  <Else>
+                                    <ScalarOperator>
+                                      <IF>
+                                        <Condition>
+                                          <ScalarOperator>
+                                            <Compare CompareOp="IS NOT">
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ReferrerID"/>
+                                                </Identifier>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Const ConstValue="NULL"/>
+                                              </ScalarOperator>
+                                            </Compare>
+                                          </ScalarOperator>
+                                        </Condition>
+                                        <Then>
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[DB]" Schema="[dbo]" Table="[BASE_CONTACTS]" Column="ID"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                        </Then>
+                                        <Else>
+                                          <ScalarOperator>
+                                            <IF>
+                                              <Condition>
+                                                <ScalarOperator>
+                                                  <Compare CompareOp="IS NOT">
+                                                    <ScalarOperator>
+                                                      <Identifier>
+                                                        <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="LeadID"/>
+                                                      </Identifier>
+                                                    </ScalarOperator>
+                                                    <ScalarOperator>
+                                                      <Const ConstValue="NULL"/>
+                                                    </ScalarOperator>
+                                                  </Compare>
+                                                </ScalarOperator>
+                                              </Condition>
+                                              <Then>
+                                                <ScalarOperator>
+                                                  <Identifier>
+                                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_Leads]" Column="ID"/>
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                              </Then>
+                                              <Else>
+                                                <ScalarOperator>
+                                                  <Const ConstValue="NULL"/>
+                                                </ScalarOperator>
+                                              </Else>
+                                            </IF>
+                                          </ScalarOperator>
+                                        </Else>
+                                      </IF>
+                                    </ScalarOperator>
+                                  </Else>
+                                </IF>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Const ConstValue="NULL"/>
+                              </ScalarOperator>
+                            </Compare>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                    <RelOp NodeId="18" PhysicalOp="Index Seek" LogicalOp="Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="9" EstimatedTotalSubtreeCost="0.0268975" Parallel="0" EstimateRebinds="9.71387" EstimateRewinds="0">
+                      <OutputList/>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="5" ActualExecutions="5"/>
+                      </RunTimeInformation>
+                      <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" NoExpandHint="0">
+                        <DefinedValues/>
+                        <Object Database="[DB]" Schema="[dbo]" Table="[PROTOCOLCROSSDOCUMENT]" Index="[_dta_index_PROTOCOLCROSSDOCUMENT_10_1900637914__K3_K2]"/>
+                        <SeekPredicates>
+                          <SeekPredicate>
+                            <Prefix ScanType="EQ">
+                              <RangeColumns>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[PROTOCOLCROSSDOCUMENT]" Column="CROSSID"/>
+                                <ColumnReference Database="[DB]" Schema="[dbo]" Table="[PROTOCOLCROSSDOCUMENT]" Column="BOTYPE"/>
+                              </RangeColumns>
+                              <RangeExpressions>
+                                <ScalarOperator ScalarString="[DB].[dbo].[CRM_WorkActivity].[ID]">
+                                  <Identifier>
+                                    <ColumnReference Database="[DB]" Schema="[dbo]" Table="[CRM_WorkActivity]" Column="ID"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                                <ScalarOperator ScalarString="(3)">
+                                  <Const ConstValue="(3)"/>
+                                </ScalarOperator>
+                              </RangeExpressions>
+                            </Prefix>
+                          </SeekPredicate>
+                        </SeekPredicates>
+                      </IndexScan>
+                    </RelOp>
+                  </NestedLoops>
+                </RelOp>
+              </Top>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

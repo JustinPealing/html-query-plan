@@ -53,8 +53,7 @@ describe('qp.js', () => {
             var container = document.createElement("div");
             QP.showPlan(container, testPlan);
             
-            // This fails on Chrome due to Issue #8
-            //assert.equal("0.000001 (0%)", getProperty(findNodeById(container, "0"), "Estimated Operator Cost"));
+            assert.equal("0.000001 (0%)", getProperty(findNodeById(container, "0"), "Estimated Operator Cost"));
             assert.equal("0 (0%)", getProperty(findNodeById(container, "1"), "Estimated Operator Cost"));
             assert.equal("0.000025 (0%)", getProperty(findNodeById(container, "3"), "Estimated Operator Cost"));
             assert.equal("0 (0%)", getProperty(findNodeById(container, "4"), "Estimated Operator Cost"));
@@ -71,6 +70,15 @@ describe('qp.js', () => {
             assert.equal("0.0409408 (28%)", getProperty(findNodeById(container, "16"), "Estimated Operator Cost"));
             assert.equal("0.0268975 (18%)", getProperty(findNodeById(container, "18"), "Estimated Operator Cost"));
 
+        });
+
+        it ('Formats scientific numbers correctly', () => {
+
+            var container = document.createElement("div");
+            QP.showPlan(container, testPlan);
+
+            assert.equal("0.000001", getProperty(findNodeById(container, "0"), "Estimated CPU Cost"));
+            
         });
 
     });

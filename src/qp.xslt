@@ -395,7 +395,7 @@
         <xsl:with-param name="inputVal" select="$value" />
       </xsl:call-template>
     </xsl:variable>
-    <xsl:value-of select="round(number($number) * 10000000) div 10000000" />
+    <xsl:value-of select="format-number(round(number($number) * 10000000) div 10000000, '0.#######')" />
   </xsl:template>
   
   <!-- Template for handling of scientific numbers

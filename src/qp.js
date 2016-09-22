@@ -19,6 +19,8 @@ function internalDrawLines(root) {
     var canvas = getCanvas(root);
     var canvasElm = canvas[0];
 
+    root.css("position", "relative");
+
     // Check for browser compatability
     if (canvasElm.getContext !== null && canvasElm.getContext !== undefined) {
         // Chrome is usually too quick with document.ready

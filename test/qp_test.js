@@ -37,6 +37,7 @@ describe('qp.js', () => {
     describe('showPlan()', () => {
 
         it('Adds canvas to container', () => {
+            
             var container = document.createElement("div");
             QP.showPlan(container, testPlan);
 
@@ -45,6 +46,17 @@ describe('qp.js', () => {
             assert.equal("absolute", canvas.style.position);
             assert.equal("0px", canvas.style.top);
             assert.equal("0px", canvas.style.left);
+
+        });
+ 
+        it('Sets the container to position: relative', () => {
+
+            // See Issue #2 - If the canvas parent is not set to position: relative/absolute then the canvas
+            // is incorrectly positioned
+            var container = document.createElement("div");
+            QP.showPlan(container, testPlan);
+            assert.equal("relative", container.style.position);
+
         });
 
         it('Calculates estimated subtree cost correctly', () => {

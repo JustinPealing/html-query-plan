@@ -16,10 +16,8 @@ function drawLines(root) {
 
 /* Internal implementaiton of drawLines. */
 function internalDrawLines(root) {
-    var canvas = getCanvas(root);
+    var canvas = getCanvas($(".qp-root", root));
     var canvasElm = canvas[0];
-
-    root.css("position", "relative");
 
     // Check for browser compatability
     if (canvasElm.getContext !== null && canvasElm.getContext !== undefined) {
@@ -27,10 +25,8 @@ function internalDrawLines(root) {
         window.setTimeout(function() {
             var context = canvasElm.getContext("2d");
 
-            // The first root node may be smaller than the full query plan if using overflow
-            var firstNode = $(".qp-tr", root);
-            canvasElm.width = firstNode.outerWidth(true);
-            canvasElm.height = firstNode.outerHeight(true);
+            canvasElm.width = canvasElm.offsetWidth;
+            canvasElm.height = canvasElm.offsetHeight;
             var offset = canvas.offset();
 
             $(".qp-tr", root).each(function() {
@@ -48,10 +44,7 @@ function internalDrawLines(root) {
 function getCanvas(root) {
     var returnValue = $("canvas", root);
     if (returnValue.length == 0) {
-        root.prepend($("<canvas></canvas>")
-            .css("position", "absolute")
-            .css("top", 0).css("left", 0)
-        );
+        root.prepend($("<canvas></canvas>"));
         returnValue = $("canvas", root);
     }
     return returnValue;

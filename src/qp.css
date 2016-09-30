@@ -177,3 +177,14 @@ div.qp-node:hover .qp-tt {
     display: table-cell;
     padding-left: 15px;
 }
+
+.qp-root {
+	display: table;
+    position: relative;
+}
+
+    .qp-root canvas {
+        position: absolute;
+        width: 100%;
+        height: 100%;   
+    }

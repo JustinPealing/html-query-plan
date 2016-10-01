@@ -135,6 +135,16 @@ describe('qp.js', () => {
 
         });
 
+        it('Shows top expression in tooltips', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_NotShowingSeekPredicates);
+
+            var topNode = findNodeById(container, "25", "1");
+            assert.equal("(1)", getToolTipSection(topNode, 'Top Expression'));
+
+        });
+
     });
 
 });

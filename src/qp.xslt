@@ -255,6 +255,11 @@
     <div><xsl:value-of select="s:ScalarOperator/@ScalarString" /></div>
   </xsl:template>
 
+  <xsl:template match="s:TopExpression[s:ScalarOperator/@ScalarString]" mode="ToolTipDetails">
+    <div class="qp-bold">Top Expression</div>
+    <div><xsl:value-of select="s:ScalarOperator/@ScalarString" /></div>
+  </xsl:template>
+
   <xsl:template match="s:OutputList[count(s:ColumnReference) > 0]" mode="ToolTipDetails">
     <div class="qp-bold">Output List</div>
     <xsl:for-each select="s:ColumnReference">

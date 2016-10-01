@@ -245,7 +245,12 @@
     <div><xsl:apply-templates select="." mode="ObjectName" /></div>
   </xsl:template>
 
-  <xsl:template match="*[s:ScalarOperator/@ScalarString]" mode="ToolTipDetails">
+  <xsl:template match="s:SetPredicate[s:ScalarOperator/@ScalarString]" mode="ToolTipDetails">
+    <div class="qp-bold">Predicate</div>
+    <div><xsl:value-of select="s:ScalarOperator/@ScalarString" /></div>
+  </xsl:template>
+
+  <xsl:template match="s:Predicate[s:ScalarOperator/@ScalarString]" mode="ToolTipDetails">
     <div class="qp-bold">Predicate</div>
     <div><xsl:value-of select="s:ScalarOperator/@ScalarString" /></div>
   </xsl:template>

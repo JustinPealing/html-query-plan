@@ -121,14 +121,17 @@ describe('qp.js', () => {
 
         });
 
-        it('Shows predicates in tooltips', () => {
+        it('Shows predicates in tooltips where necessary', () => {
 
             var container = document.createElement('div');
             QP.showPlan(container, plan_NotShowingSeekPredicates);
 
-            var node26 = findNodeById(container, "26", "1");
+            var indexSeekNode = findNodeById(container, "26", "1");
             assert.equal("NOT [SMS].[dbo].[SMSresults].[Note] like 'PENDING%' AND NOT [SMS].[dbo].[SMSresults].[Note] like 'ALLOCATED%'",
-                getToolTipSection(node26, 'Predicate'));
+                getToolTipSection(indexSeekNode, 'Predicate'));
+
+            var topNode = findNodeById(container, "25", "1");
+            assert.equal(null, getToolTipSection(topNode, 'Predicate'));
 
         });
 

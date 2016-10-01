@@ -1,7 +1,7 @@
 import assert from 'assert';
 import QP from '../src/qp';
-var testPlan = require('raw!../test_plans/issue1.sqlplan');
-var multiStatementPlan = require('raw!../test_plans/issue7.sqlplan');
+var plan_Issue1 = require('raw!../test_plans/issue1.sqlplan');
+var plan_Issue7 = require('raw!../test_plans/issue7.sqlplan');
 
 function findNodeById(container, nodeId, statementId) {
     var statmentElement = findStatmentElementById(container, statementId);
@@ -39,7 +39,7 @@ describe('qp.js', () => {
         it('Adds canvas to .qp-root', () => {
             
             var container = document.createElement("div");
-            QP.showPlan(container, testPlan);
+            QP.showPlan(container, plan_Issue1);
 
             var canvas = container.firstChild.firstChild;
             assert.equal("canvas", canvas.tagName.toLowerCase());
@@ -49,7 +49,7 @@ describe('qp.js', () => {
         it('Calculates estimated subtree cost correctly', () => {
 
             var container = document.createElement("div");
-            QP.showPlan(container, testPlan);
+            QP.showPlan(container, plan_Issue1);
             
             assert.equal("0.14839", getProperty(findNodeById(container, "1"), "Estimated Subtree Cost"));
             assert.equal("0.0268975", getProperty(findNodeById(container, "18"), "Estimated Subtree Cost"));
@@ -59,7 +59,7 @@ describe('qp.js', () => {
         it('Calculates estimated operator cost correctly', () => {
 
             var container = document.createElement("div");
-            QP.showPlan(container, testPlan);
+            QP.showPlan(container, plan_Issue1);
             
             assert.equal("0.000001 (0%)", getProperty(findNodeById(container, "0"), "Estimated Operator Cost"));
             assert.equal("0 (0%)", getProperty(findNodeById(container, "1"), "Estimated Operator Cost"));
@@ -83,7 +83,7 @@ describe('qp.js', () => {
         it ('Formats scientific numbers correctly', () => {
 
             var container = document.createElement("div");
-            QP.showPlan(container, testPlan);
+            QP.showPlan(container, plan_Issue1);
 
             assert.equal("0.000001", getProperty(findNodeById(container, "0"), "Estimated CPU Cost"));
             
@@ -92,7 +92,7 @@ describe('qp.js', () => {
         it('Works out cost percentages based on the current statement',  () => {
 
             var container = document.createElement("div");
-            QP.showPlan(container, multiStatementPlan);
+            QP.showPlan(container, plan_Issue7);
             
             assert.equal("248.183 (99%)", getProperty(findNodeById(container, "4", "6"), "Estimated Operator Cost"));
             assert.equal("0.0032831 (100%)", getProperty(findNodeById(container, "3", "11"), "Estimated Operator Cost"));

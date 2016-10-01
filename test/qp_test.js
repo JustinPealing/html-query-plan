@@ -2,6 +2,7 @@ import assert from 'assert';
 import QP from '../src/qp';
 var plan_Issue1 = require('raw!../test_plans/issue1.sqlplan');
 var plan_Issue7 = require('raw!../test_plans/issue7.sqlplan');
+var plan_NotShowingSeekPredicates = require('raw!../test_plans/Not showing Seek Predicates.sqlplan');
 
 function findNodeById(container, nodeId, statementId) {
     var statmentElement = findStatmentElementById(container, statementId);
@@ -27,6 +28,16 @@ function getProperty(node, key) {
         var node = nodes[i];
         if (node.innerHTML === key) {
             return node.parentNode.querySelector('td').innerHTML;
+        }
+    }
+    return null;
+}
+
+function getToolTipSection(node, name) {
+    var titleNodes = node.querySelectorAll('.qp-bold');
+    for (let i = 0; i < titleNodes.length; i++) {
+        if (titleNodes[i].innerHTML == name) {
+            return titleNodes[i].nextSibling.innerHTML;
         }
     }
     return null;
@@ -96,6 +107,28 @@ describe('qp.js', () => {
             
             assert.equal("248.183 (99%)", getProperty(findNodeById(container, "4", "6"), "Estimated Operator Cost"));
             assert.equal("0.0032831 (100%)", getProperty(findNodeById(container, "3", "11"), "Estimated Operator Cost"));
+
+        });
+
+        it('Shows SetPredicate string in tooltip', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_Issue7);
+
+            var clusteredIndexUpdate = findNodeById(container, "0", "6");
+            assert.equal('[mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] = [Expr1002]',
+                getToolTipSection(clusteredIndexUpdate, 'Predicate'));
+
+        });
+
+        it('Shows predicates in tooltips', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_NotShowingSeekPredicates);
+
+            var node26 = findNodeById(container, "26", "1");
+            assert.equal("NOT [SMS].[dbo].[SMSresults].[Note] like 'PENDING%' AND NOT [SMS].[dbo].[SMSresults].[Note] like 'ALLOCATED%'",
+                getToolTipSection(node26, 'Predicate'));
 
         });
 

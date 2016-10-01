@@ -1,0 +1,395 @@
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.1" Build="10.50.2550.0">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementText="SELECT [t0].[SMSID], [t0].[ProviderName], [t0].[Recipient], [t0].[Message], [t0].[KeyID], [t0].[DateStamp], [t0].[RecipientId], [t0].[Messages], [t0].[Credits], [t1].[SmsId] AS [SmsId2]&#xd;&#xa;FROM [SMSnew] AS [t0]&#xd;&#xa;INNER JOIN [UnsentSMSs] AS [t1] ON [t0].[SMSID] = [t1].[SmsId]&#xd;&#xa;WHERE (@p0 &lt; [t0].[DateStamp]) AND ([t0].[DateStamp] &lt; @p1) AND (NOT (EXISTS(&#xd;&#xa;    SELECT NULL AS [EMPTY]&#xd;&#xa;    FROM [AsynchronousPending] AS [t2]&#xd;&#xa;    WHERE [t2].[SmsId] = [t1].[SmsId]&#xd;&#xa;    )))" StatementId="1" StatementCompId="1" StatementType="SELECT" StatementSubTreeCost="0.0164352" StatementEstRows="1" StatementOptmLevel="FULL" QueryHash="0xE3E09B5B663BD4D2" QueryPlanHash="0xA79531DE3A8A903A" StatementOptmEarlyAbortReason="GoodEnoughPlanFound">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="false" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false"/>
+          <QueryPlan DegreeOfParallelism="1" CachedPlanSize="56" CompileTime="34" CompileCPU="31" CompileMemory="1224">
+            <RelOp NodeId="0" PhysicalOp="Nested Loops" LogicalOp="Left Anti Semi Join" EstimateRows="1" EstimateIO="0" EstimateCPU="4.18e-006" AvgRowSize="3925" EstimatedTotalSubtreeCost="0.0164352" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+              <OutputList>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="ProviderName"/>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Recipient"/>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Message"/>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="KeyID"/>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="DateStamp"/>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="RecipientId"/>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Messages"/>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Credits"/>
+                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+              </OutputList>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="0" ActualEndOfScans="1" ActualExecutions="1"/>
+              </RunTimeInformation>
+              <NestedLoops Optimized="0">
+                <OuterReferences>
+                  <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+                </OuterReferences>
+                <RelOp NodeId="1" PhysicalOp="Nested Loops" LogicalOp="Left Anti Semi Join" EstimateRows="1" EstimateIO="0" EstimateCPU="4.18e-006" AvgRowSize="3925" EstimatedTotalSubtreeCost="0.0131458" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                  <OutputList>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="ProviderName"/>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Recipient"/>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Message"/>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="KeyID"/>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="DateStamp"/>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="RecipientId"/>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Messages"/>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Credits"/>
+                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="38952" ActualEndOfScans="1" ActualExecutions="1"/>
+                  </RunTimeInformation>
+                  <NestedLoops Optimized="0">
+                    <OuterReferences>
+                      <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+                    </OuterReferences>
+                    <RelOp NodeId="2" PhysicalOp="Nested Loops" LogicalOp="Inner Join" EstimateRows="1" EstimateIO="0" EstimateCPU="4.18e-006" AvgRowSize="3925" EstimatedTotalSubtreeCost="0.00985766" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                      <OutputList>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="ProviderName"/>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Recipient"/>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Message"/>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="KeyID"/>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="DateStamp"/>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="RecipientId"/>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Messages"/>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Credits"/>
+                        <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+                      </OutputList>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="39553" ActualEndOfScans="1" ActualExecutions="1"/>
+                      </RunTimeInformation>
+                      <NestedLoops Optimized="0">
+                        <OuterReferences>
+                          <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                        </OuterReferences>
+                        <RelOp NodeId="3" PhysicalOp="Nested Loops" LogicalOp="Inner Join" EstimateRows="1" EstimateIO="0" EstimateCPU="4.18e-006" AvgRowSize="3916" EstimatedTotalSubtreeCost="0.00657038" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                          <OutputList>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="ProviderName"/>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Recipient"/>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Message"/>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="KeyID"/>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="DateStamp"/>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="RecipientId"/>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Messages"/>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Credits"/>
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="39553" ActualEndOfScans="1" ActualExecutions="1"/>
+                          </RunTimeInformation>
+                          <NestedLoops Optimized="0">
+                            <OuterReferences>
+                              <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                            </OuterReferences>
+                            <RelOp NodeId="4" PhysicalOp="Index Seek" LogicalOp="Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="24" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="801238" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                              <OutputList>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="DateStamp"/>
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="39553" ActualEndOfScans="1" ActualExecutions="1"/>
+                              </RunTimeInformation>
+                              <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="DateStamp"/>
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Index="[SmsNewDateStampDesc]" Alias="[t0]" IndexKind="NonClustered"/>
+                                <SeekPredicates>
+                                  <SeekPredicateNew>
+                                    <SeekKeys>
+                                      <StartRange ScanType="LT">
+                                        <RangeColumns>
+                                          <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="DateStamp"/>
+                                        </RangeColumns>
+                                        <RangeExpressions>
+                                          <ScalarOperator ScalarString="[@p1]">
+                                            <Identifier>
+                                              <ColumnReference Column="@p1"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                        </RangeExpressions>
+                                      </StartRange>
+                                      <EndRange ScanType="GT">
+                                        <RangeColumns>
+                                          <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="DateStamp"/>
+                                        </RangeColumns>
+                                        <RangeExpressions>
+                                          <ScalarOperator ScalarString="[@p0]">
+                                            <Identifier>
+                                              <ColumnReference Column="@p0"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                        </RangeExpressions>
+                                      </EndRange>
+                                    </SeekKeys>
+                                  </SeekPredicateNew>
+                                </SeekPredicates>
+                              </IndexScan>
+                            </RelOp>
+                            <RelOp NodeId="6" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="4068" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="801238" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                              <OutputList>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="ProviderName"/>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Recipient"/>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Message"/>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="KeyID"/>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="RecipientId"/>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Messages"/>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Credits"/>
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="39553" ActualEndOfScans="0" ActualExecutions="39553"/>
+                              </RunTimeInformation>
+                              <IndexScan Lookup="1" Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="ProviderName"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Recipient"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Message"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="KeyID"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="RecipientId"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Messages"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="Credits"/>
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Index="[C_SMSNew]" Alias="[t0]" TableReferenceId="-1" IndexKind="Clustered"/>
+                                <SeekPredicates>
+                                  <SeekPredicateNew>
+                                    <SeekKeys>
+                                      <Prefix ScanType="EQ">
+                                        <RangeColumns>
+                                          <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                                        </RangeColumns>
+                                        <RangeExpressions>
+                                          <ScalarOperator ScalarString="[SMS].[dbo].[SMSnew].[SMSID] as [t0].[SMSID]">
+                                            <Identifier>
+                                              <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                        </RangeExpressions>
+                                      </Prefix>
+                                    </SeekKeys>
+                                  </SeekPredicateNew>
+                                </SeekPredicates>
+                              </IndexScan>
+                            </RelOp>
+                          </NestedLoops>
+                        </RelOp>
+                        <RelOp NodeId="22" PhysicalOp="Index Seek" LogicalOp="Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.0001581" AvgRowSize="16" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="801238" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                          <OutputList>
+                            <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="39553" ActualEndOfScans="0" ActualExecutions="39553"/>
+                          </RunTimeInformation>
+                          <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0">
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <Object Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Index="[PK_SMSnew_1]" Alias="[N]" IndexKind="NonClustered"/>
+                            <SeekPredicates>
+                              <SeekPredicateNew>
+                                <SeekKeys>
+                                  <Prefix ScanType="EQ">
+                                    <RangeColumns>
+                                      <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+                                    </RangeColumns>
+                                    <RangeExpressions>
+                                      <ScalarOperator ScalarString="[SMS].[dbo].[SMSnew].[SMSID] as [t0].[SMSID]">
+                                        <Identifier>
+                                          <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[t0]" Column="SMSID"/>
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </RangeExpressions>
+                                  </Prefix>
+                                </SeekKeys>
+                              </SeekPredicateNew>
+                            </SeekPredicates>
+                          </IndexScan>
+                        </RelOp>
+                      </NestedLoops>
+                    </RelOp>
+                    <RelOp NodeId="23" PhysicalOp="Index Seek" LogicalOp="Index Seek" EstimateRows="1.00564" EstimateIO="0.003125" EstimateCPU="0.000158106" AvgRowSize="26" EstimatedTotalSubtreeCost="0.00328311" TableCardinality="3.79446e+006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                      <OutputList/>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="601" ActualEndOfScans="38952" ActualExecutions="39553"/>
+                      </RunTimeInformation>
+                      <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0">
+                        <DefinedValues/>
+                        <Object Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Index="[SMSresults13]" TableReferenceId="2" IndexKind="NonClustered"/>
+                        <SeekPredicates>
+                          <SeekPredicateNew>
+                            <SeekKeys>
+                              <Prefix ScanType="EQ">
+                                <RangeColumns>
+                                  <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Column="SMSID"/>
+                                  <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Column="Status"/>
+                                </RangeColumns>
+                                <RangeExpressions>
+                                  <ScalarOperator ScalarString="[SMS].[dbo].[SMSnew].[SMSID] as [N].[SMSID]">
+                                    <Identifier>
+                                      <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+                                    </Identifier>
+                                  </ScalarOperator>
+                                  <ScalarOperator ScalarString="&apos;s&apos;">
+                                    <Const ConstValue="&apos;s&apos;"/>
+                                  </ScalarOperator>
+                                </RangeExpressions>
+                              </Prefix>
+                              <StartRange ScanType="GE">
+                                <RangeColumns>
+                                  <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Column="Note"/>
+                                </RangeColumns>
+                                <RangeExpressions>
+                                  <ScalarOperator ScalarString="&apos;PENDING A &apos;">
+                                    <Const ConstValue="&apos;PENDING A &apos;"/>
+                                  </ScalarOperator>
+                                </RangeExpressions>
+                              </StartRange>
+                              <EndRange ScanType="LT">
+                                <RangeColumns>
+                                  <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Column="Note"/>
+                                </RangeColumns>
+                                <RangeExpressions>
+                                  <ScalarOperator ScalarString="&apos;PENDING A &apos;">
+                                    <Const ConstValue="&apos;PENDING A &apos;"/>
+                                  </ScalarOperator>
+                                </RangeExpressions>
+                              </EndRange>
+                            </SeekKeys>
+                          </SeekPredicateNew>
+                        </SeekPredicates>
+                        <Predicate>
+                          <ScalarOperator ScalarString="[SMS].[dbo].[SMSresults].[Note] like &apos;PENDING A %&apos;">
+                            <Intrinsic FunctionName="like">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Column="Note"/>
+                                </Identifier>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Const ConstValue="&apos;PENDING A %&apos;"/>
+                              </ScalarOperator>
+                            </Intrinsic>
+                          </ScalarOperator>
+                        </Predicate>
+                      </IndexScan>
+                    </RelOp>
+                  </NestedLoops>
+                </RelOp>
+                <RelOp NodeId="25" PhysicalOp="Top" LogicalOp="Top" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="9" EstimatedTotalSubtreeCost="0.00328508" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                  <OutputList/>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="38952" ActualEndOfScans="0" ActualExecutions="38952"/>
+                  </RunTimeInformation>
+                  <Top RowCount="0" IsPercent="0" WithTies="0">
+                    <TopExpression>
+                      <ScalarOperator ScalarString="(1)">
+                        <Const ConstValue="(1)"/>
+                      </ScalarOperator>
+                    </TopExpression>
+                    <RelOp NodeId="26" PhysicalOp="Index Seek" LogicalOp="Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.000159442" AvgRowSize="26" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="3.79446e+006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0">
+                      <OutputList/>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="38952" ActualEndOfScans="0" ActualExecutions="38952"/>
+                      </RunTimeInformation>
+                      <IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0">
+                        <DefinedValues/>
+                        <Object Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Index="[SMSresults13]" TableReferenceId="1" IndexKind="NonClustered"/>
+                        <SeekPredicates>
+                          <SeekPredicateNew>
+                            <SeekKeys>
+                              <Prefix ScanType="EQ">
+                                <RangeColumns>
+                                  <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Column="SMSID"/>
+                                  <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Column="Status"/>
+                                </RangeColumns>
+                                <RangeExpressions>
+                                  <ScalarOperator ScalarString="[SMS].[dbo].[SMSnew].[SMSID] as [N].[SMSID]">
+                                    <Identifier>
+                                      <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSnew]" Alias="[N]" Column="SMSID"/>
+                                    </Identifier>
+                                  </ScalarOperator>
+                                  <ScalarOperator ScalarString="&apos;S&apos;">
+                                    <Const ConstValue="&apos;S&apos;"/>
+                                  </ScalarOperator>
+                                </RangeExpressions>
+                              </Prefix>
+                            </SeekKeys>
+                          </SeekPredicateNew>
+                        </SeekPredicates>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [SMS].[dbo].[SMSresults].[Note] like &apos;PENDING%&apos; AND NOT [SMS].[dbo].[SMSresults].[Note] like &apos;ALLOCATED%&apos;">
+                            <Logical Operation="AND">
+                              <ScalarOperator>
+                                <Logical Operation="NOT">
+                                  <ScalarOperator>
+                                    <Intrinsic FunctionName="like">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Column="Note"/>
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="&apos;PENDING%&apos;"/>
+                                      </ScalarOperator>
+                                    </Intrinsic>
+                                  </ScalarOperator>
+                                </Logical>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Logical Operation="NOT">
+                                  <ScalarOperator>
+                                    <Intrinsic FunctionName="like">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[SMS]" Schema="[dbo]" Table="[SMSresults]" Column="Note"/>
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="&apos;ALLOCATED%&apos;"/>
+                                      </ScalarOperator>
+                                    </Intrinsic>
+                                  </ScalarOperator>
+                                </Logical>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </IndexScan>
+                    </RelOp>
+                  </Top>
+                </RelOp>
+              </NestedLoops>
+            </RelOp>
+            <ParameterList>
+              <ColumnReference Column="@p1" ParameterCompiledValue="&apos;2016-05-04 16:13:31.157&apos;" ParameterRuntimeValue="&apos;2016-05-04 16:13:31.157&apos;"/>
+              <ColumnReference Column="@p0" ParameterCompiledValue="&apos;2016-05-04 00:00:00.000&apos;" ParameterRuntimeValue="&apos;2016-05-04 00:00:00.000&apos;"/>
+            </ParameterList>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

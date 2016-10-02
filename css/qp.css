@@ -151,13 +151,15 @@ div[class|='qp-icon'] {
 /* Layout - can't touch this */
 .qp-tt {
     position: absolute;
-    display: none;
+    visibility: hidden;
     z-index: 1;
     white-space: normal;
+    -webkit-transition-delay: 0.5s;
+    transition-delay: 0.5s;
 }
 
 div.qp-node:hover .qp-tt {
-    display: block;
+    visibility: visible;
 }
 
 .qp-tt table {

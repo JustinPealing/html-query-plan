@@ -1,5 +1,5 @@
 import assert from 'assert';
-import QP from '../src/qp';
+import QP from '../src/index';
 var plan_Issue1 = require('raw!../test_plans/issue1.sqlplan');
 var plan_Issue7 = require('raw!../test_plans/issue7.sqlplan');
 var plan_NotShowingSeekPredicates = require('raw!../test_plans/Not showing Seek Predicates.sqlplan');

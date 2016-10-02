@@ -5,7 +5,7 @@ var development = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     context: __dirname,
-    entry: './src/qp.js',
+    entry: './src/index.js',
     output: {
         library: "QP",
         libraryTarget: "umd",

@@ -161,6 +161,17 @@ describe('qp.js', () => {
 
         });
 
+        it('Handles >= and <= seek predicates', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_Issue7);
+
+            var clusteredIndexSeekNode = findNodeById(container, "8", "12");
+            assert.equal("Seek Keys[1]: Start: [mcLive].[Cadastre].[OwnerPersonParsed].RowId >= Scalar Operator([@MapMIN]), End: [mcLive].[Cadastre].[OwnerPersonParsed].RowId <= Scalar Operator([@ParsedMAX])",
+                getToolTipSection(clusteredIndexSeekNode, 'Seek Predicates'));
+
+        });
+
     });
 
 });

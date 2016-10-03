@@ -327,9 +327,11 @@
         <xsl:if test="position() != last()">, </xsl:if>
       </xsl:for-each>
       <xsl:choose>
-        <xsl:when test="self::s:Prefix"> = </xsl:when>
-        <xsl:when test="self::s:StartRange"> &lt; </xsl:when>
-        <xsl:when test="self::s:EndRange"> > </xsl:when>
+        <xsl:when test="@ScanType = 'EQ'"> = </xsl:when>
+        <xsl:when test="@ScanType = 'LT'"> &lt; </xsl:when>
+        <xsl:when test="@ScanType = 'GT'"> > </xsl:when>
+        <xsl:when test="@ScanType = 'LE'"> &lt;= </xsl:when>
+        <xsl:when test="@ScanType = 'GE'"> >= </xsl:when>
       </xsl:choose>
       <xsl:for-each select="s:RangeExpressions/s:ScalarOperator">Scalar Operator(<xsl:value-of select="@ScalarString" />)<xsl:if test="position() != last()">, </xsl:if>
       </xsl:for-each>

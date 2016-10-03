@@ -34,10 +34,11 @@ function getProperty(node, key) {
 }
 
 function getToolTipSection(node, name) {
-    var titleNodes = node.querySelectorAll('.qp-bold');
+    let titleNodes = node.querySelectorAll('.qp-bold');
     for (let i = 0; i < titleNodes.length; i++) {
         if (titleNodes[i].innerHTML == name) {
-            return titleNodes[i].nextSibling.innerHTML;
+            let next = titleNodes[i].nextSibling;
+            return next.innerText || next.textContent;
         }
     }
     return null;
@@ -142,6 +143,21 @@ describe('qp.js', () => {
 
             var topNode = findNodeById(container, "25", "1");
             assert.equal("(1)", getToolTipSection(topNode, 'Top Expression'));
+
+        });
+
+        it('Shows seek predicates in tooltips', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_NotShowingSeekPredicates);
+
+            var topNode = findNodeById(container, "26", "1");
+            assert.equal("Seek Keys[1]: Prefix: [SMS].[dbo].[SMSresults].SMSID, [SMS].[dbo].[SMSresults].Status = Scalar Operator([SMS].[dbo].[SMSnew].[SMSID] as [N].[SMSID]), Scalar Operator('S')",
+                getToolTipSection(topNode, 'Seek Predicates'));
+
+            var indexSeekNode = findNodeById(container, "4", "1");
+            assert.equal("Seek Keys[1]: Start: [SMS].[dbo].[SMSnew].DateStamp < Scalar Operator([@p1]), End: [SMS].[dbo].[SMSnew].DateStamp > Scalar Operator([@p0])",
+               getToolTipSection(indexSeekNode, 'Seek Predicates'));
 
         });
 

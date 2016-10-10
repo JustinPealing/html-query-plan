@@ -9,13 +9,14 @@ To use in a web page:
  - Find the latest release [here](https://github.com/JustinPealing/html-query-plan/releases/latest).
  - Include jQuery
  - Include `qp.css` and `qp.min.js`
- - Call `QP.showPlan`, passing the container in which to show the plan and the query plan XML (as a string).
+ - Call `QP.showPlan`, passing the container in which to show the plan and the query plan XML (as a string). 
 
-
-    <div id="container"></div>
-    <script>
-        QP.showPlan(document.getElementById("container"), '<ShowPlanXML...');
-    </script> 
+```
+<div id="container"></div>
+<script>
+    QP.showPlan(document.getElementById("container"), '<ShowPlanXML...');
+</script> 
+```
 
 See the `examples` folder for comlete examples.
 
@@ -23,12 +24,14 @@ See the `examples` folder for comlete examples.
 
 Under the covers html-query-plan is an XSLT 1.0 stylesheet, `qp.xslt` which can be used to pre-render the plan html. Javascript is still needed to draw the connectling lines, to do this follow the above steps but call `QP.drawLines` instead:
 
-    <div id="container">
-        <!-- Insert XSLT output here -->
-    </div>
-    <script>
-        QP.drawLines(document.getElementById("container"));
-    </script>
+```
+<div id="container">
+    <!-- Insert XSLT output here -->
+</div>
+<script>
+    QP.drawLines(document.getElementById("container"));
+</script>
+```
 
 ## Browser Support
 

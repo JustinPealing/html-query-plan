@@ -19,6 +19,17 @@ To use in a web page:
 
 See the `examples` folder for comlete examples.
 
+## Running XSLT separately
+
+Under the covers html-query-plan is an XSLT 1.0 stylesheet, `qp.xslt` which can be used to pre-render the plan html. Javascript is still needed to draw the connectling lines, to do this follow the above steps but call `QP.drawLines` instead:
+
+    <div id="container">
+        <!-- Insert XSLT output here -->
+    </div>
+    <script>
+        QP.drawLines(document.getElementById("container"));
+    </script>
+
 ## Browser Support
 
 html-query-plan uses `display: table` and so won't layout correctly in IE7 or earlier.

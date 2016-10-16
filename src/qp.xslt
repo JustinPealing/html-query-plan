@@ -32,7 +32,7 @@
       <div>
         <div class="qp-node">
           <xsl:apply-templates select="." mode="NodeIcon" />
-          <xsl:apply-templates select="." mode="NodeLabel" />
+          <div><xsl:apply-templates select="." mode="NodeLabel" /></div>
           <xsl:apply-templates select="." mode="NodeLabel2" />
           <xsl:apply-templates select="." mode="NodeCostLabel" />
           <xsl:call-template name="ToolTip" />
@@ -45,7 +45,7 @@
   <!-- Writes the tool tip -->
   <xsl:template name="ToolTip">
     <div class="qp-tt">
-      <div class="qp-tt-header"><xsl:value-of select="@PhysicalOp | @StatementType" /></div>
+      <div class="qp-tt-header"><xsl:apply-templates select="." mode="NodeLabel" /></div>
       <div><xsl:apply-templates select="." mode="ToolTipDescription" /></div>
       <xsl:call-template name="ToolTipGrid" />
       <xsl:apply-templates select="* | @* | */* | */@*" mode="ToolTipDetails" />
@@ -62,11 +62,15 @@
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Physical Operation</xsl:with-param>
-        <xsl:with-param name="Value" select="@PhysicalOp" />
+        <xsl:with-param name="Value">          
+          <xsl:apply-templates select="." mode="PhysicalOperation" />
+        </xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Logical Operation</xsl:with-param>
-        <xsl:with-param name="Value" select="@LogicalOp" />
+        <xsl:with-param name="Value">          
+          <xsl:apply-templates select="." mode="LogicalOperation" />
+        </xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Actual Number of Rows</xsl:with-param>
@@ -155,6 +159,18 @@
     </table>
   </xsl:template>
 
+  <!-- Gets the Physical Operation -->
+  <xsl:template match="s:RelOp" mode="PhysicalOperation">
+    <xsl:value-of select="@PhysicalOp" />
+  </xsl:template>
+  <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="PhysicalOperation">Key Lookup</xsl:template>
+  
+  <!-- Gets the Logical Operation -->
+  <xsl:template match="s:RelOp" mode="LogicalOperation">
+    <xsl:value-of select="@LogicalOp" />
+  </xsl:template>
+  <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="LogicalOperation">Key Lookup</xsl:template>
+  
   <!-- Calculates the estimated operator cost. -->
   <xsl:template name="EstimatedOperatorCost">
     <xsl:variable name="EstimatedTotalSubtreeCost">
@@ -353,6 +369,10 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="NodeIcon" priority="1">
+    <div class="qp-icon-KeyLookup"></div>
+  </xsl:template>
+
   <!-- Use the physical operation to determine icon if it is present. -->
   <xsl:template match="*[@PhysicalOp]" mode="NodeIcon">
     <xsl:element name="div">
@@ -378,11 +398,13 @@
   -->
 
   <xsl:template match="s:RelOp" mode="NodeLabel">
-    <div><xsl:value-of select="@PhysicalOp" /></div>
+    <xsl:value-of select="@PhysicalOp" />
   </xsl:template>
 
+  <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="NodeLabel">Key Lookup (Clustered)</xsl:template>
+
   <xsl:template match="s:StmtSimple" mode="NodeLabel">
-    <div><xsl:value-of select="@StatementType" /></div>
+    <xsl:value-of select="@StatementType" />
   </xsl:template>
 
   <!--
@@ -429,6 +451,7 @@
   <xsl:template match="*[@PhysicalOp = 'Bitmap']" mode="ToolTipDescription">Bitmap.</xsl:template>
   <xsl:template match="*[@PhysicalOp = 'Clustered Index Seek']" mode="ToolTipDescription">Scanning a particular range of rows from a clustered index.</xsl:template>
   <xsl:template match="*[@PhysicalOp = 'Index Seek']" mode="ToolTipDescription">Scan a particular range of rows from a nonclustered index.</xsl:template>
+  <xsl:template match="*[s:IndexScan/@Lookup]" mode="ToolTipDescription">Uses a supplied clustering key to lookup on a table that has a clustered index.</xsl:template>
 
   <xsl:template match="*[@PhysicalOp = 'Parallelism' and @LogicalOp='Repartition Streams']" mode="ToolTipDescription">Repartition Streams.</xsl:template>
   <xsl:template match="*[@PhysicalOp = 'Parallelism']" mode="ToolTipDescription">An operation involving parallelism.</xsl:template>

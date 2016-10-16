@@ -78,6 +78,7 @@ div[class|='qp-icon'] {
 .qp-icon-ClusteredIndexInsert{background: url('qp_icons.png') -192px -0px }
 .qp-icon-ClusteredIndexScan{background: url('qp_icons.png') -224px -0px }
 .qp-icon-ClusteredIndexSeek{background: url('qp_icons.png') -256px -0px }
+.qp-icon-KeyLookup{background: url('qp_icons.png') -256px -0px }
 .qp-icon-ClusteredIndexUpdate{background: url('qp_icons.png') -288px -0px }
 .qp-icon-Collapse{background: url('qp_icons.png') -0px -32px }
 .qp-icon-ComputeScalar{background: url('qp_icons.png') -32px -32px }

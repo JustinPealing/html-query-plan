@@ -3,6 +3,9 @@ import QP from '../src/index';
 var plan_Issue1 = require('raw!../test_plans/issue1.sqlplan');
 var plan_Issue7 = require('raw!../test_plans/issue7.sqlplan');
 var plan_NotShowingSeekPredicates = require('raw!../test_plans/Not showing Seek Predicates.sqlplan');
+var plan_KeyLookup = require('raw!../test_plans/KeyLookup.sqlplan');
+var plan_ClusteredIndexScan = require('raw!../test_plans/clustered index scan.sqlplan');
+var plan_ClusteredIndexSeek = require('raw!../test_plans/clustered index seek.sqlplan');
 
 function findNodeById(container, nodeId, statementId) {
     var statmentElement = findStatmentElementById(container, statementId);
@@ -42,6 +45,11 @@ function getToolTipSection(node, name) {
         }
     }
     return null;
+}
+
+function getDescription(node) {
+    var tt = node.querySelector('.qp-tt');
+    return tt.children[1].innerText;
 }
 
 describe('qp.js', () => {
@@ -169,6 +177,66 @@ describe('qp.js', () => {
             var clusteredIndexSeekNode = findNodeById(container, "8", "12");
             assert.equal("Seek Keys[1]: Start: [mcLive].[Cadastre].[OwnerPersonParsed].RowId >= Scalar Operator([@MapMIN]), End: [mcLive].[Cadastre].[OwnerPersonParsed].RowId <= Scalar Operator([@ParsedMAX])",
                 getToolTipSection(clusteredIndexSeekNode, 'Seek Predicates'));
+
+        });
+
+        it('Shows Key Lookup when Lookup="true"', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_KeyLookup);
+
+            var keyLookup = findNodeById(container, '5', '1');
+            assert.equal('Key Lookup (Clustered)', keyLookup.children[1].innerText);
+            assert.equal('Key Lookup', getProperty(keyLookup, 'Physical Operation'));
+            assert.equal('Key Lookup', getProperty(keyLookup, 'Logical Operation'));
+            assert.equal('Uses a supplied clustering key to lookup on a table that has a clustered index.',
+                getDescription(keyLookup));
+            assert.notEqual(null, keyLookup.querySelector('.qp-icon-KeyLookup'));
+
+        });
+
+        it('Shows Key Lookup when Lookup="1"', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_NotShowingSeekPredicates);
+
+            var keyLookup = findNodeById(container, '6', '1');
+            assert.equal('Key Lookup (Clustered)', keyLookup.children[1].innerText);
+            assert.equal('Key Lookup', getProperty(keyLookup, 'Physical Operation'));
+            assert.equal('Key Lookup', getProperty(keyLookup, 'Logical Operation'));
+            assert.equal('Uses a supplied clustering key to lookup on a table that has a clustered index.',
+                getDescription(keyLookup));
+            assert.notEqual(null, keyLookup.querySelector('.qp-icon-KeyLookup'));
+
+        });
+
+        it('Shows Clustered Index Scan', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_ClusteredIndexScan);
+
+            var clusteredIndexScan = findNodeById(container, '0', '1');
+            assert.equal('Clustered Index Scan', clusteredIndexScan.children[1].innerText);
+            assert.equal('Clustered Index Scan', getProperty(clusteredIndexScan, 'Physical Operation'));
+            assert.equal('Clustered Index Scan', getProperty(clusteredIndexScan, 'Logical Operation'));
+            assert.equal('Scanning a clustered index, entirely or only a range.',
+                getDescription(clusteredIndexScan))
+            assert.notEqual(null, clusteredIndexScan.querySelector('.qp-icon-ClusteredIndexScan'));
+
+        });
+
+        it('Shows Clustered Index Seek', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_ClusteredIndexSeek);
+
+            var clusteredIndexSeek = findNodeById(container, '0', '1');
+            assert.equal('Clustered Index Seek', clusteredIndexSeek.children[1].innerText);
+            assert.equal('Clustered Index Seek', getProperty(clusteredIndexSeek, 'Physical Operation'));
+            assert.equal('Clustered Index Seek', getProperty(clusteredIndexSeek, 'Logical Operation'));
+            assert.equal('Scanning a particular range of rows from a clustered index.',
+                getDescription(clusteredIndexSeek))
+            assert.notEqual(null, clusteredIndexSeek.querySelector('.qp-icon-ClusteredIndexSeek'));
 
         });
 

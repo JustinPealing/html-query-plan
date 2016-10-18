@@ -6,6 +6,7 @@ var plan_NotShowingSeekPredicates = require('raw!../test_plans/Not showing Seek 
 var plan_KeyLookup = require('raw!../test_plans/KeyLookup.sqlplan');
 var plan_ClusteredIndexScan = require('raw!../test_plans/clustered index scan.sqlplan');
 var plan_ClusteredIndexSeek = require('raw!../test_plans/clustered index seek.sqlplan');
+var plan_QueryPlan293288248 = require('raw!../test_plans/QueryPlan-293288248.sqlplan');
 
 function findNodeById(container, nodeId, statementId) {
     var statmentElement = findStatmentElementById(container, statementId);
@@ -237,6 +238,16 @@ describe('qp.js', () => {
             assert.equal('Scanning a particular range of rows from a clustered index.',
                 getDescription(clusteredIndexSeek))
             assert.notEqual(null, clusteredIndexSeek.querySelector('.qp-icon-ClusteredIndexSeek'));
+
+        });
+
+        it('Has correct icon for Table Valued Functions', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_QueryPlan293288248);
+
+            var tableValuedFunction = findNodeById(container, '7', '1');
+            assert.notEqual(null, tableValuedFunction.querySelector('.qp-icon-TableValuedFunction'))
 
         });
 

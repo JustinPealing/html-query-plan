@@ -373,6 +373,10 @@
     <div class="qp-icon-KeyLookup"></div>
   </xsl:template>
 
+  <xsl:template match="s:RelOp[s:TableValuedFunction]" mode="NodeIcon" priority="1">
+    <div class="qp-icon-TableValuedFunction"></div>
+  </xsl:template>
+
   <!-- Use the physical operation to determine icon if it is present. -->
   <xsl:template match="*[@PhysicalOp]" mode="NodeIcon">
     <xsl:element name="div">

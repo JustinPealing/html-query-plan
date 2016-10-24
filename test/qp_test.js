@@ -61,10 +61,8 @@ describe('qp.js', () => {
             
             var container = document.createElement("div");
             QP.showPlan(container, plan_Issue1);
-
-            var canvas = container.firstChild.firstChild;
-            assert.equal("canvas", canvas.tagName.toLowerCase());
-
+            assert.notEqual(null, container.querySelector('svg'));
+            
         });
         
         it('Calculates estimated subtree cost correctly', () => {

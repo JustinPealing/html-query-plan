@@ -8,7 +8,6 @@
     "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
     "babel-plugin-transform-es3-property-literals": "^6.8.0",
     "babel-preset-es2015": "^6.14.0",
-    "jquery": "^1.12.4",
     "karma": "^1.3.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-firefox-launcher": "^1.0.0",
@@ -18,6 +17,7 @@
     "karma-webpack": "^1.8.0",
     "mocha": "^3.0.2",
     "raw-loader": "^0.5.1",
+    "svgjs": "^2.2.5",
     "webpack": "^1.13.2"
   },
   "scripts": {

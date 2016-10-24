@@ -19,12 +19,12 @@
   <!-- Outermost div that contains all statement plans. -->
   <xsl:template match="s:ShowPlanXML">
     <div class="qp-root">
-      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/s:StmtSimple" />  
+      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" />  
     </div>
   </xsl:template>
   
   <!-- Matches a branch in the query plan (either an operation or a statement) -->
-  <xsl:template match="s:RelOp|s:StmtSimple">
+  <xsl:template match="s:RelOp|s:StmtSimple|s:StmtUseDb">
     <div class="qp-tr">
       <xsl:if test="@StatementId">
         <xsl:attribute name="data-statement-id"><xsl:value-of select="@StatementId" /></xsl:attribute>
@@ -61,12 +61,14 @@
         <xsl:with-param name="Value" select="concat(s:QueryPlan/@CachedPlanSize, ' B')" />
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@PhysicalOp" />
         <xsl:with-param name="Label">Physical Operation</xsl:with-param>
         <xsl:with-param name="Value">          
           <xsl:apply-templates select="." mode="PhysicalOperation" />
         </xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@LogicalOp" />
         <xsl:with-param name="Label">Logical Operation</xsl:with-param>
         <xsl:with-param name="Value">          
           <xsl:apply-templates select="." mode="LogicalOperation" />
@@ -407,10 +409,10 @@
 
   <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="NodeLabel">Key Lookup (Clustered)</xsl:template>
 
-  <xsl:template match="s:StmtSimple" mode="NodeLabel">
+  <xsl:template match="s:StmtSimple|s:StmtUseDb" mode="NodeLabel">
     <xsl:value-of select="@StatementType" />
   </xsl:template>
-
+  
   <!--
   ================================
   Node alternate labels

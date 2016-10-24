@@ -7,6 +7,7 @@ var plan_KeyLookup = require('raw!../test_plans/KeyLookup.sqlplan');
 var plan_ClusteredIndexScan = require('raw!../test_plans/clustered index scan.sqlplan');
 var plan_ClusteredIndexSeek = require('raw!../test_plans/clustered index seek.sqlplan');
 var plan_QueryPlan293288248 = require('raw!../test_plans/QueryPlan-293288248.sqlplan');
+var plan_StmtUseDb = require('raw!../test_plans/StmtUseDb.sqlplan');
 
 function findNodeById(container, nodeId, statementId) {
     var statmentElement = findStatmentElementById(container, statementId);
@@ -246,6 +247,18 @@ describe('qp.js', () => {
 
             var tableValuedFunction = findNodeById(container, '7', '1');
             assert.notEqual(null, tableValuedFunction.querySelector('.qp-icon-TableValuedFunction'))
+
+        });
+
+        it('Shows StmtUseDb', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_StmtUseDb);
+
+            var statementNode = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
+            assert.equal('USE DATABASE', statementNode.children[1].innerText);
+            assert.equal(null, getProperty(statementNode, 'Physical Operation'));
+            assert.equal(null, getProperty(statementNode, 'Logical Operation'));
 
         });
 

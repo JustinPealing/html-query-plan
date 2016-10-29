@@ -24,7 +24,7 @@
   </xsl:template>
   
   <!-- Each node has a parent qp-tr element which contains / positions the node and its children -->
-  <xsl:template match="s:RelOp|s:StmtSimple|s:StmtUseDb|s:StmtCond" mode="QpTr">
+  <xsl:template match="s:RelOp|s:StmtSimple|s:StmtUseDb|s:StmtCond|s:StmtCursor|s:Operation" mode="QpTr">
     <div class="qp-tr">
       <xsl:if test="@StatementId">
         <xsl:attribute name="data-statement-id"><xsl:value-of select="@StatementId" /></xsl:attribute>
@@ -374,7 +374,7 @@
   <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="NodeIcon" priority="1">
     <div class="qp-icon-KeyLookup"></div>
   </xsl:template>
-
+ 
   <xsl:template match="s:RelOp[s:TableValuedFunction]" mode="NodeIcon" priority="1">
     <div class="qp-icon-TableValuedFunction"></div>
   </xsl:template>
@@ -411,6 +411,24 @@
 
   <xsl:template match="s:StmtSimple|s:StmtUseDb|s:StmtCond" mode="NodeLabel">
     <xsl:value-of select="@StatementType" />
+  </xsl:template>
+  
+  <xsl:template match="s:StmtCursor" mode="NodeLabel">
+    <xsl:choose>
+      <xsl:when test="s:CursorPlan/@CursorActualType = 'FastForward'">Fast Forward</xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="s:CursorPlan/@CursorActualType" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template match="s:Operation" mode="NodeLabel">
+    <xsl:choose>
+      <xsl:when test="@OperationType = 'FetchQuery'">Fetch Query</xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="@OperationType" />
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   
   <!--
@@ -465,6 +483,8 @@
   <xsl:template match="*[s:TableScan]" mode="ToolTipDescription">Scan rows from a table.</xsl:template>
   <xsl:template match="*[s:NestedLoops]" mode="ToolTipDescription">For each row in the top (outer) input, scan the bottom (inner) input, and output matching rows.</xsl:template>
   <xsl:template match="*[s:Top]" mode="ToolTipDescription">Select the first few rows based on a sort order.</xsl:template>
+  
+  <xsl:template match="*[@OperationType='FetchQuery']" mode="ToolTipDescription">The query used to retrieve rows when a fetch is issued against a cursor.</xsl:template>
 
   <!-- 
   ================================

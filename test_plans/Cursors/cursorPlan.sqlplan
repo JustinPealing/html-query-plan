@@ -1,0 +1,174 @@
+﻿<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.2" Build="12.0.2342.0">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtCursor StatementText="(@P1 nvarchar(21),@P2 numeric(32,16),@P3 int,@P4 int)SELECT TOP 1 T1.LINENUM,T1.RECID FROM WHSWORKLINE T1 WHERE (((PARTITION=5637144576) AND (DATAAREAID=N'husa')) AND ((((WORKID=@P1) AND (LINENUM&lt;@P2)) AND (WORKTYPE&lt;&gt;@P3)) AND (WORKSTATUS&lt;&gt;@P4))) ORDER BY T1.WORKID DESC,T1.LINENUM DESC" StatementId="1" StatementCompId="1" StatementType="DECLARE CURSOR" RetrievedFromCache="true">
+          <CursorPlan CursorName="" CursorActualType="FastForward" CursorRequestedType="FastForward" CursorConcurrency="Read Only" ForwardOnly="true">
+            <Operation OperationType="FetchQuery">
+              <QueryPlan NonParallelPlanReason="NoParallelFastForwardCursor" CachedPlanSize="40" CompileTime="2" CompileCPU="2" CompileMemory="464">
+                <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+                <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="1560064" EstimatedPagesCached="780032" EstimatedAvailableDegreeOfParallelism="2" />
+                <RelOp NodeId="0" PhysicalOp="Top" LogicalOp="Top" EstimateRows="1" EstimateIO="0" EstimateCPU="1e-007" AvgRowSize="32" EstimatedTotalSubtreeCost="0.00328617" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList>
+                    <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="LINENUM" />
+                    <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="RECID" />
+                  </OutputList>
+                  <Top RowCount="0" IsPercent="0" WithTies="0">
+                    <TopExpression>
+                      <ScalarOperator ScalarString="(1)">
+                        <Const ConstValue="(1)" />
+                      </ScalarOperator>
+                    </TopExpression>
+                    <RelOp NodeId="1" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="1" EstimateIO="0.003125" EstimateCPU="0.00016154" AvgRowSize="62" EstimatedTotalSubtreeCost="0.00328361" TableCardinality="1.61221e+006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKID" />
+                        <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="LINENUM" />
+                        <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKSTATUS" />
+                        <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKTYPE" />
+                        <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="RECID" />
+                      </OutputList>
+                      <IndexScan Ordered="1" ScanDirection="BACKWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKID" />
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="LINENUM" />
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKSTATUS" />
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKTYPE" />
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="RECID" />
+                          </DefinedValue>
+                        </DefinedValues>
+                        <Object Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Index="[I_102773WORKIDLINENUMIDX]" Alias="[T1]" IndexKind="Clustered" Storage="RowStore" />
+                        <SeekPredicates>
+                          <SeekPredicateNew>
+                            <SeekKeys>
+                              <Prefix ScanType="EQ">
+                                <RangeColumns>
+                                  <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="PARTITION" />
+                                  <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="DATAAREAID" />
+                                  <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKID" />
+                                </RangeColumns>
+                                <RangeExpressions>
+                                  <ScalarOperator ScalarString="(5637144576.)">
+                                    <Const ConstValue="(5637144576.)" />
+                                  </ScalarOperator>
+                                  <ScalarOperator ScalarString="N'husa'">
+                                    <Const ConstValue="N'husa'" />
+                                  </ScalarOperator>
+                                  <ScalarOperator ScalarString="[@P1]">
+                                    <Identifier>
+                                      <ColumnReference Column="@P1" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </RangeExpressions>
+                              </Prefix>
+                              <EndRange ScanType="LT">
+                                <RangeColumns>
+                                  <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="LINENUM" />
+                                </RangeColumns>
+                                <RangeExpressions>
+                                  <ScalarOperator ScalarString="[@P2]">
+                                    <Identifier>
+                                      <ColumnReference Column="@P2" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </RangeExpressions>
+                              </EndRange>
+                            </SeekKeys>
+                          </SeekPredicateNew>
+                        </SeekPredicates>
+                        <Predicate>
+                          <ScalarOperator ScalarString="([CONTOSO].[dbo].[WHSWORKLINE].[WORKTYPE] as [T1].[WORKTYPE]&lt;[@P3] OR [CONTOSO].[dbo].[WHSWORKLINE].[WORKTYPE] as [T1].[WORKTYPE]&gt;[@P3]) AND ([CONTOSO].[dbo].[WHSWORKLINE].[WORKSTATUS] as [T1].[WORKSTATUS]&lt;[@P4] OR [CONTOSO].[dbo].[WHSWORKLINE].[WORKSTATUS] as [T1].[WORKSTATUS]&gt;[@P4])">
+                            <Logical Operation="AND">
+                              <ScalarOperator>
+                                <Logical Operation="OR">
+                                  <ScalarOperator>
+                                    <Compare CompareOp="LT">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKTYPE" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Column="@P3" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Compare CompareOp="GT">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKTYPE" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Column="@P3" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                </Logical>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Logical Operation="OR">
+                                  <ScalarOperator>
+                                    <Compare CompareOp="LT">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKSTATUS" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Column="@P4" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Compare CompareOp="GT">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[CONTOSO]" Schema="[dbo]" Table="[WHSWORKLINE]" Alias="[T1]" Column="WORKSTATUS" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Column="@P4" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                </Logical>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </IndexScan>
+                    </RelOp>
+                  </Top>
+                </RelOp>
+                <ParameterList>
+                  <ColumnReference Column="@P4" ParameterCompiledValue="(3)" />
+                  <ColumnReference Column="@P3" ParameterCompiledValue="(1)" />
+                  <ColumnReference Column="@P2" ParameterCompiledValue="(11.0000000000000000)" />
+                  <ColumnReference Column="@P1" ParameterCompiledValue="N'WI0419739'" />
+                </ParameterList>
+              </QueryPlan>
+            </Operation>
+          </CursorPlan>
+        </StmtCursor>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

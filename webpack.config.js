@@ -26,11 +26,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015'],
-                    plugins: [
-                        "transform-es3-member-expression-literals",
-                        "transform-es3-property-literals"
-                    ]
+                    presets: ['es2015']
                 }
             }
         ]

@@ -8,6 +8,7 @@ var plan_ClusteredIndexScan = require('raw!../test_plans/clustered index scan.sq
 var plan_ClusteredIndexSeek = require('raw!../test_plans/clustered index seek.sqlplan');
 var plan_QueryPlan293288248 = require('raw!../test_plans/QueryPlan-293288248.sqlplan');
 var plan_StmtUseDb = require('raw!../test_plans/StmtUseDb.sqlplan');
+var plan_StmtCond = require('raw!../test_plans/StmtCond.sqlplan');
 
 function findNodeById(container, nodeId, statementId) {
     var statmentElement = findStatmentElementById(container, statementId);
@@ -259,6 +260,21 @@ describe('qp.js', () => {
             assert.equal('USE DATABASE', statementNode.children[1].innerText);
             assert.equal(null, getProperty(statementNode, 'Physical Operation'));
             assert.equal(null, getProperty(statementNode, 'Logical Operation'));
+
+        });
+        
+        it('Shows StmtCond', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_StmtCond);
+
+            var condNode = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
+            assert.equal('COND', condNode.children[1].innerText);
+            assert.equal(null, getProperty(condNode, 'Physical Operation'));
+            assert.equal(null, getProperty(condNode, 'Logical Operation'));
+
+            var printNode = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
+            assert.equal('PRINT', printNode.children[1].innerText);
 
         });
 

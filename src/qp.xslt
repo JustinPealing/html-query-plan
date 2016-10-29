@@ -19,12 +19,12 @@
   <!-- Outermost div that contains all statement plans. -->
   <xsl:template match="s:ShowPlanXML">
     <div class="qp-root">
-      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" />  
+      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" mode="QpTr" />  
     </div>
   </xsl:template>
   
-  <!-- Matches a branch in the query plan (either an operation or a statement) -->
-  <xsl:template match="s:RelOp|s:StmtSimple|s:StmtUseDb">
+  <!-- Each node has a parent qp-tr element which contains / positions the node and its children -->
+  <xsl:template match="s:RelOp|s:StmtSimple|s:StmtUseDb|s:StmtCond" mode="QpTr">
     <div class="qp-tr">
       <xsl:if test="@StatementId">
         <xsl:attribute name="data-statement-id"><xsl:value-of select="@StatementId" /></xsl:attribute>
@@ -38,7 +38,7 @@
           <xsl:call-template name="ToolTip" />
         </div>
       </div>
-      <div><xsl:apply-templates select="*/s:RelOp" /></div>
+      <div><xsl:apply-templates select="*/*" mode="QpTr" /></div>
     </div>
   </xsl:template>
 
@@ -409,7 +409,7 @@
 
   <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="NodeLabel">Key Lookup (Clustered)</xsl:template>
 
-  <xsl:template match="s:StmtSimple|s:StmtUseDb" mode="NodeLabel">
+  <xsl:template match="s:StmtSimple|s:StmtUseDb|s:StmtCond" mode="NodeLabel">
     <xsl:value-of select="@StatementType" />
   </xsl:template>
   

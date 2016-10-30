@@ -1,0 +1,568 @@
+﻿<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.5" Build="13.0.1601.5" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementId="1" StatementText="--Dynamic Cursor for Update&#xD;&#xA;SET NOCOUNT ON&#xD;&#xA;" StatementType="SET ON/OFF" RetrievedFromCache="false" />
+      </Statements>
+      <Statements>
+        <StmtCursor StatementCompId="2" StatementId="2" StatementText="DECLARE @Id int&#xD;&#xA;DECLARE @name varchar(50)&#xD;&#xA; DECLARE Dynamic_cur_empupdate CURSOR&#xD;&#xA;DYNAMIC &#xD;&#xA;FOR &#xD;&#xA;SELECT EmpID,EmpName from Employee ORDER BY EmpName" StatementType="DECLARE CURSOR" RetrievedFromCache="false">
+          <CursorPlan CursorName="Dynamic_cur_empupdate" CursorActualType="Keyset" CursorRequestedType="Dynamic" CursorConcurrency="Optimistic" ForwardOnly="false">
+            <Operation OperationType="PopulateQuery">
+              <QueryPlan CachedPlanSize="64" CompileTime="17" CompileCPU="11" CompileMemory="256">
+                <MemoryGrantInfo SerialRequiredMemory="512" SerialDesiredMemory="544" />
+                <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="206734" EstimatedPagesCached="51683" EstimatedAvailableDegreeOfParallelism="2" />
+                <RelOp AvgRowSize="9" EstimateCPU="5E-06" EstimateIO="0.01" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Insert" NodeId="0" Parallel="false" PhysicalOp="Clustered Index Insert" EstimatedTotalSubtreeCost="0.0246729">
+                  <OutputList />
+                  <Update DMLRequestSort="false">
+                    <Object Database="[tempdb]" Index="[CWT_PrimaryKey]" Storage="RowStore" />
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[CWT].[COLUMN0] = [Northwind].[dbo].[Employee].[EmpID],[CWT].[CHECKSUM1] = [Chk1002],[CWT].[ROWID] = [Expr1005],[CWT].[ROWSTATUS] = [Expr1006]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Table="[CWT]" Column="COLUMN0" />
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Table="[CWT]" Column="CHECKSUM1" />
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="Chk1002" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Table="[CWT]" Column="ROWID" />
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="Expr1005" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Table="[CWT]" Column="ROWSTATUS" />
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="Expr1006" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <RelOp AvgRowSize="23" EstimateCPU="5E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Compute Scalar" NodeId="1" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.0146679">
+                      <OutputList>
+                        <ColumnReference Column="Chk1002" />
+                        <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                        <ColumnReference Column="Expr1005" />
+                        <ColumnReference Column="Expr1006" />
+                      </OutputList>
+                      <ComputeScalar>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Expr1006" />
+                            <ScalarOperator ScalarString="(1)">
+                              <Const ConstValue="(1)" />
+                            </ScalarOperator>
+                          </DefinedValue>
+                        </DefinedValues>
+                        <RelOp AvgRowSize="19" EstimateCPU="4E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Compute Scalar" NodeId="2" Parallel="false" PhysicalOp="Sequence Project" EstimatedTotalSubtreeCost="0.0146674">
+                          <OutputList>
+                            <ColumnReference Column="Chk1002" />
+                            <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                            <ColumnReference Column="Expr1005" />
+                          </OutputList>
+                          <SequenceProject>
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1005" />
+                                <ScalarOperator ScalarString="i4_row_number">
+                                  <Sequence FunctionName="i4_row_number" />
+                                </ScalarOperator>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <RelOp AvgRowSize="19" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Segment" NodeId="3" Parallel="false" PhysicalOp="Segment" EstimatedTotalSubtreeCost="0.014667">
+                              <OutputList>
+                                <ColumnReference Column="Chk1002" />
+                                <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                                <ColumnReference Column="Segment1007" />
+                              </OutputList>
+                              <Segment>
+                                <GroupBy />
+                                <SegmentColumn>
+                                  <ColumnReference Column="Segment1007" />
+                                </SegmentColumn>
+                                <RelOp AvgRowSize="44" EstimateCPU="0.000118155" EstimateIO="0.0112613" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Sort" NodeId="4" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="0.0146669">
+                                  <OutputList>
+                                    <ColumnReference Column="Chk1002" />
+                                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                                  </OutputList>
+                                  <MemoryFractions Input="1" Output="1" />
+                                  <Sort Distinct="false">
+                                    <OrderBy>
+                                      <OrderByColumn Ascending="true">
+                                        <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                                      </OrderByColumn>
+                                    </OrderBy>
+                                    <RelOp AvgRowSize="44" EstimateCPU="0.0001625" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Clustered Index Scan" NodeId="5" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.0032875" TableCardinality="5">
+                                      <OutputList>
+                                        <ColumnReference Column="Chk1002" />
+                                        <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                        <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                                      </OutputList>
+                                      <IndexScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Chk1002" />
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <Object Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Index="[PK__Employee__AF2DBA7901F09D04]" IndexKind="Clustered" Storage="RowStore" />
+                                      </IndexScan>
+                                    </RelOp>
+                                  </Sort>
+                                </RelOp>
+                              </Segment>
+                            </RelOp>
+                          </SequenceProject>
+                        </RelOp>
+                      </ComputeScalar>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+              </QueryPlan>
+            </Operation>
+            <Operation OperationType="FetchQuery">
+              <QueryPlan NonParallelPlanReason="CouldNotGenerateValidParallelPlan" CachedPlanSize="64" CompileTime="2" CompileCPU="2" CompileMemory="328">
+                <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+                <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="206734" EstimatedPagesCached="51683" EstimatedAvailableDegreeOfParallelism="2" />
+                <RelOp AvgRowSize="44" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="0" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.0165768">
+                  <OutputList>
+                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                    <ColumnReference Column="Expr1008" />
+                  </OutputList>
+                  <ComputeScalar>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1008" />
+                        <ScalarOperator ScalarString="CASE WHEN [CWT].[ROWSTATUS]=(1) AND [IsBaseRow1003] IS NOT NULL THEN (1) ELSE (0) END">
+                          <IF>
+                            <Condition>
+                              <ScalarOperator>
+                                <Logical Operation="AND">
+                                  <ScalarOperator>
+                                    <Compare CompareOp="EQ">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Table="[CWT]" Column="ROWSTATUS" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="(1)" />
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Compare CompareOp="IS NOT">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Column="IsBaseRow1003" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="NULL" />
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                </Logical>
+                              </ScalarOperator>
+                            </Condition>
+                            <Then>
+                              <ScalarOperator>
+                                <Const ConstValue="(1)" />
+                              </ScalarOperator>
+                            </Then>
+                            <Else>
+                              <ScalarOperator>
+                                <Const ConstValue="(0)" />
+                              </ScalarOperator>
+                            </Else>
+                          </IF>
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp AvgRowSize="45" EstimateCPU="4.18E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Left Outer Join" NodeId="1" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="0.0165767">
+                      <OutputList>
+                        <ColumnReference Table="[CWT]" Column="ROWSTATUS" />
+                        <ColumnReference Column="IsBaseRow1003" />
+                        <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                        <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                      </OutputList>
+                      <NestedLoops Optimized="false">
+                        <PassThru>
+                          <ScalarOperator ScalarString="NOT ([CWT].[ROWSTATUS]=(1) AND [IsBaseRow1003] IS NOT NULL) OR UPDATE_CONCURRENCY() OR [Chk1002] = [CWT].[CHECKSUM1]">
+                            <Logical Operation="OR">
+                              <ScalarOperator>
+                                <Logical Operation="NOT">
+                                  <ScalarOperator>
+                                    <Logical Operation="AND">
+                                      <ScalarOperator>
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Table="[CWT]" Column="ROWSTATUS" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="(1)" />
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Compare CompareOp="IS NOT">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Column="IsBaseRow1003" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="NULL" />
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </Logical>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Intrinsic FunctionName="UPDATE_CONCURRENCY" />
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Compare CompareOp="IS">
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Column="Chk1002" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Table="[CWT]" Column="CHECKSUM1" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </Compare>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </PassThru>
+                        <OuterReferences>
+                          <ColumnReference Column="IsBaseRow1000" />
+                          <ColumnReference Table="[CWT]" Column="ROWID" />
+                          <ColumnReference Column="Chk1002" />
+                        </OuterReferences>
+                        <RelOp AvgRowSize="57" EstimateCPU="4.18E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Left Outer Join" NodeId="2" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="0.00657038">
+                          <OutputList>
+                            <ColumnReference Column="IsBaseRow1000" />
+                            <ColumnReference Table="[CWT]" Column="CHECKSUM1" />
+                            <ColumnReference Table="[CWT]" Column="ROWID" />
+                            <ColumnReference Table="[CWT]" Column="ROWSTATUS" />
+                            <ColumnReference Column="Chk1002" />
+                            <ColumnReference Column="IsBaseRow1003" />
+                            <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                            <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                          </OutputList>
+                          <NestedLoops Optimized="false">
+                            <OuterReferences>
+                              <ColumnReference Table="[CWT]" Column="COLUMN0" />
+                            </OuterReferences>
+                            <RelOp AvgRowSize="24" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Clustered Index Seek" NodeId="3" Parallel="false" PhysicalOp="Clustered Index Seek" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0">
+                              <OutputList>
+                                <ColumnReference Column="IsBaseRow1000" />
+                                <ColumnReference Table="[CWT]" Column="COLUMN0" />
+                                <ColumnReference Table="[CWT]" Column="CHECKSUM1" />
+                                <ColumnReference Table="[CWT]" Column="ROWID" />
+                                <ColumnReference Table="[CWT]" Column="ROWSTATUS" />
+                              </OutputList>
+                              <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Column="IsBaseRow1000" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Table="[CWT]" Column="COLUMN0" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Table="[CWT]" Column="CHECKSUM1" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Table="[CWT]" Column="ROWID" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Table="[CWT]" Column="ROWSTATUS" />
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[tempdb]" Index="[CWT_PrimaryKey]" Storage="RowStore" />
+                                <SeekPredicates>
+                                  <SeekPredicateNew>
+                                    <SeekKeys>
+                                      <Prefix ScanType="EQ">
+                                        <RangeColumns>
+                                          <ColumnReference Table="[CWT]" Column="ROWID" />
+                                        </RangeColumns>
+                                        <RangeExpressions>
+                                          <ScalarOperator ScalarString="FETCH_RANGE((0))">
+                                            <Intrinsic FunctionName="FETCH_RANGE">
+                                              <ScalarOperator>
+                                                <Const ConstValue="(0)" />
+                                              </ScalarOperator>
+                                            </Intrinsic>
+                                          </ScalarOperator>
+                                        </RangeExpressions>
+                                      </Prefix>
+                                    </SeekKeys>
+                                  </SeekPredicateNew>
+                                </SeekPredicates>
+                              </IndexScan>
+                            </RelOp>
+                            <RelOp AvgRowSize="45" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Clustered Index Seek" NodeId="4" Parallel="false" PhysicalOp="Clustered Index Seek" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="5">
+                              <OutputList>
+                                <ColumnReference Column="Chk1002" />
+                                <ColumnReference Column="IsBaseRow1003" />
+                                <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                              </OutputList>
+                              <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Column="Chk1002" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Column="IsBaseRow1003" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Index="[PK__Employee__AF2DBA7901F09D04]" IndexKind="Clustered" Storage="RowStore" />
+                                <SeekPredicates>
+                                  <SeekPredicateNew>
+                                    <SeekKeys>
+                                      <Prefix ScanType="EQ">
+                                        <RangeColumns>
+                                          <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                        </RangeColumns>
+                                        <RangeExpressions>
+                                          <ScalarOperator ScalarString="[CWT].[COLUMN0]">
+                                            <Identifier>
+                                              <ColumnReference Table="[CWT]" Column="COLUMN0" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                        </RangeExpressions>
+                                      </Prefix>
+                                    </SeekKeys>
+                                  </SeekPredicateNew>
+                                </SeekPredicates>
+                              </IndexScan>
+                            </RelOp>
+                          </NestedLoops>
+                        </RelOp>
+                        <RelOp AvgRowSize="9" EstimateCPU="1E-06" EstimateIO="0.01" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Update" NodeId="5" Parallel="false" PhysicalOp="Clustered Index Update" EstimatedTotalSubtreeCost="0.0100022">
+                          <OutputList />
+                          <Update DMLRequestSort="false">
+                            <Object Database="[tempdb]" Index="[CWT_PrimaryKey]" Storage="RowStore" />
+                            <SetPredicate>
+                              <ScalarOperator ScalarString="[CWT_REFRESH].[CHECKSUM1] = [Chk1002]">
+                                <ScalarExpressionList>
+                                  <ScalarOperator>
+                                    <MultipleAssign>
+                                      <Assign>
+                                        <ColumnReference Table="[CWT_REFRESH]" Column="CHECKSUM1" />
+                                        <ScalarOperator>
+                                          <Identifier>
+                                            <ColumnReference Column="Chk1002" />
+                                          </Identifier>
+                                        </ScalarOperator>
+                                      </Assign>
+                                    </MultipleAssign>
+                                  </ScalarOperator>
+                                </ScalarExpressionList>
+                              </ScalarOperator>
+                            </SetPredicate>
+                            <RelOp AvgRowSize="9" EstimateCPU="1.157E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Constant Scan" NodeId="6" Parallel="false" PhysicalOp="Constant Scan" EstimatedTotalSubtreeCost="1.157E-06">
+                              <OutputList />
+                              <ConstantScan />
+                            </RelOp>
+                          </Update>
+                        </RelOp>
+                      </NestedLoops>
+                    </RelOp>
+                  </ComputeScalar>
+                </RelOp>
+              </QueryPlan>
+            </Operation>
+          </CursorPlan>
+        </StmtCursor>
+      </Statements>
+      <Statements>
+        <StmtCursor StatementCompId="3" StatementId="3" StatementText="&#xD;&#xA;OPEN Dynamic_cur_empupdate&#xD;&#xA;" StatementType="OPEN CURSOR" RetrievedFromCache="false">
+          <CursorPlan CursorName="Dynamic_cur_empupdate" />
+        </StmtCursor>
+      </Statements>
+      <Statements>
+        <StmtCond StatementCompId="4" StatementId="4" StatementText="IF @@CURSOR_ROWS &gt; 0" StatementType="COND" RetrievedFromCache="false">
+          <Condition />
+          <Then>
+            <Statements>
+              <StmtCursor StatementCompId="5" StatementId="5" StatementText="&#xD;&#xA; BEGIN &#xD;&#xA; FETCH NEXT FROM Dynamic_cur_empupdate INTO @Id,@name&#xD;&#xA; " StatementType="FETCH CURSOR" RetrievedFromCache="false">
+                <CursorPlan CursorName="Dynamic_cur_empupdate" />
+              </StmtCursor>
+              <StmtCond StatementCompId="6" StatementId="6" StatementText="WHILE @@Fetch_status = 0" StatementType="COND" RetrievedFromCache="false">
+                <Condition />
+                <Then>
+                  <Statements>
+                    <StmtCond StatementCompId="7" StatementId="7" StatementText="&#xD;&#xA; BEGIN&#xD;&#xA; IF @name='Mohan'" StatementType="COND" RetrievedFromCache="false">
+                      <Condition />
+                      <Then>
+                        <Statements>
+                          <StmtSimple StatementCompId="8" StatementEstRows="5" StatementId="8" StatementOptmLevel="TRIVIAL" CardinalityEstimationModelVersion="130" StatementSubTreeCost="0.013293" StatementText="&#xD;&#xA; Update Employee SET Salary=15000 WHERE CURRENT OF Dynamic_cur_empupdate" StatementType="UPDATE CURSOR" QueryHash="0x955E2E963F9137E3" QueryPlanHash="0x5C22C5D5AD65D843" RetrievedFromCache="false" SecurityPolicyApplied="false">
+                            <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+                            <QueryPlan CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="208">
+                              <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+                              <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="206734" EstimatedPagesCached="51683" EstimatedAvailableDegreeOfParallelism="2" />
+                              <RelOp AvgRowSize="9" EstimateCPU="5E-06" EstimateIO="0.01" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Update" NodeId="0" Parallel="false" PhysicalOp="Clustered Index Update" EstimatedTotalSubtreeCost="0.013293">
+                                <OutputList />
+                                <Update DMLRequestSort="false">
+                                  <Object Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Index="[PK__Employee__AF2DBA7901F09D04]" IndexKind="Clustered" Storage="RowStore" />
+                                  <SetPredicate>
+                                    <ScalarOperator ScalarString="[Northwind].[dbo].[Employee].[Salary] = [Expr1002]">
+                                      <ScalarExpressionList>
+                                        <ScalarOperator>
+                                          <MultipleAssign>
+                                            <Assign>
+                                              <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="Salary" />
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Column="Expr1002" />
+                                                </Identifier>
+                                              </ScalarOperator>
+                                            </Assign>
+                                          </MultipleAssign>
+                                        </ScalarOperator>
+                                      </ScalarExpressionList>
+                                    </ScalarOperator>
+                                  </SetPredicate>
+                                  <RelOp AvgRowSize="15" EstimateCPU="5E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Compute Scalar" NodeId="1" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.003288">
+                                    <OutputList>
+                                      <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                      <ColumnReference Column="Expr1002" />
+                                    </OutputList>
+                                    <ComputeScalar>
+                                      <DefinedValues>
+                                        <DefinedValue>
+                                          <ColumnReference Column="Expr1002" />
+                                          <ScalarOperator ScalarString="(15000)">
+                                            <Const ConstValue="(15000)" />
+                                          </ScalarOperator>
+                                        </DefinedValue>
+                                      </DefinedValues>
+                                      <RelOp AvgRowSize="11" EstimateCPU="0.0001625" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Clustered Index Scan" NodeId="2" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.0032875" TableCardinality="5">
+                                        <OutputList>
+                                          <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                        </OutputList>
+                                        <IndexScan Ordered="true" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                          <DefinedValues>
+                                            <DefinedValue>
+                                              <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                                            </DefinedValue>
+                                          </DefinedValues>
+                                          <Object Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Index="[PK__Employee__AF2DBA7901F09D04]" IndexKind="Clustered" Storage="RowStore" />
+                                        </IndexScan>
+                                      </RelOp>
+                                    </ComputeScalar>
+                                  </RelOp>
+                                </Update>
+                              </RelOp>
+                            </QueryPlan>
+                          </StmtSimple>
+                        </Statements>
+                      </Then>
+                    </StmtCond>
+                    <StmtCursor StatementCompId="10" StatementId="9" StatementText="&#xD;&#xA; FETCH NEXT FROM Dynamic_cur_empupdate INTO @Id,@name&#xD;&#xA; " StatementType="FETCH CURSOR" RetrievedFromCache="false">
+                      <CursorPlan CursorName="Dynamic_cur_empupdate" />
+                    </StmtCursor>
+                  </Statements>
+                </Then>
+              </StmtCond>
+            </Statements>
+          </Then>
+        </StmtCond>
+      </Statements>
+      <Statements>
+        <StmtCursor StatementCompId="14" StatementId="10" StatementText="END&#xD;&#xA;END&#xD;&#xA;CLOSE Dynamic_cur_empupdate&#xD;&#xA;" StatementType="CLOSE CURSOR" RetrievedFromCache="false">
+          <CursorPlan CursorName="Dynamic_cur_empupdate" />
+        </StmtCursor>
+      </Statements>
+      <Statements>
+        <StmtCursor StatementCompId="15" StatementId="11" StatementText="DEALLOCATE Dynamic_cur_empupdate&#xD;&#xA;" StatementType="DEALLOCATE CURSOR" RetrievedFromCache="false">
+          <CursorPlan CursorName="Dynamic_cur_empupdate" />
+        </StmtCursor>
+      </Statements>
+      <Statements>
+        <StmtSimple StatementCompId="16" StatementId="12" StatementText="SET NOCOUNT OFF&#xD;&#xA;" StatementType="SET ON/OFF" RetrievedFromCache="false" />
+      </Statements>
+    </Batch>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="5" StatementId="1" StatementOptmLevel="TRIVIAL" CardinalityEstimationModelVersion="130" StatementSubTreeCost="0.0032875" StatementText="Select * from Employee" StatementType="SELECT" QueryHash="0xD742CBC6BC46650" QueryPlanHash="0x98DF8D0E59613BD" RetrievedFromCache="false" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="72">
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="206734" EstimatedPagesCached="51683" EstimatedAvailableDegreeOfParallelism="2" />
+            <RelOp AvgRowSize="146" EstimateCPU="0.0001625" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Clustered Index Scan" NodeId="0" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.0032875" TableCardinality="5">
+              <OutputList>
+                <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="Salary" />
+                <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="Address" />
+              </OutputList>
+              <IndexScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpID" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="EmpName" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="Salary" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Column="Address" />
+                  </DefinedValue>
+                </DefinedValues>
+                <Object Database="[Northwind]" Schema="[dbo]" Table="[Employee]" Index="[PK__Employee__AF2DBA7901F09D04]" IndexKind="Clustered" Storage="RowStore" />
+              </IndexScan>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

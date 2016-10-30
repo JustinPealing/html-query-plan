@@ -25,10 +25,27 @@ describe('Cursor support', () => {
 
         var fetchQuery = container.querySelector('div[data-statement-id="1"] > div > .qp-tr > div > .qp-node');
         assert.equal('Fetch Query', fetchQuery.children[1].innerText);
-        assert.equal('Cost: 0%', fastForward.children[2].innerText);
+        assert.equal('Cost: 0%', fetchQuery.children[2].innerText);
         assert.equal('The query used to retrieve rows when a fetch is issued against a cursor.', helper.getDescription(fetchQuery))
         assert.equal(null, helper.getProperty(fetchQuery, 'Physical Operation'));
         assert.equal(null, helper.getProperty(fetchQuery, 'Logical Operation'));
+
+    });
+
+    // Bug meant that percentages were shown as NaN in cursor plans
+    it('Shows the correct Estimated Operator cost', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_cursorPlan);
+
+        var clusteredIndexSeek = helper.findNodeById(container, '1');
+        assert.equal('Clustered Index Seek', clusteredIndexSeek.children[1].innerText);
+        assert.equal('[WHSWORKLINE].[I_102773WORKIDLINENU…', clusteredIndexSeek.children[2].innerText);
+        assert.equal('Cost: 100%', clusteredIndexSeek.children[3].innerText);
+        assert.equal('Scanning a particular range of rows from a clustered index.', helper.getDescription(clusteredIndexSeek))
+        assert.equal('0.0032836 (100%)', helper.getProperty(clusteredIndexSeek, 'Estimated Operator Cost'));
+        assert.equal('Clustered Index Seek', helper.getProperty(clusteredIndexSeek, 'Physical Operation'));
+        assert.equal('Clustered Index Seek', helper.getProperty(clusteredIndexSeek, 'Logical Operation'));
 
     });
 

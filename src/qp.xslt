@@ -117,9 +117,8 @@
             <xsl:call-template name="EstimatedOperatorCost" />
           </xsl:variable>
           <xsl:variable name="TotalCost">
-            <xsl:value-of select="ancestor::s:StmtSimple/@StatementSubTreeCost" />
+            <xsl:value-of select="ancestor::s:QueryPlan/s:RelOp/@EstimatedTotalSubtreeCost" />
           </xsl:variable>
-          
           <xsl:call-template name="round">
             <xsl:with-param name="value" select="$EstimatedOperatorCost" />
           </xsl:call-template> (<xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" />)</xsl:with-param>
@@ -249,7 +248,7 @@
   <!-- Displays the node cost label. -->
   <xsl:template match="s:RelOp" mode="NodeCostLabel">
     <xsl:variable name="EstimatedOperatorCost"><xsl:call-template name="EstimatedOperatorCost" /></xsl:variable>
-    <xsl:variable name="TotalCost"><xsl:value-of select="ancestor::s:StmtSimple/@StatementSubTreeCost" /></xsl:variable>
+    <xsl:variable name="TotalCost"><xsl:value-of select="ancestor::s:QueryPlan/s:RelOp/@EstimatedTotalSubtreeCost" /></xsl:variable>
     <div>Cost: <xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" /></div>
   </xsl:template>
 

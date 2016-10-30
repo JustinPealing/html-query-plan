@@ -68,6 +68,17 @@ describe('Cursor support', () => {
         assert.equal('Fetch Query', fetchQuery.children[1].innerText);
         assert.equal('Cost: 0%', fetchQuery.children[2].innerText);
     
-    })
+    });
+
+    it('Shows OPEN CURSOR', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_cursor2);
+        
+        var openCursor = container.querySelector('div[data-statement-id="5"] > div > .qp-node');
+        assert.equal('OPEN CURSOR', openCursor.children[1].innerText);
+        assert.equal('Cost: 0%', openCursor.children[2].innerText);
+
+    });
 
 });

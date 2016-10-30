@@ -412,27 +412,18 @@
 
   <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="NodeLabel">Key Lookup (Clustered)</xsl:template>
 
-  <xsl:template match="s:StmtSimple|s:StmtUseDb|s:StmtCond" mode="NodeLabel">
+  <xsl:template match="*[@StatementType]" mode="NodeLabel">
     <xsl:value-of select="@StatementType" />
   </xsl:template>
-  
-  <xsl:template match="s:StmtCursor" mode="NodeLabel">
-    <xsl:choose>
-      <xsl:when test="s:CursorPlan/@CursorActualType = 'FastForward'">Fast Forward</xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="s:CursorPlan/@CursorActualType" />
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-  
-  <xsl:template match="s:Operation" mode="NodeLabel">
-    <xsl:choose>
-      <xsl:when test="@OperationType = 'FetchQuery'">Fetch Query</xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="@OperationType" />
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
+
+  <xsl:template match="*[s:CursorPlan/@CursorActualType = 'Dynamic']" mode="NodeLabel">Dynamic</xsl:template>
+  <xsl:template match="*[s:CursorPlan/@CursorActualType = 'FastForward']" mode="NodeLabel">Fast Forward</xsl:template>
+  <xsl:template match="*[s:CursorPlan/@CursorActualType = 'Keyset']" mode="NodeLabel">Keyset</xsl:template>
+  <xsl:template match="*[s:CursorPlan/@CursorActualType = 'SnapShot']" mode="NodeLabel">Snap Shot</xsl:template>  
+
+  <xsl:template match="*[@OperationType = 'FetchQuery']" mode="NodeLabel">Fetch Query</xsl:template>
+  <xsl:template match="*[@OperationType = 'PopulateQuery']" mode="NodeLabel">Populate Query</xsl:template>
+  <xsl:template match="*[@OperationType = 'RefreshQuery']" mode="NodeLabel">Refresh Query</xsl:template>
   
   <!--
   ================================

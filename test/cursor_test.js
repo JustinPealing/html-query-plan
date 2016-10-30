@@ -2,6 +2,7 @@ import assert from 'assert';
 import QP from '../src/index';
 import helper from './helper';
 var plan_cursorPlan = require('raw!../test_plans/Cursors/cursorPlan.sqlplan');
+var plan_cursor2 = require('raw!../test_plans/Cursors/cursor2.sqlplan');
 
 describe('Cursor support', () => {
         
@@ -13,6 +14,7 @@ describe('Cursor support', () => {
         var fastForward = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
         assert.equal('Fast Forward', fastForward.children[1].innerText);
         assert.equal('Cost: 0%', fastForward.children[2].innerText);
+        assert.equal('Fast Forward.', helper.getDescription(fastForward))
         assert.equal(null, helper.getProperty(fastForward, 'Physical Operation'));
         assert.equal(null, helper.getProperty(fastForward, 'Logical Operation'));
 
@@ -48,5 +50,24 @@ describe('Cursor support', () => {
         assert.equal('Clustered Index Seek', helper.getProperty(clusteredIndexSeek, 'Logical Operation'));
 
     });
+
+    // Tests tooltip for @CursorType = Dynamic, also there was a bug where the cost percentage was shown incorrectly 
+    it('Shows Dynamic', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_cursor2);
+
+        var dynamic = container.querySelector('div[data-statement-id="4"] > div > .qp-node');
+        assert.equal('Dynamic', dynamic.children[1].innerText);
+        assert.equal('Cost: 0%', dynamic.children[2].innerText);
+        assert.equal('Cursor that can see all changes made by others.', helper.getDescription(dynamic))
+        assert.equal(null, helper.getProperty(dynamic, 'Physical Operation'));
+        assert.equal(null, helper.getProperty(dynamic, 'Logical Operation'));
+
+        var fetchQuery = container.querySelector('div[data-statement-id="4"] > div > .qp-tr > div > .qp-node');
+        assert.equal('Fetch Query', fetchQuery.children[1].innerText);
+        assert.equal('Cost: 0%', fetchQuery.children[2].innerText);
+    
+    })
 
 });

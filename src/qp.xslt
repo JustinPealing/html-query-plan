@@ -255,6 +255,10 @@
   <!-- Dont show the node cost for statements. -->
   <xsl:template match="s:StmtSimple" mode="NodeCostLabel" />
 
+  <xsl:template match="s:StmtCursor|s:Operation" mode="NodeCostLabel">
+    <div>Cost: 0%</div>
+  </xsl:template>
+
   <!-- 
   ================================
   Tool tip detail sections
@@ -484,6 +488,8 @@
   <xsl:template match="*[s:Top]" mode="ToolTipDescription">Select the first few rows based on a sort order.</xsl:template>
   
   <xsl:template match="*[@OperationType='FetchQuery']" mode="ToolTipDescription">The query used to retrieve rows when a fetch is issued against a cursor.</xsl:template>
+  <xsl:template match="*[s:CursorPlan/@CursorActualType='FastForward']" mode="ToolTipDescription">Fast Forward.</xsl:template>
+  <xsl:template match="*[s:CursorPlan/@CursorActualType='Dynamic']" mode="ToolTipDescription">Cursor that can see all changes made by others.</xsl:template>
 
   <!-- 
   ================================

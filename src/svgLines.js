@@ -11,7 +11,7 @@ function drawSvgLines(container) {
         let node = nodes[i]; 
         var previousNode = findParent(node);
         if (previousNode != null) {
-            drawLine(draw, clientRect, previousNode, node);
+            drawArrowBetweenNodes(draw, clientRect, previousNode, node);
         }
     }
 }
@@ -34,9 +34,16 @@ function hasClass(element, cls) {
     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
 }
 
-function drawLine(draw, offset, from, to) {
-    let fromOffset = from.getBoundingClientRect();
-    let toOffset = to.getBoundingClientRect();
+/**
+ * Draws the arrow between two nodes.
+ * @draw SVG drawing context to use.
+ * @offset Bounding client rect of the root SVG context.
+ * @fromElement Node element from which to draw the arrow (leftmost node).
+ * @toElement Node element to which to draw the arrow (rightmost node).
+ */
+function drawArrowBetweenNodes(draw, offset, fromElement, toElement) {
+    let fromOffset = fromElement.getBoundingClientRect();
+    let toOffset = toElement.getBoundingClientRect();
 
     let fromX = fromOffset.right;
     let fromY = (fromOffset.top + fromOffset.bottom) / 2;
@@ -46,9 +53,31 @@ function drawLine(draw, offset, from, to) {
 
     let midOffsetLeft = fromX / 2 + toX / 2;
 
-    draw.line(fromX - offset.left, fromY - offset.top, midOffsetLeft - offset.left, fromY - offset.top).stroke({ width: 1});
-    draw.line(midOffsetLeft - offset.left, fromY - offset.top, midOffsetLeft - offset.left, toY - offset.top).stroke({ width: 1});
-    draw.line(midOffsetLeft - offset.left, toY - offset.top, toOffset.left - offset.left, toY - offset.top).stroke({ width: 1});
+    let fromPoint = {
+        x: fromX - offset.left,
+        y: fromY - offset.top
+    };
+    let toPoint = {
+        x: toOffset.left - offset.left,
+        y: toY - offset.top
+    };
+    let bendOffsetX = midOffsetLeft - offset.left;
+    drawArrow(draw, fromPoint, toPoint, bendOffsetX);
+}
+
+/**
+ * Draws a line between two points.
+ * @draw SVG drawing context to use.
+ * @from {x,y} coordinates of tail end.
+ * @to {x,y} coordinates of the pointy end.
+ * @bendX Offset from toPoint at which the "bend" should happen. (X axis) 
+ */
+function drawArrow(draw, from, to, bendX) {
+
+    draw.line(from.x, from.y, bendX, from.y).stroke({ width: 1});
+    draw.line(bendX, from.y, bendX, to.y).stroke({ width: 1});
+    draw.line(bendX, to.y, to.x, to.y).stroke({ width: 1});
+
 }
 
 module.exports.drawSvgLines = drawSvgLines;

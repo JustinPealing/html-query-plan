@@ -33,6 +33,7 @@ describe('Cursor support', () => {
         assert.equal('The query used to retrieve rows when a fetch is issued against a cursor.', helper.getDescription(fetchQuery))
         assert.equal(null, helper.getProperty(fetchQuery, 'Physical Operation'));
         assert.equal(null, helper.getProperty(fetchQuery, 'Logical Operation'));
+        assert.notEqual(null, fetchQuery.querySelector('.qp-icon-FetchQuery'));
 
     });
 
@@ -80,6 +81,43 @@ describe('Cursor support', () => {
         var openCursor = container.querySelector('div[data-statement-id="5"] > div > .qp-node');
         assert.equal('OPEN CURSOR', openCursor.children[1].innerText);
         assert.equal('Cost: 0%', openCursor.children[2].innerText);
+        assert.notEqual(null, openCursor.querySelector('.qp-icon-StmtCursor'));
+
+    });
+
+    it('Shows FETCH CURSOR', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_keysetCursor);
+        
+        var fetchCursor = container.querySelector('div[data-statement-id="5"] > div > .qp-node');
+        assert.equal('FETCH CURSOR', fetchCursor.children[1].innerText);
+        assert.equal('Cost: 0%', fetchCursor.children[2].innerText);
+        assert.notEqual(null, fetchCursor.querySelector('.qp-icon-StmtCursor'));
+
+    });
+
+    it('Shows CLOSE CURSOR', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_keysetCursor);
+        
+        var closeCursor = container.querySelector('div[data-statement-id="10"] > div > .qp-node');
+        assert.equal('CLOSE CURSOR', closeCursor.children[1].innerText);
+        assert.equal('Cost: 0%', closeCursor.children[2].innerText);
+        assert.notEqual(null, closeCursor.querySelector('.qp-icon-StmtCursor'));
+
+    });
+
+    it('Shows DEALLOCATE CURSOR', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_keysetCursor);
+        
+        var deallocateCursor = container.querySelector('div[data-statement-id="11"] > div > .qp-node');
+        assert.equal('DEALLOCATE CURSOR', deallocateCursor.children[1].innerText);
+        assert.equal('Cost: 0%', deallocateCursor.children[2].innerText);
+        assert.notEqual(null, deallocateCursor.querySelector('.qp-icon-StmtCursor'));
 
     });
 
@@ -91,6 +129,7 @@ describe('Cursor support', () => {
         var keyset = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
         assert.equal('Keyset', keyset.children[1].innerText);
         assert.equal('Cursor that can see updates made by others, but not inserts.', helper.getDescription(keyset));
+        assert.notEqual(null, keyset.querySelector('.qp-icon-Keyset'));
 
     });
 
@@ -113,6 +152,7 @@ describe('Cursor support', () => {
         var populationQuery = container.querySelector('div[data-statement-id="2"] > div > .qp-tr > div > .qp-node');
         assert.equal('Population Query', populationQuery.children[1].innerText);
         assert.equal('The query used to populate a cursor\'s work table when the cursor is opened.', helper.getDescription(populationQuery));
+        assert.notEqual(null, populationQuery.querySelector('.qp-icon-PopulateQuery'));
 
     });
 

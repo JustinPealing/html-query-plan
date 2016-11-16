@@ -374,6 +374,18 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="*[s:CursorPlan/@CursorActualType]" mode="NodeIcon" priority="1">
+    <xsl:element name="div">
+      <xsl:attribute name="class">qp-icon-<xsl:value-of select="s:CursorPlan/@CursorActualType" /></xsl:attribute>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="*[@OperationType]" mode="NodeIcon" priority="1">
+    <xsl:element name="div">
+      <xsl:attribute name="class">qp-icon-<xsl:value-of select="@OperationType" /></xsl:attribute>
+    </xsl:element>
+  </xsl:template>
+
   <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="NodeIcon" priority="1">
     <div class="qp-icon-KeyLookup"></div>
   </xsl:template>
@@ -392,6 +404,10 @@
   <!-- Matches all statements. -->
   <xsl:template match="s:StmtSimple" mode="NodeIcon">
     <div class="qp-icon-Statement"></div>
+  </xsl:template>
+
+  <xsl:template match="s:StmtCursor" mode="NodeIcon">
+    <div class="qp-icon-StmtCursor"></div>
   </xsl:template>
 
   <!-- Fallback template - show the Bitmap icon. -->

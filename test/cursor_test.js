@@ -3,6 +3,8 @@ import QP from '../src/index';
 import helper from './helper';
 var plan_cursorPlan = require('raw!../test_plans/Cursors/cursorPlan.sqlplan');
 var plan_cursor2 = require('raw!../test_plans/Cursors/cursor2.sqlplan');
+var plan_keysetCursor = require('raw!../test_plans/Cursors/Keyset Cursor.sqlplan');
+var plan_snapshotCursor = require('raw!../test_plans/Cursors/SnapshotCursor.sqlplan');
 
 describe('Cursor support', () => {
         
@@ -60,7 +62,7 @@ describe('Cursor support', () => {
         var dynamic = container.querySelector('div[data-statement-id="4"] > div > .qp-node');
         assert.equal('Dynamic', dynamic.children[1].innerText);
         assert.equal('Cost: 0%', dynamic.children[2].innerText);
-        assert.equal('Cursor that can see all changes made by others.', helper.getDescription(dynamic))
+        assert.equal('Cursor that can see all changes made by others.', helper.getDescription(dynamic));
         assert.equal(null, helper.getProperty(dynamic, 'Physical Operation'));
         assert.equal(null, helper.getProperty(dynamic, 'Logical Operation'));
 
@@ -78,6 +80,39 @@ describe('Cursor support', () => {
         var openCursor = container.querySelector('div[data-statement-id="5"] > div > .qp-node');
         assert.equal('OPEN CURSOR', openCursor.children[1].innerText);
         assert.equal('Cost: 0%', openCursor.children[2].innerText);
+
+    });
+
+    it('Shows Keyset', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_keysetCursor);
+        
+        var keyset = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
+        assert.equal('Keyset', keyset.children[1].innerText);
+        assert.equal('Cursor that can see updates made by others, but not inserts.', helper.getDescription(keyset));
+
+    });
+
+    it('Shows Snapshot', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_snapshotCursor);
+        
+        var snapshot = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
+        assert.equal('Snapshot', snapshot.children[1].innerText);
+        assert.equal('A cursor that does not see changes made by others.', helper.getDescription(snapshot));
+
+    });
+
+    it('Shows Population Query', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_keysetCursor);
+        
+        var populationQuery = container.querySelector('div[data-statement-id="2"] > div > .qp-tr > div > .qp-node');
+        assert.equal('Population Query', populationQuery.children[1].innerText);
+        assert.equal('The query used to populate a cursor\'s work table when the cursor is opened.', helper.getDescription(populationQuery));
 
     });
 

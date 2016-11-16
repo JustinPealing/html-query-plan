@@ -419,10 +419,10 @@
   <xsl:template match="*[s:CursorPlan/@CursorActualType = 'Dynamic']" mode="NodeLabel">Dynamic</xsl:template>
   <xsl:template match="*[s:CursorPlan/@CursorActualType = 'FastForward']" mode="NodeLabel">Fast Forward</xsl:template>
   <xsl:template match="*[s:CursorPlan/@CursorActualType = 'Keyset']" mode="NodeLabel">Keyset</xsl:template>
-  <xsl:template match="*[s:CursorPlan/@CursorActualType = 'SnapShot']" mode="NodeLabel">Snap Shot</xsl:template>  
+  <xsl:template match="*[s:CursorPlan/@CursorActualType = 'SnapShot']" mode="NodeLabel">Snapshot</xsl:template>  
 
   <xsl:template match="*[@OperationType = 'FetchQuery']" mode="NodeLabel">Fetch Query</xsl:template>
-  <xsl:template match="*[@OperationType = 'PopulateQuery']" mode="NodeLabel">Populate Query</xsl:template>
+  <xsl:template match="*[@OperationType = 'PopulateQuery']" mode="NodeLabel">Population Query</xsl:template>
   <xsl:template match="*[@OperationType = 'RefreshQuery']" mode="NodeLabel">Refresh Query</xsl:template>
   
   <!--
@@ -479,8 +479,11 @@
   <xsl:template match="*[s:Top]" mode="ToolTipDescription">Select the first few rows based on a sort order.</xsl:template>
   
   <xsl:template match="*[@OperationType='FetchQuery']" mode="ToolTipDescription">The query used to retrieve rows when a fetch is issued against a cursor.</xsl:template>
+  <xsl:template match="*[@OperationType='PopulateQuery']" mode="ToolTipDescription">The query used to populate a cursor's work table when the cursor is opened.</xsl:template>
   <xsl:template match="*[s:CursorPlan/@CursorActualType='FastForward']" mode="ToolTipDescription">Fast Forward.</xsl:template>
   <xsl:template match="*[s:CursorPlan/@CursorActualType='Dynamic']" mode="ToolTipDescription">Cursor that can see all changes made by others.</xsl:template>
+  <xsl:template match="*[s:CursorPlan/@CursorActualType='Keyset']" mode="ToolTipDescription">Cursor that can see updates made by others, but not inserts.</xsl:template>
+  <xsl:template match="*[s:CursorPlan/@CursorActualType='SnapShot']" mode="ToolTipDescription">A cursor that does not see changes made by others.</xsl:template>
 
   <!-- 
   ================================

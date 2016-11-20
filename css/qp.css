@@ -158,15 +158,15 @@ div[class|='qp-icon'] {
 /* Layout - can't touch this */
 .qp-tt {
     position: absolute;
-    visibility: hidden;
     z-index: 1;
     white-space: normal;
     -webkit-transition-delay: 0.5s;
     transition-delay: 0.5s;
 }
 
-div.qp-node:hover .qp-tt {
-    visibility: visible;
+/* tooltip.js clones tooltip elements and adds them to the body. This hides the originals. */  
+.qp-root .qp-tt {
+    visibility: hidden;
 }
 
 .qp-tt table {

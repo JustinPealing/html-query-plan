@@ -54,11 +54,11 @@ function drawArrowBetweenNodes(draw, offset, fromElement, toElement) {
     let midOffsetLeft = fromX / 2 + toX / 2;
 
     let fromPoint = {
-        x: fromX - offset.left,
+        x: fromX - offset.left + 1,
         y: fromY - offset.top
     };
     let toPoint = {
-        x: toOffset.left - offset.left,
+        x: toOffset.left - offset.left - 1,
         y: toY - offset.top
     };
     let bendOffsetX = midOffsetLeft - offset.left;
@@ -66,7 +66,7 @@ function drawArrowBetweenNodes(draw, offset, fromElement, toElement) {
 }
 
 /**
- * Draws a line between two points.
+ * Draws an arrow between two points.
  * @draw SVG drawing context to use.
  * @from {x,y} coordinates of tail end.
  * @to {x,y} coordinates of the pointy end.
@@ -74,9 +74,25 @@ function drawArrowBetweenNodes(draw, offset, fromElement, toElement) {
  */
 function drawArrow(draw, from, to, bendX) {
 
-    draw.line(from.x, from.y, bendX, from.y).stroke({ width: 1});
-    draw.line(bendX, from.y, bendX, to.y).stroke({ width: 1});
-    draw.line(bendX, to.y, to.x, to.y).stroke({ width: 1});
+    var points = [
+        [from.x, from.y],
+        [from.x + 3, from.y - 3],
+        [from.x + 3, from.y - 1],
+        [bendX + (from.y <= to.y ? 1 : -1), from.y - 1],
+        [bendX + (from.y <= to.y ? 1 : -1), to.y - 1],
+        [to.x, to.y - 1],
+        [to.x, to.y + 1],
+        [bendX + (from.y <= to.y ? -1 : 1), to.y + 1],
+        [bendX + (from.y <= to.y ? -1 : 1), from.y + 1],
+        [from.x + 3, from.y + 1],
+        [from.x + 3, from.y + 3],
+        [from.x, from.y]
+    ];
+    
+    draw.polyline(points).fill('#E3E3E3').stroke({
+        color: '#505050',
+        width: 0.5
+    });
 
 }
 

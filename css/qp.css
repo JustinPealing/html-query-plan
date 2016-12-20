@@ -3,6 +3,10 @@
     margin: 2px;
     padding: 2px;
     border: 1px solid black;
+}
+
+div.qp-node,
+div.qp-tt {
     font-size: 11px;
     line-height: normal;
 }

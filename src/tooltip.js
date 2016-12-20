@@ -12,6 +12,9 @@ function initTooltip(container) {
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
         node.addEventListener("mouseover", function() {
+            if (timeoutId != null) {
+                return;
+            }
             timeoutId = window.setTimeout(function () {
                 currentTooltip = container.querySelector(".qp-tt").cloneNode(true);
                 document.body.appendChild(currentTooltip);
@@ -19,8 +22,15 @@ function initTooltip(container) {
                 currentTooltip.style.top = cursorY + 'px';
             }, 500);
         });
-        node.addEventListener("mouseout", function () {
+        node.addEventListener("mouseout", function (event) {
+            // http://stackoverflow.com/questions/4697758/prevent-onmouseout-when-hovering-child-element-of-the-parent-absolute-div-withou
+            var e = event.toElement || event.relatedTarget;
+            if (e.parentNode == node || e == node) {
+                return;
+            }
+
             window.clearTimeout(timeoutId);
+            timeoutId = null;
             if (currentTooltip != null) {
                 document.body.removeChild(currentTooltip);
                 currentTooltip = null;

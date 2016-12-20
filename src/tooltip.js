@@ -1,3 +1,5 @@
+import { findAncestor } from './utils.js'
+
 const TOOLTIP_TIMEOUT = 500;
 
 let timeoutId = null;
@@ -43,16 +45,19 @@ function onMouseover(node) {
         document.body.appendChild(currentTooltip);
         currentTooltip.style.left = cursorX + 'px';
         currentTooltip.style.top = cursorY + 'px';
+        currentTooltip.addEventListener("mouseout", function (event) {
+            onMouseout(node, event);
+        });
     }, TOOLTIP_TIMEOUT);
 }
 
 function onMouseout(node, event) {
     // http://stackoverflow.com/questions/4697758/prevent-onmouseout-when-hovering-child-element-of-the-parent-absolute-div-withou
     var e = event.toElement || event.relatedTarget;
-    if (e.parentNode == node || e == node) {
+    if (e == node || findAncestor(e, 'qp-node') == node ||
+        e == currentTooltip || findAncestor(e, 'qp-tt') == currentTooltip) {
         return;
     }
-
     window.clearTimeout(timeoutId);
     timeoutId = null;
     if (currentTooltip != null) {

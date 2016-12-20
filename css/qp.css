@@ -168,9 +168,13 @@ div[class|='qp-icon'] {
     transition-delay: 0.5s;
 }
 
-/* tooltip.js clones tooltip elements and adds them to the body. This hides the originals. */  
-.qp-root .qp-tt {
+div.qp-node .qp-tt,
+.qp-noCssTooltip div.qp-node:hover .qp-tt {
     visibility: hidden;
+}
+
+div.qp-node:hover .qp-tt {
+    visibility: visible;
 }
 
 .qp-tt table {

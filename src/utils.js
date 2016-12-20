@@ -1,4 +1,7 @@
 function findAncestor(element, className) {
+    if (element === null) {
+        return null;
+    }
     while ((element = element.parentElement) && element && !hasClass(element, className));
     return element;
 }

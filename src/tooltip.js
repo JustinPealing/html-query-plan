@@ -41,7 +41,7 @@ function onMouseover(node) {
         return;
     }
     timeoutId = window.setTimeout(function () {
-        currentTooltip = container.querySelector(".qp-tt").cloneNode(true);
+        currentTooltip = node.querySelector(".qp-tt").cloneNode(true);
         document.body.appendChild(currentTooltip);
         currentTooltip.style.left = cursorX + 'px';
         currentTooltip.style.top = cursorY + 'px';

@@ -1,5 +1,5 @@
 import SVG from 'svgjs';
-import { findAncestor } from 'utils.js';
+import { findAncestor } from './utils.js';
 
 function drawSvgLines(container) {
     let root = container.querySelector(".qp-root");

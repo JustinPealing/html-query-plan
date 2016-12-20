@@ -1,4 +1,5 @@
 import SVG from 'svgjs';
+import { findAncestor } from 'utils.js';
 
 function drawSvgLines(container) {
     let root = container.querySelector(".qp-root");
@@ -23,15 +24,6 @@ function findParent(node) {
         return null;
     }
     return parentRow.firstChild.firstChild;
-}
-
-function findAncestor(element, className) {
-    while ((element = element.parentElement) && element && !hasClass(element, className));
-    return element;
-}
-
-function hasClass(element, cls) {
-    return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
 }
 
 /**

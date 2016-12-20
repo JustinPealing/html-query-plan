@@ -41,13 +41,7 @@ function onMouseover(node) {
         return;
     }
     timeoutId = window.setTimeout(function () {
-        currentTooltip = node.querySelector(".qp-tt").cloneNode(true);
-        document.body.appendChild(currentTooltip);
-        currentTooltip.style.left = cursorX + 'px';
-        currentTooltip.style.top = cursorY + 'px';
-        currentTooltip.addEventListener("mouseout", function (event) {
-            onMouseout(node, event);
-        });
+        showTooltip(node);
     }, TOOLTIP_TIMEOUT);
 }
 
@@ -60,6 +54,20 @@ function onMouseout(node, event) {
     }
     window.clearTimeout(timeoutId);
     timeoutId = null;
+    hideTooltip();
+}
+
+function showTooltip(node) {
+    currentTooltip = node.querySelector(".qp-tt").cloneNode(true);
+    document.body.appendChild(currentTooltip);
+    currentTooltip.style.left = cursorX + 'px';
+    currentTooltip.style.top = cursorY + 'px';
+    currentTooltip.addEventListener("mouseout", function (event) {
+        onMouseout(node, event);
+    });
+}
+
+function hideTooltip() {
     if (currentTooltip != null) {
         document.body.removeChild(currentTooltip);
         currentTooltip = null;

@@ -30,7 +30,7 @@ div[class|='qp-icon'] {
     border: 1px solid black;
     background-color: #FFFFEE;
     padding: 2px;
-    min-width: 10em;
+    width: 30em;
 }
 
 .qp-tt div,

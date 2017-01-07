@@ -58,13 +58,39 @@ function onMouseout(node, event) {
 }
 
 function showTooltip(node) {
-    currentTooltip = node.querySelector(".qp-tt").cloneNode(true);
+    hideTooltip();
+    
+    var positionY = cursorY;
+    var tooltip = node.querySelector(".qp-tt");
+
+    // Nudge the tooptip up if its going to appear below the bottom of the page
+    var documentHeight = getDocumentHeight();
+    var gapAtBottom = documentHeight - (positionY + tooltip.offsetHeight);
+    if (gapAtBottom < 10) {
+        positionY = documentHeight - (tooltip.offsetHeight + 10);
+    }
+
+    // Stop the tooltip appearing above the top of the page
+    if (positionY < 10) {
+        positionY = 10;
+    }
+
+    currentTooltip = tooltip.cloneNode(true);
     document.body.appendChild(currentTooltip);
     currentTooltip.style.left = cursorX + 'px';
-    currentTooltip.style.top = cursorY + 'px';
+    currentTooltip.style.top = positionY + 'px';
     currentTooltip.addEventListener("mouseout", function (event) {
         onMouseout(node, event);
     });
+}
+
+function getDocumentHeight() {
+    // http://stackoverflow.com/a/1147768/113141
+    var body = document.body,
+        html = document.documentElement;
+    return Math.max(
+        body.scrollHeight, body.offsetHeight, 
+        html.clientHeight, html.scrollHeight, html.offsetHeight);
 }
 
 function hideTooltip() {

@@ -7,7 +7,6 @@ html-query-plan is a JavaScript library for showing Microsoft SQL Server executi
 To use in a web page:
 
  - Find the latest release [here](https://github.com/JustinPealing/html-query-plan/releases/latest).
- - Include jQuery
  - Include `qp.css` and `qp.min.js`
  - Call `QP.showPlan`, passing the container in which to show the plan and the query plan XML (as a string). 
 

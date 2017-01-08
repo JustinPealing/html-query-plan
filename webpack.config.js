@@ -12,11 +12,6 @@ module.exports = {
         filename: development ? 'qp.js' : 'qp.min.js',
         path: path.join(__dirname, 'lib')
     },
-    externals: {
-        // require("jquery") is external and available
-        //  on the global var jQuery
-        "jquery": "jQuery"
-    },
     plugins: development ? [] : [
         new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
     ],

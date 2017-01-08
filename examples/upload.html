@@ -12,7 +12,7 @@
     </p>
     <div id="container"></div>
     <script>
-        $("#upload").change(function (e) {
+        document.getElementById('upload').addEventListener('change', function (e) {
             var file = e.target.files[0];
             var reader = new FileReader();
             reader.onload = function (e) {

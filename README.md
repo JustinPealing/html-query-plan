@@ -20,6 +20,24 @@ To use in a web page:
 
 See the `examples` folder for comlete examples.
 
+## Options
+
+Additional options can be passed using the 3rd argument:
+
+```
+<div id="container"></div>
+<script>
+    var options = {
+        jsTooltips: false
+    };
+    QP.showPlan(document.getElementById("container"), '<ShowPlanXML...', options);
+</script> 
+```
+
+| Option | Default | Description | 
+| --- | --- | --- | 
+| jsTooltips | true | Set to `false` to use CSS tooltips. | 
+
 ## Running XSLT separately
 
 Under the covers html-query-plan is an XSLT 1.0 stylesheet, `qp.xslt` which can be used to pre-render the plan html. Javascript is still needed to draw the connectling lines, to do this follow the above steps but call `QP.drawLines` instead:

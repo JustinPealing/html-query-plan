@@ -156,4 +156,15 @@ describe('Cursor support', () => {
 
     });
 
+    it('Shows the cost only once (Issue #30)', () => {
+
+        var container = document.createElement('div');
+        QP.showPlan(container, plan_snapshotCursor);
+
+        var condNode = container.querySelector('div[data-statement-id="4"] > div > .qp-node');
+        assert.equal("Cost: 0%", condNode.children[2].innerText);
+        assert.equal("qp-tt", condNode.children[3].className);
+
+    });
+
 });

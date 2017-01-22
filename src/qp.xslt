@@ -245,7 +245,7 @@
     </xsl:for-each>
   </xsl:template>
 
-  <!-- Displays the node cost label. -->
+  <!-- Displays the node cost label. -->    
   <xsl:template match="s:RelOp" mode="NodeCostLabel">
     <xsl:variable name="EstimatedOperatorCost"><xsl:call-template name="EstimatedOperatorCost" /></xsl:variable>
     <xsl:variable name="TotalCost"><xsl:value-of select="ancestor::s:QueryPlan/s:RelOp/@EstimatedTotalSubtreeCost" /></xsl:variable>
@@ -253,9 +253,9 @@
   </xsl:template>
 
   <!-- Dont show the node cost for statements. -->
-  <xsl:template match="s:StmtSimple" mode="NodeCostLabel" />
+  <xsl:template match="s:StmtSimple|s:StmtUseDb" mode="NodeCostLabel" />
 
-  <xsl:template match="s:StmtCursor|s:Operation" mode="NodeCostLabel">
+  <xsl:template match="s:StmtCursor|s:Operation|s:StmtCond" mode="NodeCostLabel">
     <div>Cost: 0%</div>
   </xsl:template>
 

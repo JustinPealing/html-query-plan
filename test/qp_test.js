@@ -10,6 +10,7 @@ var plan_ClusteredIndexSeek = require('raw!../test_plans/clustered index seek.sq
 var plan_QueryPlan293288248 = require('raw!../test_plans/QueryPlan-293288248.sqlplan');
 var plan_StmtUseDb = require('raw!../test_plans/StmtUseDb.sqlplan');
 var plan_StmtCond = require('raw!../test_plans/StmtCond.sqlplan');
+var plan_ManyLines = require('raw!../test_plans/many_lines.sqlplan');
 
 describe('qp.js', () => {
 
@@ -231,6 +232,17 @@ describe('qp.js', () => {
 
             var printNode = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
             assert.equal('PRINT', printNode.children[1].innerText);
+
+        });
+        
+        it('Shows the cost only once (Issue #30)', () => {
+
+            var container = document.createElement('div');
+            QP.showPlan(container, plan_ManyLines);
+
+            var condNode = container.querySelector('div[data-statement-id="65"] > div > .qp-node');
+            assert.equal("Cost: 0%", condNode.children[2].innerText);
+            assert.equal("qp-tt", condNode.children[3].className);
 
         });
 

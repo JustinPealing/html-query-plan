@@ -48,8 +48,9 @@ function onMouseover(node) {
 function onMouseout(node, event) {
     // http://stackoverflow.com/questions/4697758/prevent-onmouseout-when-hovering-child-element-of-the-parent-absolute-div-withou
     var e = event.toElement || event.relatedTarget;
-    if (e == node || findAncestor(e, 'qp-node') == node ||
-        e == currentTooltip || findAncestor(e, 'qp-tt') == currentTooltip) {
+    if (e == node ||
+        findAncestor(e, 'qp-node') == node ||
+        (currentTooltip != null && (e == currentTooltip || findAncestor(e, 'qp-tt') == currentTooltip))) {
         return;
     }
     window.clearTimeout(timeoutId);

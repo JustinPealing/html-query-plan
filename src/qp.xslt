@@ -20,8 +20,15 @@
   <!-- Outermost div that contains all statement plans. -->
   <xsl:template match="s:ShowPlanXML">
     <div class="qp-root">
-      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" mode="QpTr" />  
+      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" mode="Statement" />  
     </div>
+  </xsl:template>
+
+  <xsl:template match="s:BatchSequence/s:Batch/s:Statements/*" mode="Statement">
+    <div class="qp-statement-header">
+      <div><xsl:value-of select="@StatementText" /></div>
+    </div>
+    <xsl:apply-templates select="." mode="QpTr" />
   </xsl:template>
   
   <!-- Each node has a parent qp-tr element which contains / positions the node and its children -->

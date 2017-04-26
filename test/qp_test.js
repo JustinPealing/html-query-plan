@@ -11,6 +11,7 @@ var plan_QueryPlan293288248 = require('raw!../test_plans/QueryPlan-293288248.sql
 var plan_StmtUseDb = require('raw!../test_plans/StmtUseDb.sqlplan');
 var plan_StmtCond = require('raw!../test_plans/StmtCond.sqlplan');
 var plan_NestedLoops = require('raw!../test_plans/nested loops.sqlplan');
+var plan_MyCommentScoreDistribution = require('raw!../test_plans/stack overflow/my comment score distribution.sqlplan');
 
 describe('qp.js', () => {
 
@@ -274,6 +275,20 @@ describe('qp.js', () => {
 
                 var indexSeek = helper.findNodeById(container, '2', '10');
                 assert.equal('False', helper.getProperty(indexSeek, 'Ordered'));
+
+            });
+
+        });
+        
+        describe('Tooltip Number of Executions Property', () => {
+
+            it('Sums @ActualExecutions over each RunTimeCountersPerThread elements', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_MyCommentScoreDistribution);
+
+                var indexSeek = helper.findNodeById(container, '4', '1');
+                assert.equal('8', helper.getProperty(indexSeek, 'Number of Executions'));
 
             });
 

@@ -21,17 +21,14 @@ describe('qp.js', () => {
 
         it('Adds canvas to .qp-root', () => {
             
-            var container = document.createElement("div");
-            QP.showPlan(container, plan_Issue1);
+                var container = helper.showPlan(plan_Issue1);
             assert.notEqual(null, container.querySelector('svg'));
             
         });
         
         it('Calculates estimated subtree cost correctly', () => {
 
-            var container = document.createElement("div");
-            QP.showPlan(container, plan_Issue1);
-            
+            var container = helper.showPlan(plan_Issue1);
             assert.equal("0.14839", helper.getProperty(helper.findNodeById(container, "1"), "Estimated Subtree Cost"));
             assert.equal("0.0268975", helper.getProperty(helper.findNodeById(container, "18"), "Estimated Subtree Cost"));
 
@@ -39,9 +36,7 @@ describe('qp.js', () => {
 
         it('Calculates estimated operator cost correctly', () => {
 
-            var container = document.createElement("div");
-            QP.showPlan(container, plan_Issue1);
-            
+            var container = helper.showPlan(plan_Issue1);
             assert.equal("0.000001 (0%)", helper.getProperty(helper.findNodeById(container, "0"), "Estimated Operator Cost"));
             assert.equal("0 (0%)", helper.getProperty(helper.findNodeById(container, "1"), "Estimated Operator Cost"));
             assert.equal("0.000025 (0%)", helper.getProperty(helper.findNodeById(container, "3"), "Estimated Operator Cost"));
@@ -63,18 +58,14 @@ describe('qp.js', () => {
 
         it ('Formats scientific numbers correctly', () => {
 
-            var container = document.createElement("div");
-            QP.showPlan(container, plan_Issue1);
-
+            var container = helper.showPlan(plan_Issue1);
             assert.equal("0.000001", helper.getProperty(helper.findNodeById(container, "0"), "Estimated CPU Cost"));
             
         });
 
         it('Works out cost percentages based on the current statement',  () => {
 
-            var container = document.createElement("div");
-            QP.showPlan(container, plan_Issue7);
-            
+            var container = helper.showPlan(plan_Issue7);
             assert.equal("248.183 (99%)", helper.getProperty(helper.findNodeById(container, "4", "6"), "Estimated Operator Cost"));
             assert.equal("0.0032831 (100%)", helper.getProperty(helper.findNodeById(container, "3", "11"), "Estimated Operator Cost"));
 
@@ -82,9 +73,7 @@ describe('qp.js', () => {
 
         it('Shows SetPredicate string in tooltip', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_Issue7);
-
+            var container = helper.showPlan(plan_Issue7);
             var clusteredIndexUpdate = helper.findNodeById(container, "0", "6");
             assert.equal('[mcLive].[Cadastre].[OwnerPersonParsed].[Multiword] = [Expr1002]',
                 helper.getToolTipSection(clusteredIndexUpdate, 'Predicate'));
@@ -93,9 +82,8 @@ describe('qp.js', () => {
 
         it('Shows predicates in tooltips where necessary', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_NotShowingSeekPredicates);
-
+            var container = helper.showPlan(plan_NotShowingSeekPredicates);
+            
             var indexSeekNode = helper.findNodeById(container, "26", "1");
             assert.equal("NOT [SMS].[dbo].[SMSresults].[Note] like 'PENDING%' AND NOT [SMS].[dbo].[SMSresults].[Note] like 'ALLOCATED%'",
                 helper.getToolTipSection(indexSeekNode, 'Predicate'));
@@ -107,9 +95,7 @@ describe('qp.js', () => {
 
         it('Shows top expression in tooltips', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_NotShowingSeekPredicates);
-
+            var container = helper.showPlan(plan_NotShowingSeekPredicates);
             var topNode = helper.findNodeById(container, "25", "1");
             assert.equal("(1)", helper.getToolTipSection(topNode, 'Top Expression'));
 
@@ -117,8 +103,7 @@ describe('qp.js', () => {
 
         it('Shows seek predicates in tooltips', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_NotShowingSeekPredicates);
+            var container = helper.showPlan(plan_NotShowingSeekPredicates);
 
             var topNode = helper.findNodeById(container, "26", "1");
             assert.equal("Seek Keys[1]: Prefix: [SMS].[dbo].[SMSresults].SMSID, [SMS].[dbo].[SMSresults].Status = Scalar Operator([SMS].[dbo].[SMSnew].[SMSID] as [N].[SMSID]), Scalar Operator('S')",
@@ -132,8 +117,7 @@ describe('qp.js', () => {
 
         it('Handles >= and <= seek predicates', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_Issue7);
+            var container = helper.showPlan(plan_Issue7);
 
             var clusteredIndexSeekNode = helper.findNodeById(container, "8", "12");
             assert.equal("Seek Keys[1]: Start: [mcLive].[Cadastre].[OwnerPersonParsed].RowId >= Scalar Operator([@MapMIN]), End: [mcLive].[Cadastre].[OwnerPersonParsed].RowId <= Scalar Operator([@ParsedMAX])",
@@ -143,9 +127,8 @@ describe('qp.js', () => {
 
         it('Shows Key Lookup when Lookup="true"', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_KeyLookup);
-
+            var container = helper.showPlan(plan_KeyLookup);
+            
             var keyLookup = helper.findNodeById(container, '5', '1');
             assert.equal('Key Lookup (Clustered)', keyLookup.children[1].innerText);
             assert.equal('Key Lookup', helper.getProperty(keyLookup, 'Physical Operation'));
@@ -158,8 +141,7 @@ describe('qp.js', () => {
 
         it('Shows Key Lookup when Lookup="1"', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_NotShowingSeekPredicates);
+            var container = helper.showPlan(plan_NotShowingSeekPredicates);
 
             var keyLookup = helper.findNodeById(container, '6', '1');
             assert.equal('Key Lookup (Clustered)', keyLookup.children[1].innerText);
@@ -173,8 +155,7 @@ describe('qp.js', () => {
 
         it('Shows Clustered Index Scan', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_ClusteredIndexScan);
+            var container = helper.showPlan(plan_ClusteredIndexScan);
 
             var clusteredIndexScan = helper.findNodeById(container, '0', '1');
             assert.equal('Clustered Index Scan', clusteredIndexScan.children[1].innerText);
@@ -188,8 +169,7 @@ describe('qp.js', () => {
 
         it('Shows Clustered Index Seek', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_ClusteredIndexSeek);
+            var container = helper.showPlan(plan_ClusteredIndexSeek);
 
             var clusteredIndexSeek = helper.findNodeById(container, '0', '1');
             assert.equal('Clustered Index Seek', clusteredIndexSeek.children[1].innerText);
@@ -203,9 +183,7 @@ describe('qp.js', () => {
 
         it('Has correct icon for Table Valued Functions', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_QueryPlan293288248);
-
+            var container = helper.showPlan(plan_QueryPlan293288248);
             var tableValuedFunction = helper.findNodeById(container, '7', '1');
             assert.notEqual(null, tableValuedFunction.querySelector('.qp-icon-TableValuedFunction'))
 
@@ -213,9 +191,7 @@ describe('qp.js', () => {
 
         it('Shows StmtUseDb', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_StmtUseDb);
-
+            var container = helper.showPlan(plan_StmtUseDb);
             var statementNode = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
             assert.equal('USE DATABASE', statementNode.children[1].innerText);
             assert.equal(null, helper.getProperty(statementNode, 'Physical Operation'));
@@ -225,8 +201,7 @@ describe('qp.js', () => {
         
         it('Shows StmtCond', () => {
 
-            var container = document.createElement('div');
-            QP.showPlan(container, plan_StmtCond);
+            var container = helper.showPlan(plan_StmtCond);
 
             var condNode = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
             assert.equal('COND', condNode.children[1].innerText);
@@ -242,9 +217,7 @@ describe('qp.js', () => {
 
             it('Shows True when @Ordered = true', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_KeyLookup);
-
+                var container = helper.showPlan(plan_KeyLookup);
                 var indexSeek = helper.findNodeById(container, '3', '1');
                 assert.equal('True', helper.getProperty(indexSeek, 'Ordered'));
 
@@ -252,9 +225,7 @@ describe('qp.js', () => {
 
             it('Shows False when @Ordered = false', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_NestedLoops);
-
+                var container = helper.showPlan(plan_NestedLoops);
                 var indexSeek = helper.findNodeById(container, '3', '1');
                 assert.equal('False', helper.getProperty(indexSeek, 'Ordered'));
 
@@ -262,9 +233,7 @@ describe('qp.js', () => {
 
             it('Shows True when @Ordered = 1', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_Issue1);
-
+                var container = helper.showPlan(plan_Issue1);
                 var indexSeek = helper.findNodeById(container, '7', '1');
                 assert.equal('True', helper.getProperty(indexSeek, 'Ordered'));
 
@@ -272,9 +241,7 @@ describe('qp.js', () => {
 
             it('Shows False when @Ordered = 0', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_Issue7);
-
+                var container = helper.showPlan(plan_Issue7);
                 var indexSeek = helper.findNodeById(container, '2', '10');
                 assert.equal('False', helper.getProperty(indexSeek, 'Ordered'));
 
@@ -286,9 +253,7 @@ describe('qp.js', () => {
 
             it('Sums @ActualExecutions over each RunTimeCountersPerThread elements', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_MyCommentScoreDistribution);
-
+                var container = helper.showPlan(plan_MyCommentScoreDistribution);
                 var indexSeek = helper.findNodeById(container, '4', '1');
                 assert.equal('8', helper.getProperty(indexSeek, 'Number of Executions'));
 
@@ -300,9 +265,7 @@ describe('qp.js', () => {
 
             it('Sums @ActualRows over each RunTimeCountersPerThread elements', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_MyCommentScoreDistribution);
-
+                var container = helper.showPlan(plan_MyCommentScoreDistribution);
                 var indexSeek = helper.findNodeById(container, '4', '1');
                 assert.equal('413', helper.getProperty(indexSeek, 'Actual Number of Rows'));
 
@@ -314,9 +277,7 @@ describe('qp.js', () => {
 
             it('Shows Ascending with @Ascending = true', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_KeysetCursor);
-
+                var container = helper.showPlan(plan_KeysetCursor);
                 var sort = helper.findNodeById(container, '4', '2');
                 assert.equal('[Northwind].[dbo].[Employee].EmpName Ascending', helper.getToolTipSection(sort, 'Order By'));
 
@@ -324,9 +285,7 @@ describe('qp.js', () => {
 
             it('Shows Descending with @Ascending = false', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_NestedLoops);
-
+                var container = helper.showPlan(plan_NestedLoops);
                 var sort = helper.findNodeById(container, '1', '1');
                 assert.equal('[DataExplorer].[dbo].[Queries].FirstRun Descending', helper.getToolTipSection(sort, 'Order By'));
 
@@ -334,9 +293,7 @@ describe('qp.js', () => {
 
             it('Shows Ascending with @Ascending = 1', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_UpvotesForEachTag);
-
+                var container = helper.showPlan(plan_UpvotesForEachTag);
                 var sort = helper.findNodeById(container, '4', '1');
                 assert.equal('[StackOverflow.Exported].[dbo].[Tags].TagName Ascending', helper.getToolTipSection(sort, 'Order By'));
 
@@ -344,9 +301,7 @@ describe('qp.js', () => {
 
             it('Shows Descending with @Ascending = 0', () => {
 
-                var container = document.createElement('div');
-                QP.showPlan(container, plan_UpvotesForEachTag);
-
+                var container = helper.showPlan(plan_UpvotesForEachTag);
                 var sort = helper.findNodeById(container, '0', '1');
                 assert.equal('Expr1012 Descending', helper.getToolTipSection(sort, 'Order By'));
 

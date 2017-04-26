@@ -1,3 +1,5 @@
+import QP from '../src/index';
+
 function findNodeById(container, nodeId, statementId) {
     var statmentElement = findStatmentElementById(container, statementId);
     var nodes = statmentElement.querySelectorAll('.qp-node');
@@ -43,7 +45,14 @@ function getDescription(node) {
     return tt.children[1].innerText;
 }
 
+function showPlan(planXml) {
+    var container = document.createElement("div");
+    QP.showPlan(container, planXml);
+    return container;
+}
+
 module.exports.getProperty = getProperty;
 module.exports.findNodeById = findNodeById;
 module.exports.getToolTipSection = getToolTipSection;
 module.exports.getDescription = getDescription;
+module.exports.showPlan = showPlan;

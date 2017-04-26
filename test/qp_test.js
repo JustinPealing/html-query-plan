@@ -21,7 +21,7 @@ describe('qp.js', () => {
 
         it('Adds canvas to .qp-root', () => {
             
-                var container = helper.showPlan(plan_Issue1);
+            var container = helper.showPlan(plan_Issue1);
             assert.notEqual(null, container.querySelector('svg'));
             
         });

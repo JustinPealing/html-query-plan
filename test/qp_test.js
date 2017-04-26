@@ -293,6 +293,20 @@ describe('qp.js', () => {
             });
 
         });
+        
+        describe('Tooltip Action Numer of Rows Property', () => {
+
+            it('Sums @ActualRows over each RunTimeCountersPerThread elements', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_MyCommentScoreDistribution);
+
+                var indexSeek = helper.findNodeById(container, '4', '1');
+                assert.equal('413', helper.getProperty(indexSeek, 'Actual Number of Rows'));
+
+            });
+
+        });
 
     });
 

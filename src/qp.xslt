@@ -148,6 +148,7 @@
         <xsl:with-param name="Label">Ordered</xsl:with-param>
         <xsl:with-param name="Value">
           <xsl:choose>
+            <xsl:when test="s:IndexScan/@Ordered = 'true'">True</xsl:when>
             <xsl:when test="s:IndexScan/@Ordered = 1">True</xsl:when>
             <xsl:otherwise>False</xsl:otherwise>
           </xsl:choose>

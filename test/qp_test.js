@@ -10,6 +10,7 @@ var plan_ClusteredIndexSeek = require('raw!../test_plans/clustered index seek.sq
 var plan_QueryPlan293288248 = require('raw!../test_plans/QueryPlan-293288248.sqlplan');
 var plan_StmtUseDb = require('raw!../test_plans/StmtUseDb.sqlplan');
 var plan_StmtCond = require('raw!../test_plans/StmtCond.sqlplan');
+var plan_NestedLoops = require('raw!../test_plans/nested loops.sqlplan');
 
 describe('qp.js', () => {
 
@@ -234,6 +235,50 @@ describe('qp.js', () => {
 
         });
         
+        describe('Tooltip Ordered Property', () => {
+
+            it('Shows True when @Ordered = true', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_KeyLookup);
+
+                var indexSeek = helper.findNodeById(container, '3', '1');
+                assert.equal('True', helper.getProperty(indexSeek, 'Ordered'));
+
+            });
+
+            it('Shows False when @Ordered = false', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_NestedLoops);
+
+                var indexSeek = helper.findNodeById(container, '3', '1');
+                assert.equal('False', helper.getProperty(indexSeek, 'Ordered'));
+
+            });
+
+            it('Shows True when @Ordered = 1', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_Issue1);
+
+                var indexSeek = helper.findNodeById(container, '7', '1');
+                assert.equal('True', helper.getProperty(indexSeek, 'Ordered'));
+
+            });
+
+            it('Shows False when @Ordered = 0', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_Issue7);
+
+                var indexSeek = helper.findNodeById(container, '2', '10');
+                assert.equal('False', helper.getProperty(indexSeek, 'Ordered'));
+
+            });
+
+        });
+
     });
 
 });

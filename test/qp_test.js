@@ -12,6 +12,8 @@ var plan_StmtUseDb = require('raw!../test_plans/StmtUseDb.sqlplan');
 var plan_StmtCond = require('raw!../test_plans/StmtCond.sqlplan');
 var plan_NestedLoops = require('raw!../test_plans/nested loops.sqlplan');
 var plan_MyCommentScoreDistribution = require('raw!../test_plans/stack overflow/my comment score distribution.sqlplan');
+var plan_KeysetCursor = require('raw!../test_plans/cursors/keyset Cursor.sqlplan');
+var plan_UpvotesForEachTag = require('raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan');
 
 describe('qp.js', () => {
 
@@ -303,6 +305,50 @@ describe('qp.js', () => {
 
                 var indexSeek = helper.findNodeById(container, '4', '1');
                 assert.equal('413', helper.getProperty(indexSeek, 'Actual Number of Rows'));
+
+            });
+
+        });
+        
+        describe('Tooltip Order By', () => {
+
+            it('Shows Ascending with @Ascending = true', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_KeysetCursor);
+
+                var sort = helper.findNodeById(container, '4', '2');
+                assert.equal('[Northwind].[dbo].[Employee].EmpName Ascending', helper.getToolTipSection(sort, 'Order By'));
+
+            });
+
+            it('Shows Descending with @Ascending = false', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_NestedLoops);
+
+                var sort = helper.findNodeById(container, '1', '1');
+                assert.equal('[DataExplorer].[dbo].[Queries].FirstRun Descending', helper.getToolTipSection(sort, 'Order By'));
+
+            });
+
+            it('Shows Ascending with @Ascending = 1', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_UpvotesForEachTag);
+
+                var sort = helper.findNodeById(container, '4', '1');
+                assert.equal('[StackOverflow.Exported].[dbo].[Tags].TagName Ascending', helper.getToolTipSection(sort, 'Order By'));
+
+            });
+
+            it('Shows Descending with @Ascending = 0', () => {
+
+                var container = document.createElement('div');
+                QP.showPlan(container, plan_UpvotesForEachTag);
+
+                var sort = helper.findNodeById(container, '0', '1');
+                assert.equal('Expr1012 Descending', helper.getToolTipSection(sort, 'Order By'));
 
             });
 

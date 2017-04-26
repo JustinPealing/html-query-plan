@@ -314,6 +314,7 @@
       <div>
         <xsl:apply-templates select="s:ColumnReference" mode="ObjectName" />
         <xsl:choose>
+          <xsl:when test="@Ascending = 'true'"> Ascending</xsl:when>
           <xsl:when test="@Ascending = 1"> Ascending</xsl:when>
           <xsl:otherwise> Descending</xsl:otherwise>
         </xsl:choose>

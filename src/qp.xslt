@@ -75,6 +75,10 @@
         </xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Storage</xsl:with-param>
+        <xsl:with-param name="Value" select="s:IndexScan/@Storage|s:TableScan/@Storage" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Actual Number of Rows</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRows)" />
       </xsl:call-template>

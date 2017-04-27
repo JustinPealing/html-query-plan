@@ -14,6 +14,7 @@ var plan_NestedLoops = require('raw!../test_plans/nested loops.sqlplan');
 var plan_MyCommentScoreDistribution = require('raw!../test_plans/stack overflow/my comment score distribution.sqlplan');
 var plan_KeysetCursor = require('raw!../test_plans/cursors/keyset Cursor.sqlplan');
 var plan_UpvotesForEachTag = require('raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan');
+var plan_Cursor2 = require('raw!../test_plans/cursors/cursor2.sqlplan');
 
 describe('qp.js', () => {
 
@@ -364,6 +365,34 @@ describe('qp.js', () => {
                 var container = helper.showPlan(plan_UpvotesForEachTag);
                 var sort = helper.findNodeById(container, '2', '1');
                 assert.equal(null, helper.getProperty(sort, 'Actual Rewinds'));
+
+            });
+
+        });
+        
+        describe('Tooltip Storage Property', () => {
+
+            it('Is not present if */@Storage is not present', () => {
+
+                var container = helper.showPlan(plan_ClusteredIndexScan);
+                var clusteredIndexScan = helper.findNodeById(container, '0', '1');
+                assert.equal(null, helper.getProperty(clusteredIndexScan, 'Storage'));
+
+            });
+
+            it('Matches IndexScan/@Storage', () => {
+
+                var container = helper.showPlan(plan_KeyLookup);
+                var indexSeek = helper.findNodeById(container, '3', '1');
+                assert.equal('RowStore', helper.getProperty(indexSeek, 'Storage'));
+
+            });
+
+            it('Matches TableScan/@Storage', () => {
+
+                var container = helper.showPlan(plan_Cursor2);
+                var tableScan = helper.findNodeById(container, '2', '4');
+                assert.equal('RowStore', helper.getProperty(tableScan, 'Storage'));
 
             });
 

@@ -96,10 +96,13 @@
           </xsl:call-template>
         </xsl:with-param>
       </xsl:call-template>
-      <!-- TODO: Estimated Number of Executions -->
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Number of Executions</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutions)" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated Number of Executions</xsl:with-param>
+        <xsl:with-param name="Value" select="@EstimateRebinds + 1" />
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Degree of Parallelism</xsl:with-param>

@@ -308,6 +308,18 @@ describe('qp.js', () => {
             });
 
         });
+        
+        describe('Tooltip Estimated Number of Executions Property', () => {
+
+            it('Equals @EstimateRebinds + 1', () => {
+
+                var container = helper.showPlan(plan_UpvotesForEachTag);
+                var clusteredIndexSeek = helper.findNodeById(container, '16', '1');
+                assert.equal('25.898', helper.getProperty(clusteredIndexSeek, 'Estimated Number of Executions'));
+
+            });
+
+        });
 
     });
 

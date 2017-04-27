@@ -144,8 +144,16 @@
         <xsl:with-param name="Label">Estimated Row Size</xsl:with-param>
         <xsl:with-param name="Value" select="concat(@AvgRowSize, ' B')" />
       </xsl:call-template>
-      <!-- TODO: Actual Rebinds
-           TODO: Actual Rewinds -->
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="s:RunTimeInformation" />
+        <xsl:with-param name="Label">Actual Rebinds</xsl:with-param>
+        <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRebinds)" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="s:RunTimeInformation" />
+        <xsl:with-param name="Label">Actual Rewinds</xsl:with-param>
+        <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRewinds)" />
+      </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="s:IndexScan/@Ordered" />
         <xsl:with-param name="Label">Ordered</xsl:with-param>

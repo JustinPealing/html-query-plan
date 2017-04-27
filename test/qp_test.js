@@ -320,6 +320,54 @@ describe('qp.js', () => {
             });
 
         });
+        
+        describe('Tooltip Actual Rebinds Property', () => {
+
+            it('Sums @ActualRebinds over each RunTimeCountersPerThread elements', () => {
+
+                var container = helper.showPlan(plan_UpvotesForEachTag);
+                var sort = helper.findNodeById(container, '4', '1');
+                assert.equal('8', helper.getProperty(sort, 'Actual Rebinds'));
+
+            });
+
+            it('Is zero when @ActualRebinds is present but sums to 0', () => {
+
+                var container = helper.showPlan(plan_UpvotesForEachTag);
+                var sort = helper.findNodeById(container, '5', '1');
+                assert.equal('0', helper.getProperty(sort, 'Actual Rebinds'));
+
+            });
+
+            it('Is not present if RunTimeInformation is missing', () => {
+
+                var container = helper.showPlan(plan_UpvotesForEachTag);
+                var sort = helper.findNodeById(container, '2', '1');
+                assert.equal(null, helper.getProperty(sort, 'Actual Rebinds'));
+
+            });
+
+        });
+        
+        describe('Tooltip Actual Rewinds Property', () => {
+
+            it('Sums @ActualRewinds over each RunTimeCountersPerThread elements', () => {
+
+                var container = helper.showPlan(plan_UpvotesForEachTag);
+                var sort = helper.findNodeById(container, '4', '1');
+                assert.equal('0', helper.getProperty(sort, 'Actual Rewinds'));
+
+            });
+
+            it('Is not present if RunTimeInformation is missing', () => {
+
+                var container = helper.showPlan(plan_UpvotesForEachTag);
+                var sort = helper.findNodeById(container, '2', '1');
+                assert.equal(null, helper.getProperty(sort, 'Actual Rewinds'));
+
+            });
+
+        });
 
     });
 

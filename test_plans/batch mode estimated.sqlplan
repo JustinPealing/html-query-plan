@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.5" Build="13.0.1728.2" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="10000000" StatementId="1" StatementOptmLevel="FULL" CardinalityEstimationModelVersion="130" StatementSubTreeCost="160.46" StatementText="SELECT actid, tranid, val,&#xD;&#xA;&#xD;&#xA;  SUM(val) OVER(PARTITION BY actid) AS acttotal&#xD;&#xA;&#xD;&#xA;FROM dbo.TransactionsCS" StatementType="SELECT" QueryHash="0x2A99915D9D6CEE3B" QueryPlanHash="0x64B246EAE296FFD4" RetrievedFromCache="false" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan CachedPlanSize="32" CompileTime="14" CompileCPU="6" CompileMemory="216">
+            <ThreadStat Branches="1" />
+            <MemoryGrantInfo SerialRequiredMemory="152" SerialDesiredMemory="693032" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="206734" EstimatedPagesCached="51683" EstimatedAvailableDegreeOfParallelism="2" />
+            <RelOp AvgRowSize="31" EstimateCPU="23.541" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="10000000" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="160.46">
+              <OutputList>
+                <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="actid" />
+                <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="tranid" />
+                <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="val" />
+                <ColumnReference Column="Expr1003" />
+              </OutputList>
+              <Parallelism>
+                <RelOp AvgRowSize="39" EstimateCPU="0" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="10000000" LogicalOp="Compute Scalar" NodeId="1" Parallel="true" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="136.899">
+                  <OutputList>
+                    <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="actid" />
+                    <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="tranid" />
+                    <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="val" />
+                    <ColumnReference Column="Expr1003" />
+                  </OutputList>
+                  <ComputeScalar>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1003" />
+                        <ScalarOperator ScalarString="CASE WHEN [Expr1004]=(0) THEN NULL ELSE [Expr1005] END">
+                          <IF>
+                            <Condition>
+                              <ScalarOperator>
+                                <Compare CompareOp="EQ">
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Column="Expr1004" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Const ConstValue="(0)" />
+                                  </ScalarOperator>
+                                </Compare>
+                              </ScalarOperator>
+                            </Condition>
+                            <Then>
+                              <ScalarOperator>
+                                <Const ConstValue="NULL" />
+                              </ScalarOperator>
+                            </Then>
+                            <Else>
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1005" />
+                                </Identifier>
+                              </ScalarOperator>
+                            </Else>
+                          </IF>
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp AvgRowSize="39" EstimateCPU="1.57" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="10000000" LogicalOp="Window Aggregate" NodeId="2" Parallel="true" PhysicalOp="Window Aggregate" EstimatedTotalSubtreeCost="136.899">
+                      <OutputList>
+                        <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="actid" />
+                        <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="tranid" />
+                        <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="val" />
+                        <ColumnReference Column="Expr1004" />
+                        <ColumnReference Column="Expr1005" />
+                      </OutputList>
+                      <WindowAggregate>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Expr1005" />
+                            <ScalarOperator ScalarString="SUM([testwindow].[dbo].[TransactionsCS].[val])">
+                              <Aggregate AggType="SUM" Distinct="false">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="val" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Aggregate>
+                            </ScalarOperator>
+                          </DefinedValue>
+                        </DefinedValues>
+                        <RelOp AvgRowSize="23" EstimateCPU="19.728" EstimateIO="114.444" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="10000000" LogicalOp="Sort" NodeId="3" Parallel="true" PhysicalOp="Sort" EstimatedTotalSubtreeCost="135.329">
+                          <OutputList>
+                            <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="actid" />
+                            <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="tranid" />
+                            <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="val" />
+                          </OutputList>
+                          <MemoryFractions Input="0.995151" Output="0.995151" />
+                          <Sort Distinct="false">
+                            <OrderBy>
+                              <OrderByColumn Ascending="true">
+                                <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="actid" />
+                              </OrderByColumn>
+                            </OrderBy>
+                            <RelOp AvgRowSize="23" EstimateCPU="0.550008" EstimateIO="0.606829" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="10000000" LogicalOp="Clustered Index Scan" NodeId="4" Parallel="true" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="1.15684" TableCardinality="10000000">
+                              <OutputList>
+                                <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="actid" />
+                                <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="tranid" />
+                                <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="val" />
+                              </OutputList>
+                              <IndexScan Ordered="false" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="ColumnStore">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="actid" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="tranid" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Column="val" />
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[testwindow]" Schema="[dbo]" Table="[TransactionsCS]" Index="[idx_cs]" IndexKind="Clustered" Storage="ColumnStore" />
+                              </IndexScan>
+                            </RelOp>
+                          </Sort>
+                        </RelOp>
+                      </WindowAggregate>
+                    </RelOp>
+                  </ComputeScalar>
+                </RelOp>
+              </Parallelism>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

@@ -16,6 +16,7 @@ var plan_KeysetCursor = require('raw!../test_plans/cursors/keyset Cursor.sqlplan
 var plan_UpvotesForEachTag = require('raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan');
 var plan_Cursor2 = require('raw!../test_plans/cursors/cursor2.sqlplan');
 var plan_batchMode = require('raw!../test_plans/batch mode.sqlplan');
+var plan_batchModeEstimated = require('raw!../test_plans/batch mode estimated.sqlplan');
 
 describe('qp.js', () => {
 
@@ -425,7 +426,43 @@ describe('qp.js', () => {
 
             });
 
-        })
+            // it ('Is missing for estimated plans', () => {
+
+            //     var container = helper.showPlan(plan_Issue1);
+            //     var nestedLoops = helper.findNodeById(container, '1', '1');
+            //     assert.equal(null, helper.getProperty(nestedLoops, 'Actual Execution Mode'));
+
+            // });
+
+        });
+
+        describe('Actual Number of Batches Mode Property', () => {
+
+            it ('Sums @Batches over each RunTimeCountersPerThread elements', () => {
+
+                var container = helper.showPlan(plan_batchMode);
+                var indexScan = helper.findNodeById(container, '4', '1');
+                assert.equal('14505', helper.getProperty(indexScan, 'Actual Number of Batches'));
+
+            });
+
+            it ('Is 0 if @Batches is missing', () => {
+
+                var container = helper.showPlan(plan_Issue1);
+                var nestedLoops = helper.findNodeById(container, '1', '1');
+                assert.equal('0', helper.getProperty(nestedLoops, 'Actual Number of Batches'));
+
+            });
+
+            it ('Is missing for estimated plans', () => {
+
+                var container = helper.showPlan(plan_batchModeEstimated);
+                var indexScan = helper.findNodeById(container, '1', '1');
+                assert.equal(null, helper.getProperty(indexScan, 'Actual Number of Batches'));
+
+            });
+
+        });
 
     });
 

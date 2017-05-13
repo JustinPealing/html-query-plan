@@ -15,6 +15,7 @@ var plan_MyCommentScoreDistribution = require('raw!../test_plans/stack overflow/
 var plan_KeysetCursor = require('raw!../test_plans/cursors/keyset Cursor.sqlplan');
 var plan_UpvotesForEachTag = require('raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan');
 var plan_Cursor2 = require('raw!../test_plans/cursors/cursor2.sqlplan');
+var plan_batchMode = require('raw!../test_plans/batch mode.sqlplan');
 
 describe('qp.js', () => {
 
@@ -397,6 +398,34 @@ describe('qp.js', () => {
             });
 
         });
+
+        describe('Actual Execution Mode Property', () => {
+
+            it ('Is "Batch" when @ActualExecutionMode = "Batch"', () => {
+
+                var container = helper.showPlan(plan_batchMode);
+                var indexScan = helper.findNodeById(container, '4', '1');
+                assert.equal('Batch', helper.getProperty(indexScan, 'Actual Execution Mode'));
+
+            });
+
+            it ('Is "Row" when @ActualExecutionMode = "Row"', () => {
+
+                var container = helper.showPlan(plan_batchMode);
+                var parallelism = helper.findNodeById(container, '0', '1');
+                assert.equal('Row', helper.getProperty(parallelism, 'Actual Execution Mode'));
+
+            });
+
+            it ('Is "Row" when @ActualExecutionMode is missing', () => {
+
+                var container = helper.showPlan(plan_Issue1);
+                var nestedLoops = helper.findNodeById(container, '1', '1');
+                assert.equal('Row', helper.getProperty(nestedLoops, 'Actual Execution Mode'));
+
+            });
+
+        })
 
     });
 

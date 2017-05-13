@@ -75,7 +75,7 @@
         </xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
-        <xsl:with-param name="Condition" select="@LogicalOp" />
+        <xsl:with-param name="Condition" select="s:RunTimeInformation" />
         <xsl:with-param name="Label">Actual Execution Mode</xsl:with-param>
         <xsl:with-param name="Value">
           <xsl:choose>

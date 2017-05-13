@@ -426,13 +426,13 @@ describe('qp.js', () => {
 
             });
 
-            // it ('Is missing for estimated plans', () => {
+            it ('Is missing for estimated plans', () => {
 
-            //     var container = helper.showPlan(plan_Issue1);
-            //     var nestedLoops = helper.findNodeById(container, '1', '1');
-            //     assert.equal(null, helper.getProperty(nestedLoops, 'Actual Execution Mode'));
+                var container = helper.showPlan(plan_batchModeEstimated);
+                var indexScan = helper.findNodeById(container, '4', '1');
+                assert.equal(null, helper.getProperty(indexScan, 'Actual Execution Mode'));
 
-            // });
+            });
 
         });
 

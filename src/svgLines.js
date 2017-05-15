@@ -23,7 +23,7 @@ function findParent(node) {
     if (!parentRow) {
         return null;
     }
-    return parentRow.firstChild.firstChild;
+    return parentRow.children[0].children[0];
 }
 
 /**

@@ -5,6 +5,7 @@ import qpXslt = require('raw!./qp.xslt');
 import { IQpOptions } from './interfaces';
 
 export { drawSvgLines } from './svgLines';
+export * from './interfaces';
 
 const defaultOptions: IQpOptions = {
     jsTooltips: true

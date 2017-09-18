@@ -2,6 +2,10 @@ import * as SVG from 'svgjs';
 import { findAncestor } from './utils';
 import { ICoordinate } from './interfaces';
 
+/**
+ * 
+ * @param container 
+ */
 export function drawSvgLines(container: HTMLElement) {
     let root = container.querySelector(".qp-root") as HTMLElement;
     let draw = SVG(root);
@@ -18,6 +22,10 @@ export function drawSvgLines(container: HTMLElement) {
     }
 }
 
+/**
+ * 
+ * @param node 
+ */
 function findParent(node: HTMLElement): HTMLElement {
     var row = findAncestor(node, 'qp-tr');
     var parentRow = findAncestor(row, 'qp-tr');

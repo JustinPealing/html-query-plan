@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param element 
+ * @param className 
+ */
 export function findAncestor(element: HTMLElement, className: string): HTMLElement {
     if (element === null) {
         return null;
@@ -6,6 +11,11 @@ export function findAncestor(element: HTMLElement, className: string): HTMLEleme
     return element;
 }
 
+/**
+ * 
+ * @param element 
+ * @param cls 
+ */
 export function hasClass(element: HTMLElement, cls: string): boolean {
     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
 }

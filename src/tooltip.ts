@@ -7,6 +7,10 @@ let currentTooltip = null;
 let cursorX = 0;
 let cursorY = 0;
 
+/**
+ * 
+ * @param container 
+ */
 export function initTooltip(container: HTMLElement) {
     disableCssTooltips(container);
     trackMousePosition();

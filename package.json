@@ -47,5 +47,7 @@
   "bugs": {
     "url": "https://github.com/JustinPealing/html-query-plan/issues"
   },
-  "homepage": "https://github.com/JustinPealing/html-query-plan#readme"
+  "homepage": "https://github.com/JustinPealing/html-query-plan#readme",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts"
 }

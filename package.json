@@ -49,6 +49,6 @@
     "url": "https://github.com/JustinPealing/html-query-plan/issues"
   },
   "homepage": "https://github.com/JustinPealing/html-query-plan#readme",
-  "main": "dist/index.min.js",
+  "main": "dist/index.js",
   "typings": "dist/index.d.ts"
 }

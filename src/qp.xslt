@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl=\
-    "urn:schemas-microsoft-com:xslt" xmlns:exslt="http://exslt.org/common" xmlns:s="http://schemas.microsoft.com/sqlserver/2004/07/showplan" exclude-result-prefixes=\
-    "msxsl s xsl">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+    xmlns:exslt="http://exslt.org/common" xmlns:s="http://schemas.microsoft.com/sqlserver/2004/07/showplan" exclude-result-prefixes="msxsl s xsl">
     <xsl:output method="html" indent="no" omit-xml-declaration="yes" />
     <!-- Disable built-in recursive processing templates -->
     <xsl:template match="*|/|text()|@*" mode="NodeLabel2" />
@@ -35,7 +34,7 @@
     <xsl:template match="s:MissingIndex" mode="MissingIndexRow">
         <xsl:variable name="columnNames">
             <xsl:for-each select="s:ColumnGroup/s:Column">
-                <xsl:value-of select="@Name"/>; </xsl:for-each>
+                <xsl:value-of select="@Name" />; </xsl:for-each>
         </xsl:variable>
         <div> Missing Index for table: <strong><xsl:value-of select="@Database" />.<xsl:value-of select="@Schema" />.<xsl:value-of select="@Table" /></strong>,
             Columns: <strong><xsl:value-of select="$columnNames" /></strong> </div>
@@ -452,8 +451,8 @@
         <xsl:value-of select="format-number(round(number($number) * 10000000) div 10000000, '0.#######')" /> </xsl:template>
     <!-- Template for handling of scientific numbers  See: http://www.orm-designer.com/article/xslt-convert-scientific-notation-to-decimal-number -->
     <xsl:variable name="max-exp">
-        <xsl:value-of select=\
-            "'0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'" /> </xsl:variable>
+        <xsl:value-of select="'0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'"
+        /> </xsl:variable>
     <xsl:template name="convertSciToNumString">
         <xsl:param name="inputVal" select="0" />
         <xsl:variable name="numInput">

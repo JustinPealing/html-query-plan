@@ -19,7 +19,7 @@
   <!-- Outermost div that contains all statement plans. -->
   <xsl:template match="s:ShowPlanXML">
     <div class="qp-root">
-      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" mode="QpTr" />  
+      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" mode="StatementRow" />  
     </div>
   </xsl:template>
   <xsl:template match="s:StmtSimple|s:StmtUseDb|s:StmtCond|s:StmtCursor" mode="StatementRow">

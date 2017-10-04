@@ -5,8 +5,13 @@ const sm = require('gulp-sourcemaps');
 const through = require('through2');
 const del = require('del');
 const webpack = require('gulp-webpack');
+var argv = require('yargs').argv;
 
 const tsproj = ts.createProject('./tsconfig.json');
+
+if (argv.production) {
+    process.env.NODE_ENV = 'production';
+}
 
 const resources = [
     'src/qp.xslt'

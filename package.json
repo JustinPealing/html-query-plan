@@ -26,7 +26,8 @@
     "svgjs": "^2.2.5",
     "through2": "^2.0.3",
     "typescript": "^2.5.2",
-    "webpack": "^1.13.2"
+    "webpack": "^1.13.2",
+    "yargs": "^9.0.1"
   },
   "peerDependencies": {
     "svgjs": "^2.2.5"
@@ -48,6 +49,6 @@
     "url": "https://github.com/JustinPealing/html-query-plan/issues"
   },
   "homepage": "https://github.com/JustinPealing/html-query-plan#readme",
-  "main": "dist/index.js",
+  "main": "dist/index.min.js",
   "typings": "dist/index.d.ts"
 }

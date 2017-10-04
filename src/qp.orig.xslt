@@ -22,6 +22,32 @@
       <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" mode="QpTr" />  
     </div>
   </xsl:template>
+
+  <xsl:template match="s:StmtSimple|s:StmtUseDb|s:StmtCond|s:StmtCursor" mode="StatementRow">
+        <div class="qp-statement-header">
+            <xsl:if test="@StatementText">
+                <div>
+                    <hr/>
+                    <div> Query
+                        <xsl:value-of select="@StatementId" /> </div>
+                    <div>
+                        <xsl:value-of select="@StatementText" /> </div>
+                    <div>
+                        <xsl:apply-templates select="s:QueryPlan/s:MissingIndexes/s:MissingIndexGroup/*" mode="MissingIndexRow" /> </div>
+                    <hr/> </div>
+            </xsl:if>
+            <div>
+                <xsl:apply-templates select="." mode="QpTr" /> </div>
+        </div>
+    </xsl:template>
+    <xsl:template match="s:MissingIndex" mode="MissingIndexRow">
+        <xsl:variable name="columnNames">
+            <xsl:for-each select="s:ColumnGroup/s:Column">
+                <xsl:value-of select="@Name" />; </xsl:for-each>
+        </xsl:variable>
+        <div> Missing Index for table: <strong><xsl:value-of select="@Database" />.<xsl:value-of select="@Schema" />.<xsl:value-of select="@Table" /></strong>,
+            Columns: <strong><xsl:value-of select="$columnNames" /></strong> </div>
+    </xsl:template>
   
   <!-- Each node has a parent qp-tr element which contains / positions the node and its children -->
   <xsl:template match="s:RelOp|s:StmtSimple|s:StmtUseDb|s:StmtCond|s:StmtCursor|s:Operation" mode="QpTr">

@@ -17,7 +17,7 @@ To use in a web page:
 </script> 
 ```
 
-See the `examples` folder for comlete examples.
+See the `examples` folder for complete examples.
 
 ## Options
 
@@ -39,7 +39,7 @@ Additional options can be passed using the 3rd argument:
 
 ## Running XSLT separately
 
-Under the covers html-query-plan is an XSLT 1.0 stylesheet, `qp.xslt` which can be used to pre-render the plan html. Javascript is still needed to draw the connectling lines, to do this follow the above steps but call `QP.drawLines` instead:
+Under the covers, html-query-plan is an XSLT 1.0 stylesheet (`qp.xslt`), which can be used to pre-render the plan html. Javascript is still needed to draw the connecting lines. To do this, follow the above steps but call `QP.drawLines` instead:
 
 ```
 <div id="container">
@@ -54,8 +54,8 @@ Under the covers html-query-plan is an XSLT 1.0 stylesheet, `qp.xslt` which can 
 
 html-query-plan uses `display: table` and so won't layout correctly in IE7 or earlier.
 
-The `<canvas>` element is used to draw lines between nodes, and so these lines will only show in browsers with canvas support (IE9+).
+The `<canvas>` element is used to draw lines between nodes, so these lines will only show in browsers with canvas support (IE9+).
 
 ## Icons
 
-The icons used are adapted from the Fat Cow "Farm Fresh" web icons pack, which can be found at (http://www.fatcow.com/free-icons).  (Unfortunately some of the adapting was done by myself and I'm no artist - I apologise unreservedly for mangling someone elses masterpiece)
+The icons used are adapted from the Fat Cow "Farm Fresh" web icons pack, which can be found at (http://www.fatcow.com/free-icons).  (Unfortunately some of the adapting was done by me and I'm no artist - I apologise unreservedly for mangling someone else's masterpiece)

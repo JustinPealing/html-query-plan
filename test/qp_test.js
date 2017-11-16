@@ -1,6 +1,6 @@
-import assert from 'assert';
-import QP from '../src/index';
-import helper from './helper';
+import * as assert from 'assert';
+import * as QP from '../src/index';
+import * as helper from './helper';
 let plan_Issue1 = require('raw!../test_plans/issue1.sqlplan');
 let plan_Issue7 = require('raw!../test_plans/issue7.sqlplan');
 let plan_NotShowingSeekPredicates = require('raw!../test_plans/Not showing Seek Predicates.sqlplan');

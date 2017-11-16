@@ -1,4 +1,4 @@
-import { findAncestor } from './utils.js'
+import { findAncestor } from './utils'
 
 const TOOLTIP_TIMEOUT = 500;
 

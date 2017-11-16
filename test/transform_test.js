@@ -1,5 +1,5 @@
-import assert from 'assert';
-import transform from '../src/transform.js';
+import * as assert from 'assert';
+import * as transform from '../src/transform.js';
 
 describe("transform.js", () => {
 

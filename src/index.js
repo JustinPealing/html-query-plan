@@ -1,6 +1,6 @@
-﻿import transform from './transform.js';
-import { drawSvgLines } from './svgLines.js';
-import { initTooltip } from './tooltip.js';
+﻿import * as transform from './transform';
+import { drawSvgLines } from './svgLines';
+import { initTooltip } from './tooltip';
 let qpXslt = require('raw!./qp.xslt');
 
 function showPlan(container, planXml, options) {

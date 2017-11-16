@@ -1,4 +1,4 @@
-import QP from '../src/index';
+import * as QP from '../src/index';
 
 function findNodeById(container, nodeId, statementId) {
     let statmentElement = findStatmentElementById(container, statementId);

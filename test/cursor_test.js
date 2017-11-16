@@ -1,6 +1,6 @@
-import assert from 'assert';
-import QP from '../src/index';
-import helper from './helper';
+import * as assert from 'assert';
+import * as QP from '../src/index';
+import * as helper from './helper';
 let plan_cursorPlan = require('raw!../test_plans/Cursors/cursorPlan.sqlplan');
 let plan_cursor2 = require('raw!../test_plans/Cursors/cursor2.sqlplan');
 let plan_keysetCursor = require('raw!../test_plans/Cursors/Keyset Cursor.sqlplan');

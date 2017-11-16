@@ -18,6 +18,7 @@ let plan_Cursor2 = require('raw!../test_plans/cursors/cursor2.sqlplan');
 let plan_batchMode = require('raw!../test_plans/batch mode.sqlplan');
 let plan_batchModeEstimated = require('raw!../test_plans/batch mode estimated.sqlplan');
 let plan_issue39 = require('raw!../test_plans/issue_39.sqlplan');
+let plan_manyLines = require('raw!../test_plans/many_lines2.sqlplan');
 
 describe('qp.js', () => {
 
@@ -214,6 +215,26 @@ describe('qp.js', () => {
 
             let printNode = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
             assert.equal('PRINT', printNode.children[1].innerText);
+
+        });
+
+        describe('Stored Procedure Node', () => {
+
+            it('Has Stored Procedure as node text', () => {
+
+                let container = helper.showPlan(plan_manyLines);
+                let sp = container.querySelectorAll('.qp-node')[1];
+                assert.equal('Stored Procedure', sp.children[1].innerText);
+
+            })
+
+            it('Has Procedure Name in tooltip', () => {
+
+                let container = helper.showPlan(plan_manyLines);
+                let sp = container.querySelectorAll('.qp-node')[1];
+                assert.equal('TEST', helper.getToolTipSection(sp, 'Procedure Name'));
+
+            });
 
         });
         

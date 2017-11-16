@@ -7,6 +7,7 @@
   <xsl:output method="html" indent="no" omit-xml-declaration="yes" />
 
   <!-- Disable built-in recursive processing templates -->
+  <xsl:template match="*|/|text()|@*" mode="NodeLabel" />
   <xsl:template match="*|/|text()|@*" mode="NodeLabel2" />
   <xsl:template match="*|/|text()|@*" mode="ToolTipDescription" />
   <xsl:template match="*|/|text()|@*" mode="ToolTipDetails" />
@@ -351,6 +352,11 @@
     <div class="qp-bold">Statement</div>
     <div><xsl:value-of select="." /></div>
   </xsl:template>
+  
+  <xsl:template match="s:StmtSimple/s:StoredProc" mode="ToolTipDetails">
+    <div class="qp-bold">Procedure Name</div>
+    <div><xsl:value-of select="@ProcName" /></div>
+  </xsl:template>
 
   <xsl:template match="s:Sort/s:OrderBy[count(s:OrderByColumn/s:ColumnReference) > 0]" mode="ToolTipDetails">
     <div class="qp-bold">Order By</div>
@@ -477,6 +483,8 @@
   <xsl:template match="*[@StatementType]" mode="NodeLabel">
     <xsl:value-of select="@StatementType" />
   </xsl:template>
+  
+  <xsl:template match="*[s:StoredProc]" mode="NodeLabel">Stored Procedure</xsl:template>
 
   <xsl:template match="*[s:CursorPlan/@CursorActualType = 'Dynamic']" mode="NodeLabel">Dynamic</xsl:template>
   <xsl:template match="*[s:CursorPlan/@CursorActualType = 'FastForward']" mode="NodeLabel">Fast Forward</xsl:template>

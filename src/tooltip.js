@@ -47,7 +47,7 @@ function onMouseover(node) {
 
 function onMouseout(node, event) {
     // http://stackoverflow.com/questions/4697758/prevent-onmouseout-when-hovering-child-element-of-the-parent-absolute-div-withou
-    var e = event.toElement || event.relatedTarget;
+    let e = event.toElement || event.relatedTarget;
     if (e == node ||
         findAncestor(e, 'qp-node') == node ||
         (currentTooltip != null && (e == currentTooltip || findAncestor(e, 'qp-tt') == currentTooltip))) {
@@ -61,12 +61,12 @@ function onMouseout(node, event) {
 function showTooltip(node) {
     hideTooltip();
     
-    var positionY = cursorY;
-    var tooltip = node.querySelector(".qp-tt");
+    let positionY = cursorY;
+    let tooltip = node.querySelector(".qp-tt");
 
     // Nudge the tooptip up if its going to appear below the bottom of the page
-    var documentHeight = getDocumentHeight();
-    var gapAtBottom = documentHeight - (positionY + tooltip.offsetHeight);
+    let documentHeight = getDocumentHeight();
+    let gapAtBottom = documentHeight - (positionY + tooltip.offsetHeight);
     if (gapAtBottom < 10) {
         positionY = documentHeight - (tooltip.offsetHeight + 10);
     }
@@ -87,7 +87,7 @@ function showTooltip(node) {
 
 function getDocumentHeight() {
     // http://stackoverflow.com/a/1147768/113141
-    var body = document.body,
+    let body = document.body,
         html = document.documentElement;
     return Math.max(
         body.scrollHeight, body.offsetHeight, 

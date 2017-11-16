@@ -1,10 +1,10 @@
 ﻿import transform from './transform.js';
 import { drawSvgLines } from './svgLines.js';
 import { initTooltip } from './tooltip.js';
-var qpXslt = require('raw!./qp.xslt');
+let qpXslt = require('raw!./qp.xslt');
 
 function showPlan(container, planXml, options) {
-    var options = setDefaults(options, {
+    options = setDefaults(options, {
         jsTooltips: true
     });
 
@@ -17,13 +17,13 @@ function showPlan(container, planXml, options) {
 }
 
 function setDefaults(options, defaults) {
-    var ret = {};
-    for (var attr in defaults) {
+    let ret = {};
+    for (let attr in defaults) {
         if (defaults.hasOwnProperty(attr)) {
             ret[attr] = defaults[attr];
         }
     }
-    for (var attr in options) {
+    for (let attr in options) {
         if (options.hasOwnProperty(attr)) {
             ret[attr] = options[attr];
         }

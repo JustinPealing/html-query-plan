@@ -10,7 +10,7 @@ function drawSvgLines(container) {
     let nodes = root.querySelectorAll('.qp-node'); 
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i]; 
-        var previousNode = findParent(node);
+        let previousNode = findParent(node);
         if (previousNode != null) {
             drawArrowBetweenNodes(draw, clientRect, previousNode, node);
         }
@@ -18,8 +18,8 @@ function drawSvgLines(container) {
 }
 
 function findParent(node) {
-    var row = findAncestor(node, 'qp-tr');
-    var parentRow = findAncestor(row, 'qp-tr');
+    let row = findAncestor(node, 'qp-tr');
+    let parentRow = findAncestor(row, 'qp-tr');
     if (!parentRow) {
         return null;
     }
@@ -66,7 +66,7 @@ function drawArrowBetweenNodes(draw, offset, fromElement, toElement) {
  */
 function drawArrow(draw, from, to, bendX) {
 
-    var points = [
+    let points = [
         [from.x, from.y],
         [from.x + 3, from.y - 3],
         [from.x + 3, from.y - 1],

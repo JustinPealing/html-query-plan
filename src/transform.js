@@ -6,21 +6,21 @@
  */
 function setContentsUsingXslt(container, xml, xslt) {
     if (window.ActiveXObject || "ActiveXObject" in window) {
-        var xsltDoc = new ActiveXObject("Microsoft.xmlDOM");
+        let xsltDoc = new ActiveXObject("Microsoft.xmlDOM");
         xsltDoc.async = false;
         xsltDoc.loadXML(xslt);
 
-        var xmlDoc = new ActiveXObject("Microsoft.xmlDOM");
+        let xmlDoc = new ActiveXObject("Microsoft.xmlDOM");
         xmlDoc.async = false;
         xmlDoc.loadXML(xml);
 
-        var result = xmlDoc.transformNode(xsltDoc)
+        let result = xmlDoc.transformNode(xsltDoc)
         container.innerHTML = result;
     } else if (document.implementation && document.implementation.createDocument) {
-        var parser = new DOMParser();
-        var xsltProcessor = new XSLTProcessor();
+        let parser = new DOMParser();
+        let xsltProcessor = new XSLTProcessor();
         xsltProcessor.importStylesheet(parser.parseFromString(xslt, "text/xml"));
-        var result = xsltProcessor.transformToFragment(parser.parseFromString(xml, "text/xml"), document);
+        let result = xsltProcessor.transformToFragment(parser.parseFromString(xml, "text/xml"), document);
         container.innerHTML = '';
         container.appendChild(result);
     }

@@ -91,6 +91,10 @@
         <xsl:with-param name="Value" select="s:IndexScan/@Storage|s:TableScan/@Storage" />
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Number of Rows Read</xsl:with-param>
+        <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRowsRead)" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Actual Number of Rows</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRows)" />
       </xsl:call-template>
@@ -155,6 +159,10 @@
             <xsl:with-param name="value" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
           </xsl:call-template>
         </xsl:with-param>
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated Number of Rows to be Read</xsl:with-param>
+        <xsl:with-param name="Value" select="@EstimatedRowsRead" />
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Estimated Number of Rows</xsl:with-param>

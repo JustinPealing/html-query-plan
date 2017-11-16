@@ -17,6 +17,7 @@ var plan_UpvotesForEachTag = require('raw!../test_plans/stack overflow/How many 
 var plan_Cursor2 = require('raw!../test_plans/cursors/cursor2.sqlplan');
 var plan_batchMode = require('raw!../test_plans/batch mode.sqlplan');
 var plan_batchModeEstimated = require('raw!../test_plans/batch mode estimated.sqlplan');
+var plan_issue39 = require('raw!../test_plans/issue_39.sqlplan');
 
 describe('qp.js', () => {
 
@@ -459,6 +460,46 @@ describe('qp.js', () => {
                 var container = helper.showPlan(plan_batchModeEstimated);
                 var indexScan = helper.findNodeById(container, '1', '1');
                 assert.equal(null, helper.getProperty(indexScan, 'Actual Number of Batches'));
+
+            });
+
+        });
+        
+        describe('Estimated Number of Rows to be Read Property', () => {
+            
+            it ('Is missing if @EstimatedRowsRead is not present', () => {
+
+                var container = helper.showPlan(plan_issue39);
+                var nestedLoops = helper.findNodeById(container, '1', '1');
+                assert.equal(null, helper.getProperty(nestedLoops, 'Estimated Number of Rows to be Read'));
+
+            });
+
+            it ('Matches @EstimatedRowsRead when present', () => {
+
+                var container = helper.showPlan(plan_issue39);
+                var node2 = helper.findNodeById(container, '2', '1');
+                assert.equal('4', helper.getProperty(node2, 'Estimated Number of Rows to be Read'));
+
+            });
+
+        });
+        
+        describe('Number of Rows Read Property', () => {
+            
+            it ('Is missing if @ActualRowsRead is not present', () => {
+
+                var container = helper.showPlan(plan_issue39);
+                var nestedLoops = helper.findNodeById(container, '1', '1');
+                assert.equal(null, helper.getProperty(nestedLoops, 'Number of Rows Read'));
+
+            });
+
+            it ('Sums @ActualRowsRead over each RunTimeCountersPerThread elements', () => {
+
+                var container = helper.showPlan(plan_KeyLookup);
+                var node2 = helper.findNodeById(container, '3', '1');
+                assert.equal('944', helper.getProperty(node2, 'Number of Rows Read'));
 
             });
 

@@ -505,6 +505,26 @@ describe('qp.js', () => {
 
         });
 
+        describe('Partitioning Type Property', () => {
+
+            it ('Is missing if Parallelism/@PartitioningType is not present', () => {
+
+                var container = helper.showPlan(plan_UpvotesForEachTag);
+                var gatherStreams = helper.findNodeById(container, '1', '1');
+                assert.equal(null, helper.getProperty(gatherStreams, 'Partitioning Type'));
+
+            });
+
+            it ('Matches Parallelism/@PartitioningType if present', () => {
+
+                var container = helper.showPlan(plan_UpvotesForEachTag);
+                var repartitionStreams = helper.findNodeById(container, '5', '1');
+                assert.equal('Hash', helper.getProperty(repartitionStreams, 'Partitioning Type'));
+
+            });
+
+        })
+
     });
 
 });

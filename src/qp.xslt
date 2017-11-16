@@ -195,6 +195,10 @@
         </xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Partitioning Type</xsl:with-param>
+        <xsl:with-param name="Value" select="s:Parallelism/@PartitioningType" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Node ID</xsl:with-param>
         <xsl:with-param name="Value" select="@NodeId" />
       </xsl:call-template>

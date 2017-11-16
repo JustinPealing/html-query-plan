@@ -88,6 +88,10 @@
         </xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated Execution Mode</xsl:with-param>
+        <xsl:with-param name="Value" select="@EstimatedExecutionMode" />
+      </xsl:call-template>
+      <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Storage</xsl:with-param>
         <xsl:with-param name="Value" select="s:IndexScan/@Storage|s:TableScan/@Storage" />
       </xsl:call-template>

@@ -544,7 +544,19 @@ describe('qp.js', () => {
 
             });
 
-        })
+        });
+
+        describe('Estimated Execution Mode Property', () => {
+
+            it('Matches @EstimatedExecutionMode when present', () => {
+
+                let container = helper.showPlan(plan_batchMode);
+                let colunstoreIndexScan = helper.findNodeById(container, '4', '1');
+                assert.equal('Batch', helper.getProperty(colunstoreIndexScan, 'Estimated Execution Mode'));
+
+            });
+
+        });
 
     });
 

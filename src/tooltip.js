@@ -101,4 +101,4 @@ function hideTooltip() {
     }
 }
 
-module.exports.initTooltip = initTooltip;
+export { initTooltip }

@@ -88,4 +88,4 @@ function drawArrow(draw, from, to, bendX) {
 
 }
 
-module.exports.drawSvgLines = drawSvgLines;
+export { drawSvgLines }

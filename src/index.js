@@ -31,5 +31,4 @@ function setDefaults(options, defaults) {
     return ret;
 }
 
-module.exports.drawLines = drawSvgLines;
-module.exports.showPlan = showPlan;
+export { drawSvgLines as drawLines, showPlan }

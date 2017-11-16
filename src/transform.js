@@ -26,4 +26,4 @@ function setContentsUsingXslt(container, xml, xslt) {
     }
 }
 
-module.exports.setContentsUsingXslt = setContentsUsingXslt;
+export { setContentsUsingXslt }

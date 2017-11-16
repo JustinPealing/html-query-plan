@@ -51,8 +51,4 @@ function showPlan(planXml) {
     return container;
 }
 
-module.exports.getProperty = getProperty;
-module.exports.findNodeById = findNodeById;
-module.exports.getToolTipSection = getToolTipSection;
-module.exports.getDescription = getDescription;
-module.exports.showPlan = showPlan;
+export { getProperty, findNodeById, getToolTipSection, getDescription, showPlan }

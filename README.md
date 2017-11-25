@@ -52,10 +52,8 @@ Under the covers, html-query-plan is an XSLT 1.0 stylesheet (`qp.xslt`), which c
 
 ## Browser Support
 
-html-query-plan uses `display: table` and so won't layout correctly in IE7 or earlier.
-
-The `<canvas>` element is used to draw lines between nodes, so these lines will only show in browsers with canvas support (IE9+).
+Should work just fine in any modern browser. Tested in Chrome, Firefox and IE9+. IE8 and earlier have known issues.
 
 ## Icons
 
-The icons used are adapted from the Fat Cow "Farm Fresh" web icons pack, which can be found at (http://www.fatcow.com/free-icons).  (Unfortunately some of the adapting was done by me and I'm no artist - I apologise unreservedly for mangling someone else's masterpiece)
+The icons used are adapted from the Fat Cow "Farm Fresh" web icons pack, which can be found at (http://www.fatcow.com/free-icons).

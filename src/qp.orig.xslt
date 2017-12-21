@@ -7,6 +7,7 @@
   <xsl:output method="html" indent="no" omit-xml-declaration="yes" />
 
   <!-- Disable built-in recursive processing templates -->
+  <xsl:template match="*|/|text()|@*" mode="NodeLabel" />
   <xsl:template match="*|/|text()|@*" mode="NodeLabel2" />
   <xsl:template match="*|/|text()|@*" mode="ToolTipDescription" />
   <xsl:template match="*|/|text()|@*" mode="ToolTipDetails" />
@@ -19,8 +20,15 @@
   <!-- Outermost div that contains all statement plans. -->
   <xsl:template match="s:ShowPlanXML">
     <div class="qp-root">
-      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" mode="QpTr" />  
+      <xsl:apply-templates select="s:BatchSequence/s:Batch/s:Statements/*" mode="Statement" />  
     </div>
+  </xsl:template>
+
+  <xsl:template match="s:BatchSequence/s:Batch/s:Statements/*" mode="Statement">
+    <div class="qp-statement-header">
+      <div><xsl:value-of select="@StatementText" /></div>
+    </div>
+    <xsl:apply-templates select="." mode="QpTr" />
   </xsl:template>
   
   <!-- Each node has a parent qp-tr element which contains / positions the node and its children -->
@@ -60,6 +68,7 @@
         <xsl:with-param name="Label">Cached plan size</xsl:with-param>
         <xsl:with-param name="Value" select="concat(s:QueryPlan/@CachedPlanSize, ' B')" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="@PhysicalOp" />
         <xsl:with-param name="Label">Physical Operation</xsl:with-param>
@@ -67,6 +76,7 @@
           <xsl:apply-templates select="." mode="PhysicalOperation" />
         </xsl:with-param>
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="@LogicalOp" />
         <xsl:with-param name="Label">Logical Operation</xsl:with-param>
@@ -74,6 +84,7 @@
           <xsl:apply-templates select="." mode="LogicalOperation" />
         </xsl:with-param>
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="s:RunTimeInformation" />
         <xsl:with-param name="Label">Actual Execution Mode</xsl:with-param>
@@ -86,19 +97,35 @@
           </xsl:choose>
         </xsl:with-param>
       </xsl:call-template>
+
+      
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated Execution Mode</xsl:with-param>
+        <xsl:with-param name="Value" select="@EstimatedExecutionMode" />
+      </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Storage</xsl:with-param>
         <xsl:with-param name="Value" select="s:IndexScan/@Storage|s:TableScan/@Storage" />
       </xsl:call-template>
+
+      
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Number of Rows Read</xsl:with-param>
+        <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRowsRead)" />
+      </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Actual Number of Rows</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRows)" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="s:RunTimeInformation" />
         <xsl:with-param name="Label">Actual Number of Batches</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@Batches)" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="@EstimateIO" />
         <xsl:with-param name="Label">Estimated I/O Cost</xsl:with-param>
@@ -108,6 +135,7 @@
           </xsl:call-template>
         </xsl:with-param>
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="@EstimateCPU" />
         <xsl:with-param name="Label">Estimated CPU Cost</xsl:with-param>
@@ -117,22 +145,27 @@
           </xsl:call-template>
         </xsl:with-param>
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Number of Executions</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutions)" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Estimated Number of Executions</xsl:with-param>
         <xsl:with-param name="Value" select="@EstimateRebinds + 1" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Degree of Parallelism</xsl:with-param>
         <xsl:with-param name="Value" select="s:QueryPlan/@DegreeOfParallelism" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Memory Grant</xsl:with-param>
         <xsl:with-param name="Value" select="s:QueryPlan/@MemoryGrant" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="@EstimateIO | @EstimateCPU" />
         <xsl:with-param name="Label">Estimated Operator Cost</xsl:with-param>
@@ -147,6 +180,7 @@
             <xsl:with-param name="value" select="$EstimatedOperatorCost" />
           </xsl:call-template> (<xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" />)</xsl:with-param>
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
         <xsl:with-param name="Label">Estimated Subtree Cost</xsl:with-param>
@@ -156,25 +190,35 @@
           </xsl:call-template>
         </xsl:with-param>
       </xsl:call-template>
+
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated Number of Rows to be Read</xsl:with-param>
+        <xsl:with-param name="Value" select="@EstimatedRowsRead" />
+      </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Estimated Number of Rows</xsl:with-param>
         <xsl:with-param name="Value" select="@StatementEstRows | @EstimateRows" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="@AvgRowSize" />
         <xsl:with-param name="Label">Estimated Row Size</xsl:with-param>
         <xsl:with-param name="Value" select="concat(@AvgRowSize, ' B')" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="s:RunTimeInformation" />
         <xsl:with-param name="Label">Actual Rebinds</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRebinds)" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="s:RunTimeInformation" />
         <xsl:with-param name="Label">Actual Rewinds</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRewinds)" />
       </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="s:IndexScan/@Ordered" />
         <xsl:with-param name="Label">Ordered</xsl:with-param>
@@ -186,6 +230,12 @@
           </xsl:choose>
         </xsl:with-param>
       </xsl:call-template>
+
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Partitioning Type</xsl:with-param>
+        <xsl:with-param name="Value" select="s:Parallelism/@PartitioningType" />
+      </xsl:call-template>
+
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Node ID</xsl:with-param>
         <xsl:with-param name="Value" select="@NodeId" />
@@ -340,6 +390,11 @@
     <div><xsl:value-of select="." /></div>
   </xsl:template>
 
+  <xsl:template match="s:StmtSimple/s:StoredProc" mode="ToolTipDetails">
+    <div class="qp-bold">Procedure Name</div>
+    <div><xsl:value-of select="@ProcName" /></div>
+  </xsl:template>
+
   <xsl:template match="s:Sort/s:OrderBy[count(s:OrderByColumn/s:ColumnReference) > 0]" mode="ToolTipDetails">
     <div class="qp-bold">Order By</div>
     <xsl:for-each select="s:OrderByColumn">
@@ -465,6 +520,8 @@
   <xsl:template match="*[@StatementType]" mode="NodeLabel">
     <xsl:value-of select="@StatementType" />
   </xsl:template>
+
+  <xsl:template match="*[s:StoredProc]" mode="NodeLabel">Stored Procedure</xsl:template>
 
   <xsl:template match="*[s:CursorPlan/@CursorActualType = 'Dynamic']" mode="NodeLabel">Dynamic</xsl:template>
   <xsl:template match="*[s:CursorPlan/@CursorActualType = 'FastForward']" mode="NodeLabel">Fast Forward</xsl:template>

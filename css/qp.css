@@ -11,8 +11,28 @@ div.qp-tt {
     line-height: normal;
 }
 
+.qp-statement-header {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px 0px 1px 0px;
+    padding: 0.3em;
+    height: 15.6px;
+}
+
+.qp-statement-header > div {
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.qp-statement-header,
 .qp-node>div {
     font-family: Monospace;
+}
+
+.qp-node>div {
     text-align: center;
 }
 
@@ -158,6 +178,7 @@ div[class|='qp-icon'] {
 .qp-icon-SequenceProject{background: url('qp_icons.png') -96px -0px }
 .qp-icon-FastForward{background: url('qp_icons.png') -96px -0px }
 .qp-icon-SnapShot{background: url('qp_icons.png') -96px -0px }
+.qp-icon-WindowAggregate{background: url('qp_icons.png') -96px -0px }
 
 /* Layout - can't touch this */
 .qp-tt {
@@ -170,7 +191,7 @@ div[class|='qp-icon'] {
 
 div.qp-node .qp-tt,
 .qp-noCssTooltip div.qp-node:hover .qp-tt {
-    visibility: hidden;
+    visibility:  collapse;
 }
 
 div.qp-node:hover .qp-tt {
@@ -196,8 +217,8 @@ div.qp-node:hover .qp-tt {
 }
 
 .qp-root {
-	display: table;
     position: relative;
+    display: inline-block;
 }
 
 .qp-root svg {

@@ -15,7 +15,7 @@ export function drawSvgLines(container: HTMLElement) {
     let nodes = root.querySelectorAll('.qp-node') as NodeListOf<HTMLElement>; 
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i]; 
-        var previousNode = findParent(node);
+        let previousNode = findParent(node);
         if (previousNode != null) {
             drawArrowBetweenNodes(draw, clientRect, previousNode, node);
         }
@@ -75,7 +75,7 @@ function drawArrowBetweenNodes(draw, offset, fromElement: HTMLElement, toElement
  */
 function drawArrow(draw, from: ICoordinate, to: ICoordinate, bendX: number) {
 
-    var points = [
+    let points = [
         [from.x, from.y],
         [from.x + 3, from.y - 3],
         [from.x + 3, from.y - 1],

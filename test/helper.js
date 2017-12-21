@@ -1,10 +1,10 @@
-import QP from '../src/index';
+import * as QP from '../src/index';
 
 function findNodeById(container, nodeId, statementId) {
-    var statmentElement = findStatmentElementById(container, statementId);
-    var nodes = statmentElement.querySelectorAll('.qp-node');
-    for (var i = 0; i < nodes.length; i++) {
-        var node = nodes[i];
+    let statmentElement = findStatmentElementById(container, statementId);
+    let nodes = statmentElement.querySelectorAll('.qp-node');
+    for (let i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
         if (getProperty(node, 'Node ID') == nodeId) {
             return node;
         }
@@ -19,9 +19,9 @@ function findStatmentElementById(container, statementId) {
 }
 
 function getProperty(node, key) {
-    var nodes = node.querySelectorAll('th');
-    for (var i = 0; i < nodes.length; i++) {
-        var node = nodes[i];
+    let nodes = node.querySelectorAll('th');
+    for (let i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
         if (node.innerHTML === key) {
             return node.parentNode.querySelector('td').innerHTML;
         }
@@ -41,18 +41,14 @@ function getToolTipSection(node, name) {
 }
 
 function getDescription(node) {
-    var tt = node.querySelector('.qp-tt');
+    let tt = node.querySelector('.qp-tt');
     return tt.children[1].innerText;
 }
 
 function showPlan(planXml) {
-    var container = document.createElement("div");
+    let container = document.createElement("div");
     QP.showPlan(container, planXml);
     return container;
 }
 
-module.exports.getProperty = getProperty;
-module.exports.findNodeById = findNodeById;
-module.exports.getToolTipSection = getToolTipSection;
-module.exports.getDescription = getDescription;
-module.exports.showPlan = showPlan;
+export { getProperty, findNodeById, getToolTipSection, getDescription, showPlan }

@@ -1,0 +1,73 @@
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.5" Build="13.0.4001.0">
+    <BatchSequence>
+        <Batch>
+            <Statements>
+                <StmtSimple StatementText="select max(&apos;Do this to get execution plans and stats&apos;) &quot;Execution Plans&quot;&#xa;from docs d1 cross join docs d2" StatementId="1" StatementCompId="2" StatementType="SELECT" RetrievedFromCache="true" StatementSubTreeCost="0.00689848" StatementEstRows="1" SecurityPolicyApplied="false" StatementOptmLevel="FULL" QueryHash="0x9BEA186AE6E95E86" QueryPlanHash="0xC79ED7BBB7BC4A7F" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="130">
+                    <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false"></StatementSetOptions>
+                    <QueryPlan DegreeOfParallelism="0" NonParallelPlanReason="NoParallelPlansInDesktopOrExpressEdition" CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="152">
+                        <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0"></MemoryGrantInfo>
+                        <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="419378" EstimatedPagesCached="26211" EstimatedAvailableDegreeOfParallelism="1" MaxCompileMemory="831960"></OptimizerHardwareDependentProperties>
+                        <TraceFlags IsCompileTime="1">
+                            <TraceFlag Value="8017" Scope="Global"></TraceFlag>
+                        </TraceFlags>
+                        <TraceFlags IsCompileTime="0">
+                            <TraceFlag Value="8017" Scope="Global"></TraceFlag>
+                        </TraceFlags>
+                        <QueryTimeStats ElapsedTime="0" CpuTime="0"></QueryTimeStats>
+                        <RelOp NodeId="0" PhysicalOp="Stream Aggregate" LogicalOp="Aggregate" EstimateRows="1" EstimateIO="0" EstimateCPU="1.01e-005" AvgRowSize="31" EstimatedTotalSubtreeCost="0.00689848" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                            <OutputList>
+                                <ColumnReference Column="Expr1004"></ColumnReference>
+                            </OutputList>
+                            <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="1" Batches="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualEndOfScans="1" ActualExecutions="1"></RunTimeCountersPerThread>
+                            </RunTimeInformation>
+                            <StreamAggregate>
+                                <DefinedValues>
+                                    <DefinedValue>
+                                        <ColumnReference Column="Expr1004"></ColumnReference>
+                                        <ScalarOperator ScalarString="MAX(&apos;Do this to get execution plans and stats&apos;)">
+                                            <Aggregate Distinct="0" AggType="MAX">
+                                                <ScalarOperator>
+                                                    <Const ConstValue="&apos;Do this to get execution plans and stats&apos;"></Const>
+                                                </ScalarOperator>
+                                            </Aggregate>
+                                        </ScalarOperator>
+                                    </DefinedValue>
+                                </DefinedValues>
+                                <RelOp NodeId="1" PhysicalOp="Nested Loops" LogicalOp="Inner Join" EstimateRows="16" EstimateIO="0" EstimateCPU="6.688e-005" AvgRowSize="9" EstimatedTotalSubtreeCost="0.00688838" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                    <OutputList></OutputList>
+                                    <Warnings NoJoinPredicate="1"></Warnings>
+                                    <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="16" Batches="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualEndOfScans="1" ActualExecutions="1"></RunTimeCountersPerThread>
+                                    </RunTimeInformation>
+                                    <NestedLoops Optimized="0">
+                                        <RelOp NodeId="2" PhysicalOp="Table Scan" LogicalOp="Table Scan" EstimateRows="4" EstimatedRowsRead="4" EstimateIO="0.003125" EstimateCPU="0.0001614" AvgRowSize="9" EstimatedTotalSubtreeCost="0.0032864" TableCardinality="4" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                            <OutputList></OutputList>
+                                            <RunTimeInformation>
+                                                <RunTimeCountersPerThread Thread="0" ActualRows="4" Batches="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="1" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" ActualRowsRead="4" ActualEndOfScans="1" ActualExecutions="1"></RunTimeCountersPerThread>
+                                            </RunTimeInformation>
+                                            <TableScan Ordered="0" ForcedIndex="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                                                <DefinedValues></DefinedValues>
+                                                <Object Database="[fiddle_bb39996eebf84031a136b6784df4fe4c]" Schema="[dbo]" Table="[docs]" Alias="[d2]" IndexKind="Heap" Storage="RowStore"></Object>
+                                            </TableScan>
+                                        </RelOp>
+                                        <RelOp NodeId="3" PhysicalOp="Table Scan" LogicalOp="Table Scan" EstimateRows="4" EstimatedRowsRead="4" EstimateIO="0.0032035" EstimateCPU="8.29e-005" AvgRowSize="9" EstimatedTotalSubtreeCost="0.0035351" TableCardinality="4" Parallel="0" EstimateRebinds="0" EstimateRewinds="3" EstimatedExecutionMode="Row">
+                                            <OutputList></OutputList>
+                                            <RunTimeInformation>
+                                                <RunTimeCountersPerThread Thread="0" ActualRows="16" Batches="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="4" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" ActualRowsRead="16" ActualEndOfScans="4" ActualExecutions="4"></RunTimeCountersPerThread>
+                                            </RunTimeInformation>
+                                            <TableScan Ordered="0" ForcedIndex="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                                                <DefinedValues></DefinedValues>
+                                                <Object Database="[fiddle_bb39996eebf84031a136b6784df4fe4c]" Schema="[dbo]" Table="[docs]" Alias="[d1]" IndexKind="Heap" Storage="RowStore"></Object>
+                                            </TableScan>
+                                        </RelOp>
+                                    </NestedLoops>
+                                </RelOp>
+                            </StreamAggregate>
+                        </RelOp>
+                    </QueryPlan>
+                </StmtSimple>
+            </Statements>
+        </Batch>
+    </BatchSequence>
+</ShowPlanXML>

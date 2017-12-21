@@ -1,5 +1,5 @@
-node_modules/
-lib/
+node_modules
+lib
 *.log
-out/
-dist/
+out
+dist

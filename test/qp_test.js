@@ -608,6 +608,15 @@ describe('qp.js', () => {
 
             });
 
+            it('Shows Outer References to tooltip', () => {
+
+                let container = helper.showPlan(plan_adaptive_join_estimated);
+                let adaptiveJoin = helper.findNodeById(container, '0');
+                assert.equal('[Test].[dbo].[Numbers1].NumberID1',
+                    helper.getToolTipSection(adaptiveJoin, 'Outer References'));
+
+            });
+
         });
 
     });

@@ -416,6 +416,13 @@
       <div><xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
     </xsl:for-each>
   </xsl:template>
+  
+  <xsl:template match="s:AdaptiveJoin/s:OuterReferences" mode="ToolTipDetails">
+    <div class="qp-bold">Outer References</div>
+    <xsl:for-each select="s:ColumnReference">
+      <div><xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
+    </xsl:for-each>
+  </xsl:template>
 
   <xsl:template match="s:NestedLoops/s:OuterReferences[count(s:ColumnReference) > 0]" mode="ToolTipDetails">
     <div class="qp-bold">Outer References</div>

@@ -561,14 +561,15 @@ describe('qp.js', () => {
 
         describe('Adaptive Join Node', () => {
 
-            it('Has correct tooltip description', () => {
+            it('Has correct tooltip description and icon', () => {
 
                 let container = helper.showPlan(plan_adaptive_join);
                 let adaptiveJoin = helper.findNodeById(container, '0');
                 assert.equal('Adaptive Join', helper.getNodeLabel(adaptiveJoin));
                 assert.equal('Chooses dynamically between hash join and nested loops.', helper.getDescription(adaptiveJoin));
+                assert.notEqual(null, adaptiveJoin.querySelector('.qp-icon-AdaptiveJoin'));
 
-            })
+            });
 
         })
 

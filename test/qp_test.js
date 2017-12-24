@@ -585,7 +585,7 @@ describe('qp.js', () => {
                 assert.equal(null, helper.getProperty(indexSeek, 'Is Adaptive'));
                 assert.equal(null, helper.getProperty(indexSeek, 'Adaptive Threshold Rows'));
 
-            })
+            });
 
             it('Does not show Actual info on estimated plans', () => {
 
@@ -599,7 +599,16 @@ describe('qp.js', () => {
 
             });
 
-        })
+            it('Shows Hash Keys Probe in tooltip',  () => {
+
+                let container = helper.showPlan(plan_adaptive_join_estimated);
+                let adaptiveJoin = helper.findNodeById(container, '0');
+                assert.equal('[Test].[dbo].[Numbers2].NumberID2',
+                    helper.getToolTipSection(adaptiveJoin, 'Hash Keys Probe'));
+
+            });
+
+        });
 
     });
 

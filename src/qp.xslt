@@ -409,6 +409,13 @@
       <div><xsl:apply-templates select="." mode="ObjectName" /></div>
     </xsl:for-each>
   </xsl:template>
+  
+  <xsl:template match="s:AdaptiveJoin/s:HashKeysProbe" mode="ToolTipDetails">
+    <div class="qp-bold">Hash Keys Probe</div>
+    <xsl:for-each select="s:ColumnReference">
+      <div><xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
+    </xsl:for-each>
+  </xsl:template>
 
   <xsl:template match="s:NestedLoops/s:OuterReferences[count(s:ColumnReference) > 0]" mode="ToolTipDetails">
     <div class="qp-bold">Outer References</div>

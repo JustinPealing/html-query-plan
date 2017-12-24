@@ -129,14 +129,6 @@
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
-        <xsl:with-param name="Condition" select="@AdaptiveThresholdRows" />
-        <xsl:with-param name="Label">Adaptive Threshold Rows</xsl:with-param>
-        <xsl:with-param name="Value">
-          <xsl:value-of select="@AdaptiveThresholdRows" />
-        </xsl:with-param>
-      </xsl:call-template>
-
-      <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Storage</xsl:with-param>
         <xsl:with-param name="Value" select="s:IndexScan/@Storage|s:TableScan/@Storage" />
       </xsl:call-template>
@@ -144,6 +136,14 @@
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Number of Rows Read</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualRowsRead)" />
+      </xsl:call-template>
+
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@AdaptiveThresholdRows" />
+        <xsl:with-param name="Label">Adaptive Threshold Rows</xsl:with-param>
+        <xsl:with-param name="Value">
+          <xsl:value-of select="@AdaptiveThresholdRows" />
+        </xsl:with-param>
       </xsl:call-template>
       
       <xsl:call-template name="ToolTipRow">
@@ -155,6 +155,21 @@
         <xsl:with-param name="Condition" select="s:RunTimeInformation" />
         <xsl:with-param name="Label">Actual Number of Batches</xsl:with-param>
         <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@Batches)" />
+      </xsl:call-template>
+
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@EstimateIO | @EstimateCPU" />
+        <xsl:with-param name="Label">Estimated Operator Cost</xsl:with-param>
+        <xsl:with-param name="Value">
+          <xsl:variable name="EstimatedOperatorCost">
+            <xsl:call-template name="EstimatedOperatorCost" />
+          </xsl:variable>
+          <xsl:variable name="TotalCost">
+            <xsl:value-of select="ancestor::s:QueryPlan/s:RelOp/@EstimatedTotalSubtreeCost" />
+          </xsl:variable>
+          <xsl:call-template name="round">
+            <xsl:with-param name="value" select="$EstimatedOperatorCost" />
+          </xsl:call-template> (<xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" />)</xsl:with-param>
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
@@ -178,13 +193,23 @@
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
-        <xsl:with-param name="Label">Number of Executions</xsl:with-param>
-        <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutions)" />
+        <xsl:with-param name="Condition" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
+        <xsl:with-param name="Label">Estimated Subtree Cost</xsl:with-param>
+        <xsl:with-param name="Value">
+          <xsl:call-template name="round">
+            <xsl:with-param name="value" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
+          </xsl:call-template>
+        </xsl:with-param>
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Estimated Number of Executions</xsl:with-param>
         <xsl:with-param name="Value" select="@EstimateRebinds + 1" />
+      </xsl:call-template>
+
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Number of Executions</xsl:with-param>
+        <xsl:with-param name="Value" select="sum(s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutions)" />
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
@@ -195,31 +220,6 @@
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Memory Grant</xsl:with-param>
         <xsl:with-param name="Value" select="s:QueryPlan/@MemoryGrant" />
-      </xsl:call-template>
-
-      <xsl:call-template name="ToolTipRow">
-        <xsl:with-param name="Condition" select="@EstimateIO | @EstimateCPU" />
-        <xsl:with-param name="Label">Estimated Operator Cost</xsl:with-param>
-        <xsl:with-param name="Value">
-          <xsl:variable name="EstimatedOperatorCost">
-            <xsl:call-template name="EstimatedOperatorCost" />
-          </xsl:variable>
-          <xsl:variable name="TotalCost">
-            <xsl:value-of select="ancestor::s:QueryPlan/s:RelOp/@EstimatedTotalSubtreeCost" />
-          </xsl:variable>
-          <xsl:call-template name="round">
-            <xsl:with-param name="value" select="$EstimatedOperatorCost" />
-          </xsl:call-template> (<xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" />)</xsl:with-param>
-      </xsl:call-template>
-
-      <xsl:call-template name="ToolTipRow">
-        <xsl:with-param name="Condition" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
-        <xsl:with-param name="Label">Estimated Subtree Cost</xsl:with-param>
-        <xsl:with-param name="Value">
-          <xsl:call-template name="round">
-            <xsl:with-param name="value" select="@StatementSubTreeCost | @EstimatedTotalSubtreeCost" />
-          </xsl:call-template>
-        </xsl:with-param>
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">

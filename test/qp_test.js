@@ -572,6 +572,7 @@ describe('qp.js', () => {
                 assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Actual Join Type'));
                 assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Estimated Join Type'));
                 assert.equal('True', helper.getProperty(adaptiveJoin, 'Is Adaptive'));
+                assert.equal('80.8673', helper.getProperty(adaptiveJoin, 'Adaptive Threshold Rows'));
 
             });
 
@@ -582,6 +583,7 @@ describe('qp.js', () => {
                 assert.equal(null, helper.getProperty(indexSeek, 'Actual Join Type'));
                 assert.equal(null, helper.getProperty(indexSeek, 'Estimated Join Type'));
                 assert.equal(null, helper.getProperty(indexSeek, 'Is Adaptive'));
+                assert.equal(null, helper.getProperty(indexSeek, 'Adaptive Threshold Rows'));
 
             })
 
@@ -593,6 +595,7 @@ describe('qp.js', () => {
                 assert.equal(null, helper.getProperty(adaptiveJoin, 'Actual Join Type'));
                 assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Estimated Join Type'));
                 assert.equal('True', helper.getProperty(adaptiveJoin, 'Is Adaptive'));
+                assert.equal('80.8673', helper.getProperty(adaptiveJoin, 'Adaptive Threshold Rows'));
 
             });
 

@@ -129,6 +129,14 @@
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@AdaptiveThresholdRows" />
+        <xsl:with-param name="Label">Adaptive Threshold Rows</xsl:with-param>
+        <xsl:with-param name="Value">
+          <xsl:value-of select="@AdaptiveThresholdRows" />
+        </xsl:with-param>
+      </xsl:call-template>
+
+      <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Storage</xsl:with-param>
         <xsl:with-param name="Value" select="s:IndexScan/@Storage|s:TableScan/@Storage" />
       </xsl:call-template>

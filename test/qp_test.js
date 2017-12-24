@@ -571,8 +571,19 @@ describe('qp.js', () => {
                 assert.notEqual(null, adaptiveJoin.querySelector('.qp-icon-AdaptiveJoin'));
                 assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Actual Join Type'));
                 assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Estimated Join Type'));
+                assert.equal('True', helper.getProperty(adaptiveJoin, 'Is Adaptive'));
 
             });
+
+            it('Does not show Join Type etc... on nodes other than Adaptive Join', () => {
+
+                let container = helper.showPlan(plan_adaptive_join);
+                let indexSeek = helper.findNodeById(container, '2');
+                assert.equal(null, helper.getProperty(indexSeek, 'Actual Join Type'));
+                assert.equal(null, helper.getProperty(indexSeek, 'Estimated Join Type'));
+                assert.equal(null, helper.getProperty(indexSeek, 'Is Adaptive'));
+
+            })
 
             it('Does not show Actual info on estimated plans', () => {
 
@@ -581,6 +592,7 @@ describe('qp.js', () => {
                 assert.equal('Adaptive Join', helper.getNodeLabel(adaptiveJoin));
                 assert.equal(null, helper.getProperty(adaptiveJoin, 'Actual Join Type'));
                 assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Estimated Join Type'));
+                assert.equal('True', helper.getProperty(adaptiveJoin, 'Is Adaptive'));
 
             });
 

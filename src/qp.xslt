@@ -87,7 +87,7 @@
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
-        <xsl:with-param name="Condition" select="s:RunTimeInformation" />
+        <xsl:with-param name="Condition" select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualJoinType" />
         <xsl:with-param name="Label">Actual Join Type</xsl:with-param>
         <xsl:with-param name="Value">
           <xsl:value-of select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualJoinType" />
@@ -110,6 +110,17 @@
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Estimated Join Type</xsl:with-param>
         <xsl:with-param name="Value" select="@EstimatedJoinType" />
+      </xsl:call-template>
+
+      <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Condition" select="@IsAdaptive" />
+        <xsl:with-param name="Label">Is Adaptive</xsl:with-param>
+        <xsl:with-param name="Value">
+          <xsl:choose>
+            <xsl:when test="@IsAdaptive = 'true'">True</xsl:when>
+            <xsl:otherwise>False</xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">

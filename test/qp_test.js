@@ -570,6 +570,7 @@ describe('qp.js', () => {
                 assert.equal('Chooses dynamically between hash join and nested loops.', helper.getDescription(adaptiveJoin));
                 assert.notEqual(null, adaptiveJoin.querySelector('.qp-icon-AdaptiveJoin'));
                 assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Actual Join Type'));
+                assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Estimated Join Type'));
 
             });
 
@@ -579,6 +580,7 @@ describe('qp.js', () => {
                 let adaptiveJoin = helper.findNodeById(container, '0');
                 assert.equal('Adaptive Join', helper.getNodeLabel(adaptiveJoin));
                 assert.equal(null, helper.getProperty(adaptiveJoin, 'Actual Join Type'));
+                assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Estimated Join Type'));
 
             });
 

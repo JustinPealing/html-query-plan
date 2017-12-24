@@ -108,6 +108,11 @@
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
+        <xsl:with-param name="Label">Estimated Join Type</xsl:with-param>
+        <xsl:with-param name="Value" select="@EstimatedJoinType" />
+      </xsl:call-template>
+
+      <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Label">Estimated Execution Mode</xsl:with-param>
         <xsl:with-param name="Value" select="@EstimatedExecutionMode" />
       </xsl:call-template>

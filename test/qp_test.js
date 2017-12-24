@@ -19,6 +19,7 @@ let plan_batchMode = require('raw!../test_plans/batch mode.sqlplan');
 let plan_batchModeEstimated = require('raw!../test_plans/batch mode estimated.sqlplan');
 let plan_issue39 = require('raw!../test_plans/issue_39.sqlplan');
 let plan_manyLines = require('raw!../test_plans/many_lines2.sqlplan');
+let plan_adaptive_join = require('raw!../test_plans/adaptive_join.sqlplan');
 
 describe('qp.js', () => {
 
@@ -557,6 +558,19 @@ describe('qp.js', () => {
             });
 
         });
+
+        describe('Adaptive Join Node', () => {
+
+            it('Has correct tooltip description', () => {
+
+                let container = helper.showPlan(plan_adaptive_join);
+                let adaptiveJoin = helper.findNodeById(container, '0');
+                assert.equal('Adaptive Join', helper.getNodeLabel(adaptiveJoin));
+                assert.equal('Chooses dynamically between hash join and nested loops.', helper.getDescription(adaptiveJoin));
+
+            })
+
+        })
 
     });
 

@@ -45,10 +45,21 @@ function getDescription(node) {
     return tt.children[1].innerText;
 }
 
+function getNodeLabel(node) {
+    return node.children[1].innerText;
+}
+
 function showPlan(planXml) {
     let container = document.createElement("div");
     QP.showPlan(container, planXml);
     return container;
 }
 
-export { getProperty, findNodeById, getToolTipSection, getDescription, showPlan }
+export {
+    getProperty,
+    findNodeById,
+    getToolTipSection,
+    getDescription,
+    getNodeLabel,
+    showPlan
+}

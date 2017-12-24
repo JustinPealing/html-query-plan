@@ -20,6 +20,7 @@ let plan_batchModeEstimated = require('raw!../test_plans/batch mode estimated.sq
 let plan_issue39 = require('raw!../test_plans/issue_39.sqlplan');
 let plan_manyLines = require('raw!../test_plans/many_lines2.sqlplan');
 let plan_adaptive_join = require('raw!../test_plans/adaptive_join.sqlplan');
+let plan_adaptive_join_estimated = require('raw!../test_plans/adaptive_join_estimated.sqlplan');
 
 describe('qp.js', () => {
 
@@ -568,6 +569,16 @@ describe('qp.js', () => {
                 assert.equal('Adaptive Join', helper.getNodeLabel(adaptiveJoin));
                 assert.equal('Chooses dynamically between hash join and nested loops.', helper.getDescription(adaptiveJoin));
                 assert.notEqual(null, adaptiveJoin.querySelector('.qp-icon-AdaptiveJoin'));
+                assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Actual Join Type'));
+
+            });
+
+            it('Does not show Actual info on estimated plans', () => {
+
+                let container = helper.showPlan(plan_adaptive_join_estimated);
+                let adaptiveJoin = helper.findNodeById(container, '0');
+                assert.equal('Adaptive Join', helper.getNodeLabel(adaptiveJoin));
+                assert.equal(null, helper.getProperty(adaptiveJoin, 'Actual Join Type'));
 
             });
 

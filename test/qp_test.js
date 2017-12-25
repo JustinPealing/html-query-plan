@@ -21,6 +21,7 @@ let plan_issue39 = require('raw!../test_plans/issue_39.sqlplan');
 let plan_manyLines = require('raw!../test_plans/many_lines2.sqlplan');
 let plan_adaptive_join = require('raw!../test_plans/adaptive_join.sqlplan');
 let plan_adaptive_join_estimated = require('raw!../test_plans/adaptive_join_estimated.sqlplan');
+let plan_rid_lookup = require('raw!../test_plans/rid_lookup.sqlplan');
 
 describe('qp.js', () => {
 
@@ -614,6 +615,18 @@ describe('qp.js', () => {
                 let adaptiveJoin = helper.findNodeById(container, '0');
                 assert.equal('[Test].[dbo].[Numbers1].NumberID1',
                     helper.getToolTipSection(adaptiveJoin, 'Outer References'));
+
+            });
+
+        });
+
+        describe('RID Lookup Node', () => {
+
+            it('Has the correct node name and description', () => {
+
+                let container = helper.showPlan(plan_rid_lookup);
+                let ridLookup = helper.findNodeById(container, '3');
+                assert.equal('RID Lookup (Heap)', helper.getNodeLabel(ridLookup));
 
             });
 

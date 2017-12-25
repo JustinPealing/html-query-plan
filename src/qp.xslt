@@ -561,7 +561,9 @@
     <xsl:value-of select="@PhysicalOp" />
   </xsl:template>
 
-  <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="NodeLabel">Key Lookup (Clustered)</xsl:template>
+  <xsl:template match="*[s:IndexScan/@Lookup and s:IndexScan/s:Object/@IndexKind = 'Clustered']" mode="NodeLabel" priority="99">Key Lookup (Clustered)</xsl:template>
+
+  <xsl:template match="*[s:IndexScan/@Lookup and s:IndexScan/s:Object/@IndexKind = 'Heap']" mode="NodeLabel">RID Lookup (Heap)</xsl:template>
 
   <xsl:template match="*[@StatementType]" mode="NodeLabel">
     <xsl:value-of select="@StatementType" />
@@ -577,7 +579,7 @@
   <xsl:template match="*[@OperationType = 'FetchQuery']" mode="NodeLabel">Fetch Query</xsl:template>
   <xsl:template match="*[@OperationType = 'PopulateQuery']" mode="NodeLabel">Population Query</xsl:template>
   <xsl:template match="*[@OperationType = 'RefreshQuery']" mode="NodeLabel">Refresh Query</xsl:template>
-  
+
   <!--
   ================================
   Node alternate labels

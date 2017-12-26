@@ -558,7 +558,11 @@
   -->
 
   <xsl:template match="s:RelOp[s:IndexScan]" mode="NodeLabel">
-    <xsl:value-of select="@PhysicalOp" /> <xsl:if test="s:IndexScan/s:Object/@IndexKind"> (<xsl:value-of select="s:IndexScan/s:Object/@IndexKind" />)</xsl:if>
+    <xsl:choose>
+      <xsl:when test="s:IndexScan/@Storage = 'ColumnStore'">Columnstore Index Scan</xsl:when>
+      <xsl:otherwise><xsl:value-of select="@PhysicalOp" /></xsl:otherwise>
+    </xsl:choose>
+    <xsl:if test="s:IndexScan/s:Object/@IndexKind"> (<xsl:value-of select="s:IndexScan/s:Object/@IndexKind" />)</xsl:if>
   </xsl:template>
 
   <xsl:template match="s:RelOp" mode="NodeLabel">

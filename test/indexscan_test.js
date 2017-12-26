@@ -34,4 +34,17 @@ describe('IndexScan Nodes', () => {
 
     });
 
+    /*
+     * If the s:IndexScan/@Storage = "ColumnStore", then SSMS shows the node 
+     * with the title "Columnstore Index Scan", ignoring the @PhysicalOp attribute
+     */
+    it('Shows "Columnstore Index Scan" when @Storage = "ColumnStore"', () => {
+
+        let container = helper.showPlan(plan_adaptive_join);
+        let indexSeek = helper.findNodeById(container, "2");
+        assert.equal("Columnstore Index Scan (Clustered)", helper.getNodeLabel(indexSeek));
+        assert.equal("Columnstore Index Scan (Clustered)", helper.getTooltipTitle(indexSeek));
+
+    });
+
 });

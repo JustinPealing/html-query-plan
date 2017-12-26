@@ -166,7 +166,7 @@ describe('qp.js', () => {
             let container = helper.showPlan(plan_ClusteredIndexScan);
 
             let clusteredIndexScan = helper.findNodeById(container, '0', '1');
-            assert.equal('Clustered Index Scan', clusteredIndexScan.children[1].innerText);
+            assert.equal('Clustered Index Scan (Clustered)', helper.getNodeLabel(clusteredIndexScan));
             assert.equal('Clustered Index Scan', helper.getProperty(clusteredIndexScan, 'Physical Operation'));
             assert.equal('Clustered Index Scan', helper.getProperty(clusteredIndexScan, 'Logical Operation'));
             assert.equal('Scanning a clustered index, entirely or only a range.',
@@ -180,7 +180,7 @@ describe('qp.js', () => {
             let container = helper.showPlan(plan_ClusteredIndexSeek);
 
             let clusteredIndexSeek = helper.findNodeById(container, '0', '1');
-            assert.equal('Clustered Index Seek', clusteredIndexSeek.children[1].innerText);
+            assert.equal('Clustered Index Seek (Clustered)', helper.getNodeLabel(clusteredIndexSeek));
             assert.equal('Clustered Index Seek', helper.getProperty(clusteredIndexSeek, 'Physical Operation'));
             assert.equal('Clustered Index Seek', helper.getProperty(clusteredIndexSeek, 'Logical Operation'));
             assert.equal('Scanning a particular range of rows from a clustered index.',

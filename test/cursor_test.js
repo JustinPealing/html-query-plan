@@ -44,7 +44,7 @@ describe('Cursor support', () => {
         QP.showPlan(container, plan_cursorPlan);
 
         let clusteredIndexSeek = helper.findNodeById(container, '1');
-        assert.equal('Clustered Index Seek', clusteredIndexSeek.children[1].innerText);
+        assert.equal('Clustered Index Seek (Clustered)', helper.getNodeLabel(clusteredIndexSeek));
         assert.equal('[WHSWORKLINE].[I_102773WORKIDLINENU…', clusteredIndexSeek.children[2].innerText);
         assert.equal('Cost: 100%', clusteredIndexSeek.children[3].innerText);
         assert.equal('Scanning a particular range of rows from a clustered index.', helper.getDescription(clusteredIndexSeek))

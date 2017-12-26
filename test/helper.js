@@ -40,6 +40,11 @@ function getToolTipSection(node, name) {
     return null;
 }
 
+function getTooltipTitle(node) {
+    let tt = node.querySelector('.qp-tt');
+    return tt.children[0].innerText;
+}
+
 function getDescription(node) {
     let tt = node.querySelector('.qp-tt');
     return tt.children[1].innerText;
@@ -59,6 +64,7 @@ export {
     getProperty,
     findNodeById,
     getToolTipSection,
+    getTooltipTitle,
     getDescription,
     getNodeLabel,
     showPlan

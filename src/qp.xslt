@@ -557,6 +557,10 @@
   The following section contains templates used to determine the first (main) label for a node.
   -->
 
+  <xsl:template match="s:RelOp[s:IndexScan]" mode="NodeLabel">
+    <xsl:value-of select="@PhysicalOp" /> <xsl:if test="s:IndexScan/s:Object/@IndexKind"> (<xsl:value-of select="s:IndexScan/s:Object/@IndexKind" />)</xsl:if>
+  </xsl:template>
+
   <xsl:template match="s:RelOp" mode="NodeLabel">
     <xsl:value-of select="@PhysicalOp" />
   </xsl:template>

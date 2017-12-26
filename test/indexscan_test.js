@@ -4,6 +4,8 @@ import * as helper from './helper';
 
 let plan_Issue1 = require('raw!../test_plans/issue1.sqlplan');
 let plan_adaptive_join = require('raw!../test_plans/adaptive_join.sqlplan');
+let plan_KeyLookup = require('raw!../test_plans/KeyLookup.sqlplan');
+let plan_rid_lookup = require('raw!../test_plans/rid_lookup.sqlplan');
 
 describe('IndexScan Nodes', () => {
 
@@ -41,9 +43,34 @@ describe('IndexScan Nodes', () => {
     it('Shows "Columnstore Index Scan" when @Storage = "ColumnStore"', () => {
 
         let container = helper.showPlan(plan_adaptive_join);
-        let indexSeek = helper.findNodeById(container, "2");
-        assert.equal("Columnstore Index Scan (Clustered)", helper.getNodeLabel(indexSeek));
-        assert.equal("Columnstore Index Scan (Clustered)", helper.getTooltipTitle(indexSeek));
+        let columnstoreIndexScan = helper.findNodeById(container, "2");
+        assert.equal("Columnstore Index Scan (Clustered)", helper.getNodeLabel(columnstoreIndexScan));
+        assert.equal("Columnstore Index Scan (Clustered)", helper.getTooltipTitle(columnstoreIndexScan));
+
+    });
+
+    /*
+     * SSMS special cases plans where s:IndexScan/@Lookup is "1" or "true" depending on the index
+     * kind - a clustered index means a "Key Lookup", otherwise its a "RID Lookup".
+     */
+    it('Shows "Key Lookup" if the @Lookup attribute is present and @IndexKind="Clustered"', () => {
+
+        let container = helper.showPlan(plan_KeyLookup);
+        let keyLookup = helper.findNodeById(container, "5");
+        assert.equal("Key Lookup (Clustered)", helper.getNodeLabel(keyLookup));
+        assert.equal("Key Lookup (Clustered)", helper.getTooltipTitle(keyLookup));
+
+    });
+    
+    /*
+    * As above, but for non-clustered indexes.
+    */
+    it('Shows "RID Lookup" if the @Lookup attribute is present and @IndexKind is not equal to "Clustered"', () => {
+
+        let container = helper.showPlan(plan_rid_lookup);
+        let ridLookup = helper.findNodeById(container, "3");
+        assert.equal("RID Lookup (Heap)", helper.getNodeLabel(ridLookup));
+        assert.equal("RID Lookup (Heap)", helper.getTooltipTitle(ridLookup));
 
     });
 

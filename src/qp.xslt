@@ -631,6 +631,7 @@
   <xsl:template match="*[@PhysicalOp = 'Clustered Index Seek']" mode="ToolTipDescription">Scanning a particular range of rows from a clustered index.</xsl:template>
   <xsl:template match="*[@PhysicalOp = 'Index Seek']" mode="ToolTipDescription">Scan a particular range of rows from a nonclustered index.</xsl:template>
   <xsl:template match="*[@PhysicalOp = 'Adaptive Join']" mode="ToolTipDescription">Chooses dynamically between hash join and nested loops.</xsl:template>
+  <xsl:template match="*[@PhysicalOp = 'Index Spool']" mode="ToolTipDescription">Reformats the data from the input into a temporary index, which is then used for seeking with the supplied seek predicate.</xsl:template>
   <xsl:template match="*[s:IndexScan/@Lookup]" mode="ToolTipDescription">Uses a supplied clustering key to lookup on a table that has a clustered index.</xsl:template>
 
   <xsl:template match="*[@PhysicalOp = 'Parallelism' and @LogicalOp='Repartition Streams']" mode="ToolTipDescription">Repartition Streams.</xsl:template>

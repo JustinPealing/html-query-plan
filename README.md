@@ -65,3 +65,7 @@ Run the following commands to output minified and unminified versions (on Window
     npm run webpack
     set NODE_ENV=production
     npm run webpack
+    
+# Sponsor
+
+A big thankyou to [Brent Ozar Unlimited](https://www.brentozar.com/) (who make [Paste The Plan](https://www.brentozar.com/pastetheplan/)) for sponsoring development of html-query-plan.

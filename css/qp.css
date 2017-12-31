@@ -16,15 +16,23 @@ div.qp-tt {
     border-style: solid;
     border-width: 1px 0px 1px 0px;
     padding: 0.3em;
+}
+
+.qp-statement-header-row {
+    width: 100%;
     height: 15.6px;
 }
 
-.qp-statement-header > div {
+.qp-statement-header-row > div {
     width: 100%;
     position: absolute;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.missing-index {
+    color: green;
 }
 
 .qp-statement-header,

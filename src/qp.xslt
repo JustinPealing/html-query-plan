@@ -26,9 +26,29 @@
 
   <xsl:template match="s:BatchSequence/s:Batch/s:Statements/*" mode="Statement">
     <div class="qp-statement-header">
-      <div><xsl:value-of select="@StatementText" /></div>
+      <div class="qp-statement-header-row">
+        <div><xsl:value-of select="@StatementText" /></div>
+      </div>
+      <xsl:apply-templates select="s:QueryPlan/s:MissingIndexes/s:MissingIndexGroup" mode="MissingIndex" />
     </div>
     <xsl:apply-templates select="." mode="QpTr" />
+  </xsl:template>
+
+  <xsl:template match="s:MissingIndexGroup" mode="MissingIndex">
+    <div class="qp-statement-header-row missing-index">
+      <div>Missing Index (Impact <xsl:value-of select="@Impact" />): <xsl:apply-templates select="s:MissingIndex" mode="CreateIndex" /></div>
+    </div>
+  </xsl:template>
+
+  <!-- This template produces the "CREATE INDEX ..." text -->
+  <xsl:template match="s:MissingIndex" mode="CreateIndex">CREATE NONCLUSTERED INDEX [&lt;Name of Missing Index, sysname,>] ON <xsl:value-of select="@Schema" />.<xsl:value-of select="@Table" /> (<xsl:for-each select="s:ColumnGroup[@Usage!='INCLUDE']/s:Column">
+  <xsl:value-of select="@Name" />
+  <xsl:if test="position() != last()">,</xsl:if>
+</xsl:for-each>)
+<xsl:if test="s:ColumnGroup[@Usage='INCLUDE']"> INCLUDE (<xsl:for-each select="s:ColumnGroup[@Usage='INCLUDE']/s:Column">
+  <xsl:value-of select="@Name" />
+  <xsl:if test="position() != last()">,</xsl:if>
+</xsl:for-each>)</xsl:if>
   </xsl:template>
   
   <!-- Each node has a parent qp-tr element which contains / positions the node and its children -->

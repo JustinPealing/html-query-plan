@@ -535,6 +535,7 @@
     </xsl:variable>
     <xsl:element name="div">
       <xsl:attribute name="class">qp-icon-<xsl:value-of select="$iconName" /></xsl:attribute>
+      <xsl:if test="s:Warnings"><div class="qp-iconwarn" /></xsl:if>
     </xsl:element>
   </xsl:template>
 

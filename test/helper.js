@@ -67,5 +67,6 @@ export {
     getTooltipTitle,
     getDescription,
     getNodeLabel,
-    showPlan
+    showPlan,
+    findStatmentElementById
 }

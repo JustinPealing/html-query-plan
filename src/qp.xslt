@@ -59,7 +59,7 @@
       </xsl:if>
       <div>
         <div class="qp-node">
-          <xsl:apply-templates select="." mode="NodeIcon" />
+          <xsl:call-template name="NodeIcon" />
           <div><xsl:apply-templates select="." mode="NodeLabel" /></div>
           <xsl:apply-templates select="." mode="NodeLabel2" />
           <xsl:apply-templates select="." mode="NodeCostLabel" />
@@ -515,59 +515,27 @@
     </xsl:for-each>
   </xsl:template>
 
-  <!-- 
-  ================================
-  Node icons
-  ================================
-  The following templates determine what icon should be shown for a given node
-  -->
-
-  <!-- Use the logical operation to determine the icon for the "Parallelism" operators. -->
-  <xsl:template match="s:RelOp[@PhysicalOp = 'Parallelism']" mode="NodeIcon" priority="1">
+  <xsl:template name="NodeIcon">
+    <xsl:variable name="iconName">
+      <xsl:choose>
+        <!-- Use the logical operation to determine the icon for the "Parallelism" operators. -->
+        <xsl:when test="@PhysicalOp = 'Parallelism'"><xsl:value-of select="translate(@LogicalOp, ' ', '')" /></xsl:when>
+        <xsl:when test="s:CursorPlan/@CursorActualType"><xsl:value-of select="s:CursorPlan/@CursorActualType" /></xsl:when>
+        <xsl:when test="@OperationType"><xsl:value-of select="@OperationType" /></xsl:when>
+        <xsl:when test="s:IndexScan/@Lookup">KeyLookup</xsl:when>
+        <xsl:when test="s:TableValuedFunction">TableValuedFunction</xsl:when>
+        <!-- Use the physical operation to determine icon if it is present. -->
+        <xsl:when test="@PhysicalOp"><xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:when>
+        <!-- Matches all statements. -->
+        <xsl:when test="local-name() = 'StmtSimple'">Statement</xsl:when>
+        <xsl:when test="local-name() = 'StmtCursor'">StmtCursor</xsl:when>
+        <!-- Fallback - show the Bitmap icon. -->
+        <xsl:otherwise>Catchall</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:element name="div">
-      <xsl:attribute name="class">qp-icon-<xsl:value-of select="translate(@LogicalOp, ' ', '')" /></xsl:attribute>
+      <xsl:attribute name="class">qp-icon-<xsl:value-of select="$iconName" /></xsl:attribute>
     </xsl:element>
-  </xsl:template>
-
-  <xsl:template match="*[s:CursorPlan/@CursorActualType]" mode="NodeIcon" priority="1">
-    <xsl:element name="div">
-      <xsl:attribute name="class">qp-icon-<xsl:value-of select="s:CursorPlan/@CursorActualType" /></xsl:attribute>
-    </xsl:element>
-  </xsl:template>
-
-  <xsl:template match="*[@OperationType]" mode="NodeIcon" priority="1">
-    <xsl:element name="div">
-      <xsl:attribute name="class">qp-icon-<xsl:value-of select="@OperationType" /></xsl:attribute>
-    </xsl:element>
-  </xsl:template>
-
-  <xsl:template match="s:RelOp[s:IndexScan/@Lookup]" mode="NodeIcon" priority="1">
-    <div class="qp-icon-KeyLookup"></div>
-  </xsl:template>
- 
-  <xsl:template match="s:RelOp[s:TableValuedFunction]" mode="NodeIcon" priority="1">
-    <div class="qp-icon-TableValuedFunction"></div>
-  </xsl:template>
-
-  <!-- Use the physical operation to determine icon if it is present. -->
-  <xsl:template match="*[@PhysicalOp]" mode="NodeIcon">
-    <xsl:element name="div">
-      <xsl:attribute name="class">qp-icon-<xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:attribute>
-    </xsl:element>
-  </xsl:template>
-  
-  <!-- Matches all statements. -->
-  <xsl:template match="s:StmtSimple" mode="NodeIcon">
-    <div class="qp-icon-Statement"></div>
-  </xsl:template>
-
-  <xsl:template match="s:StmtCursor" mode="NodeIcon">
-    <div class="qp-icon-StmtCursor"></div>
-  </xsl:template>
-
-  <!-- Fallback template - show the Bitmap icon. -->
-  <xsl:template match="*" mode="NodeIcon">
-    <div class="qp-icon-Catchall"></div>
   </xsl:template>
 
   <!-- 

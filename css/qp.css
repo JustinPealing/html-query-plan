@@ -50,6 +50,7 @@ div[class|='qp-icon'] {
     margin-left: auto;
     margin-right: auto;
     background-repeat: no-repeat;
+    position: relative;
 }
 
 .qp-tt {
@@ -194,7 +195,7 @@ div[class|='qp-icon'] {
     background: url('qp_icons.png') -304px -209px;
     height: 16px;
     width: 16px;
-    position: relative;
+    position: absolute;
     top: 16px;
 }
 
@@ -202,6 +203,9 @@ div[class|='qp-icon'] {
     background: url('qp_icons.png') -304px -193px;
     height: 16px;
     width: 16px;
+    position: absolute;
+    top: 16px;
+    left: 16px;
 }
 
 /* Layout - can't touch this */

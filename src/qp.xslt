@@ -536,6 +536,7 @@
     <xsl:element name="div">
       <xsl:attribute name="class">qp-icon-<xsl:value-of select="$iconName" /></xsl:attribute>
       <xsl:if test="s:Warnings"><div class="qp-iconwarn" /></xsl:if>
+      <xsl:if test="@Parallel='1' or @Parallel='true'"><div class="qp-iconpar" /></xsl:if>
     </xsl:element>
   </xsl:template>
 

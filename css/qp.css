@@ -198,6 +198,12 @@ div[class|='qp-icon'] {
     top: 16px;
 }
 
+.qp-iconpar {
+    background: url('qp_icons.png') -304px -193px;
+    height: 16px;
+    width: 16px;
+}
+
 /* Layout - can't touch this */
 .qp-tt {
     position: absolute;

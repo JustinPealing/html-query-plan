@@ -491,6 +491,11 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="s:Warnings" mode="ToolTipDetails">
+    <div class="qp-bold">Warnings</div>
+    <xsl:if test="@NoJoinPredicate=1 or @NoJoinPredicate=true"><div>No Join Predicate</div></xsl:if>
+  </xsl:template>
+
   <xsl:template name="SeekKeyDetail">
     <xsl:param name="position" />Seek Keys[<xsl:value-of select="$position" />]: <xsl:for-each select="s:Prefix|s:StartRange|s:EndRange">
       <xsl:choose>

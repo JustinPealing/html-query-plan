@@ -649,4 +649,16 @@ describe('qp.js', () => {
 
     });
 
+    describe('Cached plan size', () => {
+
+        it('Is @CachedPlanSize (in KB)', () => {
+
+            let container = helper.showPlan(plan_adaptive_join);
+            let select = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
+            assert.equal('48 KB', helper.getProperty(select, 'Cached plan size'));
+
+        });
+
+    });
+
 });

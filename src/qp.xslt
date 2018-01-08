@@ -87,7 +87,7 @@
       <xsl:call-template name="ToolTipRow">
         <xsl:with-param name="Condition" select="s:QueryPlan/@CachedPlanSize" />
         <xsl:with-param name="Label">Cached plan size</xsl:with-param>
-        <xsl:with-param name="Value" select="concat(s:QueryPlan/@CachedPlanSize, ' B')" />
+        <xsl:with-param name="Value" select="concat(s:QueryPlan/@CachedPlanSize, ' KB')" />
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">

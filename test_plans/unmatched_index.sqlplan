@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.6" Build="14.0.1000.169" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="4" StatementEstRows="1.56767" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="140" StatementSubTreeCost="0.0146866" StatementText="SELECT TOP (3000) ID, DATE_INFO&#xD;&#xA;	FROM dbo.SAMPLE_TABLE&#xD;&#xA;	WHERE ID_1 LIKE @ID_1_2 OR ID_2 LIKE @ID_1_2&#xD;&#xA;	ORDER BY DATE_INFO" StatementType="SELECT" QueryHash="0xFEF498F4FF6A4B94" QueryPlanHash="0x3756ABF98A6031C6" RetrievedFromCache="true" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan DegreeOfParallelism="1" MemoryGrant="1024" CachedPlanSize="24" CompileTime="5" CompileCPU="5" CompileMemory="232">
+            <UnmatchedIndexes>
+              <Parameterization>
+                <Object Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Index="[IX_SAMPLE_TABLE__ID_2]" />
+              </Parameterization>
+            </UnmatchedIndexes>
+            <Warnings UnmatchedIndexes="true" />
+            <MemoryGrantInfo SerialRequiredMemory="512" SerialDesiredMemory="544" RequiredMemory="512" DesiredMemory="544" RequestedMemory="1024" GrantWaitTime="0" GrantedMemory="1024" MaxUsedMemory="0" MaxQueryMemory="162512" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="206720" EstimatedPagesCached="51680" EstimatedAvailableDegreeOfParallelism="2" MaxCompileMemory="489072" />
+            <QueryTimeStats CpuTime="1" ElapsedTime="1" />
+            <RelOp AvgRowSize="19" EstimateCPU="0.000101605" EstimateIO="0.0112613" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1.56767" LogicalOp="TopN Sort" NodeId="0" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="0.0146866">
+              <OutputList>
+                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Column="ID" />
+                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Column="DATE_INFO" />
+              </OutputList>
+              <MemoryFractions Input="1" Output="1" />
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRebinds="1" ActualRewinds="0" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="1024" OutputMemoryGrant="640" UsedMemoryGrant="0" />
+              </RunTimeInformation>
+              <TopSort Distinct="false" Rows="3000">
+                <OrderBy>
+                  <OrderByColumn Ascending="true">
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Column="DATE_INFO" />
+                  </OrderByColumn>
+                </OrderBy>
+                <RelOp AvgRowSize="89" EstimateCPU="0.0001735" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1.56767" EstimatedRowsRead="15" LogicalOp="Clustered Index Scan" NodeId="1" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.0032985" TableCardinality="15">
+                  <OutputList>
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Column="ID" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Column="DATE_INFO" />
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualRowsRead="15" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="2" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                  </RunTimeInformation>
+                  <IndexScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Column="ID" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Column="DATE_INFO" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Index="[PK_SAMPLE_TABLE]" IndexKind="Clustered" Storage="RowStore" />
+                    <Predicate>
+                      <ScalarOperator ScalarString="[Test].[dbo].[SAMPLE_TABLE].[ID_1] like [@ID_1_2] OR [Test].[dbo].[SAMPLE_TABLE].[ID_2] like [@ID_1_2]">
+                        <Logical Operation="OR">
+                          <ScalarOperator>
+                            <Intrinsic FunctionName="like">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Column="ID_1" />
+                                </Identifier>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="@ID_1_2" />
+                                </Identifier>
+                              </ScalarOperator>
+                            </Intrinsic>
+                          </ScalarOperator>
+                          <ScalarOperator>
+                            <Intrinsic FunctionName="like">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[SAMPLE_TABLE]" Column="ID_2" />
+                                </Identifier>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="@ID_1_2" />
+                                </Identifier>
+                              </ScalarOperator>
+                            </Intrinsic>
+                          </ScalarOperator>
+                        </Logical>
+                      </ScalarOperator>
+                    </Predicate>
+                  </IndexScan>
+                </RelOp>
+              </TopSort>
+            </RelOp>
+            <ParameterList>
+              <ColumnReference Column="@ID_1_2" ParameterDataType="varchar(35)" ParameterCompiledValue="'AAA%'" ParameterRuntimeValue="'AAA%'" />
+            </ParameterList>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

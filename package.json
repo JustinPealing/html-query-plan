@@ -23,8 +23,8 @@
   "scripts": {
     "webpack": "webpack",
     "watch:webpack": "webpack --watch",
-    "karma": "karma start karma.config.js --singleRun",
-    "watch:karma": "karma start karma.config.js"
+    "test": "karma start karma.config.js --singleRun",
+    "watch:test": "karma start karma.config.js"
   },
   "repository": {
     "type": "git",

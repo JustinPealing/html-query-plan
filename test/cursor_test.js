@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import * as QP from '../src/index';
 import * as helper from './helper';
-let plan_cursorPlan = require('raw!../test_plans/Cursors/cursorPlan.sqlplan');
-let plan_cursor2 = require('raw!../test_plans/Cursors/cursor2.sqlplan');
-let plan_keysetCursor = require('raw!../test_plans/Cursors/Keyset Cursor.sqlplan');
-let plan_snapshotCursor = require('raw!../test_plans/Cursors/SnapshotCursor.sqlplan');
+import plan_cursorPlan from 'raw!../test_plans/Cursors/cursorPlan.sqlplan';
+import plan_cursor2 from 'raw!../test_plans/Cursors/cursor2.sqlplan';
+import plan_keysetCursor from 'raw!../test_plans/Cursors/Keyset Cursor.sqlplan';
+import plan_snapshotCursor from 'raw!../test_plans/Cursors/SnapshotCursor.sqlplan';
 
 describe('Cursor support', () => {
         

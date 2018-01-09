@@ -1,8 +1,7 @@
 import * as assert from 'assert';
 import * as QP from '../src/index';
 import * as helper from './helper';
-
-let plan_issue39 = require('raw!../test_plans/issue_39.sqlplan');
+import plan_issue39 from 'raw!../test_plans/issue_39.sqlplan';
 
 describe('Tooltip Warnings Section', () => {
 

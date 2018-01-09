@@ -1,11 +1,10 @@
 import * as assert from 'assert';
 import * as QP from '../src/index';
 import * as helper from './helper';
-
-let plan_Issue1 = require('raw!../test_plans/issue1.sqlplan');
-let plan_adaptive_join = require('raw!../test_plans/adaptive_join.sqlplan');
-let plan_KeyLookup = require('raw!../test_plans/KeyLookup.sqlplan');
-let plan_rid_lookup = require('raw!../test_plans/rid_lookup.sqlplan');
+import plan_Issue1 from 'raw!../test_plans/issue1.sqlplan';
+import plan_adaptive_join from 'raw!../test_plans/adaptive_join.sqlplan';
+import plan_KeyLookup from 'raw!../test_plans/KeyLookup.sqlplan';
+import plan_rid_lookup from 'raw!../test_plans/rid_lookup.sqlplan';
 
 describe('IndexScan Nodes', () => {
 

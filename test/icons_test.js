@@ -1,10 +1,9 @@
 import * as assert from 'assert';
 import * as QP from '../src/index';
 import * as helper from './helper';
-
-let plan_batchMode = require('raw!../test_plans/batch mode.sqlplan');
-let plan_issue39 = require('raw!../test_plans/issue_39.sqlplan');
-let plan_UpvotesForEachTag = require('raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan');
+import plan_batchMode from 'raw!../test_plans/batch mode.sqlplan';
+import plan_issue39 from 'raw!../test_plans/issue_39.sqlplan';
+import plan_UpvotesForEachTag from 'raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan';
 
 describe('Query Plan Icon', () => {
 

@@ -1,11 +1,10 @@
 import * as assert from 'assert';
 import * as QP from '../src/index';
 import * as helper from './helper';
-
-let plan_acceptedAnswerPercentage = require('raw!../test_plans/stack overflow/what is my accepted answer percentage rate.sqlplan');
-let plan_commentScoreDistribution = require('raw!../test_plans/stack overflow/my comment score distribution.sqlplan');
-let plan_UpvotesForEachTag = require('raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan');
-let plan_inequality_index = require('raw!../test_plans/stack overflow/inequality_index.sqlplan');
+import plan_acceptedAnswerPercentage from 'raw!../test_plans/stack overflow/what is my accepted answer percentage rate.sqlplan';
+import plan_commentScoreDistribution from 'raw!../test_plans/stack overflow/my comment score distribution.sqlplan';
+import plan_UpvotesForEachTag from 'raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan';
+import plan_inequality_index from 'raw!../test_plans/stack overflow/inequality_index.sqlplan';
 
 describe('Missing Indexes', () => {
 

@@ -77,6 +77,7 @@
       <div><xsl:apply-templates select="." mode="ToolTipDescription" /></div>
       <xsl:call-template name="ToolTipGrid" />
       <xsl:apply-templates select="* | @* | */* | */@*" mode="ToolTipDetails" />
+      <xsl:call-template name="ToolTipDetails" />
     </div>
   </xsl:template>
 
@@ -491,9 +492,13 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="s:Warnings" mode="ToolTipDetails">
-    <div class="qp-bold">Warnings</div>
-    <xsl:if test="@NoJoinPredicate=1 or @NoJoinPredicate=true"><div>No Join Predicate</div></xsl:if>
+  <!-- Turns out using apply-templates for this was a bad idea, but its too big a change to fix it all right now. This is probably
+  the template that should contain tooltip details, I'll try to refactor more stuff into here over time, maybe. -->
+  <xsl:template name="ToolTipDetails">
+    <xsl:if test="s:Warnings">
+      <div class="qp-bold">Warnings</div>
+      <xsl:if test="s:Warnings/@NoJoinPredicate=1 or s:Warnings/@NoJoinPredicate=true"><div>No Join Predicate</div></xsl:if>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="SeekKeyDetail">

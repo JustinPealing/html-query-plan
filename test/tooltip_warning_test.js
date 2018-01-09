@@ -9,7 +9,7 @@ describe('Tooltip Warnings Section', () => {
     it('Is missing for nodes without s:Warnings', () => {
 
         let container = helper.showPlan(plan_issue39);
-        let tableScan = helper.findNodeById(container, '2');
+        let tableScan = helper.findNodeById(container, '0');
         assert.equal(null, helper.getToolTipSection(tableScan, 'Warnings'));
 
     });

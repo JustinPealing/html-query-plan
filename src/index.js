@@ -1,7 +1,7 @@
 ﻿import * as transform from './transform';
 import { drawSvgLines } from './svgLines';
 import { initTooltip } from './tooltip';
-let qpXslt = require('raw!./qp.xslt');
+import qpXslt from 'raw!./qp.xslt';
 
 function showPlan(container, planXml, options) {
     options = setDefaults(options, {

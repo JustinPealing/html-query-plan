@@ -1,10 +1,7 @@
 import * as assert from 'assert';
 import * as QP from '../src/index';
 import * as helper from './helper';
-import plan_Issue1 from 'raw!../test_plans/issue1.sqlplan';
-import plan_adaptive_join from 'raw!../test_plans/adaptive_join.sqlplan';
-import plan_KeyLookup from 'raw!../test_plans/KeyLookup.sqlplan';
-import plan_rid_lookup from 'raw!../test_plans/rid_lookup.sqlplan';
+import { plan } from './plans';
 
 describe('IndexScan Nodes', () => {
 
@@ -15,7 +12,7 @@ describe('IndexScan Nodes', () => {
      */
     it('Has index kind appended when present', () => {
         
-        let container = helper.showPlan(plan_adaptive_join);
+        let container = helper.showPlan(plan.adaptive_join);
         let indexSeek = helper.findNodeById(container, "7");
         assert.equal("Index Seek (NonClustered)", helper.getNodeLabel(indexSeek));
         assert.equal("Index Seek (NonClustered)", helper.getTooltipTitle(indexSeek));
@@ -28,7 +25,7 @@ describe('IndexScan Nodes', () => {
      */
     it('Does not have index kind appended when not present', () => {
 
-        let container = helper.showPlan(plan_Issue1);
+        let container = helper.showPlan(plan.issue1);
         let clusteredIndexSeek = helper.findNodeById(container, "16");
         assert.equal("Clustered Index Seek", helper.getNodeLabel(clusteredIndexSeek));
         assert.equal("Clustered Index Seek", helper.getTooltipTitle(clusteredIndexSeek));
@@ -41,7 +38,7 @@ describe('IndexScan Nodes', () => {
      */
     it('Shows "Columnstore Index Scan" when @Storage = "ColumnStore"', () => {
 
-        let container = helper.showPlan(plan_adaptive_join);
+        let container = helper.showPlan(plan.adaptive_join);
         let columnstoreIndexScan = helper.findNodeById(container, "2");
         assert.equal("Columnstore Index Scan (Clustered)", helper.getNodeLabel(columnstoreIndexScan));
         assert.equal("Columnstore Index Scan (Clustered)", helper.getTooltipTitle(columnstoreIndexScan));
@@ -54,7 +51,7 @@ describe('IndexScan Nodes', () => {
      */
     it('Shows "Key Lookup" if the @Lookup attribute is present and @IndexKind="Clustered"', () => {
 
-        let container = helper.showPlan(plan_KeyLookup);
+        let container = helper.showPlan(plan.KeyLookup);
         let keyLookup = helper.findNodeById(container, "5");
         assert.equal("Key Lookup (Clustered)", helper.getNodeLabel(keyLookup));
         assert.equal("Key Lookup (Clustered)", helper.getTooltipTitle(keyLookup));
@@ -66,7 +63,7 @@ describe('IndexScan Nodes', () => {
     */
     it('Shows "RID Lookup" if the @Lookup attribute is present and @IndexKind is not equal to "Clustered"', () => {
 
-        let container = helper.showPlan(plan_rid_lookup);
+        let container = helper.showPlan(plan.rid_lookup);
         let ridLookup = helper.findNodeById(container, "3");
         assert.equal("RID Lookup (Heap)", helper.getNodeLabel(ridLookup));
         assert.equal("RID Lookup (Heap)", helper.getTooltipTitle(ridLookup));

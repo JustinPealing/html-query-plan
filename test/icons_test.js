@@ -1,15 +1,13 @@
 import * as assert from 'assert';
 import * as QP from '../src/index';
 import * as helper from './helper';
-import plan_batchMode from 'raw!../test_plans/batch mode.sqlplan';
-import plan_issue39 from 'raw!../test_plans/issue_39.sqlplan';
-import plan_UpvotesForEachTag from 'raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan';
+import { plan } from './plans';
 
 describe('Query Plan Icon', () => {
 
     it('is based on @LogicalOp when @PhysicalOp=Parallelism', () => {
         
-        let container = helper.showPlan(plan_batchMode);
+        let container = helper.showPlan(plan.batchMode);
         let parallelism = helper.findNodeById(container, '0');
         assert.notEqual(null, parallelism.querySelector('.qp-icon-GatherStreams'));
         
@@ -17,7 +15,7 @@ describe('Query Plan Icon', () => {
     
     it('equals qp-icon-Statement for statements', () => {
 
-        let container = helper.showPlan(plan_batchMode);
+        let container = helper.showPlan(plan.batchMode);
         let statement = helper.findStatmentElementById(container, '1');
         assert.notEqual(null, statement.querySelector('.qp-icon-Statement'));
 
@@ -25,7 +23,7 @@ describe('Query Plan Icon', () => {
 
     it('Shows warning icons on any node with a s:Warning element', () => {
 
-        let container = helper.showPlan(plan_issue39);
+        let container = helper.showPlan(plan.issue39);
         let nestedLoops = helper.findNodeById(container, '1');
         assert.notEqual(null, nestedLoops.querySelector('.qp-iconwarn'));
 
@@ -33,7 +31,7 @@ describe('Query Plan Icon', () => {
 
     it('Does not show warnings on nodes without a Warning element', () => {
 
-        let container = helper.showPlan(plan_issue39);
+        let container = helper.showPlan(plan.issue39);
         let nestedLoops = helper.findNodeById(container, '2');
         assert.equal(null, nestedLoops.querySelector('.qp-iconwarn'));
 
@@ -41,7 +39,7 @@ describe('Query Plan Icon', () => {
 
     it('Shows parallel icon when @Parallel=1', () => {
 
-        let container = helper.showPlan(plan_UpvotesForEachTag);
+        let container = helper.showPlan(plan.UpvotesForEachTag);
         let nestedLoops = helper.findNodeById(container, '12');
         assert.notEqual(null, nestedLoops.querySelector('.qp-iconpar'));
 
@@ -49,7 +47,7 @@ describe('Query Plan Icon', () => {
 
     it('Shows parallel icon when @Parallel=true', () => {
 
-        let container = helper.showPlan(plan_batchMode);
+        let container = helper.showPlan(plan.batchMode);
         let windowAggregate = helper.findNodeById(container, '2');
         assert.notEqual(null, windowAggregate.querySelector('.qp-iconpar'));
 
@@ -57,7 +55,7 @@ describe('Query Plan Icon', () => {
 
     it('DoesShows parallel icon when @Parallel=0', () => {
 
-        let container = helper.showPlan(plan_UpvotesForEachTag);
+        let container = helper.showPlan(plan.UpvotesForEachTag);
         let indexSeek = helper.findNodeById(container, '14');
         assert.equal(null, indexSeek.querySelector('.qp-iconpar'));
 

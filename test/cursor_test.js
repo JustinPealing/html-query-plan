@@ -1,17 +1,14 @@
 import * as assert from 'assert';
 import * as QP from '../src/index';
 import * as helper from './helper';
-import plan_cursorPlan from 'raw!../test_plans/Cursors/cursorPlan.sqlplan';
-import plan_cursor2 from 'raw!../test_plans/Cursors/cursor2.sqlplan';
-import plan_keysetCursor from 'raw!../test_plans/Cursors/Keyset Cursor.sqlplan';
-import plan_snapshotCursor from 'raw!../test_plans/Cursors/SnapshotCursor.sqlplan';
+import { plan } from './plans';
 
 describe('Cursor support', () => {
         
     it('Shows StmpCursor', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_cursorPlan);
+        QP.showPlan(container, plan.cursorPlan);
 
         let fastForward = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
         assert.equal('Fast Forward', fastForward.children[1].innerText);
@@ -25,7 +22,7 @@ describe('Cursor support', () => {
     it('Shows "Fetch Query" node as a child of "Fast Forward"', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_cursorPlan);
+        QP.showPlan(container, plan.cursorPlan);
 
         let fetchQuery = container.querySelector('div[data-statement-id="1"] > div > .qp-tr > div > .qp-node');
         assert.equal('Fetch Query', fetchQuery.children[1].innerText);
@@ -41,7 +38,7 @@ describe('Cursor support', () => {
     it('Shows the correct Estimated Operator cost', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_cursorPlan);
+        QP.showPlan(container, plan.cursorPlan);
 
         let clusteredIndexSeek = helper.findNodeById(container, '1');
         assert.equal('Clustered Index Seek (Clustered)', helper.getNodeLabel(clusteredIndexSeek));
@@ -58,7 +55,7 @@ describe('Cursor support', () => {
     it('Shows Dynamic', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_cursor2);
+        QP.showPlan(container, plan.cursor2);
 
         let dynamic = container.querySelector('div[data-statement-id="4"] > div > .qp-node');
         assert.equal('Dynamic', dynamic.children[1].innerText);
@@ -76,7 +73,7 @@ describe('Cursor support', () => {
     it('Shows OPEN CURSOR', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_cursor2);
+        QP.showPlan(container, plan.cursor2);
         
         let openCursor = container.querySelector('div[data-statement-id="5"] > div > .qp-node');
         assert.equal('OPEN CURSOR', openCursor.children[1].innerText);
@@ -88,7 +85,7 @@ describe('Cursor support', () => {
     it('Shows FETCH CURSOR', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_keysetCursor);
+        QP.showPlan(container, plan.keysetCursor);
         
         let fetchCursor = container.querySelector('div[data-statement-id="5"] > div > .qp-node');
         assert.equal('FETCH CURSOR', fetchCursor.children[1].innerText);
@@ -100,7 +97,7 @@ describe('Cursor support', () => {
     it('Shows CLOSE CURSOR', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_keysetCursor);
+        QP.showPlan(container, plan.keysetCursor);
         
         let closeCursor = container.querySelector('div[data-statement-id="10"] > div > .qp-node');
         assert.equal('CLOSE CURSOR', closeCursor.children[1].innerText);
@@ -112,7 +109,7 @@ describe('Cursor support', () => {
     it('Shows DEALLOCATE CURSOR', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_keysetCursor);
+        QP.showPlan(container, plan.keysetCursor);
         
         let deallocateCursor = container.querySelector('div[data-statement-id="11"] > div > .qp-node');
         assert.equal('DEALLOCATE CURSOR', deallocateCursor.children[1].innerText);
@@ -124,7 +121,7 @@ describe('Cursor support', () => {
     it('Shows Keyset', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_keysetCursor);
+        QP.showPlan(container, plan.keysetCursor);
         
         let keyset = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
         assert.equal('Keyset', keyset.children[1].innerText);
@@ -136,7 +133,7 @@ describe('Cursor support', () => {
     it('Shows Snapshot', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_snapshotCursor);
+        QP.showPlan(container, plan.snapshotCursor);
         
         let snapshot = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
         assert.equal('Snapshot', snapshot.children[1].innerText);
@@ -147,7 +144,7 @@ describe('Cursor support', () => {
     it('Shows Population Query', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_keysetCursor);
+        QP.showPlan(container, plan.keysetCursor);
         
         let populationQuery = container.querySelector('div[data-statement-id="2"] > div > .qp-tr > div > .qp-node');
         assert.equal('Population Query', populationQuery.children[1].innerText);
@@ -159,7 +156,7 @@ describe('Cursor support', () => {
     it('Shows the cost only once (Issue #30)', () => {
 
         let container = document.createElement('div');
-        QP.showPlan(container, plan_snapshotCursor);
+        QP.showPlan(container, plan.snapshotCursor);
 
         let condNode = container.querySelector('div[data-statement-id="4"] > div > .qp-node');
         assert.equal("Cost: 0%", condNode.children[2].innerText);

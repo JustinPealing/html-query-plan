@@ -1,10 +1,7 @@
 import * as assert from 'assert';
 import * as QP from '../src/index';
 import * as helper from './helper';
-import plan_acceptedAnswerPercentage from 'raw!../test_plans/stack overflow/what is my accepted answer percentage rate.sqlplan';
-import plan_commentScoreDistribution from 'raw!../test_plans/stack overflow/my comment score distribution.sqlplan';
-import plan_UpvotesForEachTag from 'raw!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan';
-import plan_inequality_index from 'raw!../test_plans/stack overflow/inequality_index.sqlplan';
+import { plan } from './plans';
 
 describe('Missing Indexes', () => {
 
@@ -14,7 +11,7 @@ describe('Missing Indexes', () => {
      */
     it('Shows the missing index text', () => {
         
-        let container = helper.showPlan(plan_acceptedAnswerPercentage);
+        let container = helper.showPlan(plan.acceptedAnswerPercentage);
         let missingIndexes = container.querySelectorAll('.missing-index');
 
         assert.equal(1, missingIndexes.length);
@@ -29,7 +26,7 @@ describe('Missing Indexes', () => {
      */
     it('Handles INCLUDE columns', () => {
         
-        let container = helper.showPlan(plan_commentScoreDistribution);
+        let container = helper.showPlan(plan.commentScoreDistribution);
         let missingIndexes = container.querySelectorAll('.missing-index');
 
         assert.equal(1, missingIndexes.length);
@@ -43,7 +40,7 @@ describe('Missing Indexes', () => {
      */
     it('Includes all indexes, not just the first one', () => {
 
-        let container = helper.showPlan(plan_UpvotesForEachTag);
+        let container = helper.showPlan(plan.UpvotesForEachTag);
         let missingIndexes = container.querySelectorAll('.missing-index');
 
         assert.equal(2, missingIndexes.length);
@@ -59,7 +56,7 @@ describe('Missing Indexes', () => {
      */
     it('Includes INEQUALITY columns', () => {
 
-        let container = helper.showPlan(plan_inequality_index);
+        let container = helper.showPlan(plan.inequality_index);
         let missingIndexes = container.querySelectorAll('.missing-index');
 
         assert.equal(1, missingIndexes.length);

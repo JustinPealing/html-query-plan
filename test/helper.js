@@ -54,6 +54,14 @@ function getNodeLabel(node) {
     return node.children[1].innerText;
 }
 
+function getNodeLabel2(node) {
+    return node.children[2].innerText;
+}
+
+function getNodeLabel3(node) {
+    return node.children[3].innerText;
+}
+
 function showPlan(planXml) {
     let container = document.createElement("div");
     QP.showPlan(container, planXml);
@@ -67,6 +75,8 @@ export {
     getTooltipTitle,
     getDescription,
     getNodeLabel,
+    getNodeLabel2,
+    getNodeLabel3,
     showPlan,
     findStatmentElementById
 }

@@ -118,7 +118,7 @@ describe('qp.js', () => {
             let container = helper.showPlan(plan.KeyLookup);
             
             let keyLookup = helper.findNodeById(container, '5', '1');
-            assert.equal('Key Lookup (Clustered)', keyLookup.children[1].innerText);
+            assert.equal('Key Lookup (Clustered)', helper.getNodeLabel(keyLookup));
             assert.equal('Key Lookup', helper.getProperty(keyLookup, 'Physical Operation'));
             assert.equal('Key Lookup', helper.getProperty(keyLookup, 'Logical Operation'));
             assert.equal('Uses a supplied clustering key to lookup on a table that has a clustered index.',
@@ -132,7 +132,7 @@ describe('qp.js', () => {
             let container = helper.showPlan(plan.NotShowingSeekPredicates);
 
             let keyLookup = helper.findNodeById(container, '6', '1');
-            assert.equal('Key Lookup (Clustered)', keyLookup.children[1].innerText);
+            assert.equal('Key Lookup (Clustered)', helper.getNodeLabel(keyLookup));
             assert.equal('Key Lookup', helper.getProperty(keyLookup, 'Physical Operation'));
             assert.equal('Key Lookup', helper.getProperty(keyLookup, 'Logical Operation'));
             assert.equal('Uses a supplied clustering key to lookup on a table that has a clustered index.',
@@ -181,7 +181,7 @@ describe('qp.js', () => {
 
             let container = helper.showPlan(plan.StmtUseDb);
             let statementNode = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
-            assert.equal('USE DATABASE', statementNode.children[1].innerText);
+            assert.equal('USE DATABASE', helper.getNodeLabel(statementNode));
             assert.equal(null, helper.getProperty(statementNode, 'Physical Operation'));
             assert.equal(null, helper.getProperty(statementNode, 'Logical Operation'));
 
@@ -192,12 +192,12 @@ describe('qp.js', () => {
             let container = helper.showPlan(plan.StmtCond);
 
             let condNode = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
-            assert.equal('COND', condNode.children[1].innerText);
+            assert.equal('COND', helper.getNodeLabel(condNode));
             assert.equal(null, helper.getProperty(condNode, 'Physical Operation'));
             assert.equal(null, helper.getProperty(condNode, 'Logical Operation'));
 
             let printNode = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
-            assert.equal('PRINT', printNode.children[1].innerText);
+            assert.equal('PRINT', helper.getNodeLabel(printNode));
 
         });
 
@@ -207,7 +207,7 @@ describe('qp.js', () => {
 
                 let container = helper.showPlan(plan.manyLines);
                 let sp = container.querySelectorAll('.qp-node')[1];
-                assert.equal('Stored Procedure', sp.children[1].innerText);
+                assert.equal('Stored Procedure', helper.getNodeLabel(sp));
 
             })
 

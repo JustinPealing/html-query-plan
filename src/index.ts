@@ -5,7 +5,11 @@ import { initTooltip } from './tooltip';
 declare function require(path: string) : any;
 let qpXslt = require('raw-loader!./qp.xslt');
 
-function showPlan(container, planXml, options?) {
+interface Options {
+    jsTooltips?: boolean
+}
+
+function showPlan(container: Element, planXml: string, options?: Options) {
     options = setDefaults(options, {
         jsTooltips: true
     });
@@ -18,7 +22,7 @@ function showPlan(container, planXml, options?) {
     }
 }
 
-function setDefaults(options, defaults) {
+function setDefaults(options: Options, defaults: Options) {
     let ret = {};
     for (let attr in defaults) {
         if (defaults.hasOwnProperty(attr)) {

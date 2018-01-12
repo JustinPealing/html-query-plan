@@ -1,4 +1,4 @@
-function findAncestor(element, className) {
+function findAncestor(element: Element, className: string) {
     if (element === null) {
         return null;
     }
@@ -6,7 +6,7 @@ function findAncestor(element, className) {
     return element;
 }
 
-function hasClass(element, cls) {
+function hasClass(element: Element, cls: string) {
     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
 }
 

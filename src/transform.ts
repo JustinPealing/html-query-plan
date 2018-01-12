@@ -5,7 +5,7 @@
  * @xslt {string} XSLT transform to use.
  */
 function setContentsUsingXslt(container, xml, xslt) {
-    if (window.ActiveXObject || "ActiveXObject" in window) {
+    if ((<any>window).ActiveXObject || "ActiveXObject" in window) {
         let xsltDoc = new ActiveXObject("Microsoft.xmlDOM");
         xsltDoc.async = false;
         xsltDoc.loadXML(xslt);

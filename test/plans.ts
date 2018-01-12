@@ -1,3 +1,4 @@
+declare function require(path: string) : any;
 var plan = {
     acceptedAnswerPercentage: require('raw-loader!../test_plans/stack overflow/what is my accepted answer percentage rate.sqlplan'),
     adaptive_join: require('raw-loader!../test_plans/adaptive_join.sqlplan'),

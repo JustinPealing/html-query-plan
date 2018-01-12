@@ -1,6 +1,6 @@
 import * as QP from '../src/index';
 
-function findNodeById(container, nodeId, statementId) {
+function findNodeById(container, nodeId, statementId?) {
     let statmentElement = findStatmentElementById(container, statementId);
     let nodes = statmentElement.querySelectorAll('.qp-node');
     for (let i = 0; i < nodes.length; i++) {

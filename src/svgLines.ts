@@ -1,4 +1,4 @@
-import SVG from 'svgjs';
+import * as SVG from 'svgjs';
 import { findAncestor } from './utils';
 
 function drawSvgLines(container) {

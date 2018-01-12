@@ -1,9 +1,11 @@
 ﻿import * as transform from './transform';
 import { drawSvgLines } from './svgLines';
 import { initTooltip } from './tooltip';
-import qpXslt from 'raw!./qp.xslt';
 
-function showPlan(container, planXml, options) {
+declare function require(path: string) : any;
+let qpXslt = require('raw-loader!./qp.xslt');
+
+function showPlan(container, planXml, options?) {
     options = setDefaults(options, {
         jsTooltips: true
     });

@@ -1,7 +1,7 @@
 import * as assert from 'assert';
-import * as transform from '../src/transform.js';
+import * as transform from '../src/transform';
 
-describe("transform.js", () => {
+describe("transform", () => {
 
     describe("setContentsUsingXslt", () => {
 

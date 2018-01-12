@@ -1,18 +1,22 @@
-var webpackConfig = require('./webpack.config.js'); 
+var webpackConfig = require('./webpack.config');
 module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['mocha'],
     files: [
-      'test/*_test.js'
+      'test/*_test.ts'
     ],
     exclude: [],
     preprocessors: {
-      'test/*_test.js': ['webpack', 'sourcemap'],
+      'test/**/*_test.ts': ['webpack']
     },
     webpack: {
       module: webpackConfig.module,
+      resolve: webpackConfig.resolve,
       devtool: 'inline-source-map'
+    },
+    mime: {
+      "text/x-typescript": ["ts"]
     },
     reporters: ['progress'],
     port: 9876,

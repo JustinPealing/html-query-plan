@@ -1,8 +1,13 @@
 import * as SVG from 'svgjs';
 import { findAncestor } from './utils';
 
-function drawSvgLines(container) {
-    let root = container.querySelector(".qp-root");
+interface Point {
+    x: number,
+    y: number
+}
+
+function drawSvgLines(container: Element) {
+    let root = <HTMLElement>container.querySelector(".qp-root");
     let draw = SVG(root);
 
     let clientRect = root.getBoundingClientRect();
@@ -17,7 +22,7 @@ function drawSvgLines(container) {
     }
 }
 
-function findParent(node) {
+function findParent(node: Element) {
     let row = findAncestor(node, 'qp-tr');
     let parentRow = findAncestor(row, 'qp-tr');
     if (!parentRow) {
@@ -33,7 +38,7 @@ function findParent(node) {
  * @fromElement Node element from which to draw the arrow (leftmost node).
  * @toElement Node element to which to draw the arrow (rightmost node).
  */
-function drawArrowBetweenNodes(draw, offset, fromElement, toElement) {
+function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, fromElement: Element, toElement: Element) {
     let fromOffset = fromElement.getBoundingClientRect();
     let toOffset = toElement.getBoundingClientRect();
 
@@ -64,9 +69,9 @@ function drawArrowBetweenNodes(draw, offset, fromElement, toElement) {
  * @to {x,y} coordinates of the pointy end.
  * @bendX Offset from toPoint at which the "bend" should happen. (X axis) 
  */
-function drawArrow(draw, from, to, bendX) {
+function drawArrow(draw: SVG.Doc, from: Point, to: Point, bendX: number) {
 
-    let points = [
+    let points: any = [
         [from.x, from.y],
         [from.x + 3, from.y - 3],
         [from.x + 3, from.y - 1],

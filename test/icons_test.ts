@@ -37,6 +37,22 @@ describe('Query Plan Icon', () => {
 
     });
 
+    it('Shows warnings on s:QueryPlan elements with a Warning element', () => {
+
+        let container = helper.showPlan(plan.unmatched_index);
+        let select = helper.findStatmentElementById(container, '1');
+        assert.notEqual(null, select.querySelector('.qp-iconwarn'));
+
+    });
+
+    it('Does not show warnings on s:QueryPlan elements without a Warning element', () => {
+
+        let container = helper.showPlan(plan.issue39);
+        let select = helper.findStatmentElementById(container, '1');
+        assert.notEqual(null, select.querySelector('.qp-iconwarn'));
+
+    });
+
     it('Shows parallel icon when @Parallel=1', () => {
 
         let container = helper.showPlan(plan.UpvotesForEachTag);

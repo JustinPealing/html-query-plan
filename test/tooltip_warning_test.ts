@@ -22,5 +22,14 @@ describe('Tooltip Warnings Section', () => {
             helper.getToolTipSection(nestedLoops, 'Warnings'));
         
     });
+    
+    it('Shows unmatched indexes', () => {
+
+        let container = helper.showPlan(plan.unmatched_index);
+        let select = helper.findStatmentElementById(container, '1');
+        assert.equal('Unmatched index: [Test].[dbo].[SAMPLE_TABLE].[IX_SAMPLE_TABLE__ID_2]',
+            helper.getToolTipSection(select, 'Warnings'));
+
+    });
 
 });

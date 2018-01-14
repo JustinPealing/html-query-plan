@@ -27,5 +27,6 @@ var plan = {
     StmtCond: require('raw-loader!../test_plans/StmtCond.sqlplan'),
     StmtUseDb: require('raw-loader!../test_plans/StmtUseDb.sqlplan'),
     UpvotesForEachTag: require('raw-loader!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan'),
+    unmatched_index: require('raw-loader!../test_plans/unmatched_index.sqlplan')
 }
 export { plan };

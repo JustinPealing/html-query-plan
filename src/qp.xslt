@@ -77,8 +77,19 @@
       <div><xsl:apply-templates select="." mode="ToolTipDescription" /></div>
       <xsl:call-template name="ToolTipGrid" />
       <xsl:apply-templates select="* | @* | */* | */@*" mode="ToolTipDetails" />
-      <xsl:call-template name="ToolTipDetails" />
+      <xsl:choose>
+        <xsl:when test="s:QueryPlan">
+          <xsl:apply-templates select="s:QueryPlan" mode="QueryPlanToolTipDetails" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="ToolTipDetails" />
+        </xsl:otherwise>
+      </xsl:choose>
     </div>
+  </xsl:template>
+
+  <xsl:template match="s:QueryPlan" mode="QueryPlanToolTipDetails">
+    <xsl:call-template name="ToolTipDetails" />
   </xsl:template>
 
   <!-- Writes the grid of node properties to the tool tip -->
@@ -498,6 +509,9 @@
     <xsl:if test="s:Warnings">
       <div class="qp-bold">Warnings</div>
       <xsl:if test="s:Warnings/@NoJoinPredicate=1 or s:Warnings/@NoJoinPredicate=true"><div>No Join Predicate</div></xsl:if>
+      <xsl:for-each select="s:UnmatchedIndexes/s:Parameterization/s:Object">
+        <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
+      </xsl:for-each>
     </xsl:if>
   </xsl:template>
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.3.1" Build="12.0.5203.0">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="181" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="120" StatementSubTreeCost="0.0274925" StatementText="SELECT&#13;&#10; sub.TestTableAId,&#13;&#10; ent.MyName&#13;&#10; FROM&#13;&#10; myschema.TestTableA sub&#13;&#10; LEFT JOIN myschema.TestTableB ent ON sub.TestTableB_Id = ent.Id" StatementType="SELECT" QueryHash="0x16851AA57EC0985F" QueryPlanHash="0xC6182A821B55A106" RetrievedFromCache="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true"/>
+          <QueryPlan DegreeOfParallelism="1" MemoryGrant="1056" CachedPlanSize="40" CompileTime="1" CompileCPU="1" CompileMemory="192">
+            <MemoryGrantInfo SerialRequiredMemory="1024" SerialDesiredMemory="1056" RequiredMemory="1024" DesiredMemory="1056" RequestedMemory="1056" GrantWaitTime="0" GrantedMemory="1056" MaxUsedMemory="320" MaxQueryMemory="5525488"/>
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="96000" EstimatedPagesCached="192000" EstimatedAvailableDegreeOfParallelism="16" MaxCompileMemory="22003360"/>
+            <TraceFlags IsCompileTime="true">
+              <TraceFlag Value="1117" Scope="Global"/>
+              <TraceFlag Value="1118" Scope="Global"/>
+            </TraceFlags>
+            <TraceFlags IsCompileTime="false">
+              <TraceFlag Value="1117" Scope="Global"/>
+              <TraceFlag Value="1118" Scope="Global"/>
+            </TraceFlags>
+            <RelOp AvgRowSize="40" EstimateCPU="0.0192207" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="181" LogicalOp="Right Outer Join" NodeId="0" Parallel="false" PhysicalOp="Hash Match" EstimatedTotalSubtreeCost="0.0274925">
+              <OutputList>
+                <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableA]" Alias="[sub]" Column="TestTableAId"/>
+                <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableB]" Alias="[ent]" Column="MyName"/>
+              </OutputList>
+              <MemoryFractions Input="1" Output="1"/>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="181" ActualEndOfScans="1" ActualExecutions="1" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+              </RunTimeInformation>
+              <Hash>
+                <DefinedValues/>
+                <HashKeysBuild>
+                  <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableB]" Alias="[ent]" Column="Id"/>
+                </HashKeysBuild>
+                <HashKeysProbe>
+                  <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableA]" Alias="[sub]" Column="TestTableB_Id"/>
+                </HashKeysProbe>
+                <RelOp AvgRowSize="40" EstimateCPU="0.0001812" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="22" LogicalOp="Index Scan" NodeId="1" Parallel="false" PhysicalOp="Index Scan" EstimatedTotalSubtreeCost="0.0033062" TableCardinality="22">
+                  <OutputList>
+                    <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableB]" Alias="[ent]" Column="Id"/>
+                    <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableB]" Alias="[ent]" Column="MyName"/>
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="22" ActualRowsRead="22" ActualEndOfScans="1" ActualExecutions="1" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="2" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                  </RunTimeInformation>
+                  <IndexScan Ordered="false" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableB]" Alias="[ent]" Column="Id"/>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableB]" Alias="[ent]" Column="MyName"/>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[mydb]" Schema="[myschema]" Table="[TestTableB]" Index="[UK_myschema_TestTableA_MyName]" Alias="[ent]" IndexKind="NonClustered" Storage="RowStore"/>
+                  </IndexScan>
+                </RelOp>
+                <RelOp AvgRowSize="15" EstimateCPU="0.0003561" EstimateIO="0.00460648" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="181" LogicalOp="Clustered Index Scan" NodeId="2" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.00496258" TableCardinality="181">
+                  <OutputList>
+                    <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableA]" Alias="[sub]" Column="TestTableAId"/>
+                    <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableA]" Alias="[sub]" Column="TestTableB_Id"/>
+                  </OutputList>
+                  <Warnings>
+                    <ColumnsWithNoStatistics>
+                      <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableA]" Alias="[sub]" Column="TestTableB_Id"/>
+                    </ColumnsWithNoStatistics>
+                  </Warnings>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="181" ActualRowsRead="181" ActualEndOfScans="1" ActualExecutions="1" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="5" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                  </RunTimeInformation>
+                  <IndexScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableA]" Alias="[sub]" Column="TestTableAId"/>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[mydb]" Schema="[myschema]" Table="[TestTableA]" Alias="[sub]" Column="TestTableB_Id"/>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[mydb]" Schema="[myschema]" Table="[TestTableA]" Index="[PK_TestTableA]" Alias="[sub]" IndexKind="Clustered" Storage="RowStore"/>
+                  </IndexScan>
+                </RelOp>
+              </Hash>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

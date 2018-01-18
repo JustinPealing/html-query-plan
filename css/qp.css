@@ -16,15 +16,23 @@ div.qp-tt {
     border-style: solid;
     border-width: 1px 0px 1px 0px;
     padding: 0.3em;
+}
+
+.qp-statement-header-row {
+    width: 100%;
     height: 15.6px;
 }
 
-.qp-statement-header > div {
+.qp-statement-header-row > div {
     width: 100%;
     position: absolute;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.missing-index {
+    color: green;
 }
 
 .qp-statement-header,
@@ -42,6 +50,7 @@ div[class|='qp-icon'] {
     margin-left: auto;
     margin-right: auto;
     background-repeat: no-repeat;
+    position: relative;
 }
 
 .qp-tt {
@@ -179,6 +188,25 @@ div[class|='qp-icon'] {
 .qp-icon-FastForward{background: url('qp_icons.png') -96px -0px }
 .qp-icon-SnapShot{background: url('qp_icons.png') -96px -0px }
 .qp-icon-WindowAggregate{background: url('qp_icons.png') -96px -0px }
+.qp-icon-AdaptiveJoin{background: url('qp_icons.png') -96px -0px }
+.qp-icon-IndexSpool{background: url('qp_icons.png') -96px -0px }
+
+.qp-iconwarn {
+    background: url('qp_icons.png') -304px -209px;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    top: 16px;
+}
+
+.qp-iconpar {
+    background: url('qp_icons.png') -304px -193px;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+}
 
 /* Layout - can't touch this */
 .qp-tt {

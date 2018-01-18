@@ -1,0 +1,266 @@
+﻿<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.6" Build="14.0.1000.169" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="180" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="140" StatementSubTreeCost="0.291836" StatementText="SELECT *&#xD;&#xA;  FROM Pedido Ped1&#xD;&#xA;  WHERE Ped1.Valor &gt; (&#xD;&#xA;  SELECT AVG(Ped2.Valor)&#xD;&#xA;    FROM Pedido AS Ped2&#xD;&#xA;    WHERE Ped2.Data &lt; Ped1.Data)" StatementType="SELECT" QueryHash="0x53F19D21706E1B38" QueryPlanHash="0x90A81638902CC7EA" RetrievedFromCache="true" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan DegreeOfParallelism="1" CachedPlanSize="40" CompileTime="4" CompileCPU="4" CompileMemory="336">
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="206720" EstimatedPagesCached="51680" EstimatedAvailableDegreeOfParallelism="2" MaxCompileMemory="1786200" />
+            <OptimizerStatsUsage>
+              <StatisticsInfo Database="[Test]" Schema="[dbo]" Table="[Pedido]" Statistics="[_WA_Sys_00000006_47DBAE45]" ModificationCount="0" SamplingPercent="100" LastUpdate="2017-12-28T16:51:54.55" />
+            </OptimizerStatsUsage>
+            <WaitStats>
+              <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="2" WaitCount="3" />
+            </WaitStats>
+            <QueryTimeStats CpuTime="42" ElapsedTime="44" />
+            <RelOp AvgRowSize="53" EstimateCPU="0.000288" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="180" LogicalOp="Filter" NodeId="0" Parallel="false" PhysicalOp="Filter" EstimatedTotalSubtreeCost="0.291836">
+              <OutputList>
+                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="ID" />
+                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Cliente" />
+                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Vendedor" />
+                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Quantidade" />
+                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Valor" />
+                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Data" />
+              </OutputList>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="324" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="42" ActualCPUms="39" />
+              </RunTimeInformation>
+              <Filter StartupExpression="false">
+                <RelOp AvgRowSize="70" EstimateCPU="0.002508" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="600" LogicalOp="Inner Join" NodeId="1" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="0.291548">
+                  <OutputList>
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="ID" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Cliente" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Vendedor" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Quantidade" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Valor" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Data" />
+                    <ColumnReference Column="Expr1004" />
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="600" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="42" ActualCPUms="39" />
+                  </RunTimeInformation>
+                  <NestedLoops Optimized="false">
+                    <OuterReferences>
+                      <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Data" />
+                    </OuterReferences>
+                    <RelOp AvgRowSize="53" EstimateCPU="0.000817" EstimateIO="0.00534722" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="600" EstimatedRowsRead="600" LogicalOp="Clustered Index Scan" NodeId="2" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.00616422" TableCardinality="600">
+                      <OutputList>
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="ID" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Cliente" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Vendedor" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Quantidade" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Valor" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Data" />
+                      </OutputList>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="600" ActualRowsRead="600" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="6" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                      </RunTimeInformation>
+                      <IndexScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="ID" />
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Cliente" />
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Vendedor" />
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Quantidade" />
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Valor" />
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Data" />
+                          </DefinedValue>
+                        </DefinedValues>
+                        <Object Database="[Test]" Schema="[dbo]" Table="[Pedido]" Index="[ix]" Alias="[Ped1]" IndexKind="Clustered" Storage="RowStore" />
+                      </IndexScan>
+                    </RelOp>
+                    <RelOp AvgRowSize="24" EstimateCPU="0.000258351" EstimateIO="0.003125" EstimateRebinds="596" EstimateRewinds="3" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Lazy Spool" NodeId="3" Parallel="false" PhysicalOp="Index Spool" EstimatedTotalSubtreeCost="0.282876">
+                      <OutputList>
+                        <ColumnReference Column="Expr1004" />
+                      </OutputList>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRebinds="600" ActualRewinds="0" ActualRows="600" ActualRowsRead="1050" Batches="0" ActualEndOfScans="0" ActualExecutions="600" ActualExecutionMode="Row" ActualElapsedms="39" ActualCPUms="37" ActualScans="1200" ActualLogicalReads="2997" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                      </RunTimeInformation>
+                      <Spool>
+                        <SeekPredicateNew>
+                          <SeekKeys>
+                            <Prefix ScanType="EQ">
+                              <RangeColumns>
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Data" />
+                              </RangeColumns>
+                              <RangeExpressions>
+                                <ScalarOperator ScalarString="[Test].[dbo].[Pedido].[Data] as [Ped1].[Data]">
+                                  <Identifier>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Data" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </RangeExpressions>
+                            </Prefix>
+                          </SeekKeys>
+                        </SeekPredicateNew>
+                        <RelOp AvgRowSize="24" EstimateCPU="0" EstimateIO="0" EstimateRebinds="150" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="4" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.124741">
+                          <OutputList>
+                            <ColumnReference Column="Expr1004" />
+                          </OutputList>
+                          <ComputeScalar>
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1004" />
+                                <ScalarOperator ScalarString="CASE WHEN [Expr1010]=(0) THEN NULL ELSE [Expr1011]/CONVERT_IMPLICIT(numeric(19,0),[Expr1010],0) END">
+                                  <IF>
+                                    <Condition>
+                                      <ScalarOperator>
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Column="Expr1010" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="(0)" />
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                    </Condition>
+                                    <Then>
+                                      <ScalarOperator>
+                                        <Const ConstValue="NULL" />
+                                      </ScalarOperator>
+                                    </Then>
+                                    <Else>
+                                      <ScalarOperator>
+                                        <Arithmetic Operation="DIV">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Column="Expr1011" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Convert DataType="numeric" Precision="19" Scale="0" Style="0" Implicit="true">
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Column="Expr1010" />
+                                                </Identifier>
+                                              </ScalarOperator>
+                                            </Convert>
+                                          </ScalarOperator>
+                                        </Arithmetic>
+                                      </ScalarOperator>
+                                    </Else>
+                                  </IF>
+                                </ScalarOperator>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <RelOp AvgRowSize="24" EstimateCPU="0.0001085" EstimateIO="0" EstimateRebinds="150" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Aggregate" NodeId="5" Parallel="false" PhysicalOp="Stream Aggregate" EstimatedTotalSubtreeCost="0.124741">
+                              <OutputList>
+                                <ColumnReference Column="Expr1010" />
+                                <ColumnReference Column="Expr1011" />
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="150" Batches="0" ActualEndOfScans="0" ActualExecutions="150" ActualExecutionMode="Row" ActualElapsedms="35" ActualCPUms="32" />
+                              </RunTimeInformation>
+                              <StreamAggregate>
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Column="Expr1010" />
+                                    <ScalarOperator ScalarString="Count(*)">
+                                      <Aggregate AggType="countstar" Distinct="false" />
+                                    </ScalarOperator>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Column="Expr1011" />
+                                    <ScalarOperator ScalarString="SUM([Test].[dbo].[Pedido].[Valor] as [Ped2].[Valor])">
+                                      <Aggregate AggType="SUM" Distinct="false">
+                                        <ScalarOperator>
+                                          <Identifier>
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped2]" Column="Valor" />
+                                          </Identifier>
+                                        </ScalarOperator>
+                                      </Aggregate>
+                                    </ScalarOperator>
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <RelOp AvgRowSize="16" EstimateCPU="0.001055" EstimateIO="0.0266385" EstimateRebinds="150" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="180" LogicalOp="Eager Spool" NodeId="6" Parallel="false" PhysicalOp="Index Spool" EstimatedTotalSubtreeCost="0.108358">
+                                  <OutputList>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped2]" Column="Valor" />
+                                  </OutputList>
+                                  <RunTimeInformation>
+                                    <RunTimeCountersPerThread Thread="0" ActualRebinds="1" ActualRewinds="149" ActualRows="44700" ActualRowsRead="44700" Batches="0" ActualEndOfScans="150" ActualExecutions="150" ActualExecutionMode="Row" ActualElapsedms="26" ActualCPUms="23" ActualScans="150" ActualLogicalReads="1739" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                                  </RunTimeInformation>
+                                  <Spool>
+                                    <SeekPredicateNew>
+                                      <SeekKeys>
+                                        <EndRange ScanType="LT">
+                                          <RangeColumns>
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped2]" Column="Data" />
+                                          </RangeColumns>
+                                          <RangeExpressions>
+                                            <ScalarOperator ScalarString="[Test].[dbo].[Pedido].[Data] as [Ped1].[Data]">
+                                              <Identifier>
+                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Data" />
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </RangeExpressions>
+                                        </EndRange>
+                                      </SeekKeys>
+                                    </SeekPredicateNew>
+                                    <RelOp AvgRowSize="24" EstimateCPU="0.000817" EstimateIO="0.00534722" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="600" EstimatedRowsRead="600" LogicalOp="Clustered Index Scan" NodeId="7" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.00616422" TableCardinality="600">
+                                      <OutputList>
+                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped2]" Column="Valor" />
+                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped2]" Column="Data" />
+                                      </OutputList>
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="600" ActualRowsRead="600" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1" ActualCPUms="1" ActualScans="1" ActualLogicalReads="6" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                                      </RunTimeInformation>
+                                      <IndexScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped2]" Column="Valor" />
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped2]" Column="Data" />
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <Object Database="[Test]" Schema="[dbo]" Table="[Pedido]" Index="[ix]" Alias="[Ped2]" IndexKind="Clustered" Storage="RowStore" />
+                                      </IndexScan>
+                                    </RelOp>
+                                  </Spool>
+                                </RelOp>
+                              </StreamAggregate>
+                            </RelOp>
+                          </ComputeScalar>
+                        </RelOp>
+                      </Spool>
+                    </RelOp>
+                  </NestedLoops>
+                </RelOp>
+                <Predicate>
+                  <ScalarOperator ScalarString="[Test].[dbo].[Pedido].[Valor] as [Ped1].[Valor]&gt;[Expr1004]">
+                    <Compare CompareOp="GT">
+                      <ScalarOperator>
+                        <Identifier>
+                          <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Pedido]" Alias="[Ped1]" Column="Valor" />
+                        </Identifier>
+                      </ScalarOperator>
+                      <ScalarOperator>
+                        <Identifier>
+                          <ColumnReference Column="Expr1004" />
+                        </Identifier>
+                      </ScalarOperator>
+                    </Compare>
+                  </ScalarOperator>
+                </Predicate>
+              </Filter>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

@@ -1,0 +1,143 @@
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.5" Build="13.0.1742.0" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="3.36364" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="70" StatementSubTreeCost="0.0112115" StatementText="SELECT * FROM [dbo].[DatabaseLog] WHERE [DatabaseLogID]&gt;=@1 AND [DatabaseLogID]&lt;=@2" StatementType="SELECT" QueryHash="0xA6414DEA535A0893" QueryPlanHash="0xB1B3F5EB17E15512" RetrievedFromCache="false" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan DegreeOfParallelism="1" CachedPlanSize="32" CompileTime="24" CompileCPU="17" CompileMemory="256">
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="206720" EstimatedPagesCached="51680" EstimatedAvailableDegreeOfParallelism="2" />
+            <RelOp AvgRowSize="8593" EstimateCPU="1.406E-05" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="3.36364" LogicalOp="Inner Join" NodeId="0" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="0.0112115">
+              <OutputList>
+                <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="DatabaseLogID" />
+                <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="PostTime" />
+                <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="DatabaseUser" />
+                <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="Event" />
+                <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="Schema" />
+                <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="Object" />
+                <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="TSQL" />
+                <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="XmlEvent" />
+              </OutputList>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="4" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+              </RunTimeInformation>
+              <NestedLoops Optimized="false">
+                <OuterReferences>
+                  <ColumnReference Column="Bmk1000" />
+                </OuterReferences>
+                <RelOp AvgRowSize="19" EstimateCPU="0.0001607" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="3.36364" LogicalOp="Index Seek" NodeId="1" Parallel="false" PhysicalOp="Index Seek" EstimatedTotalSubtreeCost="0.0032857" TableCardinality="1597">
+                  <OutputList>
+                    <ColumnReference Column="Bmk1000" />
+                    <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="DatabaseLogID" />
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="4" ActualRowsRead="4" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="2" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                  </RunTimeInformation>
+                  <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Bmk1000" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="DatabaseLogID" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Index="[PK_DatabaseLog_DatabaseLogID]" IndexKind="NonClustered" Storage="RowStore" />
+                    <SeekPredicates>
+                      <SeekPredicateNew>
+                        <SeekKeys>
+                          <StartRange ScanType="GE">
+                            <RangeColumns>
+                              <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="DatabaseLogID" />
+                            </RangeColumns>
+                            <RangeExpressions>
+                              <ScalarOperator ScalarString="(195)">
+                                <Const ConstValue="(195)" />
+                              </ScalarOperator>
+                            </RangeExpressions>
+                          </StartRange>
+                          <EndRange ScanType="LE">
+                            <RangeColumns>
+                              <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="DatabaseLogID" />
+                            </RangeColumns>
+                            <RangeExpressions>
+                              <ScalarOperator ScalarString="(198)">
+                                <Const ConstValue="(198)" />
+                              </ScalarOperator>
+                            </RangeExpressions>
+                          </EndRange>
+                        </SeekKeys>
+                      </SeekPredicateNew>
+                    </SeekPredicates>
+                  </IndexScan>
+                </RelOp>
+                <RelOp AvgRowSize="8589" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="2.36364" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="RID Lookup" NodeId="3" Parallel="false" PhysicalOp="RID Lookup" EstimatedTotalSubtreeCost="0.00791172" TableCardinality="1597">
+                  <OutputList>
+                    <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="PostTime" />
+                    <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="DatabaseUser" />
+                    <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="Event" />
+                    <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="Schema" />
+                    <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="Object" />
+                    <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="TSQL" />
+                    <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="XmlEvent" />
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="4" ActualRowsRead="4" Batches="0" ActualEndOfScans="0" ActualExecutions="4" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="4" ActualPhysicalReads="1" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                  </RunTimeInformation>
+                  <IndexScan Lookup="true" Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="PostTime" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="DatabaseUser" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="Event" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="Schema" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="Object" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="TSQL" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" Column="XmlEvent" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[AdventureWorks2012]" Schema="[dbo]" Table="[DatabaseLog]" TableReferenceId="-1" IndexKind="Heap" Storage="RowStore" />
+                    <SeekPredicates>
+                      <SeekPredicateNew>
+                        <SeekKeys>
+                          <Prefix ScanType="EQ">
+                            <RangeColumns>
+                              <ColumnReference Column="Bmk1000" />
+                            </RangeColumns>
+                            <RangeExpressions>
+                              <ScalarOperator ScalarString="[Bmk1000]">
+                                <Identifier>
+                                  <ColumnReference Column="Bmk1000" />
+                                </Identifier>
+                              </ScalarOperator>
+                            </RangeExpressions>
+                          </Prefix>
+                        </SeekKeys>
+                      </SeekPredicateNew>
+                    </SeekPredicates>
+                  </IndexScan>
+                </RelOp>
+              </NestedLoops>
+            </RelOp>
+            <ParameterList>
+              <ColumnReference Column="@2" ParameterCompiledValue="(198)" ParameterRuntimeValue="(198)" />
+              <ColumnReference Column="@1" ParameterCompiledValue="(195)" ParameterRuntimeValue="(195)" />
+            </ParameterList>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

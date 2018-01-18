@@ -57,3 +57,15 @@ Should work just fine in any modern browser. Tested in Chrome, Firefox and IE9+.
 ## Icons
 
 The icons used are adapted from the Fat Cow "Farm Fresh" web icons pack, which can be found at (http://www.fatcow.com/free-icons).
+
+## Building
+
+Run the following commands to output minified and unminified versions (on Windows):
+
+    npm run webpack
+    set NODE_ENV=production
+    npm run webpack
+    
+# Sponsor
+
+A big thankyou to [Brent Ozar Unlimited](https://www.brentozar.com/) (who make [Paste The Plan](https://www.brentozar.com/pastetheplan/)) for sponsoring development of html-query-plan.

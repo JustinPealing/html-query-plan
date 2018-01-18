@@ -3,15 +3,11 @@ import { findAncestor } from './utils'
 const TOOLTIP_TIMEOUT = 500;
 
 let timeoutId: number = null;
-let currentTooltip = null;
-let cursorX = 0;
-let cursorY = 0;
+let currentTooltip: HTMLElement = null;
+let cursorX: number = 0;
+let cursorY: number = 0;
 
-/**
- * 
- * @param container 
- */
-export function initTooltip(container: HTMLElement) {
+function initTooltip(container: Element) {
     disableCssTooltips(container);
     trackMousePosition();
 
@@ -19,16 +15,16 @@ export function initTooltip(container: HTMLElement) {
 
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
-        node.addEventListener("mouseover", function() {
+        node.addEventListener("mouseover", () => {
             onMouseover(node);
         });
-        node.addEventListener("mouseout", function (event) {
+        node.addEventListener("mouseout", (event: MouseEvent) => {
             onMouseout(node, event);
         });
     }
 }
 
-function disableCssTooltips(container: HTMLElement) {
+function disableCssTooltips(container: Element) {
     let root = container.querySelector(".qp-root");
     root.className += " qp-noCssTooltip";
 }
@@ -40,18 +36,18 @@ function trackMousePosition() {
     }
 }
 
-function onMouseover(node: HTMLElement) {
+function onMouseover(node: Element) {
     if (timeoutId != null) {
         return;
     }
-    timeoutId = window.setTimeout(function () {
+    timeoutId = window.setTimeout( () => {
         showTooltip(node);
     }, TOOLTIP_TIMEOUT);
 }
 
-function onMouseout(node: HTMLElement, event: MouseEvent) {
+function onMouseout(node: Element, event: MouseEvent) {
     // http://stackoverflow.com/questions/4697758/prevent-onmouseout-when-hovering-child-element-of-the-parent-absolute-div-withou
-    let e = (event.toElement || event.relatedTarget) as HTMLElement;
+    let e = event.toElement || event.relatedTarget as Element;
     if (e == node ||
         findAncestor(e, 'qp-node') == node ||
         (currentTooltip != null && (e == currentTooltip || findAncestor(e, 'qp-tt') == currentTooltip))) {
@@ -62,11 +58,11 @@ function onMouseout(node: HTMLElement, event: MouseEvent) {
     hideTooltip();
 }
 
-function showTooltip(node: HTMLElement) {
+function showTooltip(node: Element) {
     hideTooltip();
     
     let positionY = cursorY;
-    let tooltip = node.querySelector(".qp-tt") as HTMLElement;
+    let tooltip = <HTMLElement>node.querySelector(".qp-tt");
 
     // Nudge the tooptip up if its going to appear below the bottom of the page
     let documentHeight = getDocumentHeight();
@@ -80,7 +76,7 @@ function showTooltip(node: HTMLElement) {
         positionY = 10;
     }
 
-    currentTooltip = tooltip.cloneNode(true);
+    currentTooltip = <HTMLElement>tooltip.cloneNode(true);
     document.body.appendChild(currentTooltip);
     currentTooltip.style.left = cursorX + 'px';
     currentTooltip.style.top = positionY + 'px';
@@ -104,3 +100,5 @@ function hideTooltip() {
         currentTooltip = null;
     }
 }
+
+export { initTooltip }

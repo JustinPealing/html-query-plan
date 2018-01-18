@@ -4,8 +4,8 @@
  * @param xml Input XML.
  * @param xslt XSLT transform to use.
  */
-export function setContentsUsingXslt(container: HTMLElement, xml: string, xslt: string) {
-    if (window.ActiveXObject || "ActiveXObject" in window) {
+function setContentsUsingXslt(container: Element, xml: string, xslt: string) {
+    if ((<any>window).ActiveXObject || "ActiveXObject" in window) {
         let xsltDoc = new ActiveXObject("Microsoft.xmlDOM");
         xsltDoc.async = false;
         xsltDoc.loadXML(xslt);
@@ -25,3 +25,5 @@ export function setContentsUsingXslt(container: HTMLElement, xml: string, xslt: 
         container.appendChild(result);
     }
 }
+
+export { setContentsUsingXslt }

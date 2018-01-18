@@ -1,0 +1,134 @@
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.6" Build="14.0.1000.169" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="10.001" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="TimeOut" CardinalityEstimationModelVersion="140" StatementSubTreeCost="0.111156" StatementText="SELECT a.NumberID1 FROM dbo.Numbers1 AS a&#xD;&#xA;JOIN Numbers2 AS b&#xD;&#xA;on a.NumberID1 = b.NumberID2&#xD;&#xA;WHERE a.Quantity = 1" StatementType="SELECT" QueryHash="0xC56B50FA99EA65C9" QueryPlanHash="0x11AE515D7BC756A7" RetrievedFromCache="false" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan CachedPlanSize="48" CompileTime="23" CompileCPU="11" CompileMemory="248">
+            <MemoryGrantInfo SerialRequiredMemory="1024" SerialDesiredMemory="1056" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="206720" EstimatedPagesCached="51680" EstimatedAvailableDegreeOfParallelism="2" MaxCompileMemory="1003432" />
+            <OptimizerStatsUsage>
+              <StatisticsInfo Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Statistics="[_WA_Sys_00000001_35BCFE0A]" ModificationCount="0" SamplingPercent="100" LastUpdate="2017-12-23T23:12:25.57" />
+              <StatisticsInfo Database="[Test]" Schema="[dbo]" Table="[Numbers2]" Statistics="[ix_NumberID2]" ModificationCount="0" SamplingPercent="100" LastUpdate="2017-12-23T23:12:25.62" />
+              <StatisticsInfo Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Statistics="[_WA_Sys_00000002_35BCFE0A]" ModificationCount="0" SamplingPercent="100" LastUpdate="2017-12-23T23:12:25.48" />
+            </OptimizerStatsUsage>
+            <RelOp AvgRowSize="11" EstimateCPU="2.0002E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="10.001" LogicalOp="Inner Join" NodeId="0" Parallel="false" PhysicalOp="Adaptive Join" IsAdaptive="true" AdaptiveThresholdRows="80.8673" EstimatedTotalSubtreeCost="0.111156" EstimatedJoinType="Nested Loops">
+              <OutputList>
+                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="NumberID1" />
+              </OutputList>
+              <AdaptiveJoin BitmapCreator="true" Optimized="false">
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="NumberID1" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="NumberID1" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="NumberID1" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Opt_Bitmap1005" />
+                  </DefinedValue>
+                </DefinedValues>
+                <HashKeysBuild>
+                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="NumberID1" />
+                </HashKeysBuild>
+                <HashKeysProbe>
+                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers2]" Alias="[b]" Column="NumberID2" />
+                </HashKeysProbe>
+                <OuterReferences>
+                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="NumberID1" />
+                </OuterReferences>
+                <RelOp AvgRowSize="15" EstimateCPU="0.0110168" EstimateIO="0.066088" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="10" EstimatedRowsRead="100010" LogicalOp="Clustered Index Scan" NodeId="2" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.0771048" TableCardinality="100010">
+                  <OutputList>
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="NumberID1" />
+                  </OutputList>
+                  <IndexScan Ordered="false" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="ColumnStore">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="NumberID1" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Index="[ix_NumberID1]" Alias="[a]" IndexKind="Clustered" Storage="ColumnStore" />
+                    <Predicate>
+                      <ScalarOperator ScalarString="[Test].[dbo].[Numbers1].[Quantity] as [a].[Quantity]=(1)">
+                        <Compare CompareOp="EQ">
+                          <ScalarOperator>
+                            <Identifier>
+                              <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="Quantity" />
+                            </Identifier>
+                          </ScalarOperator>
+                          <ScalarOperator>
+                            <Const ConstValue="(1)" />
+                          </ScalarOperator>
+                        </Compare>
+                      </ScalarOperator>
+                    </Predicate>
+                  </IndexScan>
+                </RelOp>
+                <RelOp AvgRowSize="11" EstimateCPU="0.110157" EstimateIO="0.121644" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="10" LogicalOp="Filter" NodeId="3" Parallel="false" PhysicalOp="Filter" EstimatedTotalSubtreeCost="0.111156">
+                  <OutputList>
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers2]" Alias="[b]" Column="NumberID2" />
+                  </OutputList>
+                  <Filter StartupExpression="false">
+                    <RelOp AvgRowSize="11" EstimateCPU="0.110157" EstimateIO="0.121644" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="100000" EstimatedRowsRead="100000" LogicalOp="Table Scan" NodeId="4" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="0.111156" TableCardinality="100000">
+                      <OutputList>
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers2]" Alias="[b]" Column="NumberID2" />
+                      </OutputList>
+                      <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers2]" Alias="[b]" Column="NumberID2" />
+                          </DefinedValue>
+                        </DefinedValues>
+                        <Object Database="[Test]" Schema="[dbo]" Table="[Numbers2]" Alias="[b]" IndexKind="Heap" Storage="RowStore" />
+                      </TableScan>
+                    </RelOp>
+                    <Predicate>
+                      <ScalarOperator ScalarString="PROBE([Opt_Bitmap1005],[Test].[dbo].[Numbers2].[NumberID2] as [b].[NumberID2])">
+                        <Intrinsic FunctionName="PROBE">
+                          <ScalarOperator>
+                            <Identifier>
+                              <ColumnReference Column="Opt_Bitmap1005" />
+                            </Identifier>
+                          </ScalarOperator>
+                          <ScalarOperator>
+                            <Identifier>
+                              <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers2]" Alias="[b]" Column="NumberID2" />
+                            </Identifier>
+                          </ScalarOperator>
+                        </Intrinsic>
+                      </ScalarOperator>
+                    </Predicate>
+                  </Filter>
+                </RelOp>
+                <RelOp AvgRowSize="9" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="9" EstimateRewinds="2.12452E-06" EstimatedExecutionMode="Row" EstimateRows="1.0001" EstimatedRowsRead="1.0001" LogicalOp="Index Seek" NodeId="7" Parallel="false" PhysicalOp="Index Seek" EstimatedTotalSubtreeCost="0.0292068" TableCardinality="100000">
+                  <OutputList />
+                  <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                    <DefinedValues />
+                    <Object Database="[Test]" Schema="[dbo]" Table="[Numbers2]" Index="[ix_NumberID2]" Alias="[b]" IndexKind="NonClustered" Storage="RowStore" />
+                    <SeekPredicates>
+                      <SeekPredicateNew>
+                        <SeekKeys>
+                          <Prefix ScanType="EQ">
+                            <RangeColumns>
+                              <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers2]" Alias="[b]" Column="NumberID2" />
+                            </RangeColumns>
+                            <RangeExpressions>
+                              <ScalarOperator ScalarString="[Test].[dbo].[Numbers1].[NumberID1] as [a].[NumberID1]">
+                                <Identifier>
+                                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Numbers1]" Alias="[a]" Column="NumberID1" />
+                                </Identifier>
+                              </ScalarOperator>
+                            </RangeExpressions>
+                          </Prefix>
+                        </SeekKeys>
+                      </SeekPredicateNew>
+                    </SeekPredicates>
+                  </IndexScan>
+                </RelOp>
+              </AdaptiveJoin>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

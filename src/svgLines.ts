@@ -1,13 +1,13 @@
 import * as SVG from 'svgjs';
 import { findAncestor } from './utils';
+import { ICoordinate } from './interfaces';
 
-interface Point {
-    x: number,
-    y: number
-}
-
-function drawSvgLines(container: Element) {
-    let root = <HTMLElement>container.querySelector(".qp-root");
+/**
+ * 
+ * @param container 
+ */
+export function drawSvgLines(container: HTMLElement) {
+    let root = container.querySelector(".qp-root") as HTMLElement;
     let draw = SVG(root);
 
     let clientRect = root.getBoundingClientRect();
@@ -22,9 +22,13 @@ function drawSvgLines(container: Element) {
     }
 }
 
-function findParent(node: Element) {
-    let row = findAncestor(node, 'qp-tr');
-    let parentRow = findAncestor(row, 'qp-tr');
+/**
+ * 
+ * @param node 
+ */
+function findParent(node: HTMLElement): HTMLElement {
+    var row = findAncestor(node, 'qp-tr');
+    var parentRow = findAncestor(row, 'qp-tr');
     if (!parentRow) {
         return null;
     }
@@ -38,7 +42,7 @@ function findParent(node: Element) {
  * @param fromElement Node element from which to draw the arrow (leftmost node).
  * @param toElement Node element to which to draw the arrow (rightmost node).
  */
-function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, fromElement: Element, toElement: Element) {
+function drawArrowBetweenNodes(draw, offset, fromElement: HTMLElement, toElement: HTMLElement) {
     let fromOffset = fromElement.getBoundingClientRect();
     let toOffset = toElement.getBoundingClientRect();
 
@@ -69,9 +73,9 @@ function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, fromElement: E
  * @param to {x,y} coordinates of the pointy end.
  * @param bendX Offset from toPoint at which the "bend" should happen. (X axis) 
  */
-function drawArrow(draw: SVG.Doc, from: Point, to: Point, bendX: number) {
+function drawArrow(draw, from: ICoordinate, to: ICoordinate, bendX: number) {
 
-    let points: any = [
+    let points = [
         [from.x, from.y],
         [from.x + 3, from.y - 3],
         [from.x + 3, from.y - 1],
@@ -92,5 +96,3 @@ function drawArrow(draw: SVG.Doc, from: Point, to: Point, bendX: number) {
     });
 
 }
-
-export { drawSvgLines }

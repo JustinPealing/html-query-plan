@@ -1,13 +1,9 @@
 {
     "compilerOptions": {
-        "noEmitOnError": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "declaration": true,
         "module": "commonjs",
-        "sourceMap": true,
-        // "allowJs": true,
-        "target": "es5",
-        "declaration": true
-    },
-    "exclude": [
-        "node_modules"
-    ]
+        "target": "es6"
+    }
 }

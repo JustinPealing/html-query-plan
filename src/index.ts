@@ -1,40 +1,49 @@
-﻿import * as transform from './transform';
+import { setContentsUsingXslt } from './transform';
 import { drawSvgLines } from './svgLines';
 import { initTooltip } from './tooltip';
+import qpXslt = require('raw!./qp.xslt');
+import { IQpOptions } from './interfaces';
 
-declare function require(path: string) : any;
-let qpXslt = require('raw-loader!./qp.xslt');
+export { drawSvgLines } from './svgLines';
+export * from './interfaces';
 
-interface Options {
-    jsTooltips?: boolean
+const defaultOptions: IQpOptions = {
+    jsTooltips: true
 }
 
-function showPlan(container: Element, planXml: string, options?: Options) {
-    options = setDefaults(options, {
-        jsTooltips: true
-    });
+/**
+ * 
+ * @param container 
+ * @param planXml 
+ * @param options 
+ */
+export function showPlan(container: HTMLElement, planXml: string, options: IQpOptions) {
+    let _options = setDefaults<IQpOptions>(options, defaultOptions);
 
-    transform.setContentsUsingXslt(container, planXml, qpXslt);
+    setContentsUsingXslt(container, planXml, qpXslt);
     drawSvgLines(container);
 
-    if (options.jsTooltips) {
+    if (_options.jsTooltips) {
         initTooltip(container);
     }
 }
 
-function setDefaults(options: Options, defaults: Options) {
-    let ret = {};
-    for (let attr in defaults) {
+/**
+ * 
+ * @param options 
+ * @param defaults 
+ */
+export function setDefaults<T>(options, defaults): T {
+    var ret: any = {};
+    for (var attr in defaults) {
         if (defaults.hasOwnProperty(attr)) {
             ret[attr] = defaults[attr];
         }
     }
-    for (let attr in options) {
+    for (var attr in options) {
         if (options.hasOwnProperty(attr)) {
             ret[attr] = options[attr];
         }
     }
     return ret;
 }
-
-export { Options, drawSvgLines as drawLines, showPlan }

@@ -5,7 +5,7 @@ var development = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     context: __dirname,
-    entry: './src/index.ts',
+    entry: './out/index.js',
     output: {
         library: "QP",
         libraryTarget: "umd",
@@ -15,12 +15,15 @@ module.exports = {
     plugins: development ? [] : [
         new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
     ],
-    resolve: {
-      extensions: ['.ts', '.js']
-    },
     module: {
-      rules: [
-        { test: /\.tsx?$/, loader: 'ts-loader' }
-      ]
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
+            }
+        ]
     }
 }

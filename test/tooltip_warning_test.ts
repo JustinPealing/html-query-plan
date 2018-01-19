@@ -41,4 +41,13 @@ describe("Tooltip Warnings Section", () => {
 
     })
 
+    it("Shows SpillToTempDb warning", () => {
+
+        let container = helper.showPlan(plan.spilltotempdb);
+        let sort = helper.findNodeById(container, "2");
+        assert.equal("Operator used tempdb to spill data during execution with spill level 2 and 4 spilled thread(s)",
+            helper.getToolTipSection(sort, "Warnings"));
+
+    })
+
 })

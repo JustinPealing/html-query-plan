@@ -512,6 +512,9 @@
       <xsl:for-each select="s:UnmatchedIndexes/s:Parameterization/s:Object">
         <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
       </xsl:for-each>
+      <xsl:for-each select="s:Warnings/s:SpillToTempDb">
+        <div>Operator used tempdb to spill data during execution with spill level <xsl:value-of select="@SpillLevel" /> and <xsl:value-of select="@SpilledThreadCount" /> spilled thread(s)</div>
+      </xsl:for-each>
       <xsl:for-each select="s:Warnings/s:ColumnsWithNoStatistics/s:ColumnReference">
         <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
       </xsl:for-each>

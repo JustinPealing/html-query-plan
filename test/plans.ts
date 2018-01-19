@@ -28,6 +28,7 @@ var plan = {
     StmtUseDb: require('raw-loader!../test_plans/StmtUseDb.sqlplan'),
     UpvotesForEachTag: require('raw-loader!../test_plans/stack overflow/How many upvotes do I have for each tag.sqlplan'),
     unmatched_index: require('raw-loader!../test_plans/unmatched_index.sqlplan'),
-    columns_with_no_statistics: require('raw-loader!../test_plans/columns_with_no_statistics.sqlplan')
+    columns_with_no_statistics: require('raw-loader!../test_plans/columns_with_no_statistics.sqlplan'),
+    spilltotempdb: require('raw-loader!../test_plans/spilltotempdb.sqlplan')
 }
 export { plan };

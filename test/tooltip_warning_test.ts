@@ -59,4 +59,13 @@ describe("Tooltip Warnings Section", () => {
 
     })
 
+    it("Shows PlanAffectingConvert warning", () => {
+
+        let container = helper.showPlan(plan.issue7);
+        let update = helper.findStatmentElementById(container, "12");
+        assert.equal("Type conversion in expression (CONVERT(varchar(150),[mcLive].[Cadastre].[OwnerPersonParsed].[Surname],0)) may affect \"Cardinality Estimate\" in query plan choice.",
+            helper.getToolTipSection(update, "Warnings"));
+
+    })
+
 })

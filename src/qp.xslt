@@ -521,6 +521,9 @@
       <xsl:for-each select="s:Warnings/s:Wait">
         <div>The query had to wait <xsl:value-of select="@WaitTime" /> seconds for <xsl:value-of select="@WaitType" /> during execution.</div>
       </xsl:for-each>
+      <xsl:for-each select="s:Warnings/s:PlanAffectingConvert">
+        <div>Type conversion in expression (<xsl:value-of select="@Expression" />) may affect "<xsl:value-of select="@ConvertIssue" />" in query plan choice.</div>
+      </xsl:for-each>
     </xsl:if>
   </xsl:template>
 

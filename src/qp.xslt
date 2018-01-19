@@ -512,6 +512,9 @@
       <xsl:for-each select="s:UnmatchedIndexes/s:Parameterization/s:Object">
         <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
       </xsl:for-each>
+      <xsl:for-each select="s:Warnings/s:ColumnsWithNoStatistics/s:ColumnReference">
+        <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
+      </xsl:for-each>
     </xsl:if>
   </xsl:template>
 

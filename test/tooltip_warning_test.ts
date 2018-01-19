@@ -50,4 +50,13 @@ describe("Tooltip Warnings Section", () => {
 
     })
 
+    it("Shows Wait warning", () => {
+
+        let container = helper.showPlan(plan.inequality_index);
+        let select = helper.findStatmentElementById(container, "1");
+        assert.equal("The query had to wait 58 seconds for Memory Grant during execution.",
+            helper.getToolTipSection(select, "Warnings"));
+
+    })
+
 })

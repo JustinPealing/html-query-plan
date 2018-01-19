@@ -518,6 +518,9 @@
       <xsl:for-each select="s:Warnings/s:ColumnsWithNoStatistics/s:ColumnReference">
         <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
       </xsl:for-each>
+      <xsl:for-each select="s:Warnings/s:Wait">
+        <div>The query had to wait <xsl:value-of select="@WaitTime" /> seconds for <xsl:value-of select="@WaitType" /> during execution.</div>
+      </xsl:for-each>
     </xsl:if>
   </xsl:template>
 

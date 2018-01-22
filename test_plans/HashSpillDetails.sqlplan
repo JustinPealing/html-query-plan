@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.5" Build="13.0.1722.0">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="2" StatementEstRows="16462400" StatementId="2" StatementOptmLevel="FULL" CardinalityEstimationModelVersion="130" StatementSubTreeCost="692.849" StatementText="select a1.id,a1.time, &#13;&#10;   a1.value as value, &#13;&#10;   b1.value as value_lag,&#13;&#10;   c1.value as value_lead&#13;&#10;into tab2&#13;&#10;from tab1 a1&#13;&#10;left join tab1 b1&#13;&#10;on a1.id = b1.id&#13;&#10;and a1.time-1= b1.time&#13;&#10;left join tab1 c1&#13;&#10;on a1.id = c1.id&#13;&#10;and a1.time+1 = c1.time" StatementType="SELECT INTO" QueryHash="0xBA69BDE3A966385E" QueryPlanHash="0xE3B43236F9A42DAA" RetrievedFromCache="true" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true"/>
+          <QueryPlan DegreeOfParallelism="8" MemoryGrant="1998616" CachedPlanSize="128" CompileTime="12" CompileCPU="5" CompileMemory="456">
+            <ThreadStat Branches="3" UsedThreads="24">
+              <ThreadReservation NodeId="0" ReservedThreads="24"/>
+            </ThreadStat>
+            <MemoryGrantInfo SerialRequiredMemory="2048" SerialDesiredMemory="7398880" RequiredMemory="19856" DesiredMemory="7416720" RequestedMemory="1998616" GrantWaitTime="0" GrantedMemory="1998616" MaxUsedMemory="1945968"/>
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="207988" EstimatedPagesCached="103994" EstimatedAvailableDegreeOfParallelism="4"/>
+            <RelOp AvgRowSize="9" EstimateCPU="5.1833" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="692.849">
+              <OutputList/>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="16462427" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="15548" ActualCPUms="654"/>
+              </RunTimeInformation>
+              <Parallelism>
+                <RelOp AvgRowSize="9" EstimateCPU="4.11561" EstimateIO="115.416" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Insert" NodeId="1" Parallel="true" PhysicalOp="Table Insert" EstimatedTotalSubtreeCost="687.665">
+                  <OutputList/>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="2" ActualRows="2058348" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="15566" ActualCPUms="5971" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                    <RunTimeCountersPerThread Thread="7" ActualRows="2057037" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="15598" ActualCPUms="5925" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                    <RunTimeCountersPerThread Thread="4" ActualRows="2057164" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="15549" ActualCPUms="5938" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                    <RunTimeCountersPerThread Thread="6" ActualRows="2057578" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="15598" ActualCPUms="5948" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                    <RunTimeCountersPerThread Thread="3" ActualRows="2058450" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="15614" ActualCPUms="5926" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                    <RunTimeCountersPerThread Thread="1" ActualRows="2057114" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="15621" ActualCPUms="5953" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                    <RunTimeCountersPerThread Thread="8" ActualRows="2058260" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="15463" ActualCPUms="5838" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                    <RunTimeCountersPerThread Thread="5" ActualRows="2058476" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="15585" ActualCPUms="5941" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                  </RunTimeInformation>
+                  <Update DMLRequestSort="false">
+                    <Object Table="[tab2]" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[tab2].[id] = [res_test].[dbo].[tab1].[id] as [a1].[id],[tab2].[time] = [res_test].[dbo].[tab1].[time] as [a1].[time],[tab2].[value] = [res_test].[dbo].[tab1].[value] as [a1].[value],[tab2].[value_lag] = [res_test].[dbo].[tab1].[value] as [b1].[value],[tab2].[value_lead] = [res_test].[dbo].[tab1].[value] as [c1].[value]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Table="[tab2]" Column="id"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Table="[tab2]" Column="time"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Table="[tab2]" Column="value"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="value"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Table="[tab2]" Column="value_lag"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="value"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Table="[tab2]" Column="value_lead"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="value"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <RelOp AvgRowSize="34" EstimateCPU="155.935" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Right Outer Join" NodeId="2" Parallel="true" PhysicalOp="Hash Match" EstimatedTotalSubtreeCost="568.134">
+                      <OutputList>
+                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="value"/>
+                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="value"/>
+                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="value"/>
+                      </OutputList>
+                      <Warnings>
+                        <SpillToTempDb SpillLevel="1" SpilledThreadCount="8"/>
+                        <HashSpillDetails GrantedMemoryKb="997376" UsedMemoryKb="996656" WritesToTempDb="19040" ReadsFromTempDb="19040"/>
+                      </Warnings>
+                      <MemoryFractions Input="0.5" Output="0.5"/>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="2" ActualRows="2058348" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="14122" ActualCPUms="4552" ActualScans="4" ActualLogicalReads="336" ActualPhysicalReads="42" ActualReadAheads="2384" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124616"/>
+                        <RunTimeCountersPerThread Thread="7" ActualRows="2057037" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="14159" ActualCPUms="4533" ActualScans="4" ActualLogicalReads="320" ActualPhysicalReads="40" ActualReadAheads="2368" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124552"/>
+                        <RunTimeCountersPerThread Thread="4" ActualRows="2057164" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="14115" ActualCPUms="4538" ActualScans="4" ActualLogicalReads="328" ActualPhysicalReads="41" ActualReadAheads="2376" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124584"/>
+                        <RunTimeCountersPerThread Thread="6" ActualRows="2057578" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="14165" ActualCPUms="4545" ActualScans="4" ActualLogicalReads="328" ActualPhysicalReads="41" ActualReadAheads="2376" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124584"/>
+                        <RunTimeCountersPerThread Thread="3" ActualRows="2058450" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="14184" ActualCPUms="4521" ActualScans="4" ActualLogicalReads="328" ActualPhysicalReads="41" ActualReadAheads="2376" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124616"/>
+                        <RunTimeCountersPerThread Thread="1" ActualRows="2057114" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="14177" ActualCPUms="4550" ActualScans="4" ActualLogicalReads="336" ActualPhysicalReads="42" ActualReadAheads="2384" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124584"/>
+                        <RunTimeCountersPerThread Thread="8" ActualRows="2058260" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="14051" ActualCPUms="4469" ActualScans="4" ActualLogicalReads="344" ActualPhysicalReads="43" ActualReadAheads="2392" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124560"/>
+                        <RunTimeCountersPerThread Thread="5" ActualRows="2058476" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="14130" ActualCPUms="4527" ActualScans="4" ActualLogicalReads="336" ActualPhysicalReads="42" ActualReadAheads="2384" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124560"/>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="0"/>
+                      </RunTimeInformation>
+                      <Hash>
+                        <DefinedValues/>
+                        <HashKeysBuild>
+                          <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="id"/>
+                          <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="time"/>
+                        </HashKeysBuild>
+                        <HashKeysProbe>
+                          <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                          <ColumnReference Column="Expr1009"/>
+                        </HashKeysProbe>
+                        <ProbeResidual>
+                          <ScalarOperator ScalarString="[res_test].[dbo].[tab1].[id] as [a1].[id]=[res_test].[dbo].[tab1].[id] as [c1].[id] AND [Expr1009]=[res_test].[dbo].[tab1].[time] as [c1].[time]">
+                            <Logical Operation="AND">
+                              <ScalarOperator>
+                                <Compare CompareOp="EQ">
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                    </Identifier>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="id"/>
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </Compare>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Compare CompareOp="EQ">
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Column="Expr1009"/>
+                                    </Identifier>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="time"/>
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </Compare>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </ProbeResidual>
+                        <RelOp AvgRowSize="28" EstimateCPU="21.3545" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Repartition Streams" NodeId="3" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="74.096">
+                          <OutputList>
+                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="id"/>
+                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="value"/>
+                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="time"/>
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="7" ActualRows="2056697" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1186" ActualCPUms="97"/>
+                            <RunTimeCountersPerThread Thread="6" ActualRows="2057397" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1162" ActualCPUms="88"/>
+                            <RunTimeCountersPerThread Thread="3" ActualRows="2058260" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1189" ActualCPUms="89"/>
+                            <RunTimeCountersPerThread Thread="2" ActualRows="2058364" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1145" ActualCPUms="93"/>
+                            <RunTimeCountersPerThread Thread="4" ActualRows="2057279" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1213" ActualCPUms="103"/>
+                            <RunTimeCountersPerThread Thread="1" ActualRows="2057316" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1218" ActualCPUms="92"/>
+                            <RunTimeCountersPerThread Thread="8" ActualRows="2058505" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1203" ActualCPUms="88"/>
+                            <RunTimeCountersPerThread Thread="5" ActualRows="2058609" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1212" ActualCPUms="89"/>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0"/>
+                          </RunTimeInformation>
+                          <Parallelism PartitioningType="Hash">
+                            <PartitionColumns>
+                              <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="id"/>
+                              <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="time"/>
+                            </PartitionColumns>
+                            <RelOp AvgRowSize="28" EstimateCPU="4.52721" EstimateIO="48.2142" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Clustered Index Scan" NodeId="4" Parallel="true" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="52.7414" TableCardinality="16462400">
+                              <OutputList>
+                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="id"/>
+                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="value"/>
+                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="time"/>
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="1" ActualRows="1821224" ActualRowsRead="1821224" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="498" ActualCPUms="422" ActualScans="1" ActualLogicalReads="7269" ActualPhysicalReads="0" ActualReadAheads="7202" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                <RunTimeCountersPerThread Thread="8" ActualRows="2394674" ActualRowsRead="2394674" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="612" ActualCPUms="515" ActualScans="1" ActualLogicalReads="9552" ActualPhysicalReads="0" ActualReadAheads="7953" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                <RunTimeCountersPerThread Thread="3" ActualRows="1957841" ActualRowsRead="1957841" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="591" ActualCPUms="445" ActualScans="1" ActualLogicalReads="7816" ActualPhysicalReads="0" ActualReadAheads="7738" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                <RunTimeCountersPerThread Thread="6" ActualRows="2474739" ActualRowsRead="2474739" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="642" ActualCPUms="538" ActualScans="1" ActualLogicalReads="9870" ActualPhysicalReads="0" ActualReadAheads="9793" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                <RunTimeCountersPerThread Thread="4" ActualRows="1821201" ActualRowsRead="1821201" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="476" ActualCPUms="413" ActualScans="1" ActualLogicalReads="7269" ActualPhysicalReads="0" ActualReadAheads="7208" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                <RunTimeCountersPerThread Thread="2" ActualRows="2228545" ActualRowsRead="2228545" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="570" ActualCPUms="493" ActualScans="1" ActualLogicalReads="8893" ActualPhysicalReads="0" ActualReadAheads="7693" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                <RunTimeCountersPerThread Thread="7" ActualRows="1790550" ActualRowsRead="1790550" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="544" ActualCPUms="408" ActualScans="1" ActualLogicalReads="7153" ActualPhysicalReads="0" ActualReadAheads="7096" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                <RunTimeCountersPerThread Thread="5" ActualRows="1973653" ActualRowsRead="1973653" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="623" ActualCPUms="446" ActualScans="1" ActualLogicalReads="7883" ActualPhysicalReads="0" ActualReadAheads="7773" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="2" ActualPhysicalReads="0" ActualReadAheads="228" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                              </RunTimeInformation>
+                              <IndexScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="id"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="value"/>
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[c1]" Column="time"/>
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[res_test]" Schema="[dbo]" Table="[tab1]" Index="[id_time]" Alias="[c1]" IndexKind="Clustered" Storage="RowStore"/>
+                              </IndexScan>
+                            </RelOp>
+                          </Parallelism>
+                        </RelOp>
+                        <RelOp AvgRowSize="35" EstimateCPU="27.3181" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Repartition Streams" NodeId="5" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="338.104">
+                          <OutputList>
+                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="value"/>
+                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="value"/>
+                            <ColumnReference Column="Expr1009"/>
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="7" ActualRows="2057037" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="8123" ActualCPUms="119"/>
+                            <RunTimeCountersPerThread Thread="6" ActualRows="2057578" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="8077" ActualCPUms="113"/>
+                            <RunTimeCountersPerThread Thread="3" ActualRows="2058450" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="8050" ActualCPUms="107"/>
+                            <RunTimeCountersPerThread Thread="2" ActualRows="2058348" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="8025" ActualCPUms="108"/>
+                            <RunTimeCountersPerThread Thread="4" ActualRows="2057164" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="7942" ActualCPUms="103"/>
+                            <RunTimeCountersPerThread Thread="1" ActualRows="2057114" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="8083" ActualCPUms="112"/>
+                            <RunTimeCountersPerThread Thread="8" ActualRows="2058260" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6145" ActualCPUms="113"/>
+                            <RunTimeCountersPerThread Thread="5" ActualRows="2058476" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="8024" ActualCPUms="105"/>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0"/>
+                          </RunTimeInformation>
+                          <Parallelism PartitioningType="Hash">
+                            <PartitionColumns>
+                              <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                              <ColumnReference Column="Expr1009"/>
+                            </PartitionColumns>
+                            <RelOp AvgRowSize="35" EstimateCPU="155.935" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Right Outer Join" NodeId="6" Parallel="true" PhysicalOp="Hash Match" EstimatedTotalSubtreeCost="310.786">
+                              <OutputList>
+                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="value"/>
+                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="value"/>
+                                <ColumnReference Column="Expr1009"/>
+                              </OutputList>
+                              <Warnings>
+                                <SpillToTempDb SpillLevel="1" SpilledThreadCount="8"/>
+                                <HashSpillDetails GrantedMemoryKb="997376" UsedMemoryKb="996664" WritesToTempDb="19320" ReadsFromTempDb="19320"/>
+                              </Warnings>
+                              <MemoryFractions Input="0.5" Output="0.5"/>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="7" ActualRows="2056716" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="9611" ActualCPUms="4342" ActualScans="4" ActualLogicalReads="368" ActualPhysicalReads="46" ActualReadAheads="2416" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124592"/>
+                                <RunTimeCountersPerThread Thread="1" ActualRows="2057416" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="9353" ActualCPUms="4397" ActualScans="4" ActualLogicalReads="368" ActualPhysicalReads="46" ActualReadAheads="2416" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124616"/>
+                                <RunTimeCountersPerThread Thread="4" ActualRows="2057230" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="9797" ActualCPUms="4383" ActualScans="4" ActualLogicalReads="368" ActualPhysicalReads="46" ActualReadAheads="2416" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124584"/>
+                                <RunTimeCountersPerThread Thread="8" ActualRows="2058661" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="9905" ActualCPUms="4385" ActualScans="4" ActualLogicalReads="376" ActualPhysicalReads="47" ActualReadAheads="2424" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124616"/>
+                                <RunTimeCountersPerThread Thread="3" ActualRows="2058482" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="9160" ActualCPUms="4401" ActualScans="4" ActualLogicalReads="360" ActualPhysicalReads="45" ActualReadAheads="2408" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124552"/>
+                                <RunTimeCountersPerThread Thread="5" ActualRows="2058368" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="9139" ActualCPUms="4459" ActualScans="4" ActualLogicalReads="368" ActualPhysicalReads="46" ActualReadAheads="2416" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124552"/>
+                                <RunTimeCountersPerThread Thread="2" ActualRows="2058317" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="9064" ActualCPUms="4361" ActualScans="4" ActualLogicalReads="368" ActualPhysicalReads="46" ActualReadAheads="2416" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124560"/>
+                                <RunTimeCountersPerThread Thread="6" ActualRows="2057237" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="9155" ActualCPUms="4378" ActualScans="4" ActualLogicalReads="360" ActualPhysicalReads="45" ActualReadAheads="2408" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="124592"/>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="124696" OutputMemoryGrant="124696" UsedMemoryGrant="0"/>
+                              </RunTimeInformation>
+                              <Hash>
+                                <DefinedValues/>
+                                <HashKeysBuild>
+                                  <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="id"/>
+                                  <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="time"/>
+                                </HashKeysBuild>
+                                <HashKeysProbe>
+                                  <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                  <ColumnReference Column="Expr1010"/>
+                                </HashKeysProbe>
+                                <ProbeResidual>
+                                  <ScalarOperator ScalarString="[res_test].[dbo].[tab1].[id] as [a1].[id]=[res_test].[dbo].[tab1].[id] as [b1].[id] AND [Expr1010]=[res_test].[dbo].[tab1].[time] as [b1].[time]">
+                                    <Logical Operation="AND">
+                                      <ScalarOperator>
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="id"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Column="Expr1010"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="time"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </ProbeResidual>
+                                <RelOp AvgRowSize="28" EstimateCPU="21.3545" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Repartition Streams" NodeId="7" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="74.096">
+                                  <OutputList>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="id"/>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="value"/>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="time"/>
+                                  </OutputList>
+                                  <RunTimeInformation>
+                                    <RunTimeCountersPerThread Thread="3" ActualRows="2058260" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1050" ActualCPUms="89"/>
+                                    <RunTimeCountersPerThread Thread="1" ActualRows="2057316" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1032" ActualCPUms="93"/>
+                                    <RunTimeCountersPerThread Thread="5" ActualRows="2058609" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1047" ActualCPUms="88"/>
+                                    <RunTimeCountersPerThread Thread="6" ActualRows="2057397" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1126" ActualCPUms="83"/>
+                                    <RunTimeCountersPerThread Thread="2" ActualRows="2058364" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1071" ActualCPUms="84"/>
+                                    <RunTimeCountersPerThread Thread="8" ActualRows="2058505" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1071" ActualCPUms="85"/>
+                                    <RunTimeCountersPerThread Thread="4" ActualRows="2057279" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="978" ActualCPUms="87"/>
+                                    <RunTimeCountersPerThread Thread="7" ActualRows="2056697" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="1105" ActualCPUms="88"/>
+                                    <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0"/>
+                                  </RunTimeInformation>
+                                  <Parallelism PartitioningType="Hash">
+                                    <PartitionColumns>
+                                      <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="id"/>
+                                      <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="time"/>
+                                    </PartitionColumns>
+                                    <RelOp AvgRowSize="28" EstimateCPU="4.52721" EstimateIO="48.2142" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Clustered Index Scan" NodeId="8" Parallel="true" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="52.7414" TableCardinality="16462400">
+                                      <OutputList>
+                                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="id"/>
+                                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="value"/>
+                                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="time"/>
+                                      </OutputList>
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="6" ActualRows="1966905" ActualRowsRead="1966905" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="389" ActualCPUms="389" ActualScans="1" ActualLogicalReads="7855" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                        <RunTimeCountersPerThread Thread="5" ActualRows="1790555" ActualRowsRead="1790555" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="355" ActualCPUms="355" ActualScans="1" ActualLogicalReads="7153" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                        <RunTimeCountersPerThread Thread="7" ActualRows="2247187" ActualRowsRead="2247187" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="449" ActualCPUms="433" ActualScans="1" ActualLogicalReads="8968" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                        <RunTimeCountersPerThread Thread="1" ActualRows="1966928" ActualRowsRead="1966928" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="394" ActualCPUms="390" ActualScans="1" ActualLogicalReads="7855" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                        <RunTimeCountersPerThread Thread="2" ActualRows="2551276" ActualRowsRead="2551276" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="512" ActualCPUms="483" ActualScans="1" ActualLogicalReads="10179" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                        <RunTimeCountersPerThread Thread="3" ActualRows="1894083" ActualRowsRead="1894083" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="373" ActualCPUms="373" ActualScans="1" ActualLogicalReads="7562" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                        <RunTimeCountersPerThread Thread="4" ActualRows="1894030" ActualRowsRead="1894030" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="375" ActualCPUms="375" ActualScans="1" ActualLogicalReads="7562" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                        <RunTimeCountersPerThread Thread="8" ActualRows="2151463" ActualRowsRead="2151463" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="424" ActualCPUms="416" ActualScans="1" ActualLogicalReads="8591" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="2" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                      </RunTimeInformation>
+                                      <IndexScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="id"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="value"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[b1]" Column="time"/>
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <Object Database="[res_test]" Schema="[dbo]" Table="[tab1]" Index="[id_time]" Alias="[b1]" IndexKind="Clustered" Storage="RowStore"/>
+                                      </IndexScan>
+                                    </RelOp>
+                                  </Parallelism>
+                                </RelOp>
+                                <RelOp AvgRowSize="36" EstimateCPU="27.602" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Repartition Streams" NodeId="9" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="80.755">
+                                  <OutputList>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="value"/>
+                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                                    <ColumnReference Column="Expr1009"/>
+                                    <ColumnReference Column="Expr1010"/>
+                                  </OutputList>
+                                  <RunTimeInformation>
+                                    <RunTimeCountersPerThread Thread="3" ActualRows="2058482" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="3239" ActualCPUms="101"/>
+                                    <RunTimeCountersPerThread Thread="1" ActualRows="2057416" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="3476" ActualCPUms="101"/>
+                                    <RunTimeCountersPerThread Thread="5" ActualRows="2058368" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="3016" ActualCPUms="121"/>
+                                    <RunTimeCountersPerThread Thread="6" ActualRows="2057237" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="3213" ActualCPUms="106"/>
+                                    <RunTimeCountersPerThread Thread="2" ActualRows="2058317" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="3166" ActualCPUms="103"/>
+                                    <RunTimeCountersPerThread Thread="8" ActualRows="2058661" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="3094" ActualCPUms="115"/>
+                                    <RunTimeCountersPerThread Thread="7" ActualRows="2056716" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="3709" ActualCPUms="103"/>
+                                    <RunTimeCountersPerThread Thread="4" ActualRows="2057230" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="3902" ActualCPUms="102"/>
+                                    <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0"/>
+                                  </RunTimeInformation>
+                                  <Parallelism PartitioningType="Hash">
+                                    <PartitionColumns>
+                                      <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                      <ColumnReference Column="Expr1010"/>
+                                    </PartitionColumns>
+                                    <RelOp AvgRowSize="36" EstimateCPU="0.411561" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Compute Scalar" NodeId="10" Parallel="true" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="53.153">
+                                      <OutputList>
+                                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="value"/>
+                                        <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                                        <ColumnReference Column="Expr1009"/>
+                                        <ColumnReference Column="Expr1010"/>
+                                      </OutputList>
+                                      <ComputeScalar>
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1009"/>
+                                            <ScalarOperator ScalarString="[res_test].[dbo].[tab1].[time] as [a1].[time]+(1)">
+                                              <Arithmetic Operation="ADD">
+                                                <ScalarOperator>
+                                                  <Identifier>
+                                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                                <ScalarOperator>
+                                                  <Const ConstValue="(1)"/>
+                                                </ScalarOperator>
+                                              </Arithmetic>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1010"/>
+                                            <ScalarOperator ScalarString="[res_test].[dbo].[tab1].[time] as [a1].[time]-(1)">
+                                              <Arithmetic Operation="SUB">
+                                                <ScalarOperator>
+                                                  <Identifier>
+                                                    <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                                <ScalarOperator>
+                                                  <Const ConstValue="(1)"/>
+                                                </ScalarOperator>
+                                              </Arithmetic>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <RelOp AvgRowSize="28" EstimateCPU="4.52721" EstimateIO="48.2142" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16462400" LogicalOp="Clustered Index Scan" NodeId="11" Parallel="true" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="52.7414" TableCardinality="16462400">
+                                          <OutputList>
+                                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="value"/>
+                                            <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                                          </OutputList>
+                                          <RunTimeInformation>
+                                            <RunTimeCountersPerThread Thread="6" ActualRows="2185472" ActualRowsRead="2185472" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="435" ActualCPUms="435" ActualScans="1" ActualLogicalReads="8722" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                            <RunTimeCountersPerThread Thread="5" ActualRows="2363307" ActualRowsRead="2363307" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="476" ActualCPUms="476" ActualScans="1" ActualLogicalReads="9426" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                            <RunTimeCountersPerThread Thread="8" ActualRows="1165564" ActualRowsRead="1165564" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="249" ActualCPUms="230" ActualScans="1" ActualLogicalReads="4648" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                            <RunTimeCountersPerThread Thread="3" ActualRows="2227598" ActualRowsRead="2227598" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="451" ActualCPUms="444" ActualScans="1" ActualLogicalReads="8891" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                            <RunTimeCountersPerThread Thread="7" ActualRows="2103206" ActualRowsRead="2103206" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="419" ActualCPUms="419" ActualScans="1" ActualLogicalReads="8392" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                            <RunTimeCountersPerThread Thread="1" ActualRows="2112588" ActualRowsRead="2112588" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="424" ActualCPUms="424" ActualScans="1" ActualLogicalReads="8429" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                            <RunTimeCountersPerThread Thread="2" ActualRows="2181115" ActualRowsRead="2181115" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="444" ActualCPUms="435" ActualScans="1" ActualLogicalReads="8711" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                            <RunTimeCountersPerThread Thread="4" ActualRows="2123577" ActualRowsRead="2123577" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="449" ActualCPUms="426" ActualScans="1" ActualLogicalReads="8478" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                            <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="2" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0"/>
+                                          </RunTimeInformation>
+                                          <IndexScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="id"/>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="value"/>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[res_test]" Schema="[dbo]" Table="[tab1]" Alias="[a1]" Column="time"/>
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <Object Database="[res_test]" Schema="[dbo]" Table="[tab1]" Index="[id_time]" Alias="[a1]" IndexKind="Clustered" Storage="RowStore"/>
+                                          </IndexScan>
+                                        </RelOp>
+                                      </ComputeScalar>
+                                    </RelOp>
+                                  </Parallelism>
+                                </RelOp>
+                              </Hash>
+                            </RelOp>
+                          </Parallelism>
+                        </RelOp>
+                      </Hash>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+              </Parallelism>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

@@ -508,22 +508,24 @@
   <xsl:template name="ToolTipDetails">
     <xsl:if test="s:Warnings">
       <div class="qp-bold">Warnings</div>
-      <xsl:if test="s:Warnings/@NoJoinPredicate=1 or s:Warnings/@NoJoinPredicate=true"><div>No Join Predicate</div></xsl:if>
-      <xsl:for-each select="s:UnmatchedIndexes/s:Parameterization/s:Object">
-        <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
-      </xsl:for-each>
-      <xsl:for-each select="s:Warnings/s:SpillToTempDb">
-        <div>Operator used tempdb to spill data during execution with spill level <xsl:value-of select="@SpillLevel" /> and <xsl:value-of select="@SpilledThreadCount" /> spilled thread(s)</div>
-      </xsl:for-each>
-      <xsl:for-each select="s:Warnings/s:ColumnsWithNoStatistics/s:ColumnReference">
-        <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
-      </xsl:for-each>
-      <xsl:for-each select="s:Warnings/s:Wait">
-        <div>The query had to wait <xsl:value-of select="@WaitTime" /> seconds for <xsl:value-of select="@WaitType" /> during execution.</div>
-      </xsl:for-each>
-      <xsl:for-each select="s:Warnings/s:PlanAffectingConvert">
-        <div>Type conversion in expression (<xsl:value-of select="@Expression" />) may affect "<xsl:value-of select="@ConvertIssue" />" in query plan choice.</div>
-      </xsl:for-each>
+      <div>
+        <xsl:if test="s:Warnings/@NoJoinPredicate=1 or s:Warnings/@NoJoinPredicate=true"><div>No Join Predicate</div></xsl:if>
+        <xsl:for-each select="s:UnmatchedIndexes/s:Parameterization/s:Object">
+          <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
+        </xsl:for-each>
+        <xsl:for-each select="s:Warnings/s:SpillToTempDb">
+          <div>Operator used tempdb to spill data during execution with spill level <xsl:value-of select="@SpillLevel" /> and <xsl:value-of select="@SpilledThreadCount" /> spilled thread(s)</div>
+        </xsl:for-each>
+        <xsl:for-each select="s:Warnings/s:ColumnsWithNoStatistics/s:ColumnReference">
+          <div>Unmatched index: <xsl:apply-templates select="." mode="ObjectNameNoAlias" /></div>
+        </xsl:for-each>
+        <xsl:for-each select="s:Warnings/s:Wait">
+          <div>The query had to wait <xsl:value-of select="@WaitTime" /> seconds for <xsl:value-of select="@WaitType" /> during execution.</div>
+        </xsl:for-each>
+        <xsl:for-each select="s:Warnings/s:PlanAffectingConvert">
+          <div>Type conversion in expression (<xsl:value-of select="@Expression" />) may affect "<xsl:value-of select="@ConvertIssue" />" in query plan choice.</div>
+        </xsl:for-each>
+      </div>
     </xsl:if>
   </xsl:template>
 

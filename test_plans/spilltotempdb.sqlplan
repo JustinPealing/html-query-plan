@@ -44,7 +44,7 @@
                       </OutputList>
                       <Warnings>
                         <SpillToTempDb SpillLevel="2" SpilledThreadCount="4" />
-                        <SortSpillDetails GrantedMemoryKb="413696" UsedMemoryKb="410624" WritesToTempDb="175292" ReadsFromTempDb="175292" />
+                        <SortSpillDetails GrantedMemoryKb="413696" UsedMemoryKb="410624" WritesToTempDb="12" ReadsFromTempDb="175292" />
                       </Warnings>
                       <MemoryFractions Input="1" Output="1" />
                       <RunTimeInformation>

@@ -43,10 +43,10 @@ describe("Tooltip Warnings Section", () => {
 
     it("Shows SpillToTempDb warning", () => {
 
+        const expected = "Operator used tempdb to spill data during execution with spill level 2 and 4 spilled thread(s)";
         let container = helper.showPlan(plan.spilltotempdb);
         let sort = helper.findNodeById(container, "2");
-        assert.equal("Operator used tempdb to spill data during execution with spill level 2 and 4 spilled thread(s)",
-            helper.getToolTipSection(sort, "Warnings"));
+        assert.equal(true, helper.getToolTipSection(sort, "Warnings").indexOf(expected) >= 0);
 
     })
 
@@ -65,6 +65,15 @@ describe("Tooltip Warnings Section", () => {
         let container = helper.showPlan(plan.issue7);
         let update = helper.findStatmentElementById(container, "12");
         assert.equal(true, helper.getToolTipSection(update, "Warnings").indexOf(expected) >= 0);
+
+    })
+
+    it("Shows SortSpillDetails warning", () => {
+
+        const expected = "Sort wrote 12 pages to and read 175292 pages from tempdb with granted memory 413696KB and used memory 410624KB.";
+        let container = helper.showPlan(plan.spilltotempdb);
+        let sort = helper.findNodeById(container, "2");
+        assert.equal(true, helper.getToolTipSection(sort, "Warnings").indexOf(expected) >= 0);
 
     })
 

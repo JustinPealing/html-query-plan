@@ -506,6 +506,7 @@
   <!-- Turns out using apply-templates for this was a bad idea, but its too big a change to fix it all right now. This is probably
   the template that should contain tooltip details, I'll try to refactor more stuff into here over time, maybe. -->
   <xsl:template name="ToolTipDetails">
+    <xsl:variable name="relop" select="." />
     <xsl:if test="s:Warnings">
       <div class="qp-bold">Warnings</div>
       <div>
@@ -524,6 +525,9 @@
         </xsl:for-each>
         <xsl:for-each select="s:Warnings/s:PlanAffectingConvert">
           <div>Type conversion in expression (<xsl:value-of select="@Expression" />) may affect "<xsl:value-of select="@ConvertIssue" />" in query plan choice.</div>
+        </xsl:for-each>
+        <xsl:for-each select="s:Warnings/s:SortSpillDetails">
+          <div><xsl:value-of select="$relop/@LogicalOp" /> wrote <xsl:value-of select="@WritesToTempDb" /> pages to and read <xsl:value-of select="@ReadsFromTempDb" /> pages from tempdb with granted memory <xsl:value-of select="@GrantedMemoryKb" />KB and used memory <xsl:value-of select="@UsedMemoryKb" />KB.</div>
         </xsl:for-each>
       </div>
     </xsl:if>

@@ -26,7 +26,7 @@
             </MissingIndexes>
             <Warnings>
               <Wait WaitType="Memory Grant" WaitTime="58"/>
-              <MemoryGrantWarning GrantWarningKind="Excessive Grant" RequestedMemory="1395216" GrantedMemory="1395216" MaxUsedMemory="19736"/>
+              <MemoryGrantWarning GrantWarningKind="Excessive Grant" RequestedMemory="1395216" GrantedMemory="1395210" MaxUsedMemory="19736"/>
             </Warnings>
             <MemoryGrantInfo SerialRequiredMemory="1536" SerialDesiredMemory="1385056" RequiredMemory="11664" DesiredMemory="1395216" RequestedMemory="1395216" GrantWaitTime="0" GrantedMemory="1395216" MaxUsedMemory="19736" MaxQueryMemory="19535360"/>
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="873813" EstimatedPagesCached="655360" EstimatedAvailableDegreeOfParallelism="6" MaxCompileMemory="76288528"/>

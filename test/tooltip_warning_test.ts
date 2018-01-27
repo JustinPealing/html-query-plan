@@ -52,10 +52,10 @@ describe("Tooltip Warnings Section", () => {
 
     it("Shows Wait warning", () => {
 
+        const expected = "The query had to wait 58 seconds for Memory Grant during execution.";
         let container = helper.showPlan(plan.inequality_index);
         let select = helper.findStatmentElementById(container, "1");
-        assert.equal("The query had to wait 58 seconds for Memory Grant during execution.",
-            helper.getToolTipSection(select, "Warnings"));
+        assert.equal(true, helper.getToolTipSection(select, "Warnings").indexOf(expected) >= 0);
 
     })
 
@@ -74,6 +74,15 @@ describe("Tooltip Warnings Section", () => {
         let container = helper.showPlan(plan.spilltotempdb);
         let sort = helper.findNodeById(container, "2");
         assert.equal(true, helper.getToolTipSection(sort, "Warnings").indexOf(expected) >= 0);
+
+    })
+
+    it("Shows MemoryGrantWarning warning", () => {
+
+        const expected = "The query memory grant detected \"Excessive Grant\", which may impact the reliability. Grant size: Initial 1395216 KB, Final 1395210 KB, Used 19736 KB.";
+        let container = helper.showPlan(plan.inequality_index);
+        let select = helper.findStatmentElementById(container, "1");
+        assert.equal(true, helper.getToolTipSection(select, "Warnings").indexOf(expected) >= 0);
 
     })
 

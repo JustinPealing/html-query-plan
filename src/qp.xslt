@@ -529,6 +529,9 @@
         <xsl:for-each select="s:Warnings/s:SortSpillDetails">
           <div><xsl:value-of select="$relop/@LogicalOp" /> wrote <xsl:value-of select="@WritesToTempDb" /> pages to and read <xsl:value-of select="@ReadsFromTempDb" /> pages from tempdb with granted memory <xsl:value-of select="@GrantedMemoryKb" />KB and used memory <xsl:value-of select="@UsedMemoryKb" />KB.</div>
         </xsl:for-each>
+        <xsl:for-each select="s:Warnings/s:MemoryGrantWarning">
+          <div>The query memory grant detected "<xsl:value-of select="@GrantWarningKind" />", which may impact the reliability. Grant size: Initial <xsl:value-of select="@RequestedMemory" /> KB, Final <xsl:value-of select="@GrantedMemory" /> KB, Used <xsl:value-of select="@MaxUsedMemory" /> KB.</div>
+        </xsl:for-each>
       </div>
     </xsl:if>
   </xsl:template>

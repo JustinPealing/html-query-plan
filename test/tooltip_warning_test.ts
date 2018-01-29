@@ -86,4 +86,13 @@ describe("Tooltip Warnings Section", () => {
 
     })
 
+    it("Shows HashSpillDetails warning", () => {
+
+        const expected = "Hash wrote 10040 pages to and read 19040 pages from tempdb with granted memory 997376KB and used memory 996656KB.";
+        let container = helper.showPlan(plan.HashSpillDetails);
+        let hashMatch = helper.findNodeById(container, "2");
+        assert.equal(true, helper.getToolTipSection(hashMatch, "Warnings").indexOf(expected) >= 0);
+
+    })
+
 })

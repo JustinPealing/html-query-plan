@@ -92,7 +92,7 @@
                       </OutputList>
                       <Warnings>
                         <SpillToTempDb SpillLevel="1" SpilledThreadCount="8"/>
-                        <HashSpillDetails GrantedMemoryKb="997376" UsedMemoryKb="996656" WritesToTempDb="19040" ReadsFromTempDb="19040"/>
+                        <HashSpillDetails GrantedMemoryKb="997376" UsedMemoryKb="996656" WritesToTempDb="10040" ReadsFromTempDb="19040"/>
                       </Warnings>
                       <MemoryFractions Input="0.5" Output="0.5"/>
                       <RunTimeInformation>

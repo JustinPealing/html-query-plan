@@ -190,6 +190,7 @@ div[class|='qp-icon'] {
 .qp-icon-WindowAggregate{background: url('qp_icons.png') -96px -0px }
 .qp-icon-AdaptiveJoin{background: url('qp_icons.png') -96px -0px }
 .qp-icon-IndexSpool{background: url('qp_icons.png') -96px -0px }
+.qp-icon-IndexInsert{background: url('qp_icons.png') -96px -0px }
 
 .qp-iconwarn {
     background: url('qp_icons.png') -304px -209px;

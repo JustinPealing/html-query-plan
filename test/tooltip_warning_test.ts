@@ -36,7 +36,7 @@ describe("Tooltip Warnings Section", () => {
 
         let container = helper.showPlan(plan.columns_with_no_statistics);
         let indexScan = helper.findNodeById(container, "2");
-        assert.equal("Unmatched index: [mydb].[myschema].[TestTableA].TestTableB_Id",
+        assert.equal("Columns With No Statistics: [mydb].[myschema].[TestTableA].TestTableB_Id",
             helper.getToolTipSection(indexScan, "Warnings"));
 
     })

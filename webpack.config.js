@@ -10,7 +10,7 @@ module.exports = {
         library: "QP",
         libraryTarget: "umd",
         filename: development ? 'qp.js' : 'qp.min.js',
-        path: path.join(__dirname, 'lib')
+        path: path.join(__dirname, 'dist')
     },
     plugins: development ? [] : [
         new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })

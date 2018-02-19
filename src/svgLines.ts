@@ -14,21 +14,22 @@ function drawSvgLines(container: Element) {
 
     let nodes = root.querySelectorAll('.qp-node'); 
     for (let i = 0; i < nodes.length; i++) {
-        let node = nodes[i]; 
-        let previousNode = findParent(node);
-        if (previousNode != null) {
-            drawArrowBetweenNodes(draw, clientRect, previousNode, node);
-        }
+        drawLinesForParent(draw, clientRect, nodes[i]);
     }
 }
 
-function findParent(node: Element) {
-    let row = findAncestor(node, 'qp-tr');
-    let parentRow = findAncestor(row, 'qp-tr');
-    if (!parentRow) {
-        return null;
+/*
+ * Enumerates all child nodes and draws line from those nodes to the given parent node.
+ * @draw SVG drawing context to use.
+ * @offset Bounding client rect of the root SVG context.
+ * @parent Parent .qp-node element.
+ */
+function drawLinesForParent(draw: SVG.Doc, offset: ClientRect, parent: Element) {
+    let children = findAncestor(parent, 'qp-tr').children[1].children;
+    for (let i = 0; i < children.length; i++) {
+        let child = children[i].children[0].children[0];
+        drawArrowBetweenNodes(draw, offset, parent, child);
     }
-    return parentRow.children[0].children[0];
 }
 
 /**

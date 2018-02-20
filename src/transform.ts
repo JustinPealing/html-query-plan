@@ -1,8 +1,8 @@
-/*
+/**
  * Sets the contents of a container by transforming XML via XSLT.
- * @container {Element} Container to set the contens for.
- * @xml {string} Input XML.
- * @xslt {string} XSLT transform to use.
+ * @param container {Element} Container to set the contens for.
+ * @param xml {string} Input XML.
+ * @param xslt {string} XSLT transform to use.
  */
 function setContentsUsingXslt(container: Element, xml: string, xslt: string) {
     if ((<any>window).ActiveXObject || "ActiveXObject" in window) {

@@ -1,5 +1,5 @@
 ﻿import * as transform from './transform';
-import { drawSvgLines } from './svgLines';
+import { drawLines } from './lines';
 import { initTooltip } from './tooltip';
 
 declare function require(path: string) : any;
@@ -15,7 +15,7 @@ function showPlan(container: Element, planXml: string, options?: Options) {
     });
 
     transform.setContentsUsingXslt(container, planXml, qpXslt);
-    drawSvgLines(container);
+    drawLines(container);
 
     if (options.jsTooltips) {
         initTooltip(container);
@@ -37,4 +37,4 @@ function setDefaults(options: Options, defaults: Options) {
     return ret;
 }
 
-export { drawSvgLines as drawLines, showPlan }
+export { drawLines as drawLines, showPlan }

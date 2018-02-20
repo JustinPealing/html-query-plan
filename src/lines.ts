@@ -6,7 +6,7 @@ interface Point {
     y: number
 }
 
-function drawSvgLines(container: Element) {
+function drawLines(container: Element) {
     let root = <HTMLElement>container.querySelector(".qp-root");
     let draw = SVG(root);
 
@@ -94,4 +94,4 @@ function drawArrow(draw: SVG.Doc, from: Point, to: Point, bendX: number) {
 
 }
 
-export { drawSvgLines }
+export { drawLines }

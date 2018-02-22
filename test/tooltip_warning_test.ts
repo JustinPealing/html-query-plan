@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import { assert } from 'chai';
 import * as QP from "../src/index";
 import * as helper from "./helper";
 import { plan } from "./plans";

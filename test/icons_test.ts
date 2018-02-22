@@ -9,7 +9,7 @@ describe('Query Plan Icon', () => {
         
         let container = helper.showPlan(plan.batchMode);
         let parallelism = helper.findNodeById(container, '0');
-        assert.notEqual(null, parallelism.querySelector('.qp-icon-GatherStreams'));
+        assert.notEqual(null, parallelism.element.querySelector('.qp-icon-GatherStreams'));
         
     });
     
@@ -25,7 +25,7 @@ describe('Query Plan Icon', () => {
 
         let container = helper.showPlan(plan.issue39);
         let nestedLoops = helper.findNodeById(container, '1');
-        assert.notEqual(null, nestedLoops.querySelector('.qp-iconwarn'));
+        assert.notEqual(null, nestedLoops.element.querySelector('.qp-iconwarn'));
 
     });
 
@@ -33,7 +33,7 @@ describe('Query Plan Icon', () => {
 
         let container = helper.showPlan(plan.issue39);
         let nestedLoops = helper.findNodeById(container, '2');
-        assert.equal(null, nestedLoops.querySelector('.qp-iconwarn'));
+        assert.equal(null, nestedLoops.element.querySelector('.qp-iconwarn'));
 
     });
 
@@ -57,7 +57,7 @@ describe('Query Plan Icon', () => {
 
         let container = helper.showPlan(plan.UpvotesForEachTag);
         let nestedLoops = helper.findNodeById(container, '12');
-        assert.notEqual(null, nestedLoops.querySelector('.qp-iconpar'));
+        assert.notEqual(null, nestedLoops.element.querySelector('.qp-iconpar'));
 
     });
 
@@ -65,7 +65,7 @@ describe('Query Plan Icon', () => {
 
         let container = helper.showPlan(plan.batchMode);
         let windowAggregate = helper.findNodeById(container, '2');
-        assert.notEqual(null, windowAggregate.querySelector('.qp-iconpar'));
+        assert.notEqual(null, windowAggregate.element.querySelector('.qp-iconpar'));
 
     });
 
@@ -73,7 +73,7 @@ describe('Query Plan Icon', () => {
 
         let container = helper.showPlan(plan.UpvotesForEachTag);
         let indexSeek = helper.findNodeById(container, '14');
-        assert.equal(null, indexSeek.querySelector('.qp-iconpar'));
+        assert.equal(null, indexSeek.element.querySelector('.qp-iconpar'));
 
     });
 

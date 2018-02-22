@@ -27,16 +27,16 @@ describe('QpNode', () => {
         it('Is an array with one element for each child node', () => {
 
             let container = helper.showPlan(plan.adaptive_join);
-            assert.equal(3, new QpNode(helper.findNodeById(container, "0")).children.length);
-            assert.equal(0, new QpNode(helper.findNodeById(container, "2")).children.length);
-            assert.equal(1, new QpNode(helper.findNodeById(container, "3")).children.length);
+            assert.equal(3, helper.findNodeById(container, "0").children.length);
+            assert.equal(0, helper.findNodeById(container, "2").children.length);
+            assert.equal(1, helper.findNodeById(container, "3").children.length);
     
         })
 
         it('Contains elements of type QpNode', () => {
 
             let container = helper.showPlan(plan.adaptive_join);
-            var child = new QpNode(helper.findNodeById(container, "0")).children[0];
+            var child = helper.findNodeById(container, "0").children[0];
             assert.instanceOf(child, QpNode);
             
         })

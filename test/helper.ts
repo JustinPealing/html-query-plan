@@ -1,18 +1,18 @@
 import * as QP from '../src/index';
 import { QpNode } from '../src/node';
 
-function findNodeById(container: Element, nodeId: string, statementId?: string) {
+function findNodeById(container: Element, nodeId: string, statementId?: string): QpNode {
     let statmentElement = findStatmentElementById(container, statementId);
     let nodes = statmentElement.querySelectorAll('.qp-node');
     for (let i = 0; i < nodes.length; i++) {
-        let node = nodes[i];
+        let node = new QpNode(nodes[i]);
         if (getProperty(node, 'Node ID') == nodeId) {
             return node;
         }
     }
 }
 
-function findStatement(container: Element, statementId: string): QpNode {
+function findStatement(container: Element, statementId?: string): QpNode {
     let qptr = findStatmentElementById(container, statementId);
     return new QpNode(qptr.querySelector('.qp-node'));
 }
@@ -24,8 +24,8 @@ function findStatmentElementById(container: Element, statementId: string) {
     return container.querySelector('.qp-tr');
 }
 
-function getProperty(node: Element, key: string) {
-    let nodes = node.querySelectorAll('th');
+function getProperty(node: QpNode, key: string) {
+    let nodes = node.element.querySelectorAll('th');
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
         if (node.innerHTML === key) {
@@ -35,8 +35,8 @@ function getProperty(node: Element, key: string) {
     return null;
 }
 
-function getToolTipSection(node: Element, name: string) {
-    let titleNodes = node.querySelectorAll('.qp-bold');
+function getToolTipSection(node: QpNode, name: string) {
+    let titleNodes = node.element.querySelectorAll('.qp-bold');
     for (let i = 0; i < titleNodes.length; i++) {
         if (titleNodes[i].innerHTML == name) {
             let next = <HTMLElement>titleNodes[i].nextElementSibling;
@@ -46,30 +46,30 @@ function getToolTipSection(node: Element, name: string) {
     return null;
 }
 
-function getTooltipTitle(node: Element) {
-    let tt = node.querySelector('.qp-tt');
+function getTooltipTitle(node: QpNode) {
+    let tt = node.element.querySelector('.qp-tt');
     return (<HTMLElement>tt.children[0]).innerText;
 }
 
-function getDescription(node: Element) {
-    let tt = node.querySelector('.qp-tt');
+function getDescription(node: QpNode) {
+    let tt = node.element.querySelector('.qp-tt');
     return (<HTMLElement>tt.children[1]).innerText;
 }
 
-function getNodeLabel(node: Element) {
+function getNodeLabel(node: QpNode) {
     return getLabel(node, 1);
 }
 
-function getNodeLabel2(node: Element) {
+function getNodeLabel2(node: QpNode) {
     return getLabel(node, 2);
 }
 
-function getNodeLabel3(node: Element) {
+function getNodeLabel3(node: QpNode) {
     return getLabel(node, 3);
 }
 
-function getLabel(node: Element, index: number) {
-    return (<HTMLElement>node.children[index]).innerText;
+function getLabel(node: QpNode, index: number) {
+    return (<HTMLElement>node.element.children[index]).innerText;
 }
 
 function showPlan(planXml: string) {

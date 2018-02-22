@@ -28,7 +28,7 @@ describe("Tooltip Warnings Section", () => {
         let container = helper.showPlan(plan.unmatched_index);
         let select = helper.findStatement(container, "1");
         assert.equal("Unmatched index: [Test].[dbo].[SAMPLE_TABLE].[IX_SAMPLE_TABLE__ID_2]",
-            helper.getToolTipSection(select.element, "Warnings"));
+            helper.getToolTipSection(select, "Warnings"));
 
     })
 
@@ -55,7 +55,7 @@ describe("Tooltip Warnings Section", () => {
         const expected = "The query had to wait 58 seconds for Memory Grant during execution.";
         let container = helper.showPlan(plan.inequality_index);
         let select = helper.findStatement(container, "1");
-        assert.equal(true, helper.getToolTipSection(select.element, "Warnings").indexOf(expected) >= 0);
+        assert.equal(true, helper.getToolTipSection(select, "Warnings").indexOf(expected) >= 0);
 
     })
 
@@ -64,7 +64,7 @@ describe("Tooltip Warnings Section", () => {
         const expected = "Type conversion in expression (CONVERT(varchar(150),[mcLive].[Cadastre].[OwnerPersonParsed].[Surname],0)) may affect \"Cardinality Estimate\" in query plan choice.";
         let container = helper.showPlan(plan.issue7);
         let update = helper.findStatement(container, "12");
-        assert.equal(true, helper.getToolTipSection(update.element, "Warnings").indexOf(expected) >= 0);
+        assert.equal(true, helper.getToolTipSection(update, "Warnings").indexOf(expected) >= 0);
 
     })
 
@@ -82,7 +82,7 @@ describe("Tooltip Warnings Section", () => {
         const expected = "The query memory grant detected \"Excessive Grant\", which may impact the reliability. Grant size: Initial 1395216 KB, Final 1395210 KB, Used 19736 KB.";
         let container = helper.showPlan(plan.inequality_index);
         let select = helper.findStatement(container, "1");
-        assert.equal(true, helper.getToolTipSection(select.element, "Warnings").indexOf(expected) >= 0);
+        assert.equal(true, helper.getToolTipSection(select, "Warnings").indexOf(expected) >= 0);
 
     })
 

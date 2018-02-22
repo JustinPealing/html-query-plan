@@ -2,6 +2,7 @@ import { assert } from 'chai';
 import * as QP from '../src/index';
 import * as helper from './helper';
 import { plan } from './plans';
+import { QpNode } from '../src/node';
 
 describe('qp.js', () => {
 
@@ -123,7 +124,7 @@ describe('qp.js', () => {
             assert.equal('Key Lookup', helper.getProperty(keyLookup, 'Logical Operation'));
             assert.equal('Uses a supplied clustering key to lookup on a table that has a clustered index.',
                 helper.getDescription(keyLookup));
-            assert.notEqual(null, keyLookup.querySelector('.qp-icon-KeyLookup'));
+            assert.notEqual(null, keyLookup.element.querySelector('.qp-icon-KeyLookup'));
 
         });
 
@@ -137,7 +138,7 @@ describe('qp.js', () => {
             assert.equal('Key Lookup', helper.getProperty(keyLookup, 'Logical Operation'));
             assert.equal('Uses a supplied clustering key to lookup on a table that has a clustered index.',
                 helper.getDescription(keyLookup));
-            assert.notEqual(null, keyLookup.querySelector('.qp-icon-KeyLookup'));
+            assert.notEqual(null, keyLookup.element.querySelector('.qp-icon-KeyLookup'));
 
         });
 
@@ -151,7 +152,7 @@ describe('qp.js', () => {
             assert.equal('Clustered Index Scan', helper.getProperty(clusteredIndexScan, 'Logical Operation'));
             assert.equal('Scanning a clustered index, entirely or only a range.',
                 helper.getDescription(clusteredIndexScan))
-            assert.notEqual(null, clusteredIndexScan.querySelector('.qp-icon-ClusteredIndexScan'));
+            assert.notEqual(null, clusteredIndexScan.element.querySelector('.qp-icon-ClusteredIndexScan'));
 
         });
 
@@ -165,7 +166,7 @@ describe('qp.js', () => {
             assert.equal('Clustered Index Seek', helper.getProperty(clusteredIndexSeek, 'Logical Operation'));
             assert.equal('Scanning a particular range of rows from a clustered index.',
                 helper.getDescription(clusteredIndexSeek))
-            assert.notEqual(null, clusteredIndexSeek.querySelector('.qp-icon-ClusteredIndexSeek'));
+            assert.notEqual(null, clusteredIndexSeek.element.querySelector('.qp-icon-ClusteredIndexSeek'));
 
         });
 
@@ -173,14 +174,14 @@ describe('qp.js', () => {
 
             let container = helper.showPlan(plan.QueryPlan293288248);
             let tableValuedFunction = helper.findNodeById(container, '7', '1');
-            assert.notEqual(null, tableValuedFunction.querySelector('.qp-icon-TableValuedFunction'))
+            assert.notEqual(null, tableValuedFunction.element.querySelector('.qp-icon-TableValuedFunction'))
 
         });
 
         it('Shows StmtUseDb', () => {
 
             let container = helper.showPlan(plan.StmtUseDb);
-            let statementNode = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
+            let statementNode = helper.findStatement(container, '1');
             assert.equal('USE DATABASE', helper.getNodeLabel(statementNode));
             assert.equal(null, helper.getProperty(statementNode, 'Physical Operation'));
             assert.equal(null, helper.getProperty(statementNode, 'Logical Operation'));
@@ -191,12 +192,12 @@ describe('qp.js', () => {
 
             let container = helper.showPlan(plan.StmtCond);
 
-            let condNode = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
+            let condNode = helper.findStatement(container, '1');
             assert.equal('COND', helper.getNodeLabel(condNode));
             assert.equal(null, helper.getProperty(condNode, 'Physical Operation'));
             assert.equal(null, helper.getProperty(condNode, 'Logical Operation'));
 
-            let printNode = container.querySelector('div[data-statement-id="2"] > div > .qp-node');
+            let printNode = helper.findStatement(container, '2');
             assert.equal('PRINT', helper.getNodeLabel(printNode));
 
         });
@@ -206,7 +207,7 @@ describe('qp.js', () => {
             it('Has Stored Procedure as node text', () => {
 
                 let container = helper.showPlan(plan.manyLines);
-                let sp = container.querySelectorAll('.qp-node')[1];
+                let sp = new QpNode(container.querySelectorAll('.qp-node')[1]);
                 assert.equal('Stored Procedure', helper.getNodeLabel(sp));
 
             })
@@ -214,7 +215,7 @@ describe('qp.js', () => {
             it('Has Procedure Name in tooltip', () => {
 
                 let container = helper.showPlan(plan.manyLines);
-                let sp = container.querySelectorAll('.qp-node')[1];
+                let sp = new QpNode(container.querySelectorAll('.qp-node')[1]);
                 assert.equal('TEST', helper.getToolTipSection(sp, 'Procedure Name'));
 
             });
@@ -549,7 +550,7 @@ describe('qp.js', () => {
                 let adaptiveJoin = helper.findNodeById(container, '0');
                 assert.equal('Adaptive Join', helper.getNodeLabel(adaptiveJoin));
                 assert.equal('Chooses dynamically between hash join and nested loops.', helper.getDescription(adaptiveJoin));
-                assert.notEqual(null, adaptiveJoin.querySelector('.qp-icon-AdaptiveJoin'));
+                assert.notEqual(null, adaptiveJoin.element.querySelector('.qp-icon-AdaptiveJoin'));
                 assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Actual Join Type'));
                 assert.equal('Nested Loops', helper.getProperty(adaptiveJoin, 'Estimated Join Type'));
                 assert.equal('True', helper.getProperty(adaptiveJoin, 'Is Adaptive'));
@@ -633,7 +634,7 @@ describe('qp.js', () => {
         it('Is @CachedPlanSize (in KB)', () => {
 
             let container = helper.showPlan(plan.adaptive_join);
-            let select = container.querySelector('div[data-statement-id="1"] > div > .qp-node');
+            let select = helper.findStatement(container, '1');
             assert.equal('48 KB', helper.getProperty(select, 'Cached plan size'));
 
         });

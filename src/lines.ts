@@ -27,7 +27,7 @@ function drawLines(container: Element) {
 function drawLinesForParent(draw: SVG.Doc, offset: ClientRect, parent: QpNode) {
     let children = parent.children;
     for (let i = 0; i < children.length; i++) {
-        drawArrowBetweenNodes(draw, offset, parent, children[i]);
+        drawArrowBetweenNodes(draw, offset, parent, children[i], i, children.length);
     }
 }
 
@@ -38,7 +38,7 @@ function drawLinesForParent(draw: SVG.Doc, offset: ClientRect, parent: QpNode) {
  * @param parent Node element from which to draw the arrow (leftmost node).
  * @param child Node element to which to draw the arrow (rightmost node).
  */
-function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, parent: QpNode, child: QpNode) {
+function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, parent: QpNode, child: QpNode, index: number, count: number) {
     let parentOffset = parent.element.getBoundingClientRect();
     let childOffset = child.element.getBoundingClientRect();
 
@@ -52,13 +52,13 @@ function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, parent: QpNode
 
     let toPoint = {
         x: toX - offset.left + 1,
-        y: toY - offset.top
+        y: toY - (5 * count / 2) - offset.top + (5 * index) + (count % 2 == 1 ? 2.5 : 0)
     };
     let fromPoint = {
         x: childOffset.left - offset.left - 1,
         y: fromY - offset.top
     };
-    let bendOffsetX = midOffsetLeft - offset.left;
+    let bendOffsetX = midOffsetLeft + (5 * count / 2) - offset.left - (5 * index);
     drawArrow(draw, toPoint, fromPoint, bendOffsetX);
 }
 

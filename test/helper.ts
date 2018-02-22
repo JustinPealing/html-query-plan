@@ -1,4 +1,5 @@
 import * as QP from '../src/index';
+import { QpNode } from '../src/node';
 
 function findNodeById(container: Element, nodeId: string, statementId?: string) {
     let statmentElement = findStatmentElementById(container, statementId);
@@ -9,6 +10,11 @@ function findNodeById(container: Element, nodeId: string, statementId?: string) 
             return node;
         }
     }
+}
+
+function findStatement(container: Element, statementId: string): QpNode {
+    let qptr = findStatmentElementById(container, statementId);
+    return new QpNode(qptr.querySelector('.qp-node'));
 }
 
 function findStatmentElementById(container: Element, statementId: string) {
@@ -82,5 +88,5 @@ export {
     getNodeLabel2,
     getNodeLabel3,
     showPlan,
-    findStatmentElementById
+    findStatement
 }

@@ -16,8 +16,8 @@ describe('Query Plan Icon', () => {
     it('equals qp-icon-Statement for statements', () => {
 
         let container = helper.showPlan(plan.batchMode);
-        let statement = helper.findStatmentElementById(container, '1');
-        assert.notEqual(null, statement.querySelector('.qp-icon-Statement'));
+        let statement = helper.findStatement(container, '1');
+        assert.notEqual(null, statement.element.querySelector('.qp-icon-Statement'));
 
     });
 
@@ -40,16 +40,16 @@ describe('Query Plan Icon', () => {
     it('Shows warnings on s:QueryPlan elements with a Warning element', () => {
 
         let container = helper.showPlan(plan.unmatched_index);
-        let select = helper.findStatmentElementById(container, '1');
-        assert.notEqual(null, select.querySelector('.qp-iconwarn'));
+        let select = helper.findStatement(container, '1');
+        assert.notEqual(null, select.element.querySelector('.qp-iconwarn'));
 
     });
 
     it('Does not show warnings on s:QueryPlan elements without a Warning element', () => {
 
         let container = helper.showPlan(plan.issue39);
-        let select = helper.findStatmentElementById(container, '1');
-        assert.notEqual(null, select.querySelector('.qp-iconwarn'));
+        let select = helper.findStatement(container, '1');
+        assert.equal(null, select.element.querySelector('.qp-iconwarn'));
 
     });
 

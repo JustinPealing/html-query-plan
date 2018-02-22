@@ -14,7 +14,7 @@ class QpNode {
      */
     get children(): Array<QpNode> {
         return [].slice.call(findAncestor(this.element, 'qp-tr').children[1].children)
-            .map(c => new QpNode(c.children[0].children[0]));
+            .map(c => new QpNode(c.children[0].children[0].children[0]));
     }
 }
 

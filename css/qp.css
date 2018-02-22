@@ -234,6 +234,13 @@ div.qp-node:hover .qp-tt {
 .qp-node {
     position: relative;
     white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.qp-node-outer {
+    height: 76.4px;
+    display: table-cell;
 }
 
 .qp-tr {

@@ -58,12 +58,14 @@
         <xsl:attribute name="data-statement-id"><xsl:value-of select="@StatementId" /></xsl:attribute>
       </xsl:if>
       <div>
-        <div class="qp-node">
-          <xsl:call-template name="NodeIcon" />
-          <div><xsl:apply-templates select="." mode="NodeLabel" /></div>
-          <xsl:apply-templates select="." mode="NodeLabel2" />
-          <xsl:apply-templates select="." mode="NodeCostLabel" />
-          <xsl:call-template name="ToolTip" />
+        <div class="qp-node-outer">
+          <div class="qp-node">
+            <xsl:call-template name="NodeIcon" />
+            <div><xsl:apply-templates select="." mode="NodeLabel" /></div>
+            <xsl:apply-templates select="." mode="NodeLabel2" />
+            <xsl:apply-templates select="." mode="NodeCostLabel" />
+            <xsl:call-template name="ToolTip" />
+          </div>
         </div>
       </div>
       <div><xsl:apply-templates select="*/*" mode="QpTr" /></div>

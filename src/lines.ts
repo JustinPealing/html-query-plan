@@ -1,5 +1,5 @@
 import * as SVG from 'svgjs';
-import { findAncestor } from './utils';
+import { QpNode } from './node';
 
 interface Point {
     x: number,
@@ -12,9 +12,9 @@ function drawLines(container: Element) {
 
     let clientRect = root.getBoundingClientRect();
 
-    let nodes = root.querySelectorAll('.qp-node'); 
+    let nodes = root.querySelectorAll('.qp-node');
     for (let i = 0; i < nodes.length; i++) {
-        drawLinesForParent(draw, clientRect, nodes[i]);
+        drawLinesForParent(draw, clientRect, new QpNode(nodes[i]));
     }
 }
 
@@ -24,11 +24,10 @@ function drawLines(container: Element) {
  * @param offset Bounding client rect of the root SVG context.
  * @param parent Parent .qp-node element.
  */
-function drawLinesForParent(draw: SVG.Doc, offset: ClientRect, parent: Element) {
-    let children = findAncestor(parent, 'qp-tr').children[1].children;
+function drawLinesForParent(draw: SVG.Doc, offset: ClientRect, parent: QpNode) {
+    let children = parent.children;
     for (let i = 0; i < children.length; i++) {
-        let child = children[i].children[0].children[0];
-        drawArrowBetweenNodes(draw, offset, parent, child);
+        drawArrowBetweenNodes(draw, offset, parent, children[i]);
     }
 }
 
@@ -39,9 +38,9 @@ function drawLinesForParent(draw: SVG.Doc, offset: ClientRect, parent: Element) 
  * @param parent Node element from which to draw the arrow (leftmost node).
  * @param child Node element to which to draw the arrow (rightmost node).
  */
-function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, parent: Element, child: Element) {
-    let parentOffset = parent.getBoundingClientRect();
-    let childOffset = child.getBoundingClientRect();
+function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, parent: QpNode, child: QpNode) {
+    let parentOffset = parent.element.getBoundingClientRect();
+    let childOffset = child.element.getBoundingClientRect();
 
     let toX = parentOffset.right;
     let toY = (parentOffset.top + parentOffset.bottom) / 2;

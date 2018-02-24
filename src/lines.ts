@@ -14,8 +14,22 @@ function drawLines(container: Element) {
 
     let nodes = root.querySelectorAll('.qp-node');
     for (let i = 0; i < nodes.length; i++) {
-        drawLinesForParent(draw, clientRect, new QpNode(nodes[i]));
+        let node = new QpNode(nodes[i]);
+        addPaddingForParent(node);
+        drawLinesForParent(draw, clientRect, node);
     }
+}
+
+/**
+ * Increases right-padding for a parent element depending on how many lines are being
+ * draw to child nodes - the more child nodes there are, the more space are needed for
+ * the lines.
+ * @param parent Parent .qp-node element.
+ */
+function addPaddingForParent(parent: QpNode) {
+    let qpNodeOuter = parent.element.parentElement;
+    let paddingElement = qpNodeOuter.parentElement;
+    paddingElement.style.paddingRight = `${parent.children.length * 10}px`;
 }
 
 /**

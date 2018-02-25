@@ -1,6 +1,8 @@
 import * as SVG from 'svgjs';
 import { QpNode } from './node';
 
+const lineSeparation = 5;
+
 interface Point {
     x: number,
     y: number
@@ -29,7 +31,7 @@ function drawLines(container: Element) {
 function addPaddingForParent(parent: QpNode) {
     let qpNodeOuter = parent.element.parentElement;
     let paddingElement = qpNodeOuter.parentElement;
-    paddingElement.style.paddingRight = `${parent.children.length * 10}px`;
+    paddingElement.style.paddingRight = `${parent.children.length * lineSeparation}px`;
 }
 
 /**
@@ -66,13 +68,13 @@ function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, parent: QpNode
 
     let toPoint = {
         x: toX - offset.left + 1,
-        y: toY - (5 * count / 2) - offset.top + (5 * index) + (count % 2 == 1 ? 2.5 : 0)
+        y: toY - (lineSeparation * count / 2) - offset.top + (lineSeparation * index) + (count % 2 == 1 ? lineSeparation / 2 : 0)
     };
     let fromPoint = {
         x: childOffset.left - offset.left - 1,
         y: fromY - offset.top
     };
-    let bendOffsetX = midOffsetLeft + (5 * count / 2) - offset.left - (5 * index);
+    let bendOffsetX = midOffsetLeft + (lineSeparation * count / 2) - offset.left - (lineSeparation * index);
     drawArrow(draw, toPoint, fromPoint, bendOffsetX);
 }
 

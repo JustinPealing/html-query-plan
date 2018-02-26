@@ -16,9 +16,7 @@ function drawLines(container: Element) {
 
     let nodes = root.querySelectorAll('.qp-node');
     for (let i = 0; i < nodes.length; i++) {
-        let node = new QpNode(nodes[i]);
-        addPaddingForParent(node);
-        drawLinesForParent(draw, clientRect, node);
+        drawLinesForParent(draw, clientRect, new QpNode(nodes[i]));
     }
 }
 
@@ -28,10 +26,10 @@ function drawLines(container: Element) {
  * the lines.
  * @param parent Parent .qp-node element.
  */
-function addPaddingForParent(parent: QpNode) {
+function addPaddingForParent(parent: QpNode, padding: number) {
     let qpNodeOuter = parent.element.parentElement;
     let paddingElement = qpNodeOuter.parentElement;
-    paddingElement.style.paddingRight = `${parent.children.length * lineSeparation}px`;
+    paddingElement.style.paddingRight = `${padding}px`;
 }
 
 /**
@@ -64,6 +62,8 @@ function drawLinesForParent(draw: SVG.Doc, clientRect: ClientRect, parent: QpNod
     let children = parent.children;
     // All lines have the same thickness for now
     let thicknesses = children.map(c => 2);
+    let padding = thicknesses.reduce((a, b) => a + b, 0) + lineSeparation * (children.length -1);
+    addPaddingForParent(parent, padding);
     let offsets = thicknessesToOffsets(thicknesses, lineSeparation);
     for (let i = 0; i < children.length; i++) {
         drawArrowBetweenNodes(draw, clientRect, parent, children[i], thicknesses[i], offsets[i]);

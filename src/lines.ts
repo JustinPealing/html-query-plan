@@ -35,6 +35,26 @@ function addPaddingForParent(parent: QpNode) {
 }
 
 /**
+ * Works out the position that each arrow should be drawn based on the offsets, for example
+ * if there are 3 lines with thicknesses 2, 4 and 4 (and a gap of 2 pixels between lines) then
+ * the lines need to be drawn at offsets -6, -1 and 5 relative to the center of the node.
+ * @param thicknesses Array of line thicknesses.
+ * @param gap Gap between each line.
+ * @returns Array of offsets.
+ */
+function thicknessesToOffsets(thicknesses: Array<number>, gap: number): Array<number> {
+    let result = [];
+    let total = thicknesses.reduce((a, b) => a + b, 0) + (thicknesses.length - 1) * gap;
+    let left = -total / 2
+    for (let i = 0; i < thicknesses.length; i++) {
+        let right = left + thicknesses[i];
+        result.push((right + left) / 2);
+        left = right + gap;
+    }
+    return result;
+}
+
+/**
  * Enumerates all child nodes and draws line from those nodes to the given parent node.
  * @param draw SVG drawing context to use.
  * @param clientRect Bounding client rect of the root SVG context.
@@ -42,9 +62,11 @@ function addPaddingForParent(parent: QpNode) {
  */
 function drawLinesForParent(draw: SVG.Doc, clientRect: ClientRect, parent: QpNode) {
     let children = parent.children;
+    // All lines have the same thickness for now
+    let thicknesses = children.map(c => 2);
+    let offsets = thicknessesToOffsets(thicknesses, lineSeparation);
     for (let i = 0; i < children.length; i++) {
-        let offset = (lineSeparation * i) - (lineSeparation * children.length / 2) + (children.length % 2 == 1 ? lineSeparation / 2 : 0)
-        drawArrowBetweenNodes(draw, clientRect, parent, children[i], offset);
+        drawArrowBetweenNodes(draw, clientRect, parent, children[i], thicknesses[i], offsets[i]);
     }
 }
 
@@ -55,7 +77,7 @@ function drawLinesForParent(draw: SVG.Doc, clientRect: ClientRect, parent: QpNod
  * @param parent Node element from which to draw the arrow (leftmost node).
  * @param child Node element to which to draw the arrow (rightmost node).
  */
-function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: QpNode, child: QpNode, offset: number) {
+function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: QpNode, child: QpNode, thickness: number, offset: number) {
     let parentOffset = parent.element.getBoundingClientRect();
     let childOffset = child.element.getBoundingClientRect();
 
@@ -76,7 +98,7 @@ function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: Qp
         y: fromY - clientRect.top
     };
     let bendOffsetX = midOffsetLeft - clientRect.left - offset;
-    drawArrow(draw, toPoint, fromPoint, bendOffsetX);
+    drawArrow(draw, toPoint, fromPoint, bendOffsetX, thickness);
 }
 
 /**
@@ -86,8 +108,8 @@ function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: Qp
  * @param to {x,y} coordinates of the arrowhead (pointy) end.
  * @param bendX Offset from toPoint at which the "bend" should happen. (X axis).
  */
-function drawArrow(draw: SVG.Doc, to: Point, from: Point, bendX: number) {
-    let points: any = arrowPath(to, from, bendX, 2);
+function drawArrow(draw: SVG.Doc, to: Point, from: Point, bendX: number, thickness: number) {
+    let points: any = arrowPath(to, from, bendX, thickness);
     draw.polyline(points).fill('#E3E3E3').stroke({
         color: '#505050',
         width: 0.5
@@ -99,10 +121,10 @@ function drawArrow(draw: SVG.Doc, to: Point, from: Point, bendX: number) {
  * @param to Coordinates of the the arrowhead (pointy) end.
  * @param from mid-point of the tail (flat) end.
  * @param bendX Offset from toPoint at which the "bend" should happen. (X axis).
- * @param width Width of the line / arrow, in pixels
+ * @param thickness Width of the line / arrow, in pixels
  */
-function arrowPath(to: Point, from: Point, bendX: number, width: number) {
-    let w2 = width / 2;
+function arrowPath(to: Point, from: Point, bendX: number, thickness: number) {
+    let w2 = thickness / 2;
     return [
         [to.x, to.y],
         [to.x + w2 + 2, to.y - (w2 + 2)],
@@ -119,4 +141,4 @@ function arrowPath(to: Point, from: Point, bendX: number, width: number) {
     ];
 }
 
-export { drawLines, arrowPath }
+export { drawLines, arrowPath, thicknessesToOffsets }

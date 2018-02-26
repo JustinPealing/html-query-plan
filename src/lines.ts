@@ -1,6 +1,10 @@
 import * as SVG from 'svgjs';
 import { QpNode } from './node';
 
+/**
+ * Separation between each line, measured as the number of pixels between the bottom
+ * edge of one line and the top edge of the next.
+ */
 const lineSeparation = 5;
 
 interface Point {

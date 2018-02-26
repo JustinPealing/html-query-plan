@@ -37,24 +37,25 @@ function addPaddingForParent(parent: QpNode) {
 /**
  * Enumerates all child nodes and draws line from those nodes to the given parent node.
  * @param draw SVG drawing context to use.
- * @param offset Bounding client rect of the root SVG context.
+ * @param clientRect Bounding client rect of the root SVG context.
  * @param parent Parent .qp-node element.
  */
-function drawLinesForParent(draw: SVG.Doc, offset: ClientRect, parent: QpNode) {
+function drawLinesForParent(draw: SVG.Doc, clientRect: ClientRect, parent: QpNode) {
     let children = parent.children;
     for (let i = 0; i < children.length; i++) {
-        drawArrowBetweenNodes(draw, offset, parent, children[i], i, children.length);
+        let offset = (lineSeparation * i) - (lineSeparation * children.length / 2) + (children.length % 2 == 1 ? lineSeparation / 2 : 0)
+        drawArrowBetweenNodes(draw, clientRect, parent, children[i], offset);
     }
 }
 
 /**
  * Draws the arrow between two nodes.
  * @param draw SVG drawing context to use.
- * @param offset Bounding client rect of the root SVG context.
+ * @param clientRect Bounding client rect of the root SVG context.
  * @param parent Node element from which to draw the arrow (leftmost node).
  * @param child Node element to which to draw the arrow (rightmost node).
  */
-function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, parent: QpNode, child: QpNode, index: number, count: number) {
+function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: QpNode, child: QpNode, offset: number) {
     let parentOffset = parent.element.getBoundingClientRect();
     let childOffset = child.element.getBoundingClientRect();
 
@@ -67,14 +68,14 @@ function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, parent: QpNode
     let midOffsetLeft = toX / 2 + fromX / 2;
 
     let toPoint = {
-        x: toX - offset.left + 1,
-        y: toY - (lineSeparation * count / 2) - offset.top + (lineSeparation * index) + (count % 2 == 1 ? lineSeparation / 2 : 0)
+        x: toX - clientRect.left + 1,
+        y: toY - clientRect.top + offset
     };
     let fromPoint = {
-        x: childOffset.left - offset.left - 1,
-        y: fromY - offset.top
+        x: childOffset.left - clientRect.left - 1,
+        y: fromY - clientRect.top
     };
-    let bendOffsetX = midOffsetLeft + (lineSeparation * count / 2) - offset.left - (lineSeparation * index);
+    let bendOffsetX = midOffsetLeft - clientRect.left - offset;
     drawArrow(draw, toPoint, fromPoint, bendOffsetX);
 }
 

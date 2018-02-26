@@ -86,7 +86,7 @@ function drawArrowBetweenNodes(draw: SVG.Doc, offset: ClientRect, parent: QpNode
  * @param bendX Offset from toPoint at which the "bend" should happen. (X axis).
  */
 function drawArrow(draw: SVG.Doc, to: Point, from: Point, bendX: number) {
-    let points: any = arrowPath(to, from, bendX);
+    let points: any = arrowPath(to, from, bendX, 2);
     draw.polyline(points).fill('#E3E3E3').stroke({
         color: '#505050',
         width: 0.5
@@ -98,20 +98,22 @@ function drawArrow(draw: SVG.Doc, to: Point, from: Point, bendX: number) {
  * @param to Coordinates of the the arrowhead (pointy) end.
  * @param from mid-point of the tail (flat) end.
  * @param bendX Offset from toPoint at which the "bend" should happen. (X axis).
+ * @param width Width of the line / arrow, in pixels
  */
-function arrowPath(to: Point, from: Point, bendX: number) {
+function arrowPath(to: Point, from: Point, bendX: number, width: number) {
+    let w2 = width / 2;
     return [
         [to.x, to.y],
-        [to.x + 3, to.y - 3],
-        [to.x + 3, to.y - 1],
-        [bendX + (to.y <= from.y ? 1 : -1), to.y - 1],
-        [bendX + (to.y <= from.y ? 1 : -1), from.y - 1],
-        [from.x, from.y - 1],
-        [from.x, from.y + 1],
-        [bendX + (to.y <= from.y ? -1 : 1), from.y + 1],
-        [bendX + (to.y <= from.y ? -1 : 1), to.y + 1],
-        [to.x + 3, to.y + 1],
-        [to.x + 3, to.y + 3],
+        [to.x + w2 + 2, to.y - (w2 + 2)],
+        [to.x + w2 + 2, to.y - w2],
+        [bendX + (to.y <= from.y ? w2 : -w2), to.y - w2],
+        [bendX + (to.y <= from.y ? w2 : -w2), from.y - w2],
+        [from.x, from.y - w2],
+        [from.x, from.y + w2],
+        [bendX + (to.y <= from.y ? -w2 : w2), from.y + w2],
+        [bendX + (to.y <= from.y ? -w2 : w2), to.y + w2],
+        [to.x + w2 + 2, to.y + w2],
+        [to.x + w2 + 2, to.y + w2 + 2],
         [to.x, to.y]
     ];
 }

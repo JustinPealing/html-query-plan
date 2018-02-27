@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import * as transform from "../src/xml";
+import * as xml from "../src/xml";
 
 describe("xml", () => {
 
@@ -14,7 +14,7 @@ describe("xml", () => {
         it("Transforms transforms XML and adds it to the container", () => {
 
             let container = document.createElement("div");
-            transform.setContentsUsingXslt(container, "<test></test>", xslt);
+            xml.setContentsUsingXslt(container, "<test></test>", xslt);
             assert.equal("Hello, World!", container.innerHTML);
 
         });
@@ -23,7 +23,7 @@ describe("xml", () => {
 
             let container = document.createElement("div");
             container.innerHTML = "Testing";
-            transform.setContentsUsingXslt(container, "<test></test>", xslt);
+            xml.setContentsUsingXslt(container, "<test></test>", xslt);
             assert.equal("Hello, World!", container.innerHTML);
 
         });

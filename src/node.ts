@@ -16,6 +16,11 @@ class QpNode {
         return [].slice.call(findAncestor(this.element, 'qp-tr').children[1].children)
             .map(c => new QpNode(c.children[0].children[0].children[0]));
     }
+
+    get nodeId(): string {
+        let nodeId = this.element.attributes['data-node-id'];
+        return nodeId && nodeId.value;
+    }
 }
 
 export { QpNode }

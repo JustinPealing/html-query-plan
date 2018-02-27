@@ -67,7 +67,7 @@ describe("QpNode", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
             let planXml = helper.findNodeById(container, "2").queryPlan;
-            assert.notEqual(null, planXml);
+            assert.equal("1.6", planXml.getElementsByTagName("ShowPlanXML")[0].attributes["Version"].value);
 
         });
 

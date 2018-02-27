@@ -60,6 +60,9 @@
       <div>
         <div class="qp-node-outer">
           <div class="qp-node">
+            <xsl:if test="@NodeId">
+              <xsl:attribute name="data-node-id"><xsl:value-of select="@NodeId" /></xsl:attribute>
+            </xsl:if>
             <xsl:call-template name="NodeIcon" />
             <div><xsl:apply-templates select="." mode="NodeLabel" /></div>
             <xsl:apply-templates select="." mode="NodeLabel2" />

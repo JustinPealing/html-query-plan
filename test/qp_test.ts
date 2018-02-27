@@ -8,6 +8,15 @@ describe('qp.js', () => {
 
     describe('showPlan()', () => {
 
+        it('Adds data-node-id attribute so the node ID can be identified from markup', () => {
+
+            let container = helper.showPlan(plan.issue1);        
+            assert.equal('3', helper.findNodeById(container, '3').element.attributes['data-node-id'].value);
+            assert.equal('18', helper.findNodeById(container, '18').element.attributes['data-node-id'].value);
+            assert.equal(null, helper.findStatement(container).element.attributes['data-node-id']);
+
+        });
+
         it('Adds canvas to .qp-root', () => {
             
             let container = helper.showPlan(plan.issue1);

@@ -2,7 +2,6 @@ import { assert } from "chai";
 import * as QP from "../src/index";
 import * as helper from "./helper";
 import { plan } from "./plans";
-import { QpNode } from "../src/node";
 
 describe("qp.js", () => {
 
@@ -216,7 +215,7 @@ describe("qp.js", () => {
             it("Has Stored Procedure as node text", () => {
 
                 let container = helper.showPlan(plan.manyLines);
-                let sp = new QpNode(container.querySelectorAll(".qp-node")[1]);
+                let sp = new QP.QpNode(container.querySelectorAll(".qp-node")[1]);
                 assert.equal("Stored Procedure", helper.getNodeLabel(sp));
 
             })
@@ -224,7 +223,7 @@ describe("qp.js", () => {
             it("Has Procedure Name in tooltip", () => {
 
                 let container = helper.showPlan(plan.manyLines);
-                let sp = new QpNode(container.querySelectorAll(".qp-node")[1]);
+                let sp = new QP.QpNode(container.querySelectorAll(".qp-node")[1]);
                 assert.equal("TEST", helper.getToolTipSection(sp, "Procedure Name"));
 
             });

@@ -1,7 +1,7 @@
 import { assert } from "chai";
-import * as transform from "../src/transform";
+import * as transform from "../src/xml";
 
-describe("transform", () => {
+describe("xml", () => {
 
     describe("setContentsUsingXslt", () => {
 

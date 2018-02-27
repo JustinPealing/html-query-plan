@@ -1,4 +1,4 @@
-﻿import * as transform from "./transform";
+﻿import * as xml from "./xml";
 import { drawLines } from "./lines";
 import { initTooltip } from "./tooltip";
 
@@ -14,7 +14,7 @@ function showPlan(container: Element, planXml: string, options?: Options) {
         jsTooltips: true
     });
 
-    transform.setContentsUsingXslt(container, planXml, qpXslt);
+    xml.setContentsUsingXslt(container, planXml, qpXslt);
     drawLines(container);
 
     if (options.jsTooltips) {

@@ -24,6 +24,13 @@ class QpNode {
         let nodeId = this.element.attributes["data-node-id"];
         return nodeId && nodeId.value;
     }
+
+    /**
+     * Gets the xml for the whole query plan.
+     */
+    get queryPlan() {
+        return findAncestor(this.element, "qp-root").parentElement["xml"];
+    }
 }
 
 export { QpNode }

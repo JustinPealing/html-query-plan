@@ -61,4 +61,16 @@ describe("QpNode", () => {
         
     });
     
+    describe("queryPlan property", () => {
+
+        it("Returns the query plan XML", () => {
+
+            let container = helper.showPlan(plan.adaptive_join);
+            let planXml = helper.findNodeById(container, "2").queryPlan;
+            assert.notEqual(null, planXml);
+
+        });
+
+    });
+
 });

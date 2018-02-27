@@ -15,8 +15,10 @@ function showPlan(container: Element, planXml: string, options?: Options) {
         jsTooltips: true
     });
 
-    xml.setContentsUsingXslt(container, planXml, qpXslt);
+    let xmlDoc = xml.parse(planXml);
+    xml.setContentsUsingXslt(container, xmlDoc, qpXslt);
     drawLines(container);
+    container["xml"] = xmlDoc;
 
     if (options.jsTooltips) {
         initTooltip(container);

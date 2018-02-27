@@ -14,7 +14,7 @@ describe("xml", () => {
         it("Transforms transforms XML and adds it to the container", () => {
 
             let container = document.createElement("div");
-            xml.setContentsUsingXslt(container, "<test></test>", xslt);
+            xml.setContentsUsingXslt(container, xml.parse("<test></test>"), xslt);
             assert.equal("Hello, World!", container.innerHTML);
 
         });
@@ -23,7 +23,7 @@ describe("xml", () => {
 
             let container = document.createElement("div");
             container.innerHTML = "Testing";
-            xml.setContentsUsingXslt(container, "<test></test>", xslt);
+            xml.setContentsUsingXslt(container, xml.parse("<test></test>"), xslt);
             assert.equal("Hello, World!", container.innerHTML);
 
         });

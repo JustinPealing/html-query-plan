@@ -17,6 +17,9 @@ class QpNode {
             .map(c => new QpNode(c.children[0].children[0].children[0]));
     }
 
+    /**
+     * Gets the NodeID.
+     */
     get nodeId(): string {
         let nodeId = this.element.attributes["data-node-id"];
         return nodeId && nodeId.value;

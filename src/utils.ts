@@ -7,7 +7,7 @@ function findAncestor(element: Element, className: string) {
 }
 
 function hasClass(element: Element, cls: string) {
-    return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    return (" " + element.className + " ").indexOf(" " + cls + " ") > -1;
 }
 
 export { findAncestor, hasClass }

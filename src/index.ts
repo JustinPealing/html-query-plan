@@ -1,9 +1,9 @@
-﻿import * as transform from './transform';
-import { drawLines } from './lines';
-import { initTooltip } from './tooltip';
+﻿import * as transform from "./transform";
+import { drawLines } from "./lines";
+import { initTooltip } from "./tooltip";
 
 declare function require(path: string) : any;
-let qpXslt = require('raw-loader!./qp.xslt');
+let qpXslt = require("raw-loader!./qp.xslt");
 
 interface Options {
     jsTooltips?: boolean

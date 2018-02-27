@@ -1,4 +1,4 @@
-import { findAncestor } from './utils'
+import { findAncestor } from "./utils"
 
 const TOOLTIP_TIMEOUT = 500;
 
@@ -11,7 +11,7 @@ function initTooltip(container: Element) {
     disableCssTooltips(container);
     trackMousePosition();
 
-    let nodes = container.querySelectorAll('.qp-node');
+    let nodes = container.querySelectorAll(".qp-node");
 
     for (let i = 0; i < nodes.length; i++) {
         let node = nodes[i];
@@ -49,8 +49,8 @@ function onMouseout(node: Element, event: MouseEvent) {
     // http://stackoverflow.com/questions/4697758/prevent-onmouseout-when-hovering-child-element-of-the-parent-absolute-div-withou
     let e = event.toElement || event.relatedTarget as Element;
     if (e == node ||
-        findAncestor(e, 'qp-node') == node ||
-        (currentTooltip != null && (e == currentTooltip || findAncestor(e, 'qp-tt') == currentTooltip))) {
+        findAncestor(e, "qp-node") == node ||
+        (currentTooltip != null && (e == currentTooltip || findAncestor(e, "qp-tt") == currentTooltip))) {
         return;
     }
     window.clearTimeout(timeoutId);
@@ -78,8 +78,8 @@ function showTooltip(node: Element) {
 
     currentTooltip = <HTMLElement>tooltip.cloneNode(true);
     document.body.appendChild(currentTooltip);
-    currentTooltip.style.left = cursorX + 'px';
-    currentTooltip.style.top = positionY + 'px';
+    currentTooltip.style.left = cursorX + "px";
+    currentTooltip.style.top = positionY + "px";
     currentTooltip.addEventListener("mouseout", function (event) {
         onMouseout(node, event);
     });

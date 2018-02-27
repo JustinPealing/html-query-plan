@@ -1,30 +1,30 @@
-import { assert } from 'chai';
-import { QpNode } from '../src/node';
-import * as QP from '../src/index';
-import * as helper from './helper';
-import { plan } from './plans';
+import { assert } from "chai";
+import { QpNode } from "../src/node";
+import * as QP from "../src/index";
+import * as helper from "./helper";
+import { plan } from "./plans";
 
-describe('QpNode', () => {
+describe("QpNode", () => {
 
-    describe('Constructor', () => {
+    describe("Constructor", () => {
 
-        it('Throws if element is null', () => {
+        it("Throws if element is null", () => {
 
             assert.throws(() => new QpNode(null));
 
         });
 
-        it('Throws if element is not .qp-node', () => {
+        it("Throws if element is not .qp-node", () => {
 
-            assert.throws(() => new QpNode(document.createElement('div')));
+            assert.throws(() => new QpNode(document.createElement("div")));
 
         });
 
     });
 
-    describe('children property', () => {
+    describe("children property", () => {
 
-        it('Is an array with one element for each child node', () => {
+        it("Is an array with one element for each child node", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
             assert.equal(3, helper.findNodeById(container, "0").children.length);
@@ -33,7 +33,7 @@ describe('QpNode', () => {
     
         });
 
-        it('Contains elements of type QpNode', () => {
+        it("Contains elements of type QpNode", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
             var child = helper.findNodeById(container, "0").children[0];
@@ -43,16 +43,16 @@ describe('QpNode', () => {
 
     });
 
-    describe('nodeId property', () => {
+    describe("nodeId property", () => {
 
-        it('gets the data-node-id attribute if present', () => {
+        it("gets the data-node-id attribute if present", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
-            assert.equal('3', helper.findNodeById(container, '3').nodeId);
+            assert.equal("3", helper.findNodeById(container, "3").nodeId);
             
         });
         
-        it('Returns null if the data-node-id is not present', () => {
+        it("Returns null if the data-node-id is not present", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
             assert.equal(null, helper.findStatement(container).nodeId);

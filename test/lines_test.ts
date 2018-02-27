@@ -1,11 +1,11 @@
-import { assert } from 'chai';
-import { arrowPath, thicknessesToOffsets } from '../src/lines';
+import { assert } from "chai";
+import { arrowPath, thicknessesToOffsets } from "../src/lines";
 
-describe('lines.ts', () => {
+describe("lines.ts", () => {
 
-    describe('thicknessesToOffsets', () => {
+    describe("thicknessesToOffsets", () => {
 
-        it('When gap is zero', () => {
+        it("When gap is zero", () => {
 
             let result = thicknessesToOffsets([2,4,4], 0);
             assert.equal(3, result.length);
@@ -15,7 +15,7 @@ describe('lines.ts', () => {
 
         });
 
-        it('When gap is positive', () => {
+        it("When gap is positive", () => {
 
             let result = thicknessesToOffsets([2,4,4], 2);
             assert.equal(3, result.length);
@@ -27,9 +27,9 @@ describe('lines.ts', () => {
 
     });
 
-    describe('lines.arrowPath', () => {
+    describe("lines.arrowPath", () => {
 
-        it('Returns an arrow path 12 segments long with a bend that starts and ends at `to`', () => {
+        it("Returns an arrow path 12 segments long with a bend that starts and ends at `to`", () => {
     
             let points:any = arrowPath({x:10,y:15}, {x:90,y:95}, 30, 2);
             assert.equal(12, points.length);
@@ -72,7 +72,7 @@ describe('lines.ts', () => {
     
         });
         
-        it('Returns a thicker arrow if width is larger', () => {
+        it("Returns a thicker arrow if width is larger", () => {
     
             let points:any = arrowPath({x:10,y:15}, {x:90,y:95}, 30, 8);
             assert.equal(12, points.length);

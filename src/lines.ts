@@ -1,5 +1,5 @@
-import * as SVG from 'svgjs';
-import { QpNode } from './node';
+import * as SVG from "svgjs";
+import { QpNode } from "./node";
 
 /**
  * Separation between each line, measured as the number of pixels between the bottom
@@ -18,7 +18,7 @@ function drawLines(container: Element) {
 
     let clientRect = root.getBoundingClientRect();
 
-    let nodes = root.querySelectorAll('.qp-node');
+    let nodes = root.querySelectorAll(".qp-node");
     for (let i = 0; i < nodes.length; i++) {
         drawLinesForParent(draw, clientRect, new QpNode(nodes[i]));
     }
@@ -114,8 +114,8 @@ function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: Qp
  */
 function drawArrow(draw: SVG.Doc, to: Point, from: Point, bendX: number, thickness: number) {
     let points: any = arrowPath(to, from, bendX, thickness);
-    draw.polyline(points).fill('#E3E3E3').stroke({
-        color: '#505050',
+    draw.polyline(points).fill("#E3E3E3").stroke({
+        color: "#505050",
         width: 0.5
     });
 }

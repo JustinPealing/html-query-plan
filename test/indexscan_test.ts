@@ -1,16 +1,16 @@
-import { assert } from 'chai';
-import * as QP from '../src/index';
-import * as helper from './helper';
-import { plan } from './plans';
+import { assert } from "chai";
+import * as QP from "../src/index";
+import * as helper from "./helper";
+import { plan } from "./plans";
 
-describe('IndexScan Nodes', () => {
+describe("IndexScan Nodes", () => {
 
     /*
      * If the s:IndexScan/s:Object/@IndexKind attribute is present then we should
      * append it to the node title in brackets, e..g. "Clustered Index Seek (Clustered)"
      * in both the node and the tooltip header.
      */
-    it('Has index kind appended when present', () => {
+    it("Has index kind appended when present", () => {
         
         let container = helper.showPlan(plan.adaptive_join);
         let indexSeek = helper.findNodeById(container, "7");
@@ -23,7 +23,7 @@ describe('IndexScan Nodes', () => {
      * If the s:IndexScan/s:Object/@IndexKind attribute is missing, the index kind
      * should not be shown (e.g. "Clustered Index Seek").
      */
-    it('Does not have index kind appended when not present', () => {
+    it("Does not have index kind appended when not present", () => {
 
         let container = helper.showPlan(plan.issue1);
         let clusteredIndexSeek = helper.findNodeById(container, "16");
@@ -36,7 +36,7 @@ describe('IndexScan Nodes', () => {
      * If the s:IndexScan/@Storage = "ColumnStore", then SSMS shows the node 
      * with the title "Columnstore Index Scan", ignoring the @PhysicalOp attribute
      */
-    it('Shows "Columnstore Index Scan" when @Storage = "ColumnStore"', () => {
+    it("Shows 'Columnstore Index Scan' when @Storage = 'ColumnStore'", () => {
 
         let container = helper.showPlan(plan.adaptive_join);
         let columnstoreIndexScan = helper.findNodeById(container, "2");
@@ -49,7 +49,7 @@ describe('IndexScan Nodes', () => {
      * SSMS special cases plans where s:IndexScan/@Lookup is "1" or "true" depending on the index
      * kind - a clustered index means a "Key Lookup", otherwise its a "RID Lookup".
      */
-    it('Shows "Key Lookup" if the @Lookup attribute is present and @IndexKind="Clustered"', () => {
+    it("Shows 'Key Lookup' if the @Lookup attribute is present and @IndexKind='Clustered'", () => {
 
         let container = helper.showPlan(plan.KeyLookup);
         let keyLookup = helper.findNodeById(container, "5");
@@ -61,7 +61,7 @@ describe('IndexScan Nodes', () => {
     /*
     * As above, but for non-clustered indexes.
     */
-    it('Shows "RID Lookup" if the @Lookup attribute is present and @IndexKind is not equal to "Clustered"', () => {
+    it("Shows 'RID Lookup' if the @Lookup attribute is present and @IndexKind is not equal to 'Clustered'", () => {
 
         let container = helper.showPlan(plan.rid_lookup);
         let ridLookup = helper.findNodeById(container, "3");

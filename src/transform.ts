@@ -21,7 +21,7 @@ function setContentsUsingXslt(container: Element, xml: string, xslt: string) {
         let xsltProcessor = new XSLTProcessor();
         xsltProcessor.importStylesheet(parser.parseFromString(xslt, "text/xml"));
         let result = xsltProcessor.transformToFragment(parser.parseFromString(xml, "text/xml"), document);
-        container.innerHTML = '';
+        container.innerHTML = "";
         container.appendChild(result);
     }
 }

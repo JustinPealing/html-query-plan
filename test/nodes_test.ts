@@ -73,4 +73,16 @@ describe("QpNode", () => {
 
     });
 
+    describe("relOpXml property", () => {
+
+        it("Returns the XML for the node RelOp", () => {
+
+            let container = helper.showPlan(plan.adaptive_join);
+            let xml = helper.findNodeById(container, "2").relOpXml;
+            assert.equal("0.0110168", xml.attributes["EstimateCPU"].value);
+
+        });
+
+    });
+
 });

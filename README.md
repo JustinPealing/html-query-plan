@@ -56,7 +56,7 @@ Should work just fine in any modern browser. Tested in Chrome, Firefox and IE9+.
 
 ## Icons
 
-The icons used are adapted from the Fat Cow "Farm Fresh" web icons pack, which can be found at (http://www.fatcow.com/free-icons).
+The icons used are adapted from the Fat Cow "Farm Fresh" web icons pack, which can be found at http://www.fatcow.com/free-icons.
 
 ## Building
 

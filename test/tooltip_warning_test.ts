@@ -11,7 +11,7 @@ describe("Tooltip Warnings Section", () => {
         let tableScan = helper.findNodeById(container, "0");
         assert.equal(null, helper.getToolTipSection(tableScan, "Warnings"));
 
-    })
+    });
 
     // TODO: Test when @NoJoinPredicate=true, and @NoJoinPredicate is missing
     it("Shows No Join Predicate when s:Warnings/@NoJoinPredicate=1", () => {
@@ -21,7 +21,7 @@ describe("Tooltip Warnings Section", () => {
         assert.equal("No Join Predicate",
             helper.getToolTipSection(nestedLoops, "Warnings"));
         
-    })
+    });
     
     it("Shows unmatched indexes", () => {
 
@@ -30,7 +30,7 @@ describe("Tooltip Warnings Section", () => {
         assert.equal("Unmatched index: [Test].[dbo].[SAMPLE_TABLE].[IX_SAMPLE_TABLE__ID_2]",
             helper.getToolTipSection(select, "Warnings"));
 
-    })
+    });
 
     it("Shows ColumnsWithNoStatistics warning", () => {
 
@@ -39,7 +39,7 @@ describe("Tooltip Warnings Section", () => {
         assert.equal("Columns With No Statistics: [mydb].[myschema].[TestTableA].TestTableB_Id",
             helper.getToolTipSection(indexScan, "Warnings"));
 
-    })
+    });
 
     it("Shows SpillToTempDb warning", () => {
 
@@ -48,7 +48,7 @@ describe("Tooltip Warnings Section", () => {
         let sort = helper.findNodeById(container, "2");
         assert.equal(true, helper.getToolTipSection(sort, "Warnings").indexOf(expected) >= 0);
 
-    })
+    });
 
     it("Shows Wait warning", () => {
 
@@ -57,7 +57,7 @@ describe("Tooltip Warnings Section", () => {
         let select = helper.findStatement(container, "1");
         assert.equal(true, helper.getToolTipSection(select, "Warnings").indexOf(expected) >= 0);
 
-    })
+    });
 
     it("Shows PlanAffectingConvert warning", () => {
 
@@ -66,7 +66,7 @@ describe("Tooltip Warnings Section", () => {
         let update = helper.findStatement(container, "12");
         assert.equal(true, helper.getToolTipSection(update, "Warnings").indexOf(expected) >= 0);
 
-    })
+    });
 
     it("Shows SortSpillDetails warning", () => {
 
@@ -75,7 +75,7 @@ describe("Tooltip Warnings Section", () => {
         let sort = helper.findNodeById(container, "2");
         assert.equal(true, helper.getToolTipSection(sort, "Warnings").indexOf(expected) >= 0);
 
-    })
+    });
 
     it("Shows MemoryGrantWarning warning", () => {
 
@@ -84,7 +84,7 @@ describe("Tooltip Warnings Section", () => {
         let select = helper.findStatement(container, "1");
         assert.equal(true, helper.getToolTipSection(select, "Warnings").indexOf(expected) >= 0);
 
-    })
+    });
 
     it("Shows HashSpillDetails warning", () => {
 
@@ -93,6 +93,6 @@ describe("Tooltip Warnings Section", () => {
         let hashMatch = helper.findNodeById(container, "2");
         assert.equal(true, helper.getToolTipSection(hashMatch, "Warnings").indexOf(expected) >= 0);
 
-    })
+    });
 
-})
+});

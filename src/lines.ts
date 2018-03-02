@@ -57,6 +57,24 @@ function thicknessesToOffsets(thicknesses: Array<number>, gap: number): Array<nu
 }
 
 /**
+ * Works out how thick a line should be for a node.
+ * @param node Node to work out the line thickness for.
+ */
+function nodeToThickness(node: QpNode): number {
+    if (node.relOpXml != null) {
+        let rows = parseFloat(node.relOpXml.attributes["EstimateRows"].value);
+        if (rows <= 10) {
+            return 1;
+        } else if (rows <= 100000) {
+            return 9;
+        } else {
+            return 10;
+        }
+    }
+    return 2;
+}
+
+/**
  * Enumerates all child nodes and draws line from those nodes to the given parent node.
  * @param draw SVG drawing context to use.
  * @param clientRect Bounding client rect of the root SVG context.
@@ -64,8 +82,7 @@ function thicknessesToOffsets(thicknesses: Array<number>, gap: number): Array<nu
  */
 function drawLinesForParent(draw: SVG.Doc, clientRect: ClientRect, parent: QpNode) {
     let children = parent.children;
-    // All lines have the same thickness for now
-    let thicknesses = children.map(c => 2);
+    let thicknesses = children.map(nodeToThickness);
     let padding = thicknesses.reduce((a, b) => a + b, 0) + lineSeparation * (children.length -1);
     addPaddingForParent(parent, padding);
     let offsets = thicknessesToOffsets(thicknesses, lineSeparation);
@@ -145,4 +162,4 @@ function arrowPath(to: Point, from: Point, bendX: number, thickness: number) {
     ];
 }
 
-export { drawLines, arrowPath, thicknessesToOffsets }
+export { drawLines, arrowPath, thicknessesToOffsets, nodeToThickness }

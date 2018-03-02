@@ -16,8 +16,8 @@ function showPlan(container: Element, planXml: string, options?: Options) {
     });
 
     xml.setContentsUsingXslt(container, planXml, qpXslt);
-    drawLines(container);
     container["xml"] = new DOMParser().parseFromString(planXml, "text/xml");
+    drawLines(container);
 
     if (options.jsTooltips) {
         initTooltip(container);

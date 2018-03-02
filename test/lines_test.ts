@@ -1,5 +1,14 @@
 import { assert } from "chai";
-import { arrowPath, thicknessesToOffsets } from "../src/lines";
+import { arrowPath, thicknessesToOffsets, nodeToThickness } from "../src/lines";
+import { QpNode } from "../src";
+
+function xmlToNode(xml: string): QpNode {
+    let parser = new DOMParser();
+    return {
+        children: null, element: null, nodeId: null, queryPlan: null,
+        relOpXml: parser.parseFromString(xml, "text/xml").documentElement
+    };
+}
 
 describe("lines.ts", () => {
 
@@ -117,4 +126,15 @@ describe("lines.ts", () => {
     
     });
 
-})
+    describe("nodeToThickness", () => {
+
+        it("Returns the node thickness based on the estimated numbr of rows", () => {
+
+            assert.equal(1, nodeToThickness(xmlToNode("<RelOp EstimateRows='10' />")));
+            assert.equal(9, nodeToThickness(xmlToNode("<RelOp EstimateRows='100000' />")));
+
+        });
+
+    });
+
+});

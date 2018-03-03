@@ -84,5 +84,27 @@ describe("QpNode", () => {
         });
 
     });
+    
+    describe("actualRows property", () => {
+
+        it("Returns a sum of @ActualRows from runtime information", () => {
+
+            let adaptiveJoin = helper.showPlan(plan.adaptive_join);
+            assert.equal(0, helper.findNodeById(adaptiveJoin, "3").actualRows);
+            assert.equal(10, helper.findNodeById(adaptiveJoin, "2").actualRows);
+
+            let batchMode = helper.showPlan(plan.batchMode);
+            assert.equal(10000000, helper.findNodeById(batchMode, "1").actualRows);
+
+        });
+
+        it("Returns null if there is no runtime information", () => {
+
+            let adaptiveJoin = helper.showPlan(plan.adaptive_join_estimated);
+            assert.equal(null, helper.findNodeById(adaptiveJoin, "3").actualRows);
+
+        });
+
+    });
 
 });

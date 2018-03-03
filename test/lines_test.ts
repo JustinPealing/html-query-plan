@@ -5,7 +5,7 @@ import { QpNode } from "../src";
 function xmlToNode(xml: string): QpNode {
     let parser = new DOMParser();
     return {
-        children: null, element: null, nodeId: null, queryPlan: null,
+        children: null, element: null, nodeId: null, queryPlan: null, actualRows: null,
         relOpXml: parser.parseFromString(xml, "text/xml").documentElement
     };
 }

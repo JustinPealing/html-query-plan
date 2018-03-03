@@ -1,5 +1,15 @@
 import { findAncestor } from "./utils";
 
+function find(nodes, type: string) {
+    let returnValue = [];
+    for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].nodeName === type) {
+            returnValue.push(nodes[i]);
+        }
+    }
+    return returnValue;
+}
+
 /**
  * Wraps a node in a query plan.
  */
@@ -44,6 +54,18 @@ class QpNode {
             }
         }
         return null;
+    }
+
+    /**
+     * Gets the actual number of nodes returned by the operation.
+     */
+    get actualRows(): number {
+        let runtimeInformation = find(this.relOpXml.childNodes, "RunTimeInformation");
+        if (runtimeInformation.length == 0) {
+            return null;
+        }
+        let runtimeCounters = find(runtimeInformation[0].childNodes, "RunTimeCountersPerThread");
+        return runtimeCounters.reduce((a, b) => a + parseFloat(b.attributes["ActualRows"].value), 0);
     }
 }
 

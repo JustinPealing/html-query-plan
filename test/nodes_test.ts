@@ -100,8 +100,19 @@ describe("QpNode", () => {
 
         it("Returns null if there is no runtime information", () => {
 
-            let adaptiveJoin = helper.showPlan(plan.adaptive_join_estimated);
-            assert.equal(null, helper.findNodeById(adaptiveJoin, "3").actualRows);
+            let container = helper.showPlan(plan.adaptive_join_estimated);
+            assert.equal(null, helper.findNodeById(container, "3").actualRows);
+
+        });
+
+    });
+
+    describe("estimateRows property", () => {
+
+        it("Returns the estimated number of rows", () => {
+
+            let container = helper.showPlan(plan.adaptive_join_estimated);
+            assert.equal(1.0001, helper.findNodeById(container, "7").estimateRows);
 
         });
 

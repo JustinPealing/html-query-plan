@@ -61,17 +61,14 @@ function thicknessesToOffsets(thicknesses: Array<number>, gap: number): Array<nu
  * @param node Node to work out the line thickness for.
  */
 function nodeToThickness(node: QpNode): number {
-    if (node.relOpXml != null) {
-        let rows = parseFloat(node.relOpXml.attributes["EstimateRows"].value);
-        if (rows <= 10) {
-            return 1;
-        } else if (rows <= 100000) {
-            return 9;
-        } else {
-            return 10;
-        }
+    let rows = node.actualRows == null ? node.estimateRows : node.actualRows;
+    if (rows <= 10) {
+        return 1;
+    } else if (rows <= 100000) {
+        return 9;
+    } else {
+        return 10;
     }
-    return 2;
 }
 
 /**

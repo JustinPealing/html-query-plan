@@ -60,13 +60,16 @@ class QpNode {
      * Gets the estimated number of nodes returned by the operation.
      */
     get estimateRows(): number {
-        return parseFloat(this.relOpXml.attributes["EstimateRows"].value);
+        return this.relOpXml ? parseFloat(this.relOpXml.attributes["EstimateRows"].value) : null;
     }
 
     /**
      * Gets the actual number of nodes returned by the operation.
      */
     get actualRows(): number {
+        if (!this.relOpXml) {
+            return null;
+        }
         let runtimeInformation = find(this.relOpXml.childNodes, "RunTimeInformation");
         if (runtimeInformation.length == 0) {
             return null;

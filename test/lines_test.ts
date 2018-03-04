@@ -2,11 +2,12 @@ import { assert } from "chai";
 import { arrowPath, thicknessesToOffsets, nodeToThickness } from "../src/lines";
 import { QpNode } from "../src";
 
-function xmlToNode(xml: string): QpNode {
+function qpNode(xml?: string, estimateRows?: number, actualRows?: number): QpNode {
     let parser = new DOMParser();
     return {
-        children: null, element: null, nodeId: null, queryPlan: null, actualRows: null, estimateRows: null,
-        relOpXml: parser.parseFromString(xml, "text/xml").documentElement
+        children: null, element: null, nodeId: null, queryPlan: null,
+        actualRows: actualRows, estimateRows: estimateRows,
+        relOpXml: xml ? parser.parseFromString(xml, "text/xml").documentElement : null
     };
 }
 
@@ -130,8 +131,15 @@ describe("lines.ts", () => {
 
         it("Returns the node thickness based on the estimated numbr of rows", () => {
 
-            assert.equal(1, nodeToThickness(xmlToNode("<RelOp EstimateRows='10' />")));
-            assert.equal(9, nodeToThickness(xmlToNode("<RelOp EstimateRows='100000' />")));
+            assert.equal(1, nodeToThickness(qpNode(null, 10)));
+            assert.equal(9, nodeToThickness(qpNode(null, 100000)));
+
+        });
+
+        it("Uses the actual number of rows if present", () => {
+
+            assert.equal(1, nodeToThickness(qpNode(null, 100000, 10)));
+            assert.equal(1, nodeToThickness(qpNode(null, 100000, 0)));
 
         });
 

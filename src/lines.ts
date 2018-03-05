@@ -62,13 +62,7 @@ function thicknessesToOffsets(thicknesses: Array<number>, gap: number): Array<nu
  */
 function nodeToThickness(node: QpNode): number {
     let rows = node.actualRows == null ? node.estimateRows : node.actualRows;
-    if (rows <= 10) {
-        return 1;
-    } else if (rows <= 100000) {
-        return 9;
-    } else {
-        return 10;
-    }
+    return Math.max(1, Math.min(Math.floor(Math.log(rows > 0 ? rows : 1)), 12));
 }
 
 /**

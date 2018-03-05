@@ -131,14 +131,20 @@ describe("lines.ts", () => {
 
         it("Returns the node thickness based on the estimated numbr of rows", () => {
 
-            assert.equal(1, nodeToThickness(qpNode(null, 10)));
-            assert.equal(9, nodeToThickness(qpNode(null, 100000)));
-
+            assert.equal(2,  nodeToThickness(qpNode(null, 10)));
+            assert.equal(4,  nodeToThickness(qpNode(null, 100)));
+            assert.equal(6,  nodeToThickness(qpNode(null, 500)));
+            assert.equal(6,  nodeToThickness(qpNode(null, 1000)));
+            assert.equal(8,  nodeToThickness(qpNode(null, 5000)));
+            assert.equal(9,  nodeToThickness(qpNode(null, 10000)));
+            assert.equal(11,  nodeToThickness(qpNode(null, 100000)));
+            assert.equal(12, nodeToThickness(qpNode(null, 10000000)));
+            
         });
 
         it("Uses the actual number of rows if present", () => {
 
-            assert.equal(1, nodeToThickness(qpNode(null, 100000, 10)));
+            assert.equal(2, nodeToThickness(qpNode(null, 100000, 10)));
             assert.equal(1, nodeToThickness(qpNode(null, 100000, 0)));
 
         });

@@ -288,6 +288,22 @@ describe("qp.js", () => {
 
             });
 
+            it("Is shown even if zero", () => {
+
+                let container = helper.showPlan(plan.adaptive_join);
+                let indexSeek = helper.findNodeById(container, "4");
+                assert.equal("0", helper.getProperty(indexSeek, "Actual Number of Rows"));
+
+            });
+
+            it("Is not shown for estimated plans", () => {
+
+                let container = helper.showPlan(plan.adaptive_join_estimated);
+                let indexSeek = helper.findNodeById(container, "4");
+                assert.equal(null, helper.getProperty(indexSeek, "Actual Number of Rows"));
+
+            });
+
         });
         
         describe("Tooltip Order By", () => {

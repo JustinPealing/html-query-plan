@@ -60,7 +60,7 @@ The icons used are adapted from the Fat Cow "Farm Fresh" web icons pack, which c
 
 ## Building
 
-Run the following commands to output minified and unminified versions (on Windows):
+Run the following commands on Windows to output minified and unminified versions in the `dist` folder:
 
     npm run webpack
     set NODE_ENV=production

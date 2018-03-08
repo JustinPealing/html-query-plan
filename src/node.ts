@@ -59,7 +59,7 @@ class QpNode {
     /**
      * Gets the estimated number of nodes returned by the operation.
      */
-    get estimateRows(): number {
+    get estimatedRows(): number {
         return this.relOpXml ? parseFloat(this.relOpXml.attributes["EstimateRows"].value) : null;
     }
 

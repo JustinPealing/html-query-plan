@@ -112,7 +112,7 @@ describe("QpNode", () => {
         it("Returns the estimated number of rows", () => {
 
             let container = helper.showPlan(plan.adaptive_join_estimated);
-            assert.equal(1.0001, helper.findNodeById(container, "7").estimateRows);
+            assert.equal(1.0001, helper.findNodeById(container, "7").estimatedRows);
 
         });
 

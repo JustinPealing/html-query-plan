@@ -61,7 +61,7 @@ function thicknessesToOffsets(thicknesses: Array<number>, gap: number): Array<nu
  * @param node Node to work out the line thickness for.
  */
 function nodeToThickness(node: QpNode): number {
-    let rows = node.actualRows == null ? node.estimateRows : node.actualRows;
+    let rows = node.actualRows == null ? node.estimatedRows : node.actualRows;
     return Math.max(1, Math.min(Math.floor(Math.log(rows > 0 ? rows : 1)), 12));
 }
 

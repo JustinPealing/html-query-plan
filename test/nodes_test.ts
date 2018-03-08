@@ -118,4 +118,19 @@ describe("QpNode", () => {
 
     });
 
+    describe("estimatedRowSize property", () => {
+
+        it("Returns the estimated row size in bytes", () => {
+
+            let container = helper.showPlan(plan.adaptive_join_estimated);
+            assert.equal(11, helper.findNodeById(container, "0").estimatestimatedRowSize);
+            assert.equal(15, helper.findNodeById(container, "2").estimatestimatedRowSize);
+            assert.equal(11, helper.findNodeById(container, "3").estimatestimatedRowSize);
+            assert.equal(11, helper.findNodeById(container, "4").estimatestimatedRowSize);
+            assert.equal(9, helper.findNodeById(container, "7").estimatestimatedRowSize);
+
+        });
+
+    });
+
 });

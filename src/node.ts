@@ -64,6 +64,13 @@ class QpNode {
     }
 
     /**
+     * Gets the estimated row size in bytes.
+     */
+    get estimatestimatedRowSize(): number {
+        return parseInt(this.relOpXml.attributes["AvgRowSize"].value);
+    }
+
+    /**
      * Gets the actual number of nodes returned by the operation.
      */
     get actualRows(): number {

@@ -71,6 +71,13 @@ class QpNode {
     }
 
     /**
+     * Gets the estimated total size of the data.
+     */
+    get estimatedDataSize(): number {
+        return Math.round(this.estimatestimatedRowSize * this.estimatedRows);
+    }
+
+    /**
      * Gets the actual number of nodes returned by the operation.
      */
     get actualRows(): number {

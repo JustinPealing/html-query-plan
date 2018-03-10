@@ -8,6 +8,7 @@ function qpNode(xml?: string, estimateRows?: number, actualRows?: number): QpNod
         children: null, element: null, nodeId: null, queryPlan: null,
         actualRows: actualRows, actualRowsRead: null,
         estimatedRows: estimateRows, estimatestimatedRowSize: null, estimatedDataSize: null,
+        runtimeCountersPerThread: [],
         relOpXml: xml ? parser.parseFromString(xml, "text/xml").documentElement : null
     };
 }

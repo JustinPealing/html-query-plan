@@ -85,6 +85,30 @@ describe("QpNode", () => {
 
     });
     
+    describe("runtimeCountersPerThread property", () => {
+
+        it("Returns empty array if RunTimeInformation is missing", () => {
+
+            let container = helper.showPlan(plan.adaptive_join_estimated);
+            assert.equal(0, helper.findNodeById(container, "3").runtimeCountersPerThread.length);
+
+        });
+
+        it("Returns an element for each RunTimeInformation", () => {
+
+            let container = helper.showPlan(plan.acceptedAnswerPercentage);
+            let streamAggregate = helper.findNodeById(container, "6");
+            assert.equal(9, streamAggregate.runtimeCountersPerThread.length);
+            assert.equal("1", streamAggregate.runtimeCountersPerThread[0].attributes["Thread"].value)
+            assert.equal("3", streamAggregate.runtimeCountersPerThread[1].attributes["Thread"].value)
+            assert.equal("4", streamAggregate.runtimeCountersPerThread[2].attributes["Thread"].value)
+            assert.equal("5", streamAggregate.runtimeCountersPerThread[3].attributes["Thread"].value)
+            assert.equal("7", streamAggregate.runtimeCountersPerThread[4].attributes["Thread"].value)
+
+        });
+
+    });
+
     describe("actualRows property", () => {
 
         it("Returns a sum of @ActualRows from runtime information", () => {

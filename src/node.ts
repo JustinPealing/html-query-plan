@@ -78,36 +78,34 @@ class QpNode {
     }
 
     /**
-     * Gets the actual number of rows returned by the operation.
+     * Gets an array of the RunTimeCountersPerThread elements for the RelOp, or returns an empty array if the
+     * RunTimeInformation is not present.
      */
-    get actualRows(): number {
+    get runtimeCountersPerThread(): Element[] {
         if (!this.relOpXml) {
-            return null;
+            return [];
         }
         let runtimeInformation = find(this.relOpXml.childNodes, "RunTimeInformation");
         if (runtimeInformation.length == 0) {
-            return null;
+            return [];
         }
-        let runtimeCounters = find(runtimeInformation[0].childNodes, "RunTimeCountersPerThread");
-        return runtimeCounters.reduce((a, b) => a + parseFloat(b.attributes["ActualRows"].value), 0);
+        return find(runtimeInformation[0].childNodes, "RunTimeCountersPerThread");
+    }
+
+    /**
+     * Gets the actual number of rows returned by the operation.
+     */
+    get actualRows(): number {
+        return this.runtimeCountersPerThread.length == 0 ? null
+            : this.runtimeCountersPerThread.reduce((a, b) => a + parseFloat(b.attributes["ActualRows"].value), 0);
     }
 
     /**
      * Gets the actual number of rows read.
      */
     get actualRowsRead(): number {
-        if (!this.relOpXml) {
-            return null;
-        }
-        let runtimeInformation = find(this.relOpXml.childNodes, "RunTimeInformation");
-        if (runtimeInformation.length == 0) {
-            return null;
-        }
-        let runtimeCounters = find(runtimeInformation[0].childNodes, "RunTimeCountersPerThread");
-        if (runtimeCounters.length == 0 || !runtimeCounters[0].attributes["ActualRowsRead"]) {
-            return null;
-        }
-        return runtimeCounters.reduce((a, b) => a + parseFloat(b.attributes["ActualRowsRead"].value), 0);
+        return this.runtimeCountersPerThread.length == 0 || !this.runtimeCountersPerThread[0].attributes["ActualRowsRead"] ? null
+            : this.runtimeCountersPerThread.reduce((a, b) => a + parseFloat(b.attributes["ActualRowsRead"].value), 0);
     }
 }
 

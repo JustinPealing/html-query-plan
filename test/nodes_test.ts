@@ -106,6 +106,31 @@ describe("QpNode", () => {
         });
 
     });
+    
+    describe("actualRowsRead property", () => {
+
+        it("Returns a sum of @ActualRowsRead from runtime information", () => {
+
+            let adaptiveJoin = helper.showPlan(plan.adaptive_join);
+            assert.equal(10, helper.findNodeById(adaptiveJoin, "7").actualRowsRead);
+
+        });
+
+        it("Returns null if there is no runtime information", () => {
+
+            let container = helper.showPlan(plan.adaptive_join_estimated);
+            assert.equal(null, helper.findNodeById(container, "3").actualRowsRead);
+
+        });
+
+        it("Returns null if @ActualRowsRead is missing", () => {
+
+            let container = helper.showPlan(plan.adaptive_join);
+            assert.equal(null, helper.findNodeById(container, "2").actualRowsRead);
+
+        });
+
+    });
 
     describe("estimateRows property", () => {
 

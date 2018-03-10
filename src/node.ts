@@ -78,7 +78,7 @@ class QpNode {
     }
 
     /**
-     * Gets the actual number of nodes returned by the operation.
+     * Gets the actual number of rows returned by the operation.
      */
     get actualRows(): number {
         if (!this.relOpXml) {
@@ -90,6 +90,24 @@ class QpNode {
         }
         let runtimeCounters = find(runtimeInformation[0].childNodes, "RunTimeCountersPerThread");
         return runtimeCounters.reduce((a, b) => a + parseFloat(b.attributes["ActualRows"].value), 0);
+    }
+
+    /**
+     * Gets the actual number of rows read.
+     */
+    get actualRowsRead(): number {
+        if (!this.relOpXml) {
+            return null;
+        }
+        let runtimeInformation = find(this.relOpXml.childNodes, "RunTimeInformation");
+        if (runtimeInformation.length == 0) {
+            return null;
+        }
+        let runtimeCounters = find(runtimeInformation[0].childNodes, "RunTimeCountersPerThread");
+        if (runtimeCounters.length == 0 || !runtimeCounters[0].attributes["ActualRowsRead"]) {
+            return null;
+        }
+        return runtimeCounters.reduce((a, b) => a + parseFloat(b.attributes["ActualRowsRead"].value), 0);
     }
 }
 

@@ -6,7 +6,8 @@ function qpNode(xml?: string, estimateRows?: number, actualRows?: number): QpNod
     let parser = new DOMParser();
     return {
         children: null, element: null, nodeId: null, queryPlan: null,
-        actualRows: actualRows, estimatedRows: estimateRows, estimatestimatedRowSize: null, estimatedDataSize: null,
+        actualRows: actualRows, actualRowsRead: null,
+        estimatedRows: estimateRows, estimatestimatedRowSize: null, estimatedDataSize: null,
         relOpXml: xml ? parser.parseFromString(xml, "text/xml").documentElement : null
     };
 }

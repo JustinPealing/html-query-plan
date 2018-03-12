@@ -2,8 +2,11 @@ import { findAncestor } from "./utils"
 
 const TOOLTIP_TIMEOUT = 500;
 
+// ID of the timeout used to delay showing the tooltip on mouseover.
 let timeoutId: number = null;
+// The currently visible tooltip, if one is shown; Otherwise, null.
 let currentTooltip: HTMLElement = null;
+// X & Y coordinates of the mouse cursor
 let cursorX: number = 0;
 let cursorY: number = 0;
 
@@ -41,7 +44,8 @@ function onMouseover(node: Element) {
         return;
     }
     timeoutId = window.setTimeout( () => {
-        showTooltip(node);
+        let tooltip = <HTMLElement>node.querySelector(".qp-tt").cloneNode(true);
+        showTooltip(node, tooltip);
     }, TOOLTIP_TIMEOUT);
 }
 
@@ -58,11 +62,10 @@ function onMouseout(node: Element, event: MouseEvent) {
     hideTooltip();
 }
 
-function showTooltip(node: Element) {
+function showTooltip(node: Element, tooltip: HTMLElement) {
     hideTooltip();
     
     let positionY = cursorY;
-    let tooltip = <HTMLElement>node.querySelector(".qp-tt");
 
     // Nudge the tooptip up if its going to appear below the bottom of the page
     let documentHeight = getDocumentHeight();
@@ -76,7 +79,7 @@ function showTooltip(node: Element) {
         positionY = 10;
     }
 
-    currentTooltip = <HTMLElement>tooltip.cloneNode(true);
+    currentTooltip = tooltip;
     document.body.appendChild(currentTooltip);
     currentTooltip.style.left = cursorX + "px";
     currentTooltip.style.top = positionY + "px";

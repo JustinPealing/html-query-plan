@@ -23,7 +23,8 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome', 'Firefox', 'IE', 'IE9'],
+    browsers: ['Chrome', 'Firefox'],
+    //browsers: ['Chrome', 'Firefox', 'IE', 'IE9'],
     customLaunchers: {
       IE9: {
         base: 'IE',

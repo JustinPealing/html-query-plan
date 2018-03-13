@@ -1,4 +1,4 @@
-import { findAncestor } from "./utils"
+import { findAncestor, findAncestorP } from "./utils"
 
 const TOOLTIP_TIMEOUT = 500;
 
@@ -52,11 +52,13 @@ function onMouseover(node: Element) {
 function onMouseout(node: Element, event: MouseEvent) {
     // http://stackoverflow.com/questions/4697758/prevent-onmouseout-when-hovering-child-element-of-the-parent-absolute-div-withou
     let e = event.toElement || event.relatedTarget as Element;
-    if (e == node ||
-        findAncestor(e, "qp-node") == node ||
-        (currentTooltip != null && (e == currentTooltip || findAncestor(e, "qp-tt") == currentTooltip))) {
-        return;
-    }
+    // If the element currently under the mouse is still the node, don't hide the tooltip
+    if (e == node || e == currentTooltip) return;
+    // If the mouse hovers over child elements (e.g. the text in the tooltip or the text / icons in the node) then a mouseoout
+    // event is raised even though the mouse is still contained inside the node / tooltip. Search ancestors and don't hide the
+    // tooltip if this is the case
+    if (findAncestorP(e, x => x == node)) return;
+    if (findAncestorP(e, x => x == currentTooltip)) return;
     window.clearTimeout(timeoutId);
     timeoutId = null;
     hideTooltip();

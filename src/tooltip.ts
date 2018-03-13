@@ -15,16 +15,14 @@ function initTooltip(container: Element) {
     trackMousePosition();
 
     let nodes = container.querySelectorAll(".qp-node");
-
     for (let i = 0; i < nodes.length; i++) {
-        let node = nodes[i];
-        node.addEventListener("mouseover", () => {
-            onMouseover(node);
-        });
-        node.addEventListener("mouseout", (event: MouseEvent) => {
-            onMouseout(node, event);
-        });
+        addTooltip(nodes[i], e => <HTMLElement>e.querySelector(".qp-tt").cloneNode(true));
     }
+}
+
+function addTooltip(node: Element, createTooltip: (e: Element) => HTMLElement) {
+    node.addEventListener("mouseover", () => onMouseover(node, createTooltip));
+    node.addEventListener("mouseout", (event: MouseEvent) => onMouseout(node, event));
 }
 
 function disableCssTooltips(container: Element) {
@@ -33,20 +31,15 @@ function disableCssTooltips(container: Element) {
 }
 
 function trackMousePosition() {
-    document.onmousemove = function(e){
+    document.onmousemove = e => {
         cursorX = e.pageX;
         cursorY = e.pageY;
     }
 }
 
-function onMouseover(node: Element) {
-    if (timeoutId != null) {
-        return;
-    }
-    timeoutId = window.setTimeout( () => {
-        let tooltip = <HTMLElement>node.querySelector(".qp-tt").cloneNode(true);
-        showTooltip(node, tooltip);
-    }, TOOLTIP_TIMEOUT);
+function onMouseover(node: Element, createTooltip: (e: Element) => HTMLElement) {
+    if (timeoutId != null) return;
+    timeoutId = window.setTimeout(() => showTooltip(node, createTooltip(node)), TOOLTIP_TIMEOUT);
 }
 
 function onMouseout(node: Element, event: MouseEvent) {

@@ -12,7 +12,7 @@ function findAncestor(element: Element, className: string) {
  * @param element Element to search.
  * @param predicate Predicate for the ancestor to find.
  */
-function findAncestorP(element: Element, predicate: ((e:Element) => boolean)) {
+function findAncestorP(element: Element, predicate: (e: Element) => boolean) {
     if (element === null) {
         return null;
     }

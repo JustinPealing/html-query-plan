@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { QpNode } from "../src/node";
+import { QpNode, QpLine } from "../src/node";
 import * as QP from "../src/index";
 import * as helper from "./helper";
 import { plan } from "./plans";
@@ -192,6 +192,26 @@ describe("QpNode", () => {
             assert.equal(110, helper.findNodeById(container, "3").estimatedDataSize);
             assert.equal(1100000, helper.findNodeById(container, "4").estimatedDataSize);
             assert.equal(9, helper.findNodeById(container, "7").estimatedDataSize);
+
+        });
+
+    });
+
+});
+
+describe("QpLine", () => {
+
+    describe("Constructor", () => {
+
+        it("Throws if element is null", () => {
+
+            assert.throws(() => new QpLine(null));
+
+        });
+
+        it("Throws if element is not polyline", () => {
+
+            assert.throws(() => new QpLine(document.createElement("div")));
 
         });
 

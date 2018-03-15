@@ -14,7 +14,7 @@ function find(nodes, type: string) {
  * Wraps a node in a query plan.
  */
 class QpNode {
-    constructor (readonly element:Element) {
+    constructor (readonly element: Element) {
         if (!this.element) throw new Error("element cannot be null");
         if (this.element.className != "qp-node") throw new Error("element must have class qp-node");
     }
@@ -109,4 +109,14 @@ class QpNode {
     }
 }
 
-export { QpNode }
+/**
+ * Wraps a polyline element in a query plan.
+ */
+class QpLine {
+    constructor (readonly element: Element) {
+        if (!this.element) throw new Error("element cannot be null");
+        if (this.element.className != "qp-node") throw new Error("element must have class qp-node");
+    }
+}
+
+export { QpNode, QpLine }

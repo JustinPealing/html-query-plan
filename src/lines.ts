@@ -110,7 +110,7 @@ function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: Qp
         y: fromY - clientRect.top
     };
     let bendOffsetX = midOffsetLeft - clientRect.left - offset;
-    drawArrow(draw, toPoint, fromPoint, bendOffsetX, thickness);
+    drawArrow(draw, toPoint, fromPoint, bendOffsetX, thickness, child.nodeId);
 }
 
 /**
@@ -119,13 +119,13 @@ function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: Qp
  * @param from {x,y} coordinates of tail (flat) end.
  * @param to {x,y} coordinates of the arrowhead (pointy) end.
  * @param bendX Offset from toPoint at which the "bend" should happen. (X axis).
+ * @param nodeId Value to use for the data-node-id attribute used to identify the node to which this arrow belongs.
  */
-function drawArrow(draw: SVG.Doc, to: Point, from: Point, bendX: number, thickness: number) {
+function drawArrow(draw: SVG.Doc, to: Point, from: Point, bendX: number, thickness: number, nodeId: string) {
     let points: any = arrowPath(to, from, bendX, thickness);
-    draw.polyline(points).fill("#E3E3E3").stroke({
-        color: "#505050",
-        width: 0.5
-    });
+    draw.polyline(points)
+        .fill("#E3E3E3").stroke({color: "#505050", width: 0.5})
+        .data("node-id", nodeId);
 }
 
 /**

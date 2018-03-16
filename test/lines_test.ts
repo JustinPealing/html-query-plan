@@ -1,6 +1,8 @@
 import { assert } from "chai";
 import { arrowPath, thicknessesToOffsets, nodeToThickness } from "../src/lines";
 import { QpNode } from "../src";
+import * as helper from "./helper";
+import { plan } from "./plans";
 
 function qpNode(xml?: string, estimateRows?: number, actualRows?: number): QpNode {
     let parser = new DOMParser();
@@ -148,6 +150,21 @@ describe("lines.ts", () => {
 
             assert.equal(2, nodeToThickness(qpNode(null, 100000, 10)));
             assert.equal(1, nodeToThickness(qpNode(null, 100000, 0)));
+
+        });
+
+    });
+
+    describe("Drawn lines", () => {
+
+        it("Has a data-node-id attribute", () => {
+
+            let container = helper.showPlan(plan.adaptive_join_estimated);
+            assert.notEqual(null, container.querySelector("polyline[data-node-id='0']"))
+            assert.notEqual(null, container.querySelector("polyline[data-node-id='2']"))
+            assert.notEqual(null, container.querySelector("polyline[data-node-id='3']"))
+            assert.notEqual(null, container.querySelector("polyline[data-node-id='4']"))
+            assert.notEqual(null, container.querySelector("polyline[data-node-id='7']"))
 
         });
 

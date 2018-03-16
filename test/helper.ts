@@ -1,5 +1,5 @@
 import * as QP from "../src/index";
-import { QpNode } from "../src/node";
+import { QpNode, QpLine } from "../src/node";
 
 function findNodeById(container: Element, nodeId: string, statementId?: string): QpNode {
     let statmentElement = findStatmentElementById(container, statementId);
@@ -10,6 +10,13 @@ function findNodeById(container: Element, nodeId: string, statementId?: string):
             return node;
         }
     }
+}
+
+function findLineById(container: Element, nodeId: string, statementId?: string): QpLine {
+    let polyline = statementId
+        ? container.querySelector(`polyline[data-node-id="${nodeId}"][data-statement-id="${statementId}"]`)
+        : container.querySelector(`polyline[data-node-id="${nodeId}"]`);
+    return new QpLine(polyline);
 }
 
 function findStatement(container: Element, statementId?: string): QpNode {

@@ -1,4 +1,4 @@
-import { findAncestor } from "./utils";
+import { findAncestor, findAncestorP } from "./utils";
 
 function find(nodes, type: string) {
     let returnValue = [];
@@ -33,6 +33,14 @@ class QpNode {
     get nodeId(): string {
         let nodeId = this.element.attributes["data-node-id"];
         return nodeId && nodeId.value;
+    }
+
+    /**
+     * Gets the statement ID of the node.
+     */
+    get statementId(): string {
+        let statement = findAncestorP(this.element, e => e.hasAttribute("data-statement-id"));
+        return statement.attributes["data-statement-id"].value;
     }
 
     /**

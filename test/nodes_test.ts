@@ -60,6 +60,19 @@ describe("QpNode", () => {
         });
         
     });
+
+    describe("statementId property", () => {
+
+        it("Returns the statement ID of the node", () => {
+
+            let container = helper.showPlan(plan.issue7);
+            assert.equal("6", helper.findNodeById(container, "4", "6").statementId);
+            // This is a conditional node where one statement is nested inside another
+            assert.equal("16", helper.findNodeById(container, "2", "15").statementId);
+
+        });
+
+    });
     
     describe("queryPlan property", () => {
 

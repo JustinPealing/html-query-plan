@@ -7,7 +7,7 @@ import { plan } from "./plans";
 function qpNode(xml?: string, estimateRows?: number, actualRows?: number): QpNode {
     let parser = new DOMParser();
     return {
-        children: null, element: null, nodeId: null, queryPlan: null,
+        children: null, element: null, nodeId: null, statementId: null, queryPlan: null,
         actualRows: actualRows, actualRowsRead: null,
         estimatedRows: estimateRows, estimatestimatedRowSize: null, estimatedDataSize: null,
         runtimeCountersPerThread: [],
@@ -165,6 +165,13 @@ describe("lines.ts", () => {
             assert.notEqual(null, container.querySelector("polyline[data-node-id='3']"))
             assert.notEqual(null, container.querySelector("polyline[data-node-id='4']"))
             assert.notEqual(null, container.querySelector("polyline[data-node-id='7']"))
+
+        });
+
+        it("Has a data-statement-id attribute", () => {
+
+            let container = helper.showPlan(plan.issue7);
+            assert.notEqual(null, container.querySelector("polyline[data-node-id='2'][data-statement-id='16']"))
 
         });
 

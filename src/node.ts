@@ -87,7 +87,8 @@ class Node {
     }
 
     /**
-     * Gets the NodeID.
+     * Gets the NodeID for the wrapped query plan node, or returns null if the node doesn't have a node ID (e.g.
+     * if its a top-level statement).
      */
     get nodeId(): string {
         let nodeId = this.element.attributes["data-node-id"];
@@ -137,7 +138,16 @@ class Node {
 class Line {
     constructor (readonly element: Element) {
         if (!this.element) throw new Error("element cannot be null");
-        if (this.element.className != "qp-node") throw new Error("element must have class qp-node");
+        if (this.element.nodeName != "polyline") throw new Error("element must be a polyline");
+    }
+
+    /**
+     * Gets the NodeID for the node corresponding to this line, or returns null if the node doesn't have a node ID (e.g.
+     * if its a top-level statement).
+     */
+    get nodeId(): string {
+        let nodeId = this.element.attributes["data-node-id"];
+        return nodeId && nodeId.value;
     }
 }
 

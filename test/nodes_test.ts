@@ -252,4 +252,15 @@ describe("Line", () => {
 
     });
 
+    describe("nodeId property", () => {
+
+        it("Returns null for lines without a node ID", () => {
+
+            let container = helper.showPlan(plan.issue7);
+            assert.equal(null, helper.findLineById(container, null, "16").nodeId);
+
+        });
+
+    });
+
 });

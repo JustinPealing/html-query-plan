@@ -127,10 +127,14 @@ function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: No
  */
 function drawArrow(draw: SVG.Doc, to: Point, from: Point, bendX: number, thickness: number, nodeId: string, statementId: string) {
     let points: any = arrowPath(to, from, bendX, thickness);
-    draw.polyline(points)
+    let line = draw.polyline(points)
         .fill("#E3E3E3").stroke({color: "#505050", width: 0.5})
-        .data("node-id", nodeId)
         .data("statement-id", statementId);
+
+    // Not all nodes have a node ID, e.g. top level statements
+    if (nodeId) {
+        line.data("node-id", nodeId);
+    }
 }
 
 /**

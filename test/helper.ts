@@ -13,10 +13,16 @@ function findNodeById(container: Element, nodeId: string, statementId?: string):
 }
 
 function findLineById(container: Element, nodeId: string, statementId?: string): Line {
-    let polyline = statementId
-        ? container.querySelector(`polyline[data-node-id="${nodeId}"][data-statement-id="${statementId}"]`)
-        : container.querySelector(`polyline[data-node-id="${nodeId}"]`);
-    return new Line(polyline);
+    let polyline = null;
+    if (statementId && nodeId) {
+        polyline = container.querySelector(`polyline[data-node-id="${nodeId}"][data-statement-id="${statementId}"]`);
+    } else if (nodeId) {
+        // just find the first node with that nodeId
+        polyline = container.querySelector(`polyline[data-node-id="${nodeId}"]`);
+    } else {
+        polyline = container.querySelector(`polyline:not([data-node-id]), polyline[data-statement-id="${nodeId}"]`);
+    }
+    return polyline ? new Line(polyline) : null;
 }
 
 function findStatement(container: Element, statementId?: string): Node {
@@ -88,6 +94,7 @@ function showPlan(planXml: string) {
 export {
     getProperty,
     findNodeById,
+    findLineById,
     getToolTipSection,
     getTooltipTitle,
     getDescription,

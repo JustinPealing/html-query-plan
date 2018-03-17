@@ -1,7 +1,7 @@
 ﻿import * as xml from "./xml";
 import { drawLines } from "./lines";
 import { initTooltip } from "./tooltip";
-import { QpNode } from "./node";
+import { Node } from "./node";
 
 declare function require(path: string) : any;
 let qpXslt = require("raw-loader!./qp.xslt");
@@ -39,4 +39,4 @@ function setDefaults(options: Options, defaults: Options) {
     return ret;
 }
 
-export { drawLines as drawLines, showPlan, QpNode }
+export { drawLines as drawLines, showPlan, Node }

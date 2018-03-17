@@ -1,10 +1,10 @@
 import { assert } from "chai";
 import { arrowPath, thicknessesToOffsets, nodeToThickness } from "../src/lines";
-import { QpNode } from "../src";
+import { Node } from "../src";
 import * as helper from "./helper";
 import { plan } from "./plans";
 
-function qpNode(xml?: string, estimateRows?: number, actualRows?: number): QpNode {
+function qpNode(xml?: string, estimateRows?: number, actualRows?: number): Node {
     let parser = new DOMParser();
     return {
         children: null, element: null, nodeId: null, statementId: null, queryPlan: null,

@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { QpNode, QpLine } from "../src/node";
+import { Node, Line } from "../src/node";
 import * as QP from "../src/index";
 import * as helper from "./helper";
 import { plan } from "./plans";
@@ -10,13 +10,13 @@ describe("QpNode", () => {
 
         it("Throws if element is null", () => {
 
-            assert.throws(() => new QpNode(null));
+            assert.throws(() => new Node(null));
 
         });
 
         it("Throws if element is not .qp-node", () => {
 
-            assert.throws(() => new QpNode(document.createElement("div")));
+            assert.throws(() => new Node(document.createElement("div")));
 
         });
 
@@ -37,7 +37,7 @@ describe("QpNode", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
             var child = helper.findNodeById(container, "0").children[0];
-            assert.instanceOf(child, QpNode);
+            assert.instanceOf(child, Node);
             
         });
 
@@ -218,13 +218,13 @@ describe("QpLine", () => {
 
         it("Throws if element is null", () => {
 
-            assert.throws(() => new QpLine(null));
+            assert.throws(() => new Line(null));
 
         });
 
         it("Throws if element is not polyline", () => {
 
-            assert.throws(() => new QpLine(document.createElement("div")));
+            assert.throws(() => new Line(document.createElement("div")));
 
         });
 

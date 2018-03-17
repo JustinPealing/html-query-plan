@@ -1,5 +1,5 @@
 import * as SVG from "svgjs";
-import { QpNode } from "./node";
+import { Node } from "./node";
 
 /**
  * Separation between each line, measured as the number of pixels between the bottom
@@ -20,7 +20,7 @@ function drawLines(container: Element) {
 
     let nodes = root.querySelectorAll(".qp-node");
     for (let i = 0; i < nodes.length; i++) {
-        drawLinesForParent(draw, clientRect, new QpNode(nodes[i]));
+        drawLinesForParent(draw, clientRect, new Node(nodes[i]));
     }
 }
 
@@ -30,7 +30,7 @@ function drawLines(container: Element) {
  * the lines.
  * @param parent Parent .qp-node element.
  */
-function addPaddingForParent(parent: QpNode, padding: number) {
+function addPaddingForParent(parent: Node, padding: number) {
     let qpNodeOuter = parent.element.parentElement;
     let paddingElement = qpNodeOuter.parentElement;
     paddingElement.style.paddingRight = `${padding}px`;
@@ -60,7 +60,7 @@ function thicknessesToOffsets(thicknesses: Array<number>, gap: number): Array<nu
  * Works out how thick a line should be for a node.
  * @param node Node to work out the line thickness for.
  */
-function nodeToThickness(node: QpNode): number {
+function nodeToThickness(node: Node): number {
     let rows = node.actualRows == null ? node.estimatedRows : node.actualRows;
     return Math.max(1, Math.min(Math.floor(Math.log(rows > 0 ? rows : 1)), 12));
 }
@@ -71,7 +71,7 @@ function nodeToThickness(node: QpNode): number {
  * @param clientRect Bounding client rect of the root SVG context.
  * @param parent Parent .qp-node element.
  */
-function drawLinesForParent(draw: SVG.Doc, clientRect: ClientRect, parent: QpNode) {
+function drawLinesForParent(draw: SVG.Doc, clientRect: ClientRect, parent: Node) {
     let children = parent.children;
     let thicknesses = children.map(nodeToThickness);
     let padding = thicknesses.reduce((a, b) => a + b, 0) + lineSeparation * (children.length -1);
@@ -89,7 +89,7 @@ function drawLinesForParent(draw: SVG.Doc, clientRect: ClientRect, parent: QpNod
  * @param parent Node element from which to draw the arrow (leftmost node).
  * @param child Node element to which to draw the arrow (rightmost node).
  */
-function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: QpNode, child: QpNode, thickness: number, offset: number) {
+function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: Node, child: Node, thickness: number, offset: number) {
     let parentOffset = parent.element.getBoundingClientRect();
     let childOffset = child.element.getBoundingClientRect();
 

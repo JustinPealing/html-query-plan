@@ -11,9 +11,9 @@ function find(nodes, type: string) {
 }
 
 /**
- * Wraps a node in a query plan.
+ * Wraps the HTML element represending a node in a query plan.
  */
-class QpNode {
+class Node {
     constructor (readonly element: Element) {
         if (!this.element) throw new Error("element cannot be null");
         if (this.element.className != "qp-node") throw new Error("element must have class qp-node");
@@ -22,9 +22,9 @@ class QpNode {
     /**
      * Gets an array of child nodes.
      */
-    get children(): Array<QpNode> {
+    get children(): Array<Node> {
         return [].slice.call(findAncestor(this.element, "qp-tr").children[1].children)
-            .map(c => new QpNode(c.children[0].children[0].children[0]));
+            .map(c => new Node(c.children[0].children[0].children[0]));
     }
 
     /**
@@ -118,13 +118,13 @@ class QpNode {
 }
 
 /**
- * Wraps a polyline element in a query plan.
+ * Wraps a polyline element representing a line in a query plan.
  */
-class QpLine {
+class Line {
     constructor (readonly element: Element) {
         if (!this.element) throw new Error("element cannot be null");
         if (this.element.className != "qp-node") throw new Error("element must have class qp-node");
     }
 }
 
-export { QpNode, QpLine }
+export { Node, Line }

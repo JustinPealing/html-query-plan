@@ -11,6 +11,65 @@ function find(nodes, type: string) {
 }
 
 /**
+ * Wraps a RelOp element in the query plan schema.
+ */
+class RelOp {
+    constructor (readonly element: Element) {
+        if (!this.element) throw new Error("element cannot be null");
+        if (this.element.tagName != "RelOp") throw new Error("element must be a RelOp element");
+    }
+
+    /**
+     * Gets the estimated number of nodes returned by the operation.
+     */
+    get estimatedRows(): number {
+        return parseFloat(this.element.attributes["EstimateRows"].value);
+    }
+
+    /**
+     * Gets the estimated row size in bytes.
+     */
+    get estimatestimatedRowSize(): number {
+        return parseInt(this.element.attributes["AvgRowSize"].value);
+    }
+
+    /**
+     * Gets the estimated total size of the data.
+     */
+    get estimatedDataSize(): number {
+        return Math.round(this.estimatestimatedRowSize * this.estimatedRows);
+    }
+
+    /**
+     * Gets an array of the RunTimeCountersPerThread elements for the RelOp, or returns an empty array if the
+     * RunTimeInformation is not present.
+     */
+    get runtimeCountersPerThread(): Element[] {
+        let runtimeInformation = find(this.element.childNodes, "RunTimeInformation");
+        if (runtimeInformation.length == 0) {
+            return [];
+        }
+        return find(runtimeInformation[0].childNodes, "RunTimeCountersPerThread");
+    }
+
+    /**
+     * Gets the actual number of rows returned by the operation.
+     */
+    get actualRows(): number {
+        return this.runtimeCountersPerThread.length == 0 ? null
+            : this.runtimeCountersPerThread.reduce((a, b) => a + parseFloat(b.attributes["ActualRows"].value), 0);
+    }
+
+    /**
+     * Gets the actual number of rows read.
+     */
+    get actualRowsRead(): number {
+        return this.runtimeCountersPerThread.length == 0 || !this.runtimeCountersPerThread[0].attributes["ActualRowsRead"] ? null
+            : this.runtimeCountersPerThread.reduce((a, b) => a + parseFloat(b.attributes["ActualRowsRead"].value), 0);
+    }
+}
+
+/**
  * Wraps the HTML element represending a node in a query plan.
  */
 class Node {
@@ -65,55 +124,10 @@ class Node {
     }
 
     /**
-     * Gets the estimated number of nodes returned by the operation.
+     * Gets a wrapped RelOp instance for this nodes RelOp query plan XML.
      */
-    get estimatedRows(): number {
-        return this.relOpXml ? parseFloat(this.relOpXml.attributes["EstimateRows"].value) : null;
-    }
-
-    /**
-     * Gets the estimated row size in bytes.
-     */
-    get estimatestimatedRowSize(): number {
-        return parseInt(this.relOpXml.attributes["AvgRowSize"].value);
-    }
-
-    /**
-     * Gets the estimated total size of the data.
-     */
-    get estimatedDataSize(): number {
-        return Math.round(this.estimatestimatedRowSize * this.estimatedRows);
-    }
-
-    /**
-     * Gets an array of the RunTimeCountersPerThread elements for the RelOp, or returns an empty array if the
-     * RunTimeInformation is not present.
-     */
-    get runtimeCountersPerThread(): Element[] {
-        if (!this.relOpXml) {
-            return [];
-        }
-        let runtimeInformation = find(this.relOpXml.childNodes, "RunTimeInformation");
-        if (runtimeInformation.length == 0) {
-            return [];
-        }
-        return find(runtimeInformation[0].childNodes, "RunTimeCountersPerThread");
-    }
-
-    /**
-     * Gets the actual number of rows returned by the operation.
-     */
-    get actualRows(): number {
-        return this.runtimeCountersPerThread.length == 0 ? null
-            : this.runtimeCountersPerThread.reduce((a, b) => a + parseFloat(b.attributes["ActualRows"].value), 0);
-    }
-
-    /**
-     * Gets the actual number of rows read.
-     */
-    get actualRowsRead(): number {
-        return this.runtimeCountersPerThread.length == 0 || !this.runtimeCountersPerThread[0].attributes["ActualRowsRead"] ? null
-            : this.runtimeCountersPerThread.reduce((a, b) => a + parseFloat(b.attributes["ActualRowsRead"].value), 0);
+    get relOp(): RelOp {
+        return this.relOpXml ? new RelOp(this.relOpXml) : null;
     }
 }
 
@@ -127,4 +141,4 @@ class Line {
     }
 }
 
-export { Node, Line }
+export { Node, Line, RelOp }

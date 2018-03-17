@@ -1,10 +1,10 @@
 import { assert } from "chai";
-import { Node, Line } from "../src/node";
+import { Node, Line, RelOp } from "../src/node";
 import * as QP from "../src/index";
 import * as helper from "./helper";
 import { plan } from "./plans";
 
-describe("QpNode", () => {
+describe("Node", () => {
 
     describe("Constructor", () => {
 
@@ -98,12 +98,34 @@ describe("QpNode", () => {
 
     });
     
+});
+
+describe("RelOp", () => {
+
+    describe("Constructor", () => {
+
+        it("Throws if element is null", () => {
+
+            assert.throws(() => new RelOp(null));
+
+        });
+
+        it("Throws if element is not a RelOp element", () => {
+
+            let xml = `<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" />`
+            let element = new DOMParser().parseFromString(xml, "text/xml").documentElement;
+            assert.throws(() => new RelOp(element));
+
+        });
+
+    });
+    
     describe("runtimeCountersPerThread property", () => {
 
         it("Returns empty array if RunTimeInformation is missing", () => {
 
             let container = helper.showPlan(plan.adaptive_join_estimated);
-            assert.equal(0, helper.findNodeById(container, "3").runtimeCountersPerThread.length);
+            assert.equal(0, helper.findNodeById(container, "3").relOp.runtimeCountersPerThread.length);
 
         });
 
@@ -111,12 +133,12 @@ describe("QpNode", () => {
 
             let container = helper.showPlan(plan.acceptedAnswerPercentage);
             let streamAggregate = helper.findNodeById(container, "6");
-            assert.equal(9, streamAggregate.runtimeCountersPerThread.length);
-            assert.equal("1", streamAggregate.runtimeCountersPerThread[0].attributes["Thread"].value)
-            assert.equal("3", streamAggregate.runtimeCountersPerThread[1].attributes["Thread"].value)
-            assert.equal("4", streamAggregate.runtimeCountersPerThread[2].attributes["Thread"].value)
-            assert.equal("5", streamAggregate.runtimeCountersPerThread[3].attributes["Thread"].value)
-            assert.equal("7", streamAggregate.runtimeCountersPerThread[4].attributes["Thread"].value)
+            assert.equal(9, streamAggregate.relOp.runtimeCountersPerThread.length);
+            assert.equal("1", streamAggregate.relOp.runtimeCountersPerThread[0].attributes["Thread"].value)
+            assert.equal("3", streamAggregate.relOp.runtimeCountersPerThread[1].attributes["Thread"].value)
+            assert.equal("4", streamAggregate.relOp.runtimeCountersPerThread[2].attributes["Thread"].value)
+            assert.equal("5", streamAggregate.relOp.runtimeCountersPerThread[3].attributes["Thread"].value)
+            assert.equal("7", streamAggregate.relOp.runtimeCountersPerThread[4].attributes["Thread"].value)
 
         });
 
@@ -127,18 +149,18 @@ describe("QpNode", () => {
         it("Returns a sum of @ActualRows from runtime information", () => {
 
             let adaptiveJoin = helper.showPlan(plan.adaptive_join);
-            assert.equal(0, helper.findNodeById(adaptiveJoin, "3").actualRows);
-            assert.equal(10, helper.findNodeById(adaptiveJoin, "2").actualRows);
+            assert.equal(0, helper.findNodeById(adaptiveJoin, "3").relOp.actualRows);
+            assert.equal(10, helper.findNodeById(adaptiveJoin, "2").relOp.actualRows);
 
             let batchMode = helper.showPlan(plan.batchMode);
-            assert.equal(10000000, helper.findNodeById(batchMode, "1").actualRows);
+            assert.equal(10000000, helper.findNodeById(batchMode, "1").relOp.actualRows);
 
         });
 
         it("Returns null if there is no runtime information", () => {
 
             let container = helper.showPlan(plan.adaptive_join_estimated);
-            assert.equal(null, helper.findNodeById(container, "3").actualRows);
+            assert.equal(null, helper.findNodeById(container, "3").relOp.actualRows);
 
         });
 
@@ -149,21 +171,21 @@ describe("QpNode", () => {
         it("Returns a sum of @ActualRowsRead from runtime information", () => {
 
             let adaptiveJoin = helper.showPlan(plan.adaptive_join);
-            assert.equal(10, helper.findNodeById(adaptiveJoin, "7").actualRowsRead);
+            assert.equal(10, helper.findNodeById(adaptiveJoin, "7").relOp.actualRowsRead);
 
         });
 
         it("Returns null if there is no runtime information", () => {
 
             let container = helper.showPlan(plan.adaptive_join_estimated);
-            assert.equal(null, helper.findNodeById(container, "3").actualRowsRead);
+            assert.equal(null, helper.findNodeById(container, "3").relOp.actualRowsRead);
 
         });
 
         it("Returns null if @ActualRowsRead is missing", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
-            assert.equal(null, helper.findNodeById(container, "2").actualRowsRead);
+            assert.equal(null, helper.findNodeById(container, "2").relOp.actualRowsRead);
 
         });
 
@@ -174,7 +196,7 @@ describe("QpNode", () => {
         it("Returns the estimated number of rows", () => {
 
             let container = helper.showPlan(plan.adaptive_join_estimated);
-            assert.equal(1.0001, helper.findNodeById(container, "7").estimatedRows);
+            assert.equal(1.0001, helper.findNodeById(container, "7").relOp.estimatedRows);
 
         });
 
@@ -185,11 +207,11 @@ describe("QpNode", () => {
         it("Returns the estimated row size in bytes", () => {
 
             let container = helper.showPlan(plan.adaptive_join_estimated);
-            assert.equal(11, helper.findNodeById(container, "0").estimatestimatedRowSize);
-            assert.equal(15, helper.findNodeById(container, "2").estimatestimatedRowSize);
-            assert.equal(11, helper.findNodeById(container, "3").estimatestimatedRowSize);
-            assert.equal(11, helper.findNodeById(container, "4").estimatestimatedRowSize);
-            assert.equal(9, helper.findNodeById(container, "7").estimatestimatedRowSize);
+            assert.equal(11, helper.findNodeById(container, "0").relOp.estimatestimatedRowSize);
+            assert.equal(15, helper.findNodeById(container, "2").relOp.estimatestimatedRowSize);
+            assert.equal(11, helper.findNodeById(container, "3").relOp.estimatestimatedRowSize);
+            assert.equal(11, helper.findNodeById(container, "4").relOp.estimatestimatedRowSize);
+            assert.equal(9, helper.findNodeById(container, "7").relOp.estimatestimatedRowSize);
 
         });
 
@@ -200,11 +222,11 @@ describe("QpNode", () => {
         it("Returns estimated row size * estimated number of rows", () => {
 
             let container = helper.showPlan(plan.adaptive_join_estimated);
-            assert.equal(110, helper.findNodeById(container, "0").estimatedDataSize);
-            assert.equal(150, helper.findNodeById(container, "2").estimatedDataSize);
-            assert.equal(110, helper.findNodeById(container, "3").estimatedDataSize);
-            assert.equal(1100000, helper.findNodeById(container, "4").estimatedDataSize);
-            assert.equal(9, helper.findNodeById(container, "7").estimatedDataSize);
+            assert.equal(110, helper.findNodeById(container, "0").relOp.estimatedDataSize);
+            assert.equal(150, helper.findNodeById(container, "2").relOp.estimatedDataSize);
+            assert.equal(110, helper.findNodeById(container, "3").relOp.estimatedDataSize);
+            assert.equal(1100000, helper.findNodeById(container, "4").relOp.estimatedDataSize);
+            assert.equal(9, helper.findNodeById(container, "7").relOp.estimatedDataSize);
 
         });
 
@@ -212,7 +234,7 @@ describe("QpNode", () => {
 
 });
 
-describe("QpLine", () => {
+describe("Line", () => {
 
     describe("Constructor", () => {
 

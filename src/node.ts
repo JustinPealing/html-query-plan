@@ -156,6 +156,27 @@ class Line {
     get statementId(): string {
         return this.element.attributes["data-statement-id"].value;
     }
+
+    /**
+     * Gets the xml for the whole query plan.
+     */
+    get queryPlan(): Element {
+        return findAncestor(this.element, "qp-root").parentElement["xml"];
+    }
+
+    /**
+     * Gets the xml for the relOp corresponding to this node.
+     */
+    get relOpXml(): Element {
+        let elements = this.queryPlan.getElementsByTagName("RelOp");
+        for (let i = 0; i < elements.length; i++) {
+            let element = elements[i];
+            if (element.attributes["NodeId"] && element.attributes["NodeId"].value == this.nodeId) {
+                return element;
+            }
+        }
+        return null;
+    }
 }
 
 export { Node, Line, RelOp }

@@ -149,6 +149,13 @@ class Line {
         let nodeId = this.element.attributes["data-node-id"];
         return nodeId && nodeId.value;
     }
+
+    /**
+     * Gets the Statement ID for the node corresponding to this line.
+     */
+    get statementId(): string {
+        return this.element.attributes["data-statement-id"].value;
+    }
 }
 
 export { Node, Line, RelOp }

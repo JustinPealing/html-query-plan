@@ -270,4 +270,15 @@ describe("Line", () => {
 
     });
 
+    describe("statementId proerty", () => {
+
+        it("Returns the data-statement-id attribute value", () => {
+
+            let container = helper.showPlan(plan.issue7);
+            assert.equal("16", helper.findLineById(container, "2", "16").statementId);
+            
+        });
+
+    });
+
 });

@@ -254,6 +254,13 @@ describe("Line", () => {
 
     describe("nodeId property", () => {
 
+        it("Returns the data-node-id attribute value", () => {
+
+            let container = helper.showPlan(plan.adaptive_join);
+            assert.equal("4", helper.findLineById(container, "4").nodeId);
+            
+        });
+
         it("Returns null for lines without a node ID", () => {
 
             let container = helper.showPlan(plan.issue7);

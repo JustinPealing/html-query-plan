@@ -96,6 +96,14 @@ describe("Node", () => {
 
         });
 
+        it("Returns the node XML for statement elements", () => {
+
+            let container = helper.showPlan(plan.issue7);
+            let xml = helper.findNodeById(container, null, "16").nodeXml;
+            assert.equal("0x4B6B044581CE8A4E", xml.attributes["QueryPlanHash"].value);
+
+        });
+
     });
     
 });
@@ -288,6 +296,14 @@ describe("Line", () => {
             let container = helper.showPlan(plan.adaptive_join);
             let xml = helper.findLineById(container, "2").nodeXml;
             assert.equal("0.0110168", xml.attributes["EstimateCPU"].value);
+
+        });
+
+        it("Returns the node XML for statement elements", () => {
+
+            let container = helper.showPlan(plan.issue7);
+            let xml = helper.findLineById(container, null, "16").nodeXml;
+            assert.equal("0x4B6B044581CE8A4E", xml.attributes["QueryPlanHash"].value);
 
         });
 

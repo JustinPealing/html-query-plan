@@ -10,6 +10,20 @@ function find(nodes, type: string) {
     return returnValue;
 }
 
+function getNodeXml(queryPlanXml: Element, statementId: string, nodeId: string): Element {
+    if (!nodeId) {
+        return queryPlanXml.querySelector(`[StatementId="${statementId}"]`);
+    }
+    let elements = queryPlanXml.getElementsByTagName("RelOp");
+    for (let i = 0; i < elements.length; i++) {
+        let element = elements[i];
+        if (element.attributes["NodeId"] && element.attributes["NodeId"].value == nodeId) {
+            return element;
+        }
+    }
+    return null;
+}
+
 /**
  * Wraps a RelOp element in the query plan schema.
  */
@@ -114,21 +128,15 @@ class Node {
      * Gets the xml element corresponding to this node from the query plan xml.
      */
     get nodeXml(): Element {
-        let elements = this.queryPlanXml.getElementsByTagName("RelOp");
-        for (let i = 0; i < elements.length; i++) {
-            let element = elements[i];
-            if (element.attributes["NodeId"] && element.attributes["NodeId"].value == this.nodeId) {
-                return element;
-            }
-        }
-        return null;
+        return getNodeXml(this.queryPlanXml, this.statementId, this.nodeId);
     }
 
     /**
      * Gets a wrapped RelOp instance for this nodes RelOp query plan XML.
      */
     get relOp(): RelOp {
-        return this.nodeXml ? new RelOp(this.nodeXml) : null;
+        let nodeXml = this.nodeXml;
+        return nodeXml && nodeXml.tagName == "RelOp" ? new RelOp(this.nodeXml) : null;
     }
 }
 
@@ -168,14 +176,7 @@ class Line {
      * Gets the xml element corresponding to this node from the query plan xml.
      */
     get nodeXml(): Element {
-        let elements = this.queryPlanXml.getElementsByTagName("RelOp");
-        for (let i = 0; i < elements.length; i++) {
-            let element = elements[i];
-            if (element.attributes["NodeId"] && element.attributes["NodeId"].value == this.nodeId) {
-                return element;
-            }
-        }
-        return null;
+        return getNodeXml(this.queryPlanXml, this.statementId, this.nodeId);
     }
 
     /**

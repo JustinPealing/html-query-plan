@@ -1,4 +1,5 @@
-import { findAncestor, findAncestorP } from "./utils"
+import { findAncestor, findAncestorP } from "./utils";
+import { Line } from "./node";
 
 const TOOLTIP_TIMEOUT = 500;
 
@@ -17,6 +18,23 @@ function initTooltip(container: Element) {
     let nodes = container.querySelectorAll(".qp-node");
     for (let i = 0; i < nodes.length; i++) {
         addTooltip(nodes[i], e => <HTMLElement>e.querySelector(".qp-tt").cloneNode(true));
+    }
+
+    let lines = container.getElementsByTagName("polyline");
+    for (let i = 0; i < lines.length; i++) {
+        let line = new Line(lines[i]);
+        addTooltip(line.element, e => {
+            let parser = new DOMParser();
+            let document = parser.parseFromString(`
+                <div class="qp-tt"><table><tbody>
+                <tr>
+                    <th>Estimated Number of Rows</th>
+                    <td>${line.relOp.estimatedRows}</td>
+                </tr>
+                </tbody></tabke></div>
+            `, "text/html");
+            return <HTMLElement>document.getElementsByClassName("qp-tt")[0];
+        });
     }
 }
 

@@ -79,19 +79,19 @@ describe("Node", () => {
         it("Returns the query plan XML", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
-            let planXml = helper.findNodeById(container, "2").queryPlan;
+            let planXml = helper.findNodeById(container, "2").queryPlanXml;
             assert.equal("1.6", planXml.getElementsByTagName("ShowPlanXML")[0].attributes["Version"].value);
 
         });
 
     });
 
-    describe("relOpXml property", () => {
+    describe("nodeXml property", () => {
 
         it("Returns the XML for the node RelOp", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
-            let xml = helper.findNodeById(container, "2").relOpXml;
+            let xml = helper.findNodeById(container, "2").nodeXml;
             assert.equal("0.0110168", xml.attributes["EstimateCPU"].value);
 
         });
@@ -286,7 +286,7 @@ describe("Line", () => {
         it("Returns the XML for the node RelOp", () => {
 
             let container = helper.showPlan(plan.adaptive_join);
-            let xml = helper.findLineById(container, "2").relOpXml;
+            let xml = helper.findLineById(container, "2").nodeXml;
             assert.equal("0.0110168", xml.attributes["EstimateCPU"].value);
 
         });

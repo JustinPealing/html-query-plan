@@ -106,15 +106,15 @@ class Node {
     /**
      * Gets the xml for the whole query plan.
      */
-    get queryPlan(): Element {
+    get queryPlanXml(): Element {
         return findAncestor(this.element, "qp-root").parentElement["xml"];
     }
 
     /**
-     * Gets the xml for the relOp corresponding to this node.
+     * Gets the xml element corresponding to this node from the query plan xml.
      */
-    get relOpXml(): Element {
-        let elements = this.queryPlan.getElementsByTagName("RelOp");
+    get nodeXml(): Element {
+        let elements = this.queryPlanXml.getElementsByTagName("RelOp");
         for (let i = 0; i < elements.length; i++) {
             let element = elements[i];
             if (element.attributes["NodeId"] && element.attributes["NodeId"].value == this.nodeId) {
@@ -128,7 +128,7 @@ class Node {
      * Gets a wrapped RelOp instance for this nodes RelOp query plan XML.
      */
     get relOp(): RelOp {
-        return this.relOpXml ? new RelOp(this.relOpXml) : null;
+        return this.nodeXml ? new RelOp(this.nodeXml) : null;
     }
 }
 
@@ -160,15 +160,15 @@ class Line {
     /**
      * Gets the xml for the whole query plan.
      */
-    get queryPlan(): Element {
+    get queryPlanXml(): Element {
         return findAncestor(this.element, "qp-root").parentElement["xml"];
     }
 
     /**
-     * Gets the xml for the relOp corresponding to this node.
+     * Gets the xml element corresponding to this node from the query plan xml.
      */
-    get relOpXml(): Element {
-        let elements = this.queryPlan.getElementsByTagName("RelOp");
+    get nodeXml(): Element {
+        let elements = this.queryPlanXml.getElementsByTagName("RelOp");
         for (let i = 0; i < elements.length; i++) {
             let element = elements[i];
             if (element.attributes["NodeId"] && element.attributes["NodeId"].value == this.nodeId) {
@@ -176,6 +176,13 @@ class Line {
             }
         }
         return null;
+    }
+
+    /**
+     * Gets a wrapped RelOp instance for this nodes RelOp query plan XML.
+     */
+    get relOp(): RelOp {
+        return this.nodeXml ? new RelOp(this.nodeXml) : null;
     }
 }
 

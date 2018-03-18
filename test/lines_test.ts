@@ -7,13 +7,13 @@ import { plan } from "./plans";
 function qpNode(xml?: string, estimateRows?: number, actualRows?: number): Node {
     let parser = new DOMParser();
     return {
-        children: null, element: null, nodeId: null, statementId: null, queryPlan: null,
+        children: null, element: null, nodeId: null, statementId: null, queryPlanXml: null,
         relOp: {
             element: null, actualRows: actualRows, actualRowsRead: null,
             estimatedRows: estimateRows, estimatestimatedRowSize: null, estimatedDataSize: null,
             runtimeCountersPerThread: []
         },
-        relOpXml: xml ? parser.parseFromString(xml, "text/xml").documentElement : null
+        nodeXml: xml ? parser.parseFromString(xml, "text/xml").documentElement : null
     };
 }
 

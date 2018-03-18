@@ -11,10 +11,9 @@ function find(nodes, type: string) {
 }
 
 function getNodeXml(queryPlanXml: Element, statementId: string, nodeId: string): Element {
-    if (!nodeId) {
-        return queryPlanXml.querySelector(`[StatementId="${statementId}"]`);
-    }
-    let elements = queryPlanXml.getElementsByTagName("RelOp");
+    let statement = queryPlanXml.querySelector(`[StatementId="${statementId}"]`);
+    if (!nodeId) return statement;
+    let elements = statement.getElementsByTagName("RelOp");
     for (let i = 0; i < elements.length; i++) {
         let element = elements[i];
         if (element.attributes["NodeId"] && element.attributes["NodeId"].value == nodeId) {

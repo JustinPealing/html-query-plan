@@ -104,6 +104,14 @@ describe("Node", () => {
 
         });
 
+        it("Returns the XML for the corrct node by statement ID", () => {
+
+            let container = helper.showPlan(plan.issue7);
+            let xml = helper.findNodeById(container, "0", "16").nodeXml;
+            assert.equal("0.0032833", xml.attributes["EstimatedTotalSubtreeCost"].value);
+
+        });
+
     });
     
 });
@@ -304,6 +312,14 @@ describe("Line", () => {
             let container = helper.showPlan(plan.issue7);
             let xml = helper.findLineById(container, null, "16").nodeXml;
             assert.equal("0x4B6B044581CE8A4E", xml.attributes["QueryPlanHash"].value);
+
+        });
+
+        it("Returns the XML for the corrct node by statement ID", () => {
+
+            let container = helper.showPlan(plan.issue7);
+            let xml = helper.findLineById(container, "0", "16").nodeXml;
+            assert.equal("0.0032833", xml.attributes["EstimatedTotalSubtreeCost"].value);
 
         });
 

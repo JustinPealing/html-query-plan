@@ -24,16 +24,7 @@ function initTooltip(container: Element) {
     for (let i = 0; i < lines.length; i++) {
         let line = new Line(lines[i]);
         addTooltip(line.element, e => {
-            let parser = new DOMParser();
-            let document = parser.parseFromString(`
-                <div class="qp-tt"><table><tbody>
-                <tr>
-                    <th>Estimated Number of Rows</th>
-                    <td>${line.relOp.estimatedRows}</td>
-                </tr>
-                </tbody></tabke></div>
-            `, "text/html");
-            return <HTMLElement>document.getElementsByClassName("qp-tt")[0];
+            return buildLineTooltip(line);
         });
     }
 }
@@ -117,4 +108,47 @@ function hideTooltip() {
     }
 }
 
-export { initTooltip }
+/**
+ * Builds the tooltip HTML for a Line.
+ * @param line Line to build the tooltip for.
+ */
+function buildLineTooltip(line: Line) : HTMLElement {
+    let parser = new DOMParser();
+    let actualNumberOfRows = line.relOp.actualRows != null ? 
+        `<tr>
+            <th>Actual Number of Rows</th>
+            <td>${line.relOp.actualRows}</td>
+        </tr>` : null;
+
+    let document = parser.parseFromString(`
+        <div class="qp-tt"><table><tbody>
+        ${actualNumberOfRows}
+        <tr>
+            <th>Estimated Number of Rows</th>
+            <td>${line.relOp.estimatedRows}</td>
+        </tr>
+        <tr>
+            <th>Estimated Row Size</th>
+            <td>${convertSize(line.relOp.estimatedRowSize)}</td>
+        </tr>
+        <tr>
+            <th>Estimated Data Size</th>
+            <td>${convertSize(line.relOp.estimatedDataSize)}</td>
+        </tr>
+        </tbody></tabke></div>
+    `, "text/html");
+    return <HTMLElement>document.getElementsByClassName("qp-tt")[0];
+}
+
+/**
+ * Convets sizes to human readable strings.
+ * @param size Size in bytes.
+ */
+function convertSize(size: number) : string {
+    if (size > 1000) {
+        return `${Math.floor(size / 1024)} KB`;
+    }
+    return `${size} B`;
+}
+
+export { initTooltip, buildLineTooltip }

@@ -223,11 +223,11 @@ describe("RelOp", () => {
         it("Returns the estimated row size in bytes", () => {
 
             let container = helper.showPlan(plan.adaptive_join_estimated);
-            assert.equal(11, helper.findNodeById(container, "0").relOp.estimatestimatedRowSize);
-            assert.equal(15, helper.findNodeById(container, "2").relOp.estimatestimatedRowSize);
-            assert.equal(11, helper.findNodeById(container, "3").relOp.estimatestimatedRowSize);
-            assert.equal(11, helper.findNodeById(container, "4").relOp.estimatestimatedRowSize);
-            assert.equal(9, helper.findNodeById(container, "7").relOp.estimatestimatedRowSize);
+            assert.equal(11, helper.findNodeById(container, "0").relOp.estimatedRowSize);
+            assert.equal(15, helper.findNodeById(container, "2").relOp.estimatedRowSize);
+            assert.equal(11, helper.findNodeById(container, "3").relOp.estimatedRowSize);
+            assert.equal(11, helper.findNodeById(container, "4").relOp.estimatedRowSize);
+            assert.equal(9, helper.findNodeById(container, "7").relOp.estimatedRowSize);
 
         });
 

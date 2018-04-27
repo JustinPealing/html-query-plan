@@ -10,7 +10,7 @@ function qpNode(xml?: string, estimateRows?: number, actualRows?: number): Node 
         children: null, element: null, nodeId: null, statementId: null, queryPlanXml: null,
         relOp: {
             element: null, actualRows: actualRows, actualRowsRead: null,
-            estimatedRows: estimateRows, estimatestimatedRowSize: null, estimatedDataSize: null,
+            estimatedRows: estimateRows, estimatedRowSize: null, estimatedDataSize: null,
             runtimeCountersPerThread: []
         },
         nodeXml: xml ? parser.parseFromString(xml, "text/xml").documentElement : null

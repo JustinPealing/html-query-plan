@@ -42,7 +42,7 @@ class RelOp {
     /**
      * Gets the estimated row size in bytes.
      */
-    get estimatestimatedRowSize(): number {
+    get estimatedRowSize(): number {
         return parseInt(this.element.attributes["AvgRowSize"].value);
     }
 
@@ -50,7 +50,7 @@ class RelOp {
      * Gets the estimated total size of the data.
      */
     get estimatedDataSize(): number {
-        return Math.round(this.estimatestimatedRowSize * this.estimatedRows);
+        return Math.round(this.estimatedRowSize * this.estimatedRows);
     }
 
     /**

@@ -120,9 +120,16 @@ function buildLineTooltip(line: Line) : HTMLElement {
             <td>${line.relOp.actualRows}</td>
         </tr>` : null;
 
+    let numberOfRowsRead = line.relOp.actualRowsRead != null ?
+        `<tr>
+            <th>Number of Rows Read</th>
+            <td>${line.relOp.actualRowsRead}</td>
+        </tr>` : null;
+
     let document = parser.parseFromString(`
         <div class="qp-tt"><table><tbody>
         ${actualNumberOfRows}
+        ${numberOfRowsRead}
         <tr>
             <th>Estimated Number of Rows</th>
             <td>${line.relOp.estimatedRows}</td>

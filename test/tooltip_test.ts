@@ -29,6 +29,17 @@ describe("tooltip moduele", () => {
 
         });
 
+        it("Shows number of rows read", () => {
+
+            let container = helper.showPlan(plan.adaptive_join);
+            let line = helper.findLineById(container, "7");
+            let tt = tooltip.buildLineTooltip(line);
+            let row = tt.querySelector("tbody").children[1];
+            assert.equal("Number of Rows Read", row.querySelector("th").innerText);
+            assert.equal("10", row.querySelector("td").innerText);
+
+        });
+
         it("Includes Estimated Number of Rows", () => {
 
             let container = helper.showPlan(plan.adaptive_join);

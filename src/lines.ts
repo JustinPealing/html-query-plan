@@ -91,6 +91,8 @@ function drawLinesForParent(draw: SVG.Doc, clientRect: ClientRect, parent: Node)
  * @param clientRect Bounding client rect of the root SVG context.
  * @param parent Node element from which to draw the arrow (leftmost node).
  * @param child Node element to which to draw the arrow (rightmost node).
+ * @param thickness Line thickness, in pixels.
+ * @param offset Offset from the centerline, in pixels.
  */
 function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: Node, child: Node, thickness: number, offset: number) {
     let parentOffset = parent.element.getBoundingClientRect();
@@ -101,6 +103,12 @@ function drawArrowBetweenNodes(draw: SVG.Doc, clientRect: ClientRect, parent: No
 
     let fromX = childOffset.left;
     let fromY = (childOffset.top + childOffset.bottom) / 2;
+
+    // Sometimes the node positioning doesn't quite work out and you end up with very small "kinks" in the lines between
+    // nodes that seem like they should have straight lines
+    if (Math.abs(fromY - toY) < 5) {
+        fromY = toY;
+    }
 
     let midOffsetLeft = toX / 2 + fromX / 2;
 

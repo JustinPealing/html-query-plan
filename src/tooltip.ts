@@ -149,13 +149,18 @@ function buildLineTooltip(line: Line) : HTMLElement {
 
 /**
  * Convets sizes to human readable strings.
- * @param size Size in bytes.
+ * @param b Size in bytes.
  */
-function convertSize(size: number) : string {
-    if (size > 1000) {
-        return `${Math.floor(size / 1024)} KB`;
+function convertSize(b: number) : string {
+    if (b >= 10000) {
+        let kb = b / 1024;
+        if (kb >= 10000) {
+            let mb = kb / 1024;
+            return `${Math.round(mb)} MB`;
+        }
+        return `${Math.round(kb)} KB`;
     }
-    return `${size} B`;
+    return `${b} B`;
 }
 
-export { initTooltip, buildLineTooltip }
+export { initTooltip, buildLineTooltip, convertSize }

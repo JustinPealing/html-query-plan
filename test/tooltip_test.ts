@@ -75,4 +75,22 @@ describe("tooltip moduele", () => {
 
     });
 
+    describe("convertSize", () => {
+
+        it("Sizes >= 10 KB in KB", () => {
+
+             assert.equal(tooltip.convertSize(5000), '5000 B');
+             assert.equal(tooltip.convertSize(10240), '10 KB');
+
+        });
+
+        it("Converts sizes 10 MB & > into MB", () => {
+
+            assert.equal(tooltip.convertSize(10230000), '9990 KB');
+            assert.equal(tooltip.convertSize(10240000), '10 MB');
+
+        });
+
+    });
+
 });

@@ -118,13 +118,13 @@ function buildLineTooltip(line: Line) : HTMLElement {
         `<tr>
             <th>Actual Number of Rows</th>
             <td>${line.relOp.actualRows}</td>
-        </tr>` : null;
+        </tr>` : '';
 
     let numberOfRowsRead = line.relOp.actualRowsRead != null ?
         `<tr>
             <th>Number of Rows Read</th>
             <td>${line.relOp.actualRowsRead}</td>
-        </tr>` : null;
+        </tr>` : '';
 
     let document = parser.parseFromString(`
         <div class="qp-tt"><table><tbody>

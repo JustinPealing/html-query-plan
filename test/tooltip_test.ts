@@ -93,4 +93,24 @@ describe("tooltip moduele", () => {
 
     });
 
+    describe("Estimated Operator Cost", () => {
+
+        it("Is @EstimatedTotalSubtreeCost for the node, minus the sum @EstimatedTotalSubtreeCost for child nodes", () => {
+
+            let container = helper.showPlan(plan.batchModeEstimated);
+            let windowAggregate = helper.findNodeById(container, "2");
+            assert.equal(helper.getProperty(windowAggregate, "Estimated Operator Cost"), "1.57 (1%)");
+
+        });
+
+        it("Is shown for root nodes", () => {
+
+            let container = helper.showPlan(plan.adaptive_join);
+            let windowAggregate = helper.findStatement(container);
+            assert.equal(helper.getProperty(windowAggregate, "Estimated Operator Cost"), "0 (0%)");
+
+        });
+
+    });
+
 });

@@ -196,7 +196,6 @@
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
-        <xsl:with-param name="Condition" select="@EstimateIO | @EstimateCPU" />
         <xsl:with-param name="Label">Estimated Operator Cost</xsl:with-param>
         <xsl:with-param name="Value">
           <xsl:variable name="EstimatedOperatorCost">
@@ -205,9 +204,15 @@
           <xsl:variable name="TotalCost">
             <xsl:value-of select="ancestor::s:QueryPlan/s:RelOp/@EstimatedTotalSubtreeCost" />
           </xsl:variable>
+          <xsl:variable name="Percentage">
+            <xsl:choose>
+              <xsl:when test="$TotalCost > 0"><xsl:value-of select="number($EstimatedOperatorCost) div number($TotalCost)" /></xsl:when>
+              <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
           <xsl:call-template name="round">
             <xsl:with-param name="value" select="$EstimatedOperatorCost" />
-          </xsl:call-template> (<xsl:value-of select="format-number(number($EstimatedOperatorCost) div number($TotalCost), '0%')" />)</xsl:with-param>
+          </xsl:call-template> (<xsl:value-of select="format-number($Percentage, '0%')" />)</xsl:with-param>
       </xsl:call-template>
 
       <xsl:call-template name="ToolTipRow">
@@ -329,7 +334,12 @@
   <xsl:template name="EstimatedOperatorCost">
     <xsl:variable name="EstimatedTotalSubtreeCost">
       <xsl:call-template name="convertSciToNumString">
-        <xsl:with-param name="inputVal" select="@EstimatedTotalSubtreeCost" />
+        <xsl:with-param name="inputVal">
+          <xsl:choose>
+            <xsl:when test="@EstimatedTotalSubtreeCost"><xsl:value-of select="@EstimatedTotalSubtreeCost" /></xsl:when>
+            <xsl:otherwise>0</xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
       </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="ChildEstimatedSubtreeCost">

@@ -48,7 +48,10 @@ function trackMousePosition() {
 
 function onMouseover(node: Element, createTooltip: (e: Element) => HTMLElement) {
     if (timeoutId != null) return;
-    timeoutId = window.setTimeout(() => showTooltip(node, createTooltip(node)), TOOLTIP_TIMEOUT);
+    timeoutId = window.setTimeout(() => {
+        var tooltip = createTooltip(node);
+        if (tooltip != null) showTooltip(node, tooltip);
+    }, TOOLTIP_TIMEOUT);
 }
 
 function onMouseout(node: Element, event: MouseEvent) {
@@ -113,6 +116,7 @@ function hideTooltip() {
  * @param line Line to build the tooltip for.
  */
 function buildLineTooltip(line: Line) : HTMLElement {
+    if (line.relOp == null) return null;
     let parser = new DOMParser();
     let actualNumberOfRows = line.relOp.actualRows != null ? 
         `<tr>

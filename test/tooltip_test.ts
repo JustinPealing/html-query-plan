@@ -73,6 +73,15 @@ describe("tooltip moduele", () => {
 
         });
 
+        it("Returns null when relOp is null", () => {
+
+            let container = helper.showPlan(plan.manyLines);
+            let line = helper.findLineById(container, null, "2");
+            var tt = tooltip.buildLineTooltip(line);
+            assert.equal(null, tt);
+
+        });
+
     });
 
     describe("convertSize", () => {

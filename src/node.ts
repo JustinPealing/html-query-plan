@@ -182,7 +182,8 @@ class Line {
      * Gets a wrapped RelOp instance for this nodes RelOp query plan XML.
      */
     get relOp(): RelOp {
-        return this.nodeXml ? new RelOp(this.nodeXml) : null;
+        let nodeXml = this.nodeXml;
+        return nodeXml && nodeXml.tagName == "RelOp" ? new RelOp(this.nodeXml) : null;
     }
 }
 

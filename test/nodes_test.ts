@@ -325,4 +325,16 @@ describe("Line", () => {
 
     });
 
+    describe("relOp property", () => {
+
+        it("Returns null if node type is not relOp", () => {
+
+            let container = helper.showPlan(plan.manyLines);
+            let line = helper.findLineById(container, null, "2");
+            assert.equal(null, line.relOp);
+
+        });
+
+    });
+
 });

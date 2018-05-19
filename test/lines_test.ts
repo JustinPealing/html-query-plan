@@ -151,7 +151,7 @@ describe("lines.ts", () => {
         it("Uses the actual number of rows if present", () => {
 
             assert.equal(2, nodeToThickness(qpNode(null, 100000, 10)));
-            assert.equal(1, nodeToThickness(qpNode(null, 100000, 0)));
+            assert.equal(2, nodeToThickness(qpNode(null, 100000, 0)));
 
         });
 

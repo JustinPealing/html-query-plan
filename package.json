@@ -1,6 +1,6 @@
 {
   "name": "html-query-plan",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Display SQL Server Execution Plans in HTML",
   "devDependencies": {
     "@types/chai": "^4.1.3",

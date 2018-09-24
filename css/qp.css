@@ -106,7 +106,7 @@ div[class|='qp-icon'] {
 .qp-icon-ArithmeticExpression{background: url('qp_icons.png') -0px -0px }
 .qp-icon-Assert{background: url('qp_icons.png') -32px -0px }
 .qp-icon-Assign{background: url('qp_icons.png') -64px -0px }
-.qp-icon-Bitmap{background: url('qp_icons.png') -96px -0px }
+.qp-icon-Bitmap{background: url('qp_icons.png') -256px -192px }
 .qp-icon-BookmarkLookup{background: url('qp_icons.png') -128px -0px }
 .qp-icon-ClusteredIndexDelete{background: url('qp_icons.png') -160px -0px }
 .qp-icon-ClusteredIndexInsert{background: url('qp_icons.png') -192px -0px }

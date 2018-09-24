@@ -593,6 +593,7 @@
         <!-- Matches all statements. -->
         <xsl:when test="local-name() = 'StmtSimple'">Statement</xsl:when>
         <xsl:when test="local-name() = 'StmtCursor'">StmtCursor</xsl:when>
+        <xsl:when test="local-name() = 'StmtCond'">StmtCond</xsl:when>
         <!-- Fallback - show the Bitmap icon. -->
         <xsl:otherwise>Catchall</xsl:otherwise>
       </xsl:choose>

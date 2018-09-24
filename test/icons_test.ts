@@ -77,4 +77,12 @@ describe("Query Plan Icon", () => {
 
     });
 
+    it("Shows Cond icon for COND nodes", () => {
+
+        let container = helper.showPlan(plan.StmtCond);
+        let cond = helper.findStatement(container);
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-StmtCond"));
+
+    });
+
 });

@@ -53,7 +53,7 @@ function getToolTipSection(node: Node, name: string) {
     for (let i = 0; i < titleNodes.length; i++) {
         if (titleNodes[i].innerHTML == name) {
             let next = <HTMLElement>titleNodes[i].nextElementSibling;
-            return next.innerText || next.textContent;
+            return next.textContent;
         }
     }
     return null;
@@ -61,12 +61,12 @@ function getToolTipSection(node: Node, name: string) {
 
 function getTooltipTitle(node: Node) {
     let tt = node.element.querySelector(".qp-tt");
-    return (<HTMLElement>tt.children[0]).innerText;
+    return (<HTMLElement>tt.children[0]).textContent;
 }
 
 function getDescription(node: Node) {
     let tt = node.element.querySelector(".qp-tt");
-    return (<HTMLElement>tt.children[1]).innerText;
+    return (<HTMLElement>tt.children[1]).textContent;
 }
 
 function getNodeLabel(node: Node) {
@@ -82,7 +82,7 @@ function getNodeLabel3(node: Node) {
 }
 
 function getLabel(node: Node, index: number) {
-    return (<HTMLElement>node.element.children[index]).innerText;
+    return (<any>node.element.children[index]).textContent;
 }
 
 function showPlan(planXml: string) {

@@ -14,8 +14,8 @@ describe("tooltip moduele", () => {
             let line = helper.findLineById(container, "4");
             let tt = tooltip.buildLineTooltip(line);
             let row = tt.querySelector("tbody").children[0];
-            assert.equal("Actual Number of Rows", row.querySelector("th").innerText);
-            assert.equal("0", row.querySelector("td").innerText);
+            assert.equal("Actual Number of Rows", row.querySelector("th").textContent);
+            assert.equal("0", row.querySelector("td").textContent);
 
         });
 
@@ -25,7 +25,7 @@ describe("tooltip moduele", () => {
             let line = helper.findLineById(container, "4");
             let tt = tooltip.buildLineTooltip(line);
             let row = tt.querySelector("tbody").children[0];
-            assert.equal("Estimated Number of Rows", row.querySelector("th").innerText);
+            assert.equal("Estimated Number of Rows", row.querySelector("th").textContent);
 
         });
 
@@ -35,8 +35,8 @@ describe("tooltip moduele", () => {
             let line = helper.findLineById(container, "7");
             let tt = tooltip.buildLineTooltip(line);
             let row = tt.querySelector("tbody").children[1];
-            assert.equal("Number of Rows Read", row.querySelector("th").innerText);
-            assert.equal("10", row.querySelector("td").innerText);
+            assert.equal("Number of Rows Read", row.querySelector("th").textContent);
+            assert.equal("10", row.querySelector("td").textContent);
 
         });
 
@@ -46,8 +46,8 @@ describe("tooltip moduele", () => {
             let line = helper.findLineById(container, "4");
             let tt = tooltip.buildLineTooltip(line);
             let row = tt.querySelector("tbody").children[1];
-            assert.equal("Estimated Number of Rows", row.querySelector("th").innerText);
-            assert.equal("100000", row.querySelector("td").innerText);
+            assert.equal("Estimated Number of Rows", row.querySelector("th").textContent);
+            assert.equal("100000", row.querySelector("td").textContent);
 
         });
 
@@ -57,8 +57,8 @@ describe("tooltip moduele", () => {
             let line = helper.findLineById(container, "4");
             let tt = tooltip.buildLineTooltip(line);
             let row = tt.querySelector("tbody").children[2];
-            assert.equal("Estimated Row Size", row.querySelector("th").innerText);
-            assert.equal("11 B", row.querySelector("td").innerText);
+            assert.equal("Estimated Row Size", row.querySelector("th").textContent);
+            assert.equal("11 B", row.querySelector("td").textContent);
 
         });
 
@@ -68,8 +68,8 @@ describe("tooltip moduele", () => {
             let line = helper.findLineById(container, "4");
             let tt = tooltip.buildLineTooltip(line);
             let row = tt.querySelector("tbody").children[3];
-            assert.equal("Estimated Data Size", row.querySelector("th").innerText);
-            assert.equal("1074 KB", row.querySelector("td").innerText);
+            assert.equal("Estimated Data Size", row.querySelector("th").textContent);
+            assert.equal("1074 KB", row.querySelector("td").textContent);
 
         });
 

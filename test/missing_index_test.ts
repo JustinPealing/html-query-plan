@@ -16,7 +16,7 @@ describe("Missing Indexes", () => {
 
         assert.equal(1, missingIndexes.length);
         assert.equal("Missing Index (Impact 99.9609): CREATE NONCLUSTERED INDEX [<Name of Missing Index, sysname,>] ON [dbo].[Posts] ([AcceptedAnswerId])",
-            (<HTMLElement>missingIndexes[0]).innerText.replace(/\r?\n|\r/g, "").trim());
+            (<HTMLElement>missingIndexes[0]).textContent.replace(/\r?\n|\r/g, "").trim());
         
     });
 
@@ -31,7 +31,7 @@ describe("Missing Indexes", () => {
 
         assert.equal(1, missingIndexes.length);
         assert.equal("Missing Index (Impact 99.9677): CREATE NONCLUSTERED INDEX [<Name of Missing Index, sysname,>] ON [dbo].[Comments] ([UserId]) INCLUDE ([Score])",
-            (<HTMLElement>missingIndexes[0]).innerText.replace(/\r?\n|\r/g, "").trim());
+            (<HTMLElement>missingIndexes[0]).textContent.replace(/\r?\n|\r/g, "").trim());
         
     });
 
@@ -45,9 +45,9 @@ describe("Missing Indexes", () => {
 
         assert.equal(2, missingIndexes.length);
         assert.equal("Missing Index (Impact 76.9098): CREATE NONCLUSTERED INDEX [<Name of Missing Index, sysname,>] ON [dbo].[Votes] ([VoteTypeId]) INCLUDE ([PostId])",
-            (<HTMLElement>missingIndexes[0]).innerText.replace(/\r?\n|\r/g, "").trim());
+            (<HTMLElement>missingIndexes[0]).textContent.replace(/\r?\n|\r/g, "").trim());
         assert.equal("Missing Index (Impact 99.2377): CREATE NONCLUSTERED INDEX [<Name of Missing Index, sysname,>] ON [dbo].[Votes] ([PostId],[VoteTypeId])",
-            (<HTMLElement>missingIndexes[1]).innerText.replace(/\r?\n|\r/g, "").trim());
+            (<HTMLElement>missingIndexes[1]).textContent.replace(/\r?\n|\r/g, "").trim());
 
     });
 
@@ -61,7 +61,7 @@ describe("Missing Indexes", () => {
 
         assert.equal(1, missingIndexes.length);
         assert.equal("Missing Index (Impact 96.3324): CREATE NONCLUSTERED INDEX [<Name of Missing Index, sysname,>] ON [dbo].[Posts] ([PostTypeId],[Score]) INCLUDE ([CommentCount],[OwnerUserId])",
-            (<HTMLElement>missingIndexes[0]).innerText.replace(/\r?\n|\r/g, "").trim());
+            (<HTMLElement>missingIndexes[0]).textContent.replace(/\r?\n|\r/g, "").trim());
         
     });
 

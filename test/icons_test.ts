@@ -85,11 +85,19 @@ describe("Query Plan Icon", () => {
 
     });
 
-    it("Shows ColumnstoreIndexScan icon for Columnstore index Index Scan nodes", () => {
+    it("Shows ColumnstoreIndexScan icon for Columnstore Index Scan nodes", () => {
 
         let container = helper.showPlan(plan.adaptive_join);
         let cond = helper.findNodeById(container, "2");
         assert.notEqual(null, cond.element.querySelector(".qp-icon-ColumnstoreIndexScan"));
+
+    });
+
+    it("Shows ColumnstoreIndexInsert icon for Columnstore Index Insert nodes", () => {
+
+        let container = helper.showPlan(plan.columnstore_index_insert);
+        let cond = helper.findNodeById(container, "0");
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-ColumnstoreIndexInsert"));
 
     });
 

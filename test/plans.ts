@@ -30,6 +30,7 @@ var plan = {
     unmatched_index: require("raw-loader!../test_plans/unmatched_index.sqlplan"),
     columns_with_no_statistics: require("raw-loader!../test_plans/columns_with_no_statistics.sqlplan"),
     spilltotempdb: require("raw-loader!../test_plans/spilltotempdb.sqlplan"),
-    HashSpillDetails: require("raw-loader!../test_plans/HashSpillDetails.sqlplan")
+    HashSpillDetails: require("raw-loader!../test_plans/HashSpillDetails.sqlplan"),
+    columnstore_index_insert: require("raw-loader!../test_plans/Columnstore/columnstore_index_insert.sqlplan")
 }
 export { plan };

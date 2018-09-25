@@ -1,0 +1,85 @@
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.6" Build="14.0.2002.14">
+    <BatchSequence>
+        <Batch>
+            <Statements>
+                <StmtSimple StatementText="INSERT INTO T1 (ProductKey, OrderDateKey, DueDateKey, ShipDateKey)&#xd;&#xa;VALUES (0, 1, 2, 3)" StatementId="1" StatementCompId="1" StatementType="INSERT" RetrievedFromCache="false" StatementSubTreeCost="0.0100022" StatementEstRows="1" SecurityPolicyApplied="false" StatementOptmLevel="TRIVIAL" QueryHash="0xD40281D57AD85A16" QueryPlanHash="0x6DAA42AEB07FE66C" CardinalityEstimationModelVersion="140" ParameterizedText="(@1 int,@2 int,@3 int,@4 int)INSERT INTO [T1]([ProductKey],[OrderDateKey],[DueDateKey],[ShipDateKey]) values(@1,@2,@3,@4)">
+                    <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false"></StatementSetOptions>
+                    <QueryPlan CachedPlanSize="16" CompileTime="0" CompileCPU="0" CompileMemory="104">
+                        <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0"></MemoryGrantInfo>
+                        <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="104346" EstimatedPagesCached="52173" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="1657408"></OptimizerHardwareDependentProperties>
+                        <RelOp NodeId="0" PhysicalOp="Clustered Index Insert" LogicalOp="Insert" EstimateRows="1" EstimateIO="0.01" EstimateCPU="1e-006" AvgRowSize="9" EstimatedTotalSubtreeCost="0.0100022" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                            <OutputList></OutputList>
+                            <ScalarInsert DMLRequestSort="0">
+                                <Object Database="[Test]" Schema="[dbo]" Table="[T1]" Index="[cci_T1]" IndexKind="Clustered" Storage="ColumnStore"></Object>
+                                <SetPredicate>
+                                    <ScalarOperator ScalarString="[Test].[dbo].[T1].[ProductKey] = RaiseIfNullInsert([@1]),[Test].[dbo].[T1].[OrderDateKey] = RaiseIfNullInsert([@2]),[Test].[dbo].[T1].[DueDateKey] = RaiseIfNullInsert([@3]),[Test].[dbo].[T1].[ShipDateKey] = RaiseIfNullInsert([@4])">
+                                        <ScalarExpressionList>
+                                            <ScalarOperator>
+                                                <MultipleAssign>
+                                                    <Assign>
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ProductKey"></ColumnReference>
+                                                        <ScalarOperator>
+                                                            <Intrinsic FunctionName="RaiseIfNullInsert">
+                                                                <ScalarOperator>
+                                                                    <Identifier>
+                                                                        <ColumnReference Column="@1"></ColumnReference>
+                                                                    </Identifier>
+                                                                </ScalarOperator>
+                                                            </Intrinsic>
+                                                        </ScalarOperator>
+                                                    </Assign>
+                                                    <Assign>
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="OrderDateKey"></ColumnReference>
+                                                        <ScalarOperator>
+                                                            <Intrinsic FunctionName="RaiseIfNullInsert">
+                                                                <ScalarOperator>
+                                                                    <Identifier>
+                                                                        <ColumnReference Column="@2"></ColumnReference>
+                                                                    </Identifier>
+                                                                </ScalarOperator>
+                                                            </Intrinsic>
+                                                        </ScalarOperator>
+                                                    </Assign>
+                                                    <Assign>
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey"></ColumnReference>
+                                                        <ScalarOperator>
+                                                            <Intrinsic FunctionName="RaiseIfNullInsert">
+                                                                <ScalarOperator>
+                                                                    <Identifier>
+                                                                        <ColumnReference Column="@3"></ColumnReference>
+                                                                    </Identifier>
+                                                                </ScalarOperator>
+                                                            </Intrinsic>
+                                                        </ScalarOperator>
+                                                    </Assign>
+                                                    <Assign>
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ShipDateKey"></ColumnReference>
+                                                        <ScalarOperator>
+                                                            <Intrinsic FunctionName="RaiseIfNullInsert">
+                                                                <ScalarOperator>
+                                                                    <Identifier>
+                                                                        <ColumnReference Column="@4"></ColumnReference>
+                                                                    </Identifier>
+                                                                </ScalarOperator>
+                                                            </Intrinsic>
+                                                        </ScalarOperator>
+                                                    </Assign>
+                                                </MultipleAssign>
+                                            </ScalarOperator>
+                                        </ScalarExpressionList>
+                                    </ScalarOperator>
+                                </SetPredicate>
+                            </ScalarInsert>
+                        </RelOp>
+                        <ParameterList>
+                            <ColumnReference Column="@4" ParameterDataType="int" ParameterCompiledValue="(3)"></ColumnReference>
+                            <ColumnReference Column="@3" ParameterDataType="int" ParameterCompiledValue="(2)"></ColumnReference>
+                            <ColumnReference Column="@2" ParameterDataType="int" ParameterCompiledValue="(1)"></ColumnReference>
+                            <ColumnReference Column="@1" ParameterDataType="int" ParameterCompiledValue="(0)"></ColumnReference>
+                        </ParameterList>
+                    </QueryPlan>
+                </StmtSimple>
+            </Statements>
+        </Batch>
+    </BatchSequence>
+</ShowPlanXML>

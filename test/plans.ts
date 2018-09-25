@@ -32,6 +32,7 @@ var plan = {
     spilltotempdb: require("raw-loader!../test_plans/spilltotempdb.sqlplan"),
     HashSpillDetails: require("raw-loader!../test_plans/HashSpillDetails.sqlplan"),
     columnstore_index_insert: require("raw-loader!../test_plans/Columnstore/columnstore_index_insert.sqlplan"),
-    columnstore_index_delete: require("raw-loader!../test_plans/Columnstore/columnstore_index_delete.sqlplan")
+    columnstore_index_delete: require("raw-loader!../test_plans/Columnstore/columnstore_index_delete.sqlplan"),
+    columnstore_index_update: require("raw-loader!../test_plans/Columnstore/columnstore_index_update.sqlplan")
 }
 export { plan };

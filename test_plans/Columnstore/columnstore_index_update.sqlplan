@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.6" Build="14.0.2002.14" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="2" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="140" StatementSubTreeCost="0.0312655" StatementText="UPDATE [T1] set [ProductKey] = @1" StatementType="UPDATE" QueryHash="0x92D5099C94211A22" QueryPlanHash="0x4DC64DEEE93A2545" RetrievedFromCache="false" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan DegreeOfParallelism="1" MemoryGrant="1024" CachedPlanSize="32" CompileTime="8" CompileCPU="8" CompileMemory="240">
+            <Warnings>
+              <MemoryGrantWarning GrantWarningKind="Excessive Grant" RequestedMemory="1024" GrantedMemory="1024" MaxUsedMemory="0" />
+            </Warnings>
+            <MemoryGrantInfo SerialRequiredMemory="512" SerialDesiredMemory="544" RequiredMemory="512" DesiredMemory="544" RequestedMemory="1024" GrantWaitTime="0" GrantedMemory="1024" MaxUsedMemory="0" MaxQueryMemory="435504" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="104346" EstimatedPagesCached="52173" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="1707232" />
+            <QueryTimeStats CpuTime="1" ElapsedTime="1" />
+            <RelOp AvgRowSize="9" EstimateCPU="2E-06" EstimateIO="0.0167568" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="2" LogicalOp="Update" NodeId="1" Parallel="false" PhysicalOp="Clustered Index Update" EstimatedTotalSubtreeCost="0.0312655">
+              <OutputList />
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+              </RunTimeInformation>
+              <Update DMLRequestSort="true">
+                <Object Database="[Test]" Schema="[dbo]" Table="[T1]" Index="[cci_T1]" IndexKind="Clustered" Storage="ColumnStore" />
+                <SetPredicate>
+                  <ScalarOperator ScalarString="[Test].[dbo].[T1].[ProductKey] = RaiseIfNullUpdate([Test].[dbo].[T1].[ProductKey]),[Test].[dbo].[T1].[OrderDateKey] = RaiseIfNullUpdate([Test].[dbo].[T1].[OrderDateKey]),[Test].[dbo].[T1].[DueDateKey] = RaiseIfNullUpdate([Test].[dbo].[T1].[DueDateKey]),[Test].[dbo].[T1].[ShipDateKey] = RaiseIfNullUpdate([Test].[dbo].[T1].[ShipDateKey])">
+                    <ScalarExpressionList>
+                      <ScalarOperator>
+                        <MultipleAssign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ProductKey" />
+                            <ScalarOperator>
+                              <Intrinsic FunctionName="RaiseIfNullUpdate">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ProductKey" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Intrinsic>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="OrderDateKey" />
+                            <ScalarOperator>
+                              <Intrinsic FunctionName="RaiseIfNullUpdate">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="OrderDateKey" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Intrinsic>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                            <ScalarOperator>
+                              <Intrinsic FunctionName="RaiseIfNullUpdate">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Intrinsic>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ShipDateKey" />
+                            <ScalarOperator>
+                              <Intrinsic FunctionName="RaiseIfNullUpdate">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ShipDateKey" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Intrinsic>
+                            </ScalarOperator>
+                          </Assign>
+                        </MultipleAssign>
+                      </ScalarOperator>
+                    </ScalarExpressionList>
+                  </ScalarOperator>
+                </SetPredicate>
+                <ActionColumn>
+                  <ColumnReference Column="Act1009" />
+                </ActionColumn>
+                <RelOp AvgRowSize="35" EstimateCPU="0.000103155" EstimateIO="0.0112613" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="2" LogicalOp="Sort" NodeId="2" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="0.0145067">
+                  <OutputList>
+                    <ColumnReference Column="ColStoreLoc1000" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ProductKey" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="OrderDateKey" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ShipDateKey" />
+                    <ColumnReference Column="Act1009" />
+                  </OutputList>
+                  <MemoryFractions Input="1" Output="1" />
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRebinds="1" ActualRewinds="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="1024" OutputMemoryGrant="640" UsedMemoryGrant="0" />
+                  </RunTimeInformation>
+                  <Sort Distinct="false">
+                    <OrderBy>
+                      <OrderByColumn Ascending="true">
+                        <ColumnReference Column="Act1009" />
+                      </OrderByColumn>
+                      <OrderByColumn Ascending="true">
+                        <ColumnReference Column="ColStoreLoc1000" />
+                      </OrderByColumn>
+                    </OrderBy>
+                    <RelOp AvgRowSize="35" EstimateCPU="1.5E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="2" LogicalOp="Split" NodeId="3" Parallel="false" PhysicalOp="Split" EstimatedTotalSubtreeCost="0.00314233">
+                      <OutputList>
+                        <ColumnReference Column="ColStoreLoc1000" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ProductKey" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="OrderDateKey" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ShipDateKey" />
+                        <ColumnReference Column="Act1009" />
+                      </OutputList>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                      </RunTimeInformation>
+                      <Split>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Act1009" />
+                          </DefinedValue>
+                        </DefinedValues>
+                        <ActionColumn>
+                          <ColumnReference Column="Act1009" />
+                        </ActionColumn>
+                        <RelOp AvgRowSize="31" EstimateCPU="1E-08" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="4" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.00314082">
+                          <OutputList>
+                            <ColumnReference Column="ColStoreLoc1000" />
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="OrderDateKey" />
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ShipDateKey" />
+                            <ColumnReference Column="Expr1008" />
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                          </RunTimeInformation>
+                          <ComputeScalar>
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1008" />
+                                <ScalarOperator ScalarString="(4)">
+                                  <Const ConstValue="(4)" />
+                                </ScalarOperator>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <RelOp AvgRowSize="27" EstimateCPU="1.581E-05" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="1" EstimatedRowsRead="1" LogicalOp="Clustered Index Scan" NodeId="5" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.00314081" TableCardinality="0">
+                              <OutputList>
+                                <ColumnReference Column="ColStoreLoc1000" />
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="OrderDateKey" />
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ShipDateKey" />
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                              </RunTimeInformation>
+                              <IndexScan Ordered="false" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="ColumnStore">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Column="ColStoreLoc1000" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="OrderDateKey" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ShipDateKey" />
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[Test]" Schema="[dbo]" Table="[T1]" Index="[cci_T1]" IndexKind="Clustered" Storage="ColumnStore" />
+                              </IndexScan>
+                            </RelOp>
+                          </ComputeScalar>
+                        </RelOp>
+                      </Split>
+                    </RelOp>
+                  </Sort>
+                </RelOp>
+              </Update>
+            </RelOp>
+            <ParameterList>
+              <ColumnReference Column="@1" ParameterDataType="int" ParameterCompiledValue="(4)" ParameterRuntimeValue="(4)" />
+            </ParameterList>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

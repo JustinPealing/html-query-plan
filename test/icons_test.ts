@@ -109,4 +109,12 @@ describe("Query Plan Icon", () => {
 
     });
 
+    it("Shows ColumnStoreIndexUpdate icon for Columnstore Index Update nodes", () => {
+
+        let container = helper.showPlan(plan.columnstore_index_update);
+        let cond = helper.findNodeById(container, "1");
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-ColumnStoreIndexUpdate"));
+
+    });
+
 });

@@ -587,8 +587,9 @@
         <xsl:when test="s:CursorPlan/@CursorActualType"><xsl:value-of select="s:CursorPlan/@CursorActualType" /></xsl:when>
         <xsl:when test="@OperationType"><xsl:value-of select="@OperationType" /></xsl:when>
         <xsl:when test="s:IndexScan/@Lookup">KeyLookup</xsl:when>
-        <xsl:when test="s:IndexScan/@Storage = 'ColumnStore'">ColumnstoreIndexScan</xsl:when>
-        <xsl:when test="s:ScalarInsert/s:Object/@Storage = 'ColumnStore'">ColumnstoreIndexInsert</xsl:when>
+        <xsl:when test="s:IndexScan/@Storage = 'ColumnStore'">ColumnStoreIndexScan</xsl:when>
+        <xsl:when test="s:ScalarInsert/s:Object/@Storage = 'ColumnStore'">ColumnStoreIndexInsert</xsl:when>
+        <xsl:when test="s:Update/s:Object/@Storage = 'ColumnStore'">ColumnStoreIndexDelete</xsl:when>
         <xsl:when test="s:TableValuedFunction">TableValuedFunction</xsl:when>
         <!-- Use the physical operation to determine icon if it is present. -->
         <xsl:when test="@PhysicalOp"><xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:when>

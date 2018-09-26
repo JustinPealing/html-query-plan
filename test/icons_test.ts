@@ -125,4 +125,12 @@ describe("Query Plan Icon", () => {
 
     });
 
+    it("Shows ClustredIndexMerge icon for Clustered Index Merge nodes", () => {
+
+        let container = helper.showPlan(plan.clustered_index_merge);
+        let cond = helper.findNodeById(container, "1");
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-ClustredIndexMerge"));
+
+    });
+
 });

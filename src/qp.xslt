@@ -589,8 +589,7 @@
         <xsl:when test="s:IndexScan/@Lookup">KeyLookup</xsl:when>
         <xsl:when test="s:IndexScan/@Storage = 'ColumnStore'">ColumnStoreIndexScan</xsl:when>
         <xsl:when test="s:ScalarInsert/s:Object/@Storage = 'ColumnStore'">ColumnStoreIndexInsert</xsl:when>
-        <xsl:when test="s:Update/s:Object/@Storage = 'ColumnStore' and @LogicalOp = 'Delete'">ColumnStoreIndexDelete</xsl:when>
-        <xsl:when test="s:Update/s:Object/@Storage = 'ColumnStore'">ColumnStoreIndexUpdate</xsl:when>
+        <xsl:when test="s:Update/s:Object/@Storage = 'ColumnStore'">ColumnStoreIndex<xsl:value-of select="@LogicalOp" /></xsl:when>
         <xsl:when test="s:TableValuedFunction">TableValuedFunction</xsl:when>
         <!-- Use the physical operation to determine icon if it is present. -->
         <xsl:when test="@PhysicalOp"><xsl:value-of select="translate(@PhysicalOp, ' ', '')" /></xsl:when>

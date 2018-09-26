@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.6" Build="14.0.2002.14" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="2" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="140" StatementSubTreeCost="0.0384092" StatementText="MERGE INTO T2 AS t&#xD;&#xA;USING&#xD;&#xA;(&#xD;&#xA;	SELECT * FROM T1&#xD;&#xA;) AS s&#xD;&#xA;	ON s.ProductKey = t.ProductKey&#xD;&#xA;WHEN MATCHED THEN UPDATE SET&#xD;&#xA;	t.DueDateKey = s.DueDateKey&#xD;&#xA;WHEN NOT MATCHED BY TARGET THEN	&#xD;&#xA;	INSERT (DueDateKey) VALUES (s.DueDateKey);" StatementType="MERGE" QueryHash="0x76C8ED48C205DD3F" QueryPlanHash="0xF1735F313C4E6C92" RetrievedFromCache="true" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan DegreeOfParallelism="1" MemoryGrant="2080" CachedPlanSize="72" CompileTime="11" CompileCPU="11" CompileMemory="648">
+            <MemoryGrantInfo SerialRequiredMemory="664" SerialDesiredMemory="2080" RequiredMemory="664" DesiredMemory="2080" RequestedMemory="2080" GrantWaitTime="0" GrantedMemory="2080" MaxUsedMemory="776" MaxQueryMemory="685312" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="104346" EstimatedPagesCached="52173" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="2781176" />
+            <QueryTimeStats CpuTime="0" ElapsedTime="0" />
+            <RelOp AvgRowSize="9" EstimateCPU="2E-06" EstimateIO="0.0167568" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="2" LogicalOp="Merge" NodeId="1" Parallel="false" PhysicalOp="Clustered Index Merge" EstimatedTotalSubtreeCost="0.0384092">
+              <OutputList />
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+              </RunTimeInformation>
+              <Update DMLRequestSort="true">
+                <Object Database="[Test]" Schema="[dbo]" Table="[T2]" Index="[cci_T2]" Alias="[t]" IndexKind="Clustered" Storage="ColumnStore" />
+                <SetPredicate>
+                  <ScalarOperator ScalarString="[Test].[dbo].[T2].[DueDateKey] as [t].[DueDateKey] = RaiseIfNullUpdate([Test].[dbo].[T2].[DueDateKey] as [t].[DueDateKey]),[Test].[dbo].[T2].[ProductKey] as [t].[ProductKey] = RaiseIfNullUpdate([Test].[dbo].[T2].[ProductKey] as [t].[ProductKey]),[Test].[dbo].[T2].[OrderDateKey] as [t].[OrderDateKey] = RaiseIfNullUpdate([Test].[dbo].[T2].[OrderDateKey] as [t].[OrderDateKey]),[Test].[dbo].[T2].[ShipDateKey] as [t].[ShipDateKey] = RaiseIfNullUpdate([Test].[dbo].[T2].[ShipDateKey] as [t].[ShipDateKey])">
+                    <ScalarExpressionList>
+                      <ScalarOperator>
+                        <MultipleAssign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                            <ScalarOperator>
+                              <Intrinsic FunctionName="RaiseIfNullUpdate">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Intrinsic>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                            <ScalarOperator>
+                              <Intrinsic FunctionName="RaiseIfNullUpdate">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Intrinsic>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                            <ScalarOperator>
+                              <Intrinsic FunctionName="RaiseIfNullUpdate">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Intrinsic>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                            <ScalarOperator>
+                              <Intrinsic FunctionName="RaiseIfNullUpdate">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Intrinsic>
+                            </ScalarOperator>
+                          </Assign>
+                        </MultipleAssign>
+                      </ScalarOperator>
+                    </ScalarExpressionList>
+                  </ScalarOperator>
+                </SetPredicate>
+                <ActionColumn>
+                  <ColumnReference Column="Action1007" />
+                </ActionColumn>
+                <OriginalActionColumn>
+                  <ColumnReference Column="OriginalMergeAction1020" />
+                </OriginalActionColumn>
+                <RelOp AvgRowSize="39" EstimateCPU="0.000103159" EstimateIO="0.0112613" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="2" LogicalOp="Sort" NodeId="2" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="0.0216504">
+                  <OutputList>
+                    <ColumnReference Column="ColStoreLoc1003" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                    <ColumnReference Column="Action1007" />
+                    <ColumnReference Column="OriginalMergeAction1020" />
+                  </OutputList>
+                  <MemoryFractions Input="0.0225989" Output="1" />
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRebinds="1" ActualRewinds="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="544" OutputMemoryGrant="1544" UsedMemoryGrant="0" />
+                  </RunTimeInformation>
+                  <Sort Distinct="false">
+                    <OrderBy>
+                      <OrderByColumn Ascending="true">
+                        <ColumnReference Column="Action1007" />
+                      </OrderByColumn>
+                      <OrderByColumn Ascending="true">
+                        <ColumnReference Column="ColStoreLoc1003" />
+                      </OrderByColumn>
+                    </OrderBy>
+                    <RelOp AvgRowSize="39" EstimateCPU="1.5E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="2" LogicalOp="Split" NodeId="3" Parallel="false" PhysicalOp="Split" EstimatedTotalSubtreeCost="0.010286">
+                      <OutputList>
+                        <ColumnReference Column="ColStoreLoc1003" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                        <ColumnReference Column="Action1007" />
+                        <ColumnReference Column="OriginalMergeAction1020" />
+                      </OutputList>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                      </RunTimeInformation>
+                      <Split>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Action1007" />
+                          </DefinedValue>
+                        </DefinedValues>
+                        <ActionColumn>
+                          <ColumnReference Column="Action1007" />
+                        </ActionColumn>
+                        <RelOp AvgRowSize="56" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="4" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.0102845">
+                          <OutputList>
+                            <ColumnReference Column="ColStoreLoc1003" />
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                            <ColumnReference Column="Action1007" />
+                            <ColumnReference Column="Expr1008" />
+                            <ColumnReference Column="Expr1009" />
+                            <ColumnReference Column="Expr1010" />
+                            <ColumnReference Column="Expr1011" />
+                            <ColumnReference Column="OriginalMergeAction1020" />
+                          </OutputList>
+                          <ComputeScalar>
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Column="OriginalMergeAction1020" />
+                                <ScalarOperator ScalarString="[Action1007]">
+                                  <Identifier>
+                                    <ColumnReference Column="Action1007" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <RelOp AvgRowSize="52" EstimateCPU="4.8E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Assert" NodeId="5" Parallel="false" PhysicalOp="Assert" EstimatedTotalSubtreeCost="0.0102844">
+                              <OutputList>
+                                <ColumnReference Column="ColStoreLoc1003" />
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                <ColumnReference Column="Action1007" />
+                                <ColumnReference Column="Expr1008" />
+                                <ColumnReference Column="Expr1009" />
+                                <ColumnReference Column="Expr1010" />
+                                <ColumnReference Column="Expr1011" />
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                              </RunTimeInformation>
+                              <Assert StartupExpression="false">
+                                <RelOp AvgRowSize="60" EstimateCPU="8E-08" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="6" Parallel="false" PhysicalOp="Sequence Project" EstimatedTotalSubtreeCost="0.0102839">
+                                  <OutputList>
+                                    <ColumnReference Column="ColStoreLoc1003" />
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                    <ColumnReference Column="Action1007" />
+                                    <ColumnReference Column="Expr1008" />
+                                    <ColumnReference Column="Expr1009" />
+                                    <ColumnReference Column="Expr1010" />
+                                    <ColumnReference Column="Expr1011" />
+                                    <ColumnReference Column="Expr1019" />
+                                  </OutputList>
+                                  <RunTimeInformation>
+                                    <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                                  </RunTimeInformation>
+                                  <SequenceProject>
+                                    <DefinedValues>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1019" />
+                                        <ScalarOperator ScalarString="conditional_row_number">
+                                          <Sequence FunctionName="conditional_row_number" />
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                    </DefinedValues>
+                                    <RelOp AvgRowSize="60" EstimateCPU="2E-08" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Segment" NodeId="7" Parallel="false" PhysicalOp="Segment" EstimatedTotalSubtreeCost="0.0102838">
+                                      <OutputList>
+                                        <ColumnReference Column="ColStoreLoc1003" />
+                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                        <ColumnReference Column="Action1007" />
+                                        <ColumnReference Column="Expr1008" />
+                                        <ColumnReference Column="Expr1009" />
+                                        <ColumnReference Column="Expr1010" />
+                                        <ColumnReference Column="Expr1011" />
+                                        <ColumnReference Column="Segment1021" />
+                                      </OutputList>
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                                      </RunTimeInformation>
+                                      <Segment>
+                                        <GroupBy>
+                                          <ColumnReference Column="ColStoreLoc1003" />
+                                        </GroupBy>
+                                        <SegmentColumn>
+                                          <ColumnReference Column="Segment1021" />
+                                        </SegmentColumn>
+                                        <RelOp AvgRowSize="52" EstimateCPU="1E-08" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="8" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.0102838">
+                                          <OutputList>
+                                            <ColumnReference Column="ColStoreLoc1003" />
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                            <ColumnReference Column="Action1007" />
+                                            <ColumnReference Column="Expr1008" />
+                                            <ColumnReference Column="Expr1009" />
+                                            <ColumnReference Column="Expr1010" />
+                                            <ColumnReference Column="Expr1011" />
+                                          </OutputList>
+                                          <RunTimeInformation>
+                                            <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                                          </RunTimeInformation>
+                                          <ComputeScalar>
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1008" />
+                                                <ScalarOperator ScalarString="[Test].[dbo].[T1].[DueDateKey]">
+                                                  <Identifier>
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1009" />
+                                                <ScalarOperator ScalarString="CASE WHEN [Action1007]=(4) THEN NULL ELSE [Test].[dbo].[T2].[ProductKey] as [t].[ProductKey] END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Column="Action1007" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="(4)" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1010" />
+                                                <ScalarOperator ScalarString="CASE WHEN [Action1007]=(4) THEN NULL ELSE [Test].[dbo].[T2].[OrderDateKey] as [t].[OrderDateKey] END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Column="Action1007" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="(4)" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1011" />
+                                                <ScalarOperator ScalarString="CASE WHEN [Action1007]=(4) THEN NULL ELSE [Test].[dbo].[T2].[ShipDateKey] as [t].[ShipDateKey] END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Column="Action1007" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="(4)" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <RelOp AvgRowSize="39" EstimateCPU="0.000100039" EstimateIO="0.00375375" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="1" LogicalOp="Sort" NodeId="9" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="0.0102838">
+                                              <OutputList>
+                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                                                <ColumnReference Column="ColStoreLoc1003" />
+                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                                <ColumnReference Column="Action1007" />
+                                              </OutputList>
+                                              <MemoryFractions Input="0.977401" Output="0.977401" />
+                                              <RunTimeInformation>
+                                                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                                              </RunTimeInformation>
+                                              <Sort Distinct="false">
+                                                <OrderBy>
+                                                  <OrderByColumn Ascending="true">
+                                                    <ColumnReference Column="ColStoreLoc1003" />
+                                                  </OrderByColumn>
+                                                </OrderBy>
+                                                <RelOp AvgRowSize="39" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="10" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.00642859">
+                                                  <OutputList>
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                                                    <ColumnReference Column="ColStoreLoc1003" />
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                                    <ColumnReference Column="Action1007" />
+                                                  </OutputList>
+                                                  <RunTimeInformation>
+                                                    <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                                                  </RunTimeInformation>
+                                                  <ComputeScalar ComputeSequence="true">
+                                                    <DefinedValues>
+                                                      <DefinedValue>
+                                                        <ColumnReference Column="Action1007" />
+                                                        <ScalarOperator ScalarString="ForceOrder(CASE WHEN [TrgPrb1005] IS NOT NULL THEN (1) ELSE (4) END)">
+                                                          <Intrinsic FunctionName="ForceOrder">
+                                                            <ScalarOperator>
+                                                              <IF>
+                                                                <Condition>
+                                                                  <ScalarOperator>
+                                                                    <Compare CompareOp="IS NOT">
+                                                                      <ScalarOperator>
+                                                                        <Identifier>
+                                                                          <ColumnReference Column="TrgPrb1005" />
+                                                                        </Identifier>
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Const ConstValue="NULL" />
+                                                                      </ScalarOperator>
+                                                                    </Compare>
+                                                                  </ScalarOperator>
+                                                                </Condition>
+                                                                <Then>
+                                                                  <ScalarOperator>
+                                                                    <Const ConstValue="(1)" />
+                                                                  </ScalarOperator>
+                                                                </Then>
+                                                                <Else>
+                                                                  <ScalarOperator>
+                                                                    <Const ConstValue="(4)" />
+                                                                  </ScalarOperator>
+                                                                </Else>
+                                                              </IF>
+                                                            </ScalarOperator>
+                                                          </Intrinsic>
+                                                        </ScalarOperator>
+                                                      </DefinedValue>
+                                                    </DefinedValues>
+                                                    <RelOp AvgRowSize="39" EstimateCPU="4.18E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Left Outer Join" NodeId="11" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="0.00642849">
+                                                      <OutputList>
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                                                        <ColumnReference Column="ColStoreLoc1003" />
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                                        <ColumnReference Column="TrgPrb1005" />
+                                                      </OutputList>
+                                                      <RunTimeInformation>
+                                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                                                      </RunTimeInformation>
+                                                      <NestedLoops Optimized="false">
+                                                        <Predicate>
+                                                          <ScalarOperator ScalarString="[Test].[dbo].[T1].[ProductKey]=[Test].[dbo].[T2].[ProductKey] as [t].[ProductKey]">
+                                                            <Compare CompareOp="EQ">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ProductKey" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Compare>
+                                                          </ScalarOperator>
+                                                        </Predicate>
+                                                        <RelOp AvgRowSize="15" EstimateCPU="1.581E-05" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="1" EstimatedRowsRead="1" LogicalOp="Clustered Index Scan" NodeId="12" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.00314081" TableCardinality="0">
+                                                          <OutputList>
+                                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ProductKey" />
+                                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                                                          </OutputList>
+                                                          <RunTimeInformation>
+                                                            <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                                                          </RunTimeInformation>
+                                                          <IndexScan Ordered="false" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="ColumnStore">
+                                                            <DefinedValues>
+                                                              <DefinedValue>
+                                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="ProductKey" />
+                                                              </DefinedValue>
+                                                              <DefinedValue>
+                                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="DueDateKey" />
+                                                              </DefinedValue>
+                                                            </DefinedValues>
+                                                            <Object Database="[Test]" Schema="[dbo]" Table="[T1]" Index="[cci_T1]" IndexKind="Clustered" Storage="ColumnStore" />
+                                                          </IndexScan>
+                                                        </RelOp>
+                                                        <RelOp AvgRowSize="35" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="13" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.0032832">
+                                                          <OutputList>
+                                                            <ColumnReference Column="ColStoreLoc1003" />
+                                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                                            <ColumnReference Column="TrgPrb1005" />
+                                                          </OutputList>
+                                                          <ComputeScalar>
+                                                            <DefinedValues>
+                                                              <DefinedValue>
+                                                                <ColumnReference Column="TrgPrb1005" />
+                                                                <ScalarOperator ScalarString="(1)">
+                                                                  <Const ConstValue="(1)" />
+                                                                </ScalarOperator>
+                                                              </DefinedValue>
+                                                            </DefinedValues>
+                                                            <RelOp AvgRowSize="31" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" EstimatedRowsRead="1" LogicalOp="Clustered Index Scan" NodeId="14" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0">
+                                                              <OutputList>
+                                                                <ColumnReference Column="ColStoreLoc1003" />
+                                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                                              </OutputList>
+                                                              <RunTimeInformation>
+                                                                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                                                              </RunTimeInformation>
+                                                              <IndexScan Ordered="false" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="ColumnStore">
+                                                                <DefinedValues>
+                                                                  <DefinedValue>
+                                                                    <ColumnReference Column="ColStoreLoc1003" />
+                                                                  </DefinedValue>
+                                                                  <DefinedValue>
+                                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ProductKey" />
+                                                                  </DefinedValue>
+                                                                  <DefinedValue>
+                                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="OrderDateKey" />
+                                                                  </DefinedValue>
+                                                                  <DefinedValue>
+                                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="DueDateKey" />
+                                                                  </DefinedValue>
+                                                                  <DefinedValue>
+                                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T2]" Alias="[t]" Column="ShipDateKey" />
+                                                                  </DefinedValue>
+                                                                </DefinedValues>
+                                                                <Object Database="[Test]" Schema="[dbo]" Table="[T2]" Index="[cci_T2]" Alias="[t]" IndexKind="Clustered" Storage="ColumnStore" />
+                                                              </IndexScan>
+                                                            </RelOp>
+                                                          </ComputeScalar>
+                                                        </RelOp>
+                                                      </NestedLoops>
+                                                    </RelOp>
+                                                  </ComputeScalar>
+                                                </RelOp>
+                                              </Sort>
+                                            </RelOp>
+                                          </ComputeScalar>
+                                        </RelOp>
+                                      </Segment>
+                                    </RelOp>
+                                  </SequenceProject>
+                                </RelOp>
+                                <Predicate>
+                                  <ScalarOperator ScalarString="CASE WHEN [Expr1019]&gt;(1) THEN (0) ELSE NULL END">
+                                    <IF>
+                                      <Condition>
+                                        <ScalarOperator>
+                                          <Compare CompareOp="GT">
+                                            <ScalarOperator>
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1019" />
+                                              </Identifier>
+                                            </ScalarOperator>
+                                            <ScalarOperator>
+                                              <Const ConstValue="(1)" />
+                                            </ScalarOperator>
+                                          </Compare>
+                                        </ScalarOperator>
+                                      </Condition>
+                                      <Then>
+                                        <ScalarOperator>
+                                          <Const ConstValue="(0)" />
+                                        </ScalarOperator>
+                                      </Then>
+                                      <Else>
+                                        <ScalarOperator>
+                                          <Const ConstValue="NULL" />
+                                        </ScalarOperator>
+                                      </Else>
+                                    </IF>
+                                  </ScalarOperator>
+                                </Predicate>
+                              </Assert>
+                            </RelOp>
+                          </ComputeScalar>
+                        </RelOp>
+                      </Split>
+                    </RelOp>
+                  </Sort>
+                </RelOp>
+              </Update>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

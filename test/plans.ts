@@ -33,6 +33,7 @@ var plan = {
     HashSpillDetails: require("raw-loader!../test_plans/HashSpillDetails.sqlplan"),
     columnstore_index_insert: require("raw-loader!../test_plans/Columnstore/columnstore_index_insert.sqlplan"),
     columnstore_index_delete: require("raw-loader!../test_plans/Columnstore/columnstore_index_delete.sqlplan"),
-    columnstore_index_update: require("raw-loader!../test_plans/Columnstore/columnstore_index_update.sqlplan")
+    columnstore_index_update: require("raw-loader!../test_plans/Columnstore/columnstore_index_update.sqlplan"),
+    columnstore_index_merge: require("raw-loader!../test_plans/Columnstore/columnstore_index_merge.sqlplan")
 }
 export { plan };

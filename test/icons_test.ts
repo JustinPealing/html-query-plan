@@ -117,4 +117,12 @@ describe("Query Plan Icon", () => {
 
     });
 
+    it("Shows ColumnStoreIndexMerge icon for Columnstore Index Merge nodes", () => {
+
+        let container = helper.showPlan(plan.columnstore_index_merge);
+        let cond = helper.findNodeById(container, "1");
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-ColumnStoreIndexMerge"));
+
+    });
+
 });

@@ -164,7 +164,7 @@ div[class|='qp-icon'] {
 .qp-icon-RowCountSpool{background: url('qp_icons.png') -288px -128px }
 .qp-icon-Segment{background: url('qp_icons.png') -0px -160px }
 .qp-icon-Sequence{background: url('qp_icons.png') -32px -160px }
-.qp-icon-Sequenceproject{background: url('qp_icons.png') -64px -160px }
+.qp-icon-SequenceProject{background: url('qp_icons.png') -224px -224px }
 .qp-icon-Snapshot{background: url('qp_icons.png') -96px -160px }
 .qp-icon-Sort{background: url('qp_icons.png') -128px -160px }
 .qp-icon-Split{background: url('qp_icons.png') -160px -160px }
@@ -184,7 +184,6 @@ div[class|='qp-icon'] {
 .qp-icon-While{background: url('qp_icons.png') -224px -192px }
 .qp-icon-StmtCursor{background: url('qp_icons.png') -96px -0px }
 .qp-icon-StmtCond{background: url('qp_icons.png') -0px -224px }
-.qp-icon-SequenceProject{background: url('qp_icons.png') -96px -0px }
 .qp-icon-FastForward{background: url('qp_icons.png') -96px -0px }
 .qp-icon-SnapShot{background: url('qp_icons.png') -96px -0px }
 .qp-icon-WindowAggregate{background: url('qp_icons.png') -96px -0px }

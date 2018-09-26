@@ -151,7 +151,7 @@ div[class|='qp-icon'] {
 .qp-icon-NonclusteredIndexUpdate{background: url('qp_icons.png') -192px -96px }
 .qp-icon-OnlineIndexInsert{background: url('qp_icons.png') -224px -96px }
 .qp-icon-ParameterTableScan{background: url('qp_icons.png') -256px -96px }
-.qp-icon-PopulationQuery{background: url('qp_icons.png') -288px -96px }
+.qp-icon-PopulateQuery{background: url('qp_icons.png') -192px -224px }
 .qp-icon-RdiLookup{background: url('qp_icons.png') -0px -128px }
 .qp-icon-RefreshQuery{background: url('qp_icons.png') -32px -128px }
 .qp-icon-RemoteDelete{background: url('qp_icons.png') -64px -128px }
@@ -182,7 +182,6 @@ div[class|='qp-icon'] {
 .qp-icon-Udx{background: url('qp_icons.png') -192px -192px }
 .qp-icon-Update{background: url('qp_icons.png') -96px -192px }
 .qp-icon-While{background: url('qp_icons.png') -224px -192px }
-.qp-icon-PopulateQuery{background: url('qp_icons.png') -96px -0px }
 .qp-icon-StmtCursor{background: url('qp_icons.png') -96px -0px }
 .qp-icon-StmtCond{background: url('qp_icons.png') -0px -224px }
 .qp-icon-SequenceProject{background: url('qp_icons.png') -96px -0px }

@@ -1,0 +1,124 @@
+﻿<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.6" Build="14.0.2002.14" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="1" StatementId="1" StatementOptmLevel="TRIVIAL" CardinalityEstimationModelVersion="140" StatementSubTreeCost="0.0232851" StatementText="DELETE FROM People" StatementType="DELETE" QueryHash="0x57484C8249D8F80A" QueryPlanHash="0x9828917D03F66501" RetrievedFromCache="true" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan DegreeOfParallelism="1" CachedPlanSize="24" CompileTime="1" CompileCPU="1" CompileMemory="96">
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="104346" EstimatedPagesCached="52173" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="2304552" />
+            <WaitStats>
+              <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="1" WaitCount="3" />
+            </WaitStats>
+            <QueryTimeStats CpuTime="2" ElapsedTime="2" />
+            <RelOp AvgRowSize="9" EstimateCPU="2E-06" EstimateIO="0.02" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Delete" NodeId="0" Parallel="false" PhysicalOp="Clustered Index Delete" EstimatedTotalSubtreeCost="0.0232851">
+              <OutputList />
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualRowsRead="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="2" ActualCPUms="1" ActualScans="0" ActualLogicalReads="2" ActualPhysicalReads="1" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+              </RunTimeInformation>
+              <Update DMLRequestSort="false">
+                <Object Database="[Test]" Schema="[dbo]" Table="[People]" Index="[PK_People]" IndexKind="Clustered" Storage="RowStore" />
+                <Object Database="[Test]" Schema="[dbo]" Table="[People]" Index="[IX_Age]" IndexKind="NonClustered" Storage="RowStore" />
+                <RelOp AvgRowSize="11" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" EstimatedRowsRead="1" LogicalOp="Index Scan" NodeId="1" Parallel="false" PhysicalOp="Index Scan" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="1">
+                  <OutputList>
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Id" />
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="1" ActualRowsRead="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="4" ActualPhysicalReads="1" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                  </RunTimeInformation>
+                  <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Id" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[Test]" Schema="[dbo]" Table="[People]" Index="[IX_Age]" IndexKind="NonClustered" Storage="RowStore" />
+                  </IndexScan>
+                </RelOp>
+              </Update>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="3" StatementEstRows="1" StatementId="2" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="140" StatementSubTreeCost="0.00328854" StatementText="IF EXISTS( SELECT * FROM deleted)" StatementType="COND WITH QUERY" QueryHash="0x971B080561C33A39" QueryPlanHash="0x9A3EE05AC53A8D31" RetrievedFromCache="true" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan DegreeOfParallelism="1" CachedPlanSize="16" CompileTime="1" CompileCPU="1" CompileMemory="176">
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="104346" EstimatedPagesCached="52173" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="2304552" />
+            <QueryTimeStats CpuTime="1" ElapsedTime="1" />
+            <RelOp AvgRowSize="11" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="0" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.00328854">
+              <OutputList>
+                <ColumnReference Column="Expr1003" />
+              </OutputList>
+              <ComputeScalar>
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Column="Expr1003" />
+                    <ScalarOperator ScalarString="CASE WHEN [Expr1004] THEN (1) ELSE (0) END">
+                      <IF>
+                        <Condition>
+                          <ScalarOperator>
+                            <Identifier>
+                              <ColumnReference Column="Expr1004" />
+                            </Identifier>
+                          </ScalarOperator>
+                        </Condition>
+                        <Then>
+                          <ScalarOperator>
+                            <Const ConstValue="(1)" />
+                          </ScalarOperator>
+                        </Then>
+                        <Else>
+                          <ScalarOperator>
+                            <Const ConstValue="(0)" />
+                          </ScalarOperator>
+                        </Else>
+                      </IF>
+                    </ScalarOperator>
+                  </DefinedValue>
+                </DefinedValues>
+                <RelOp AvgRowSize="9" EstimateCPU="4.18E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Left Semi Join" NodeId="1" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="0.00328844">
+                  <OutputList>
+                    <ColumnReference Column="Expr1004" />
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                  </RunTimeInformation>
+                  <NestedLoops Optimized="false">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1004" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <ProbeColumn>
+                      <ColumnReference Column="Expr1004" />
+                    </ProbeColumn>
+                    <RelOp AvgRowSize="9" EstimateCPU="1.157E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Constant Scan" NodeId="2" Parallel="false" PhysicalOp="Constant Scan" EstimatedTotalSubtreeCost="1.157E-06">
+                      <OutputList />
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                      </RunTimeInformation>
+                      <ConstantScan />
+                    </RelOp>
+                    <RelOp AvgRowSize="9" EstimateCPU="7.96E-05" EstimateIO="0.0032035" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" EstimatedRowsRead="1" LogicalOp="Deleted Scan" NodeId="3" Parallel="false" PhysicalOp="Deleted Scan" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="1">
+                      <OutputList />
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="1" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                      </RunTimeInformation>
+                      <DeletedScan>
+                        <Object Database="[Test]" Schema="[dbo]" Table="[People]" Index="[PK_People]" IndexKind="Clustered" Storage="RowStore" />
+                      </DeletedScan>
+                    </RelOp>
+                  </NestedLoops>
+                </RelOp>
+              </ComputeScalar>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

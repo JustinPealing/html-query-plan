@@ -129,7 +129,15 @@ describe("Query Plan Icon", () => {
 
         let container = helper.showPlan(plan.clustered_index_merge);
         let cond = helper.findNodeById(container, "1");
-        assert.notEqual(null, cond.element.querySelector(".qp-icon-ClustredIndexMerge"));
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-ClusteredIndexMerge"));
+
+    });
+
+    it("Shows DeletedScan icon for Deleted Scan nodes", () => {
+
+        let container = helper.showPlan(plan.deleted_scan);
+        let cond = helper.findNodeById(container, "3", "2");
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-DeletedScan"));
 
     });
 

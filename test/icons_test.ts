@@ -157,4 +157,12 @@ describe("Query Plan Icon", () => {
 
     });
 
+    it("Shows WindowAggregate icon for UDX nodes", () => {
+
+        let container = helper.showPlan(plan.batchMode);
+        let cond = helper.findNodeById(container, "2");
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-WindowAggregate"));
+
+    });
+
 });

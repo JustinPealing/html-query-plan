@@ -141,4 +141,12 @@ describe("Query Plan Icon", () => {
 
     });
 
+    it("Shows TableMerge icon for Table Merge nodes", () => {
+
+        let container = helper.showPlan(plan.table_merge);
+        let cond = helper.findNodeById(container, "1");
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-TableMerge"));
+
+    });
+
 });

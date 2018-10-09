@@ -1,0 +1,469 @@
+﻿<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.6" Build="14.0.2002.14" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="1" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="140" StatementSubTreeCost="0.027934" StatementText="MERGE INTO People2 AS t&#xD;&#xA;USING&#xD;&#xA;(&#xD;&#xA;	SELECT * FROM People&#xD;&#xA;) AS s&#xD;&#xA;	ON s.Id = t.Id&#xD;&#xA;WHEN MATCHED THEN UPDATE SET&#xD;&#xA;	t.Name = s.Name&#xD;&#xA;WHEN NOT MATCHED BY TARGET THEN	&#xD;&#xA;	INSERT (Name) VALUES (s.Name);" StatementType="MERGE" QueryHash="0xBD54B3EC124C5433" QueryPlanHash="0x1F97D960C155A1B2" RetrievedFromCache="true" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan DegreeOfParallelism="1" MemoryGrant="1024" CachedPlanSize="56" CompileTime="7" CompileCPU="7" CompileMemory="560">
+            <MemoryGrantInfo SerialRequiredMemory="512" SerialDesiredMemory="544" RequiredMemory="512" DesiredMemory="544" RequestedMemory="1024" GrantWaitTime="0" GrantedMemory="1024" MaxUsedMemory="0" MaxQueryMemory="435816" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="104346" EstimatedPagesCached="52173" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="1693680" />
+            <QueryTimeStats CpuTime="0" ElapsedTime="0" />
+            <RelOp AvgRowSize="9" EstimateCPU="1E-06" EstimateIO="0.01" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Merge" NodeId="1" Parallel="false" PhysicalOp="Table Merge" EstimatedTotalSubtreeCost="0.027934">
+              <OutputList />
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+              </RunTimeInformation>
+              <Update DMLRequestSort="false">
+                <Object Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" IndexKind="Heap" Storage="RowStore" />
+                <SetPredicate SetPredicateType="Insert">
+                  <ScalarOperator ScalarString="[Test].[dbo].[People2].[Name] as [t].[Name] = [Expr1009],[Test].[dbo].[People2].[Id] as [t].[Id] = RaiseIfNullUpdate([Expr1010]),[Test].[dbo].[People2].[Age] as [t].[Age] = [Expr1011]">
+                    <ScalarExpressionList>
+                      <ScalarOperator>
+                        <MultipleAssign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Name" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1009" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Id" />
+                            <ScalarOperator>
+                              <Intrinsic FunctionName="RaiseIfNullUpdate">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="Expr1010" />
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Intrinsic>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Age" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1011" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                        </MultipleAssign>
+                      </ScalarOperator>
+                    </ScalarExpressionList>
+                  </ScalarOperator>
+                </SetPredicate>
+                <SetPredicate SetPredicateType="Update">
+                  <ScalarOperator ScalarString="[Test].[dbo].[People2].[Name] as [t].[Name] = [Expr1009]">
+                    <ScalarExpressionList>
+                      <ScalarOperator>
+                        <MultipleAssign>
+                          <Assign>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Name" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1009" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                        </MultipleAssign>
+                      </ScalarOperator>
+                    </ScalarExpressionList>
+                  </ScalarOperator>
+                </SetPredicate>
+                <ActionColumn>
+                  <ColumnReference Column="Action1007" />
+                </ActionColumn>
+                <RelOp AvgRowSize="56" EstimateCPU="4.8E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Assert" NodeId="2" Parallel="false" PhysicalOp="Assert" EstimatedTotalSubtreeCost="0.017933">
+                  <OutputList>
+                    <ColumnReference Column="Bmk1003" />
+                    <ColumnReference Column="Action1007" />
+                    <ColumnReference Column="Expr1009" />
+                    <ColumnReference Column="Expr1010" />
+                    <ColumnReference Column="Expr1011" />
+                  </OutputList>
+                  <RunTimeInformation>
+                    <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                  </RunTimeInformation>
+                  <Assert StartupExpression="false">
+                    <RelOp AvgRowSize="64" EstimateCPU="8E-08" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="3" Parallel="false" PhysicalOp="Sequence Project" EstimatedTotalSubtreeCost="0.0179325">
+                      <OutputList>
+                        <ColumnReference Column="Bmk1003" />
+                        <ColumnReference Column="Action1007" />
+                        <ColumnReference Column="Expr1009" />
+                        <ColumnReference Column="Expr1010" />
+                        <ColumnReference Column="Expr1011" />
+                        <ColumnReference Column="Expr1018" />
+                      </OutputList>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                      </RunTimeInformation>
+                      <SequenceProject>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Expr1018" />
+                            <ScalarOperator ScalarString="conditional_row_number">
+                              <Sequence FunctionName="conditional_row_number" />
+                            </ScalarOperator>
+                          </DefinedValue>
+                        </DefinedValues>
+                        <RelOp AvgRowSize="64" EstimateCPU="2E-08" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Segment" NodeId="4" Parallel="false" PhysicalOp="Segment" EstimatedTotalSubtreeCost="0.0179324">
+                          <OutputList>
+                            <ColumnReference Column="Bmk1003" />
+                            <ColumnReference Column="Action1007" />
+                            <ColumnReference Column="Expr1009" />
+                            <ColumnReference Column="Expr1010" />
+                            <ColumnReference Column="Expr1011" />
+                            <ColumnReference Column="Segment1020" />
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                          </RunTimeInformation>
+                          <Segment>
+                            <GroupBy>
+                              <ColumnReference Column="Bmk1003" />
+                            </GroupBy>
+                            <SegmentColumn>
+                              <ColumnReference Column="Segment1020" />
+                            </SegmentColumn>
+                            <RelOp AvgRowSize="56" EstimateCPU="0.000100056" EstimateIO="0.0112613" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Sort" NodeId="5" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="0.0179324">
+                              <OutputList>
+                                <ColumnReference Column="Bmk1003" />
+                                <ColumnReference Column="Action1007" />
+                                <ColumnReference Column="Expr1009" />
+                                <ColumnReference Column="Expr1010" />
+                                <ColumnReference Column="Expr1011" />
+                              </OutputList>
+                              <MemoryFractions Input="1" Output="1" />
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRebinds="1" ActualRewinds="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="1024" OutputMemoryGrant="640" UsedMemoryGrant="0" />
+                              </RunTimeInformation>
+                              <Sort Distinct="false">
+                                <OrderBy>
+                                  <OrderByColumn Ascending="true">
+                                    <ColumnReference Column="Bmk1003" />
+                                  </OrderByColumn>
+                                </OrderBy>
+                                <RelOp AvgRowSize="56" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="6" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.00657108">
+                                  <OutputList>
+                                    <ColumnReference Column="Bmk1003" />
+                                    <ColumnReference Column="Action1007" />
+                                    <ColumnReference Column="Expr1009" />
+                                    <ColumnReference Column="Expr1010" />
+                                    <ColumnReference Column="Expr1011" />
+                                  </OutputList>
+                                  <ComputeScalar>
+                                    <DefinedValues>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1009" />
+                                        <ScalarOperator ScalarString="[Test].[dbo].[People].[Name]">
+                                          <Identifier>
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Name" />
+                                          </Identifier>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1010" />
+                                        <ScalarOperator ScalarString="CASE WHEN [Action1007]=(4) THEN [Expr1008] ELSE [Test].[dbo].[People2].[Id] as [t].[Id] END">
+                                          <IF>
+                                            <Condition>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Column="Action1007" />
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="(4)" />
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Condition>
+                                            <Then>
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Column="Expr1008" />
+                                                </Identifier>
+                                              </ScalarOperator>
+                                            </Then>
+                                            <Else>
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Id" />
+                                                </Identifier>
+                                              </ScalarOperator>
+                                            </Else>
+                                          </IF>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1011" />
+                                        <ScalarOperator ScalarString="CASE WHEN [Action1007]=(4) THEN NULL ELSE [Test].[dbo].[People2].[Age] as [t].[Age] END">
+                                          <IF>
+                                            <Condition>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Column="Action1007" />
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="(4)" />
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Condition>
+                                            <Then>
+                                              <ScalarOperator>
+                                                <Const ConstValue="NULL" />
+                                              </ScalarOperator>
+                                            </Then>
+                                            <Else>
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Age" />
+                                                </Identifier>
+                                              </ScalarOperator>
+                                            </Else>
+                                          </IF>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                    </DefinedValues>
+                                    <RelOp AvgRowSize="60" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="7" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.00657098">
+                                      <OutputList>
+                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Name" />
+                                        <ColumnReference Column="Bmk1003" />
+                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Id" />
+                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Age" />
+                                        <ColumnReference Column="Action1007" />
+                                        <ColumnReference Column="Expr1008" />
+                                      </OutputList>
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                                      </RunTimeInformation>
+                                      <ComputeScalar ComputeSequence="true">
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1008" />
+                                            <ScalarOperator ScalarString="getconditionalidentity((1029578706),(5),NULL,[Action1007]=(4))">
+                                              <Intrinsic FunctionName="getconditionalidentity">
+                                                <ScalarOperator>
+                                                  <Const ConstValue="(1029578706)" />
+                                                </ScalarOperator>
+                                                <ScalarOperator>
+                                                  <Const ConstValue="(5)" />
+                                                </ScalarOperator>
+                                                <ScalarOperator>
+                                                  <Const ConstValue="NULL" />
+                                                </ScalarOperator>
+                                                <ScalarOperator>
+                                                  <Compare CompareOp="EQ">
+                                                    <ScalarOperator>
+                                                      <Identifier>
+                                                        <ColumnReference Column="Action1007" />
+                                                      </Identifier>
+                                                    </ScalarOperator>
+                                                    <ScalarOperator>
+                                                      <Const ConstValue="(4)" />
+                                                    </ScalarOperator>
+                                                  </Compare>
+                                                </ScalarOperator>
+                                              </Intrinsic>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <RelOp AvgRowSize="56" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="8" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.00657088">
+                                          <OutputList>
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Name" />
+                                            <ColumnReference Column="Bmk1003" />
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Id" />
+                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Age" />
+                                            <ColumnReference Column="Action1007" />
+                                          </OutputList>
+                                          <RunTimeInformation>
+                                            <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                                          </RunTimeInformation>
+                                          <ComputeScalar ComputeSequence="true">
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Action1007" />
+                                                <ScalarOperator ScalarString="ForceOrder(CASE WHEN [TrgPrb1005] IS NOT NULL THEN (1) ELSE (4) END)">
+                                                  <Intrinsic FunctionName="ForceOrder">
+                                                    <ScalarOperator>
+                                                      <IF>
+                                                        <Condition>
+                                                          <ScalarOperator>
+                                                            <Compare CompareOp="IS NOT">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Column="TrgPrb1005" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                              <ScalarOperator>
+                                                                <Const ConstValue="NULL" />
+                                                              </ScalarOperator>
+                                                            </Compare>
+                                                          </ScalarOperator>
+                                                        </Condition>
+                                                        <Then>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="(1)" />
+                                                          </ScalarOperator>
+                                                        </Then>
+                                                        <Else>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="(4)" />
+                                                          </ScalarOperator>
+                                                        </Else>
+                                                      </IF>
+                                                    </ScalarOperator>
+                                                  </Intrinsic>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <RelOp AvgRowSize="56" EstimateCPU="4.18E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Left Outer Join" NodeId="9" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="0.00657078">
+                                              <OutputList>
+                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Name" />
+                                                <ColumnReference Column="Bmk1003" />
+                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Id" />
+                                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Age" />
+                                                <ColumnReference Column="TrgPrb1005" />
+                                              </OutputList>
+                                              <RunTimeInformation>
+                                                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                                              </RunTimeInformation>
+                                              <NestedLoops Optimized="false">
+                                                <Predicate>
+                                                  <ScalarOperator ScalarString="[Test].[dbo].[People].[Id]=[Test].[dbo].[People2].[Id] as [t].[Id]">
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Id" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Id" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                </Predicate>
+                                                <RelOp AvgRowSize="40" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" EstimatedRowsRead="1" LogicalOp="Table Scan" NodeId="10" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0">
+                                                  <OutputList>
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Id" />
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Name" />
+                                                  </OutputList>
+                                                  <RunTimeInformation>
+                                                    <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="1" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                                                  </RunTimeInformation>
+                                                  <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                                    <DefinedValues>
+                                                      <DefinedValue>
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Id" />
+                                                      </DefinedValue>
+                                                      <DefinedValue>
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People]" Column="Name" />
+                                                      </DefinedValue>
+                                                    </DefinedValues>
+                                                    <Object Database="[Test]" Schema="[dbo]" Table="[People]" IndexKind="Heap" Storage="RowStore" />
+                                                  </TableScan>
+                                                </RelOp>
+                                                <RelOp AvgRowSize="27" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="11" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.0032832">
+                                                  <OutputList>
+                                                    <ColumnReference Column="Bmk1003" />
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Id" />
+                                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Age" />
+                                                    <ColumnReference Column="TrgPrb1005" />
+                                                  </OutputList>
+                                                  <ComputeScalar>
+                                                    <DefinedValues>
+                                                      <DefinedValue>
+                                                        <ColumnReference Column="TrgPrb1005" />
+                                                        <ScalarOperator ScalarString="(1)">
+                                                          <Const ConstValue="(1)" />
+                                                        </ScalarOperator>
+                                                      </DefinedValue>
+                                                    </DefinedValues>
+                                                    <RelOp AvgRowSize="23" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" EstimatedRowsRead="1" LogicalOp="Table Scan" NodeId="12" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0">
+                                                      <OutputList>
+                                                        <ColumnReference Column="Bmk1003" />
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Id" />
+                                                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Age" />
+                                                      </OutputList>
+                                                      <RunTimeInformation>
+                                                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                                                      </RunTimeInformation>
+                                                      <TableScan Ordered="true" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                                        <DefinedValues>
+                                                          <DefinedValue>
+                                                            <ColumnReference Column="Bmk1003" />
+                                                          </DefinedValue>
+                                                          <DefinedValue>
+                                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Id" />
+                                                          </DefinedValue>
+                                                          <DefinedValue>
+                                                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" Column="Age" />
+                                                          </DefinedValue>
+                                                        </DefinedValues>
+                                                        <Object Database="[Test]" Schema="[dbo]" Table="[People2]" Alias="[t]" IndexKind="Heap" Storage="RowStore" />
+                                                      </TableScan>
+                                                    </RelOp>
+                                                  </ComputeScalar>
+                                                </RelOp>
+                                              </NestedLoops>
+                                            </RelOp>
+                                          </ComputeScalar>
+                                        </RelOp>
+                                      </ComputeScalar>
+                                    </RelOp>
+                                  </ComputeScalar>
+                                </RelOp>
+                              </Sort>
+                            </RelOp>
+                          </Segment>
+                        </RelOp>
+                      </SequenceProject>
+                    </RelOp>
+                    <Predicate>
+                      <ScalarOperator ScalarString="CASE WHEN [Expr1018]&gt;(1) THEN (0) ELSE NULL END">
+                        <IF>
+                          <Condition>
+                            <ScalarOperator>
+                              <Compare CompareOp="GT">
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Column="Expr1018" />
+                                  </Identifier>
+                                </ScalarOperator>
+                                <ScalarOperator>
+                                  <Const ConstValue="(1)" />
+                                </ScalarOperator>
+                              </Compare>
+                            </ScalarOperator>
+                          </Condition>
+                          <Then>
+                            <ScalarOperator>
+                              <Const ConstValue="(0)" />
+                            </ScalarOperator>
+                          </Then>
+                          <Else>
+                            <ScalarOperator>
+                              <Const ConstValue="NULL" />
+                            </ScalarOperator>
+                          </Else>
+                        </IF>
+                      </ScalarOperator>
+                    </Predicate>
+                  </Assert>
+                </RelOp>
+              </Update>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

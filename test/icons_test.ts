@@ -149,4 +149,12 @@ describe("Query Plan Icon", () => {
 
     });
 
+    it("Shows UDX icon for UDX nodes", () => {
+
+        let container = helper.showPlan(plan.udx);
+        let cond = helper.findNodeById(container, "5");
+        assert.notEqual(null, cond.element.querySelector(".qp-icon-UDX"));
+
+    });
+
 });

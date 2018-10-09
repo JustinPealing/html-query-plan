@@ -37,6 +37,7 @@ var plan = {
     columnstore_index_merge: require("raw-loader!../test_plans/Columnstore/columnstore_index_merge.sqlplan"),
     clustered_index_merge: require("raw-loader!../test_plans/clustered_index_merge.sqlplan"),
     deleted_scan: require("raw-loader!../test_plans/deleted_scan.sqlplan"),
-    table_merge: require("raw-loader!../test_plans/table_merge.sqlplan")
+    table_merge: require("raw-loader!../test_plans/table_merge.sqlplan"),
+    udx: require("raw-loader!../test_plans/udx.sqlplan")
 }
 export { plan };

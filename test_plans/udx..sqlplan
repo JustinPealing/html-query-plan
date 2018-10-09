@@ -1,0 +1,159 @@
+﻿<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.6" Build="14.0.2002.14" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="1" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" CardinalityEstimationModelVersion="140" StatementSubTreeCost="0.0179343" StatementText="SELECT s.[Name] AS StoreName,&#xD;&#xA; (&#xD;&#xA;	SELECT c.ContactID, c.ContactTypeID&#xD;&#xA;	FROM [StoreContact] c&#xD;&#xA;	WHERE c.[CustomerID] = s.[CustomerID]&#xD;&#xA;	 FOR&#xD;&#xA;	 XML AUTO,&#xD;&#xA;	 TYPE,&#xD;&#xA;	ELEMENTS&#xD;&#xA; )&#xD;&#xA;FROM [Store] s&#xD;&#xA;ORDER BY s.[Name]&#xD;&#xA;FOR XML AUTO,&#xD;&#xA; TYPE" StatementType="SELECT" QueryHash="0x8432BC4E9A7C1981" QueryPlanHash="0x4F00D7CF43617CD9" RetrievedFromCache="true" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan DegreeOfParallelism="1" MemoryGrant="1024" CachedPlanSize="32" CompileTime="1" CompileCPU="1" CompileMemory="240">
+            <MemoryGrantInfo SerialRequiredMemory="512" SerialDesiredMemory="544" RequiredMemory="512" DesiredMemory="544" RequestedMemory="1024" GrantWaitTime="0" GrantedMemory="1024" MaxUsedMemory="0" MaxQueryMemory="436560" />
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="104346" EstimatedPagesCached="52173" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="1697952" />
+            <QueryTimeStats CpuTime="0" ElapsedTime="0" />
+            <RelOp AvgRowSize="4035" EstimateCPU="1E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="UDX" NodeId="0" Parallel="false" PhysicalOp="UDX" EstimatedTotalSubtreeCost="0.0179343">
+              <OutputList>
+                <ColumnReference Column="Expr1007" />
+              </OutputList>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+              </RunTimeInformation>
+              <Extension UDXName="FOR XML">
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Column="Expr1007" />
+                  </DefinedValue>
+                </DefinedValues>
+                <UsedUDXColumns>
+                  <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="Name" />
+                  <ColumnReference Column="Expr1006" />
+                </UsedUDXColumns>
+                <RelOp AvgRowSize="4077" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="1" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.0179333">
+                  <OutputList>
+                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="Name" />
+                    <ColumnReference Column="Expr1006" />
+                  </OutputList>
+                  <ComputeScalar>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1006" />
+                        <ScalarOperator ScalarString="[Expr1004]">
+                          <Identifier>
+                            <ColumnReference Column="Expr1004" />
+                          </Identifier>
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp AvgRowSize="4077" EstimateCPU="4.18E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Inner Join" NodeId="2" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="0.0179332">
+                      <OutputList>
+                        <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="Name" />
+                        <ColumnReference Column="Expr1004" />
+                      </OutputList>
+                      <RunTimeInformation>
+                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                      </RunTimeInformation>
+                      <NestedLoops Optimized="false">
+                        <OuterReferences>
+                          <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="CustomerID" />
+                        </OuterReferences>
+                        <RelOp AvgRowSize="55" EstimateCPU="0.000100055" EstimateIO="0.0112613" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Sort" NodeId="3" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="0.0146444">
+                          <OutputList>
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="Name" />
+                            <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="CustomerID" />
+                          </OutputList>
+                          <MemoryFractions Input="1" Output="1" />
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="0" ActualRebinds="1" ActualRewinds="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" InputMemoryGrant="1024" OutputMemoryGrant="640" UsedMemoryGrant="0" />
+                          </RunTimeInformation>
+                          <Sort Distinct="false">
+                            <OrderBy>
+                              <OrderByColumn Ascending="true">
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="Name" />
+                              </OrderByColumn>
+                            </OrderBy>
+                            <RelOp AvgRowSize="55" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" EstimatedRowsRead="1" LogicalOp="Table Scan" NodeId="4" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0">
+                              <OutputList>
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="Name" />
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="CustomerID" />
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="1" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                              </RunTimeInformation>
+                              <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="Name" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="CustomerID" />
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" IndexKind="Heap" Storage="RowStore" />
+                              </TableScan>
+                            </RelOp>
+                          </Sort>
+                        </RelOp>
+                        <RelOp AvgRowSize="4035" EstimateCPU="1E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="UDX" NodeId="5" Parallel="false" PhysicalOp="UDX" EstimatedTotalSubtreeCost="0.00328458">
+                          <OutputList>
+                            <ColumnReference Column="Expr1004" />
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
+                          </RunTimeInformation>
+                          <Extension UDXName="FOR XML">
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1004" />
+                              </DefinedValue>
+                            </DefinedValues>
+                            <UsedUDXColumns>
+                              <ColumnReference Database="[Test]" Schema="[dbo]" Table="[StoreContact]" Alias="[c]" Column="ContactID" />
+                              <ColumnReference Database="[Test]" Schema="[dbo]" Table="[StoreContact]" Alias="[c]" Column="ContactTypeID" />
+                            </UsedUDXColumns>
+                            <RelOp AvgRowSize="19" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" EstimatedRowsRead="1" LogicalOp="Table Scan" NodeId="6" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0">
+                              <OutputList>
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[StoreContact]" Alias="[c]" Column="ContactID" />
+                                <ColumnReference Database="[Test]" Schema="[dbo]" Table="[StoreContact]" Alias="[c]" Column="ContactTypeID" />
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                              </RunTimeInformation>
+                              <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[StoreContact]" Alias="[c]" Column="ContactID" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[Test]" Schema="[dbo]" Table="[StoreContact]" Alias="[c]" Column="ContactTypeID" />
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[Test]" Schema="[dbo]" Table="[StoreContact]" Alias="[c]" IndexKind="Heap" Storage="RowStore" />
+                                <Predicate>
+                                  <ScalarOperator ScalarString="[Test].[dbo].[StoreContact].[CustomerID] as [c].[CustomerID]=[Test].[dbo].[Store].[CustomerID] as [s].[CustomerID]">
+                                    <Compare CompareOp="EQ">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[Test]" Schema="[dbo]" Table="[StoreContact]" Alias="[c]" Column="CustomerID" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[Test]" Schema="[dbo]" Table="[Store]" Alias="[s]" Column="CustomerID" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                </Predicate>
+                              </TableScan>
+                            </RelOp>
+                          </Extension>
+                        </RelOp>
+                      </NestedLoops>
+                    </RelOp>
+                  </ComputeScalar>
+                </RelOp>
+              </Extension>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

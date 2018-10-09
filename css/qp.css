@@ -189,7 +189,7 @@ div[class|='qp-icon'] {
 .qp-icon-WindowAggregate{background: url('qp_icons.png') -96px -0px }
 .qp-icon-AdaptiveJoin{background: url('qp_icons.png') -96px -0px }
 .qp-icon-IndexSpool{background: url('qp_icons.png') -96px -0px }
-.qp-icon-IndexInsert{background: url('qp_icons.png') -96px -0px }
+.qp-icon-IndexInsert{background: url('qp_icons.png') -64px -96px }
 .qp-icon-ColumnStoreIndexScan{background: url('qp_icons.png') -128px -224px }
 .qp-icon-ColumnStoreIndexInsert{background: url('qp_icons.png') -64px -224px }
 .qp-icon-ColumnStoreIndexDelete{background: url('qp_icons.png') -32px -224px }

@@ -1,0 +1,304 @@
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.5" Build="13.0.4001.0">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="1" StatementId="1" StatementOptmLevel="FULL" CardinalityEstimationModelVersion="130" StatementSubTreeCost="13590.9" StatementText="delete from dbo.Course where Id=@P0" StatementType="DELETE" QueryHash="0x5EA9149EDE8EA048" QueryPlanHash="0x7E6DEFC9EBC929D5" RetrievedFromCache="false" StatementSqlHandle="0x090063EDF892A93E7DFD5BB986337DC35F3D0000000000000000000000000000000000000000000000000000" DatabaseContextSettingsId="1" ParentObjectId="0" StatementParameterizationType="1" SecurityPolicyApplied="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="false" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true"/>
+          <QueryPlan CachedPlanSize="104" CompileTime="9" CompileCPU="5" CompileMemory="504">
+            <MemoryGrantInfo SerialRequiredMemory="512" SerialDesiredMemory="2191376"/>
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="589824" EstimatedPagesCached="589824" EstimatedAvailableDegreeOfParallelism="8" MaxCompileMemory="61710544"/>
+            <TraceFlags IsCompileTime="true">
+              <TraceFlag Value="1222" Scope="Global"/>
+            </TraceFlags>
+            <RelOp AvgRowSize="9" EstimateCPU="78.255" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Sequence" NodeId="1" Parallel="false" PhysicalOp="Sequence" EstimatedTotalSubtreeCost="13590.9">
+              <OutputList/>
+              <Sequence>
+                <RelOp AvgRowSize="11" EstimateCPU="3.36523E-05" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Eager Spool" NodeId="2" Parallel="false" PhysicalOp="Table Spool" EstimatedTotalSubtreeCost="0.0078618">
+                  <OutputList>
+                    <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Column="Id"/>
+                  </OutputList>
+                  <Spool>
+                    <RelOp AvgRowSize="11" EstimateCPU="2E-06" EstimateIO="0.02" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Delete" NodeId="3" Parallel="false" PhysicalOp="Clustered Index Delete" EstimatedTotalSubtreeCost="0.0232851">
+                      <OutputList>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Column="Id"/>
+                      </OutputList>
+                      <SimpleUpdate DMLRequestSort="false">
+                        <Object Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Index="[PK_Course]" IndexKind="Clustered" Storage="RowStore"/>
+                        <Object Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Index="[ix_Course_TermId_includes]" IndexKind="NonClustered" Storage="RowStore"/>
+                        <SeekPredicateNew>
+                          <SeekKeys>
+                            <Prefix ScanType="EQ">
+                              <RangeColumns>
+                                <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Column="Id"/>
+                              </RangeColumns>
+                              <RangeExpressions>
+                                <ScalarOperator ScalarString="[@P0]">
+                                  <Identifier>
+                                    <ColumnReference Column="@P0"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </RangeExpressions>
+                            </Prefix>
+                          </SeekKeys>
+                        </SeekPredicateNew>
+                      </SimpleUpdate>
+                    </RelOp>
+                  </Spool>
+                </RelOp>
+                <RelOp AvgRowSize="9" EstimateCPU="7.76237" EstimateIO="308.368" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="2587460" LogicalOp="Delete" NodeId="4" Parallel="false" PhysicalOp="Clustered Index Delete" EstimatedTotalSubtreeCost="337.361">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="true" DMLRequestSort="true">
+                    <Object Database="[unicas_ux]" Schema="[dbo]" Table="[CourseClassification]" Index="[PK_CourseClassification]" IndexKind="Clustered" Storage="RowStore"/>
+                    <Object Database="[unicas_ux]" Schema="[dbo]" Table="[CourseClassification]" Index="[IDX_CourseClassification_CourseId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <Object Database="[unicas_ux]" Schema="[dbo]" Table="[CourseClassification]" Index="[IX_CourseClassification_TranscriptReviewPreferencesId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <RelOp AvgRowSize="11" EstimateCPU="10.8156" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="2587460" LogicalOp="Inner Join" NodeId="6" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="21.2307">
+                      <OutputList>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CourseClassification]" Column="Id"/>
+                      </OutputList>
+                      <NestedLoops Optimized="false">
+                        <OuterReferences>
+                          <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Column="Id"/>
+                        </OuterReferences>
+                        <RelOp AvgRowSize="11" EstimateCPU="3.36523E-05" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Eager Spool" NodeId="7" Parallel="false" PhysicalOp="Table Spool" EstimatedTotalSubtreeCost="0.0078618">
+                          <OutputList>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Column="Id"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="2"/>
+                        </RelOp>
+                        <RelOp AvgRowSize="11" EstimateCPU="2.84636" EstimateIO="7.5609" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="2587460" EstimatedRowsRead="2587460" LogicalOp="Index Seek" NodeId="8" Parallel="false" PhysicalOp="Index Seek" EstimatedTotalSubtreeCost="10.4073" TableCardinality="2587460">
+                          <OutputList>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CourseClassification]" Column="Id"/>
+                          </OutputList>
+                          <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CourseClassification]" Column="Id"/>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <Object Database="[unicas_ux]" Schema="[dbo]" Table="[CourseClassification]" Index="[IDX_CourseClassification_CourseId]" IndexKind="NonClustered" Storage="RowStore"/>
+                            <SeekPredicates>
+                              <SeekPredicateNew>
+                                <SeekKeys>
+                                  <Prefix ScanType="EQ">
+                                    <RangeColumns>
+                                      <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CourseClassification]" Column="CourseId"/>
+                                    </RangeColumns>
+                                    <RangeExpressions>
+                                      <ScalarOperator ScalarString="[unicas_ux].[dbo].[Course].[Id]">
+                                        <Identifier>
+                                          <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Column="Id"/>
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </RangeExpressions>
+                                  </Prefix>
+                                </SeekKeys>
+                              </SeekPredicateNew>
+                            </SeekPredicates>
+                          </IndexScan>
+                        </RelOp>
+                      </NestedLoops>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp AvgRowSize="9" EstimateCPU="25.2225" EstimateIO="626.469" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Delete" NodeId="9" Parallel="false" PhysicalOp="Index Delete" EstimatedTotalSubtreeCost="3891.76">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="true" DMLRequestSort="true">
+                    <Object Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Index="[IX_CoursePrerequisiteAssignment]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <RelOp AvgRowSize="19" EstimateCPU="974.596" EstimateIO="1586.8" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Sort" NodeId="11" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="3240.07">
+                      <OutputList>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                      </OutputList>
+                      <MemoryFractions Input="1" Output="1"/>
+                      <Sort Distinct="false">
+                        <OrderBy>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                          </OrderByColumn>
+                        </OrderBy>
+                        <RelOp AvgRowSize="31" EstimateCPU="3.04029" EstimateIO="0.0043946" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Eager Spool" NodeId="12" Parallel="false" PhysicalOp="Table Spool" EstimatedTotalSubtreeCost="678.668">
+                          <OutputList>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProgramSelectedId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="PrerequisiteId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="CourseId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                          </OutputList>
+                          <Spool>
+                            <RelOp AvgRowSize="31" EstimateCPU="25.2225" EstimateIO="1668.9" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Delete" NodeId="13" Parallel="false" PhysicalOp="Clustered Index Delete" EstimatedTotalSubtreeCost="2017.83">
+                              <OutputList>
+                                <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProgramSelectedId"/>
+                                <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                                <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="PrerequisiteId"/>
+                                <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="CourseId"/>
+                                <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                                <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                              </OutputList>
+                              <Update DMLRequestSort="true">
+                                <Object Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Index="[PK_CoursePrerequisiteAssignment]" IndexKind="Clustered" Storage="RowStore"/>
+                                <RelOp AvgRowSize="11" EstimateCPU="105.43" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Inner Join" NodeId="14" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="323.712">
+                                  <OutputList>
+                                    <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                                  </OutputList>
+                                  <NestedLoops Optimized="false">
+                                    <Predicate>
+                                      <ScalarOperator ScalarString="[unicas_ux].[dbo].[CoursePrerequisiteAssignment].[CourseId]=[unicas_ux].[dbo].[Course].[Id]">
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="CourseId"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Column="Id"/>
+                                            </Identifier>
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                    </Predicate>
+                                    <RelOp AvgRowSize="11" EstimateCPU="3.36523E-05" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Eager Spool" NodeId="15" Parallel="false" PhysicalOp="Table Spool" EstimatedTotalSubtreeCost="0.0078618">
+                                      <OutputList>
+                                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[Course]" Column="Id"/>
+                                      </OutputList>
+                                      <Spool PrimaryNodeId="2"/>
+                                    </RelOp>
+                                    <RelOp AvgRowSize="15" EstimateCPU="27.7449" EstimateIO="182.962" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" EstimatedRowsRead="25222500" LogicalOp="Clustered Index Scan" NodeId="16" Parallel="false" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="210.707" TableCardinality="25222500">
+                                      <OutputList>
+                                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="CourseId"/>
+                                      </OutputList>
+                                      <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="CourseId"/>
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <Object Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Index="[PK_CoursePrerequisiteAssignment]" IndexKind="Clustered" Storage="RowStore"/>
+                                      </IndexScan>
+                                    </RelOp>
+                                  </NestedLoops>
+                                </RelOp>
+                              </Update>
+                            </RelOp>
+                          </Spool>
+                        </RelOp>
+                      </Sort>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp AvgRowSize="9" EstimateCPU="25.2225" EstimateIO="1197.44" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Delete" NodeId="17" Parallel="false" PhysicalOp="Index Delete" EstimatedTotalSubtreeCost="4744.6">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="true" DMLRequestSort="true">
+                    <Object Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Index="[IX_CoursePrerequisiteAssignment_3]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <RelOp AvgRowSize="27" EstimateCPU="974.596" EstimateIO="1868.67" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Sort" NodeId="19" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="3521.94">
+                      <OutputList>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProgramSelectedId"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="PrerequisiteId"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                      </OutputList>
+                      <MemoryFractions Input="1" Output="1"/>
+                      <Sort Distinct="false">
+                        <OrderBy>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProgramSelectedId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="PrerequisiteId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                          </OrderByColumn>
+                        </OrderBy>
+                        <RelOp AvgRowSize="31" EstimateCPU="3.04029" EstimateIO="0.0043946" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Eager Spool" NodeId="20" Parallel="false" PhysicalOp="Table Spool" EstimatedTotalSubtreeCost="678.668">
+                          <OutputList>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProgramSelectedId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="PrerequisiteId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="CourseId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="12"/>
+                        </RelOp>
+                      </Sort>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp AvgRowSize="9" EstimateCPU="25.2225" EstimateIO="845.936" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Delete" NodeId="21" Parallel="false" PhysicalOp="Index Delete" EstimatedTotalSubtreeCost="4538.88">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="true" DMLRequestSort="true">
+                    <Object Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Index="[IX_CoursePrerequisiteAssignment_4]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <RelOp AvgRowSize="31" EstimateCPU="974.596" EstimateIO="2014.46" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Sort" NodeId="23" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="3667.72">
+                      <OutputList>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProgramSelectedId"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="PrerequisiteId"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="CourseId"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                        <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                      </OutputList>
+                      <MemoryFractions Input="1" Output="1"/>
+                      <Sort Distinct="false">
+                        <OrderBy>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="PrerequisiteId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProgramSelectedId"/>
+                          </OrderByColumn>
+                          <OrderByColumn Ascending="true">
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                          </OrderByColumn>
+                        </OrderBy>
+                        <RelOp AvgRowSize="31" EstimateCPU="3.04029" EstimateIO="0.0043946" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="25222500" LogicalOp="Eager Spool" NodeId="24" Parallel="false" PhysicalOp="Table Spool" EstimatedTotalSubtreeCost="678.668">
+                          <OutputList>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProgramSelectedId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="Id"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="PrerequisiteId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="CourseId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="ProfileId"/>
+                            <ColumnReference Database="[unicas_ux]" Schema="[dbo]" Table="[CoursePrerequisiteAssignment]" Column="InstanceId"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="12"/>
+                        </RelOp>
+                      </Sort>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+              </Sequence>
+            </RelOp>
+            <ParameterList>
+              <ColumnReference Column="@P0" ParameterDataType="bigint" ParameterCompiledValue="(31170037)"/>
+            </ParameterList>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

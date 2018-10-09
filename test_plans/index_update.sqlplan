@@ -1,0 +1,1590 @@
+<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.5" Build="13.0.4001.0">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementText="&#13;&#10;UPDATE TOP (251) dbo.Posts SET AcceptedAnswerId = 1 WHERE PostTypeId = 8" StatementId="1" StatementCompId="1" StatementType="UPDATE" RetrievedFromCache="true" StatementSubTreeCost="265.463" StatementEstRows="251" SecurityPolicyApplied="false" StatementOptmLevel="FULL" QueryHash="0x5FAF86CC88332E6" QueryPlanHash="0x1387281EC30EE249" CardinalityEstimationModelVersion="130">
+          <StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false"/>
+          <QueryPlan CachedPlanSize="240" CompileTime="242" CompileCPU="241" CompileMemory="968">
+            <ThreadStat Branches="1"/>
+            <MissingIndexes>
+              <MissingIndexGroup Impact="94.0332">
+                <MissingIndex Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]">
+                  <ColumnGroup Usage="EQUALITY">
+                    <Column Name="[PostTypeId]" ColumnId="16"/>
+                  </ColumnGroup>
+                  <ColumnGroup Usage="INCLUDE">
+                    <Column Name="[Id]" ColumnId="1"/>
+                    <Column Name="[AcceptedAnswerId]" ColumnId="2"/>
+                  </ColumnGroup>
+                </MissingIndex>
+              </MissingIndexGroup>
+            </MissingIndexes>
+            <MemoryGrantInfo SerialRequiredMemory="0" SerialDesiredMemory="0"/>
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="665600" EstimatedPagesCached="166400" EstimatedAvailableDegreeOfParallelism="2" MaxCompileMemory="19315672"/>
+            <RelOp NodeId="1" PhysicalOp="Sequence" LogicalOp="Sequence" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00500008" AvgRowSize="9" EstimatedTotalSubtreeCost="265.463" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+              <OutputList/>
+              <Sequence>
+                <RelOp NodeId="2" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.0107677" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5436" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_Id_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1067] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1068] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1069] = [StackOverflow].[dbo].[Posts].[AnswerCount]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1067"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1068"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1069"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="4" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="23" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="5" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool>
+                            <RelOp NodeId="6" PhysicalOp="Split" LogicalOp="Split" EstimateRows="502" EstimateIO="0" EstimateCPU="0.0003765" AvgRowSize="123" EstimatedTotalSubtreeCost="265.306" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                              <OutputList>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                                <ColumnReference Column="Expr1056"/>
+                                <ColumnReference Column="Expr1057"/>
+                                <ColumnReference Column="Expr1058"/>
+                                <ColumnReference Column="Expr1059"/>
+                                <ColumnReference Column="Expr1060"/>
+                                <ColumnReference Column="Expr1061"/>
+                                <ColumnReference Column="Expr1062"/>
+                                <ColumnReference Column="Expr1063"/>
+                                <ColumnReference Column="Expr1064"/>
+                                <ColumnReference Column="Expr1065"/>
+                                <ColumnReference Column="Act1066"/>
+                              </OutputList>
+                              <Split>
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Column="Act1066"/>
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <ActionColumn>
+                                  <ColumnReference Column="Act1066"/>
+                                </ActionColumn>
+                                <RelOp NodeId="7" PhysicalOp="Clustered Index Update" LogicalOp="Update" EstimateRows="251" EstimateIO="0.446081" EstimateCPU="0.000251" AvgRowSize="119" EstimatedTotalSubtreeCost="265.306" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                  <OutputList>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                                    <ColumnReference Column="Expr1056"/>
+                                    <ColumnReference Column="Expr1057"/>
+                                    <ColumnReference Column="Expr1058"/>
+                                    <ColumnReference Column="Expr1059"/>
+                                    <ColumnReference Column="Expr1060"/>
+                                    <ColumnReference Column="Expr1061"/>
+                                    <ColumnReference Column="Expr1062"/>
+                                    <ColumnReference Column="Expr1063"/>
+                                    <ColumnReference Column="Expr1064"/>
+                                    <ColumnReference Column="Expr1065"/>
+                                  </OutputList>
+                                  <Update DMLRequestSort="0">
+                                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[PK_Posts__Id]" IndexKind="Clustered" Storage="RowStore"/>
+                                    <SetPredicate>
+                                      <ScalarOperator ScalarString="[StackOverflow].[dbo].[Posts].[AcceptedAnswerId] = [Expr1002]">
+                                        <ScalarExpressionList>
+                                          <ScalarOperator>
+                                            <MultipleAssign>
+                                              <Assign>
+                                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                                <ScalarOperator>
+                                                  <Identifier>
+                                                    <ColumnReference Column="Expr1002"/>
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                              </Assign>
+                                            </MultipleAssign>
+                                          </ScalarOperator>
+                                        </ScalarExpressionList>
+                                      </ScalarOperator>
+                                    </SetPredicate>
+                                    <RelOp NodeId="8" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="251" EstimateIO="0" EstimateCPU="2.51e-005" AvgRowSize="18" EstimatedTotalSubtreeCost="264.86" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                      <OutputList>
+                                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                        <ColumnReference Column="Expr1002"/>
+                                        <ColumnReference Column="Expr1056"/>
+                                        <ColumnReference Column="Expr1057"/>
+                                        <ColumnReference Column="Expr1058"/>
+                                        <ColumnReference Column="Expr1059"/>
+                                        <ColumnReference Column="Expr1060"/>
+                                        <ColumnReference Column="Expr1061"/>
+                                        <ColumnReference Column="Expr1062"/>
+                                        <ColumnReference Column="Expr1063"/>
+                                        <ColumnReference Column="Expr1064"/>
+                                        <ColumnReference Column="Expr1065"/>
+                                      </OutputList>
+                                      <ComputeScalar>
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1056"/>
+                                            <ScalarOperator ScalarString="[Expr1056]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1056"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1057"/>
+                                            <ScalarOperator ScalarString="[Expr1057]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1057"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1058"/>
+                                            <ScalarOperator ScalarString="[Expr1058]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1058"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1059"/>
+                                            <ScalarOperator ScalarString="[Expr1059]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1059"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1060"/>
+                                            <ScalarOperator ScalarString="[Expr1060]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1060"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1061"/>
+                                            <ScalarOperator ScalarString="[Expr1061]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1061"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1062"/>
+                                            <ScalarOperator ScalarString="[Expr1062]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1062"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1063"/>
+                                            <ScalarOperator ScalarString="[Expr1063]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1063"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1064"/>
+                                            <ScalarOperator ScalarString="[Expr1064]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1064"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1065"/>
+                                            <ScalarOperator ScalarString="[Expr1065]">
+                                              <Identifier>
+                                                <ColumnReference Column="Expr1065"/>
+                                              </Identifier>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <RelOp NodeId="9" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="251" EstimateIO="0" EstimateCPU="2.51e-005" AvgRowSize="18" EstimatedTotalSubtreeCost="264.86" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                          <OutputList>
+                                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                            <ColumnReference Column="Expr1002"/>
+                                            <ColumnReference Column="Expr1056"/>
+                                            <ColumnReference Column="Expr1057"/>
+                                            <ColumnReference Column="Expr1058"/>
+                                            <ColumnReference Column="Expr1059"/>
+                                            <ColumnReference Column="Expr1060"/>
+                                            <ColumnReference Column="Expr1061"/>
+                                            <ColumnReference Column="Expr1062"/>
+                                            <ColumnReference Column="Expr1063"/>
+                                            <ColumnReference Column="Expr1064"/>
+                                            <ColumnReference Column="Expr1065"/>
+                                          </OutputList>
+                                          <ComputeScalar>
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1056"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1057"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1058"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1059"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1060"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1061"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1062"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1063"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1064"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1065"/>
+                                                <ScalarOperator ScalarString="CASE WHEN [Expr1005] THEN (1) ELSE (0) END">
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Expr1005"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(1)"/>
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(0)"/>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <RelOp NodeId="10" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="251" EstimateIO="0" EstimateCPU="2.51e-005" AvgRowSize="16" EstimatedTotalSubtreeCost="264.86" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                              <OutputList>
+                                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                                <ColumnReference Column="Expr1002"/>
+                                                <ColumnReference Column="Expr1005"/>
+                                              </OutputList>
+                                              <ComputeScalar>
+                                                <DefinedValues>
+                                                  <DefinedValue>
+                                                    <ColumnReference Column="Expr1002"/>
+                                                    <ScalarOperator ScalarString="(1)">
+                                                      <Const ConstValue="(1)"/>
+                                                    </ScalarOperator>
+                                                  </DefinedValue>
+                                                </DefinedValues>
+                                                <RelOp NodeId="11" PhysicalOp="Top" LogicalOp="Top" EstimateRows="251" EstimateIO="0" EstimateCPU="2.51e-005" AvgRowSize="12" EstimatedTotalSubtreeCost="264.86" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                                  <OutputList>
+                                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                                    <ColumnReference Column="Expr1005"/>
+                                                  </OutputList>
+                                                  <Top RowCount="0" IsPercent="0" WithTies="0">
+                                                    <TopExpression>
+                                                      <ScalarOperator ScalarString="(251)">
+                                                        <Const ConstValue="(251)"/>
+                                                      </ScalarOperator>
+                                                    </TopExpression>
+                                                    <RelOp NodeId="12" PhysicalOp="Parallelism" LogicalOp="Gather Streams" EstimateRows="251" EstimateIO="0" EstimateCPU="0.0288056" AvgRowSize="12" EstimatedTotalSubtreeCost="264.859" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                                      <OutputList>
+                                                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                                        <ColumnReference Column="Expr1005"/>
+                                                      </OutputList>
+                                                      <Parallelism>
+                                                        <RelOp NodeId="13" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="251" EstimateIO="0" EstimateCPU="1.47498" AvgRowSize="16" EstimatedTotalSubtreeCost="264.504" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                                          <OutputList>
+                                                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                                            <ColumnReference Column="Expr1005"/>
+                                                          </OutputList>
+                                                          <ComputeScalar>
+                                                            <DefinedValues>
+                                                              <DefinedValue>
+                                                                <ColumnReference Column="Expr1005"/>
+                                                                <ScalarOperator ScalarString="CASE WHEN [StackOverflow].[dbo].[Posts].[AcceptedAnswerId] = (1) THEN (1) ELSE (0) END">
+                                                                  <IF>
+                                                                    <Condition>
+                                                                      <ScalarOperator>
+                                                                        <Compare CompareOp="BINARY IS">
+                                                                          <ScalarOperator>
+                                                                            <Identifier>
+                                                                              <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                                                            </Identifier>
+                                                                          </ScalarOperator>
+                                                                          <ScalarOperator>
+                                                                            <Const ConstValue="(1)"/>
+                                                                          </ScalarOperator>
+                                                                        </Compare>
+                                                                      </ScalarOperator>
+                                                                    </Condition>
+                                                                    <Then>
+                                                                      <ScalarOperator>
+                                                                        <Const ConstValue="(1)"/>
+                                                                      </ScalarOperator>
+                                                                    </Then>
+                                                                    <Else>
+                                                                      <ScalarOperator>
+                                                                        <Const ConstValue="(0)"/>
+                                                                      </ScalarOperator>
+                                                                    </Else>
+                                                                  </IF>
+                                                                </ScalarOperator>
+                                                              </DefinedValue>
+                                                            </DefinedValues>
+                                                            <RelOp NodeId="14" PhysicalOp="Clustered Index Scan" LogicalOp="Clustered Index Scan" EstimateRows="251" EstimatedRowsRead="2.94997e+007" EstimateIO="5705.8" EstimateCPU="16.2249" AvgRowSize="19" EstimatedTotalSubtreeCost="264.435" TableCardinality="2.94997e+007" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                                                              <OutputList>
+                                                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                                                <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                                              </OutputList>
+                                                              <IndexScan Ordered="1" ForcedIndex="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+                                                                <DefinedValues>
+                                                                  <DefinedValue>
+                                                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                                                  </DefinedValue>
+                                                                  <DefinedValue>
+                                                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                                                  </DefinedValue>
+                                                                </DefinedValues>
+                                                                <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[PK_Posts__Id]" IndexKind="Clustered" Storage="RowStore"/>
+                                                                <Predicate>
+                                                                  <ScalarOperator ScalarString="[StackOverflow].[dbo].[Posts].[PostTypeId]=(8)">
+                                                                    <Compare CompareOp="EQ">
+                                                                      <ScalarOperator>
+                                                                        <Identifier>
+                                                                          <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="PostTypeId"/>
+                                                                        </Identifier>
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Const ConstValue="(8)"/>
+                                                                      </ScalarOperator>
+                                                                    </Compare>
+                                                                  </ScalarOperator>
+                                                                </Predicate>
+                                                              </IndexScan>
+                                                            </RelOp>
+                                                          </ComputeScalar>
+                                                        </RelOp>
+                                                      </Parallelism>
+                                                    </RelOp>
+                                                  </Top>
+                                                </RelOp>
+                                              </ComputeScalar>
+                                            </RelOp>
+                                          </ComputeScalar>
+                                        </RelOp>
+                                      </ComputeScalar>
+                                    </RelOp>
+                                  </Update>
+                                </RelOp>
+                              </Split>
+                            </RelOp>
+                          </Spool>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1056]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1056"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp NodeId="15" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.0141065" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5469" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_ClosedDate_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1070] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1071] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1072] = [StackOverflow].[dbo].[Posts].[AnswerCount],[ClosedDate1073] = [StackOverflow].[dbo].[Posts].[ClosedDate]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1070"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1071"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1072"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="ClosedDate1073"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="17" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="31" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="18" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="5"/>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1057]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1057"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp NodeId="19" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.012424" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5453" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_CommentCount_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1074] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1075] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1076] = [StackOverflow].[dbo].[Posts].[AnswerCount],[CommentCount1077] = [StackOverflow].[dbo].[Posts].[CommentCount]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1074"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1075"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1076"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="CommentCount1077"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="21" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="27" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="22" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="5"/>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1058]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1058"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp NodeId="23" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.0141065" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5469" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_CommunityOwnedDate_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1078] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1079] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1080] = [StackOverflow].[dbo].[Posts].[AnswerCount],[CommunityOwnedDate1081] = [StackOverflow].[dbo].[Posts].[CommunityOwnedDate]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1078"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1079"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1080"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="CommunityOwnedDate1081"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="25" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="31" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="26" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="5"/>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1059]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1059"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp NodeId="27" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.0141067" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5469" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_CreationDate_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1082] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1083] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1084] = [StackOverflow].[dbo].[Posts].[AnswerCount],[CreationDate1085] = [StackOverflow].[dbo].[Posts].[CreationDate]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1082"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1083"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1084"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="CreationDate1085"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="29" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="31" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="30" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="5"/>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1060]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1060"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp NodeId="31" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.0124239" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5453" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_FavoriteCount_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1086] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1087] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1088] = [StackOverflow].[dbo].[Posts].[AnswerCount],[FavoriteCount1089] = [StackOverflow].[dbo].[Posts].[FavoriteCount]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1086"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1087"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1088"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="FavoriteCount1089"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="33" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="27" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="34" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="5"/>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1061]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1061"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp NodeId="35" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.0141067" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5469" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_LastActivityDate_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1090] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1091] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1092] = [StackOverflow].[dbo].[Posts].[AnswerCount],[LastActivityDate1093] = [StackOverflow].[dbo].[Posts].[LastActivityDate]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1090"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1091"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1092"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="LastActivityDate1093"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="37" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="31" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="38" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="5"/>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1062]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1062"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp NodeId="39" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.0141067" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5469" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_LastEditDate_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1094] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1095] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1096] = [StackOverflow].[dbo].[Posts].[AnswerCount],[LastEditDate1097] = [StackOverflow].[dbo].[Posts].[LastEditDate]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1094"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1095"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1096"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="LastEditDate1097"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="41" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="31" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="42" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="5"/>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1063]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1063"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp NodeId="43" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.0108329" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5437" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_LastEditorDisplayName_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1098] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1099] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1100] = [StackOverflow].[dbo].[Posts].[AnswerCount],[LastEditorDisplayName1101] = [StackOverflow].[dbo].[Posts].[LastEditorDisplayName]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1098"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1099"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1100"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="LastEditorDisplayName1101"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="45" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="67" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="46" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="5"/>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1064]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1064"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+                <RelOp NodeId="47" PhysicalOp="Index Update" LogicalOp="Update" EstimateRows="500.008" EstimateIO="0.012424" EstimateCPU="0.000500008" AvgRowSize="9" EstimatedTotalSubtreeCost="26.5453" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                  <OutputList/>
+                  <Update WithOrderedPrefetch="1" DMLRequestSort="0">
+                    <Object Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Index="[IX_LastEditorUserId_AnswerCount_AcceptedAnswerId]" IndexKind="NonClustered" Storage="RowStore"/>
+                    <SetPredicate>
+                      <ScalarOperator ScalarString="[Id1102] = [StackOverflow].[dbo].[Posts].[Id],[AcceptedAnswerId1103] = [StackOverflow].[dbo].[Posts].[AcceptedAnswerId],[AnswerCount1104] = [StackOverflow].[dbo].[Posts].[AnswerCount],[LastEditorUserId1105] = [StackOverflow].[dbo].[Posts].[LastEditorUserId]">
+                        <ScalarExpressionList>
+                          <ScalarOperator>
+                            <MultipleAssign>
+                              <Assign>
+                                <ColumnReference Column="Id1102"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AcceptedAnswerId1103"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="AnswerCount1104"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                              <Assign>
+                                <ColumnReference Column="LastEditorUserId1105"/>
+                                <ScalarOperator>
+                                  <Identifier>
+                                    <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                                  </Identifier>
+                                </ScalarOperator>
+                              </Assign>
+                            </MultipleAssign>
+                          </ScalarOperator>
+                        </ScalarExpressionList>
+                      </ScalarOperator>
+                    </SetPredicate>
+                    <ActionColumn>
+                      <ColumnReference Column="Act1066"/>
+                    </ActionColumn>
+                    <RelOp NodeId="49" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="500.008" EstimateIO="0" EstimateCPU="0.00019076" AvgRowSize="27" EstimatedTotalSubtreeCost="26.5323" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                      <OutputList>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                        <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                        <ColumnReference Column="Act1066"/>
+                      </OutputList>
+                      <Filter StartupExpression="0">
+                        <RelOp NodeId="50" PhysicalOp="Table Spool" LogicalOp="Eager Spool" EstimateRows="502" EstimateIO="0.00131251" EstimateCPU="2.81222e-005" AvgRowSize="123" EstimatedTotalSubtreeCost="26.5321" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+                          <OutputList>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="Id"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AcceptedAnswerId"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="AnswerCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="ClosedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommentCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CommunityOwnedDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="CreationDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="FavoriteCount"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastActivityDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditDate"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorDisplayName"/>
+                            <ColumnReference Database="[StackOverflow]" Schema="[dbo]" Table="[Posts]" Column="LastEditorUserId"/>
+                            <ColumnReference Column="Expr1056"/>
+                            <ColumnReference Column="Expr1057"/>
+                            <ColumnReference Column="Expr1058"/>
+                            <ColumnReference Column="Expr1059"/>
+                            <ColumnReference Column="Expr1060"/>
+                            <ColumnReference Column="Expr1061"/>
+                            <ColumnReference Column="Expr1062"/>
+                            <ColumnReference Column="Expr1063"/>
+                            <ColumnReference Column="Expr1064"/>
+                            <ColumnReference Column="Expr1065"/>
+                            <ColumnReference Column="Act1066"/>
+                          </OutputList>
+                          <Spool PrimaryNodeId="5"/>
+                        </RelOp>
+                        <Predicate>
+                          <ScalarOperator ScalarString="NOT [Expr1065]">
+                            <Logical Operation="NOT">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Column="Expr1065"/>
+                                </Identifier>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Predicate>
+                      </Filter>
+                    </RelOp>
+                  </Update>
+                </RelOp>
+              </Sequence>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

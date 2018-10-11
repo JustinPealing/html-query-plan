@@ -102,7 +102,7 @@ div[class|='qp-icon'] {
 }
 
 /* Icons */
-.qp-icon-Catchall{background: url('qp_icons.png') -96px -0px }
+.qp-icon-Catchall{background: url('qp_icons.png') -96px -256px }
 .qp-icon-ArithmeticExpression{background: url('qp_icons.png') -0px -0px }
 .qp-icon-Assert{background: url('qp_icons.png') -32px -0px }
 .qp-icon-Assign{background: url('qp_icons.png') -64px -0px }
@@ -183,7 +183,7 @@ div[class|='qp-icon'] {
 .qp-icon-UDX{background: url('qp_icons.png') -192px -192px }
 .qp-icon-Update{background: url('qp_icons.png') -96px -192px }
 .qp-icon-While{background: url('qp_icons.png') -224px -192px }
-.qp-icon-StmtCursor{background: url('qp_icons.png') -96px -0px }
+.qp-icon-StmtCursor{background: url('qp_icons.png') -96px -256px }
 .qp-icon-StmtCond{background: url('qp_icons.png') -0px -224px }
 .qp-icon-FastForward{background: url('qp_icons.png') -96px -0px }
 .qp-icon-WindowAggregate{background: url('qp_icons.png') -96px -0px }

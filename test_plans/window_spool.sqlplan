@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.2" Build="11.0.2100.60">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="8" StatementId="1" StatementOptmLevel="FULL" StatementOptmEarlyAbortReason="GoodEnoughPlanFound" StatementSubTreeCost="0.029903" StatementText="Select distinct &#13;&#10;First_Value(b.[BackupID]) over (partition by r.RealID order by b.BackupID) as [BackupID]&#13;&#10;    , r.RealID as [RealID]&#13;&#10;    , isnull(First_Value(b.[Numeric]) over (partition by r.RealID order by b.BackupID), r.numeric) as [Numeric]&#13;&#10;from #Real r &#13;&#10;left join #Backup b on r.realID = b.realid&#13;&#10;order by r.[RealID] option (recompile)&#13;&#10;&#13;" StatementType="SELECT" QueryHash="0xCC544E3CE3C1D851" QueryPlanHash="0x199F28071F8FB34F" RetrievedFromCache="false">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true"/>
+          <QueryPlan DegreeOfParallelism="1" MemoryGrant="1024" CachedPlanSize="48" CompileTime="9" CompileCPU="8" CompileMemory="272">
+            <MemoryGrantInfo SerialRequiredMemory="640" SerialDesiredMemory="704" RequiredMemory="640" DesiredMemory="704" RequestedMemory="1024" GrantWaitTime="0" GrantedMemory="1024" MaxUsedMemory="24"/>
+            <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="314572" EstimatedPagesCached="78643" EstimatedAvailableDegreeOfParallelism="2"/>
+            <RelOp AvgRowSize="19" EstimateCPU="0.000137459" EstimateIO="0.0112613" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="8" LogicalOp="Distinct Sort" NodeId="0" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="0.029903">
+              <OutputList>
+                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                <ColumnReference Column="Expr1006"/>
+                <ColumnReference Column="Expr1008"/>
+              </OutputList>
+              <MemoryFractions Input="0.5" Output="1"/>
+              <RunTimeInformation>
+                <RunTimeCountersPerThread Thread="0" ActualRebinds="1" ActualRewinds="0" ActualRows="5" ActualEndOfScans="1" ActualExecutions="1"/>
+              </RunTimeInformation>
+              <Sort Distinct="true">
+                <OrderBy>
+                  <OrderByColumn Ascending="true">
+                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                  </OrderByColumn>
+                  <OrderByColumn Ascending="true">
+                    <ColumnReference Column="Expr1006"/>
+                  </OrderByColumn>
+                  <OrderByColumn Ascending="true">
+                    <ColumnReference Column="Expr1008"/>
+                  </OrderByColumn>
+                </OrderBy>
+                <RelOp AvgRowSize="19" EstimateCPU="8E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="8" LogicalOp="Compute Scalar" NodeId="1" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.0185042">
+                  <OutputList>
+                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                    <ColumnReference Column="Expr1006"/>
+                    <ColumnReference Column="Expr1008"/>
+                  </OutputList>
+                  <ComputeScalar>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1008"/>
+                        <ScalarOperator ScalarString="isnull([Expr1007],[tempdb].[dbo].[#Real].[Numeric] as [r].[Numeric])">
+                          <Intrinsic FunctionName="isnull">
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1007"/>
+                              </Identifier>
+                            </ScalarOperator>
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                              </Identifier>
+                            </ScalarOperator>
+                          </Intrinsic>
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp AvgRowSize="23" EstimateCPU="8E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="8" LogicalOp="Compute Scalar" NodeId="2" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.0185034">
+                      <OutputList>
+                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                        <ColumnReference Column="Expr1006"/>
+                        <ColumnReference Column="Expr1007"/>
+                      </OutputList>
+                      <ComputeScalar>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Expr1006"/>
+                            <ScalarOperator ScalarString="CASE WHEN IsFalseOrNull [Expr1009] THEN [Expr1010] ELSE NULL END">
+                              <IF>
+                                <Condition>
+                                  <ScalarOperator>
+                                    <Logical Operation="IsFalseOrNull">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Column="Expr1009"/>
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </Condition>
+                                <Then>
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Column="Expr1010"/>
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </Then>
+                                <Else>
+                                  <ScalarOperator>
+                                    <Const ConstValue="NULL"/>
+                                  </ScalarOperator>
+                                </Else>
+                              </IF>
+                            </ScalarOperator>
+                          </DefinedValue>
+                          <DefinedValue>
+                            <ColumnReference Column="Expr1007"/>
+                            <ScalarOperator ScalarString="CASE WHEN IsFalseOrNull [Expr1011] THEN [Expr1012] ELSE NULL END">
+                              <IF>
+                                <Condition>
+                                  <ScalarOperator>
+                                    <Logical Operation="IsFalseOrNull">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Column="Expr1011"/>
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </Condition>
+                                <Then>
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Column="Expr1012"/>
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </Then>
+                                <Else>
+                                  <ScalarOperator>
+                                    <Const ConstValue="NULL"/>
+                                  </ScalarOperator>
+                                </Else>
+                              </IF>
+                            </ScalarOperator>
+                          </DefinedValue>
+                        </DefinedValues>
+                        <RelOp AvgRowSize="39" EstimateCPU="5.024E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="8" LogicalOp="Aggregate" NodeId="3" Parallel="false" PhysicalOp="Stream Aggregate" EstimatedTotalSubtreeCost="0.0185026">
+                          <OutputList>
+                            <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                            <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                            <ColumnReference Column="Expr1009"/>
+                            <ColumnReference Column="Expr1010"/>
+                            <ColumnReference Column="Expr1011"/>
+                            <ColumnReference Column="Expr1012"/>
+                          </OutputList>
+                          <RunTimeInformation>
+                            <RunTimeCountersPerThread Thread="0" ActualRows="8" ActualEndOfScans="1" ActualExecutions="1"/>
+                          </RunTimeInformation>
+                          <StreamAggregate>
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1009"/>
+                                <ScalarOperator ScalarString="FIRST_VALUE_IS_NULL([tempdb].[dbo].[#Backup].[BackupID] as [b].[BackupID])">
+                                  <Aggregate AggType="FIRST_VALUE_IS_NULL" Distinct="false">
+                                    <ScalarOperator>
+                                      <Identifier>
+                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                      </Identifier>
+                                    </ScalarOperator>
+                                  </Aggregate>
+                                </ScalarOperator>
+                              </DefinedValue>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1010"/>
+                                <ScalarOperator ScalarString="FIRST_VALUE_IGNORE_NULLS([tempdb].[dbo].[#Backup].[BackupID] as [b].[BackupID])">
+                                  <Aggregate AggType="FIRST_VALUE_IGNORE_NULLS" Distinct="false">
+                                    <ScalarOperator>
+                                      <Identifier>
+                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                      </Identifier>
+                                    </ScalarOperator>
+                                  </Aggregate>
+                                </ScalarOperator>
+                              </DefinedValue>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1011"/>
+                                <ScalarOperator ScalarString="FIRST_VALUE_IS_NULL([tempdb].[dbo].[#Backup].[Numeric] as [b].[Numeric])">
+                                  <Aggregate AggType="FIRST_VALUE_IS_NULL" Distinct="false">
+                                    <ScalarOperator>
+                                      <Identifier>
+                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="Numeric"/>
+                                      </Identifier>
+                                    </ScalarOperator>
+                                  </Aggregate>
+                                </ScalarOperator>
+                              </DefinedValue>
+                              <DefinedValue>
+                                <ColumnReference Column="Expr1012"/>
+                                <ScalarOperator ScalarString="FIRST_VALUE_IGNORE_NULLS([tempdb].[dbo].[#Backup].[Numeric] as [b].[Numeric])">
+                                  <Aggregate AggType="FIRST_VALUE_IGNORE_NULLS" Distinct="false">
+                                    <ScalarOperator>
+                                      <Identifier>
+                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="Numeric"/>
+                                      </Identifier>
+                                    </ScalarOperator>
+                                  </Aggregate>
+                                </ScalarOperator>
+                              </DefinedValue>
+                              <DefinedValue>
+                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                                <ScalarOperator ScalarString="ANY([tempdb].[dbo].[#Real].[Numeric] as [r].[Numeric])">
+                                  <Aggregate AggType="ANY" Distinct="false">
+                                    <ScalarOperator>
+                                      <Identifier>
+                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                                      </Identifier>
+                                    </ScalarOperator>
+                                  </Aggregate>
+                                </ScalarOperator>
+                              </DefinedValue>
+                            </DefinedValues>
+                            <GroupBy>
+                              <ColumnReference Column="WindowCount1015"/>
+                            </GroupBy>
+                            <RelOp AvgRowSize="39" EstimateCPU="1.7584E-05" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="16" LogicalOp="Window Spool" NodeId="4" Parallel="false" PhysicalOp="Window Spool" EstimatedTotalSubtreeCost="0.0184976">
+                              <OutputList>
+                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="Numeric"/>
+                                <ColumnReference Column="WindowCount1015"/>
+                                <ColumnReference Column="Segment1013"/>
+                                <ColumnReference Column="Segment1014"/>
+                              </OutputList>
+                              <RunTimeInformation>
+                                <RunTimeCountersPerThread Thread="0" ActualRows="16" ActualEndOfScans="1" ActualExecutions="1"/>
+                              </RunTimeInformation>
+                              <WindowSpool>
+                                <RelOp AvgRowSize="39" EstimateCPU="0" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="8" LogicalOp="Segment" NodeId="5" Parallel="false" PhysicalOp="Segment" EstimatedTotalSubtreeCost="0.018478">
+                                  <OutputList>
+                                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="Numeric"/>
+                                    <ColumnReference Column="Segment1013"/>
+                                    <ColumnReference Column="Segment1014"/>
+                                  </OutputList>
+                                  <RunTimeInformation>
+                                    <RunTimeCountersPerThread Thread="0" ActualRows="8" ActualEndOfScans="1" ActualExecutions="1"/>
+                                  </RunTimeInformation>
+                                  <Segment>
+                                    <GroupBy>
+                                      <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                      <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                    </GroupBy>
+                                    <SegmentColumn>
+                                      <ColumnReference Column="Segment1014"/>
+                                    </SegmentColumn>
+                                    <RelOp AvgRowSize="31" EstimateCPU="5.024E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="8" LogicalOp="Segment" NodeId="6" Parallel="false" PhysicalOp="Segment" EstimatedTotalSubtreeCost="0.018478">
+                                      <OutputList>
+                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="Numeric"/>
+                                        <ColumnReference Column="Segment1013"/>
+                                      </OutputList>
+                                      <RunTimeInformation>
+                                        <RunTimeCountersPerThread Thread="0" ActualRows="8" ActualEndOfScans="1" ActualExecutions="1"/>
+                                      </RunTimeInformation>
+                                      <Segment>
+                                        <GroupBy>
+                                          <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                        </GroupBy>
+                                        <SegmentColumn>
+                                          <ColumnReference Column="Segment1013"/>
+                                        </SegmentColumn>
+                                        <RelOp AvgRowSize="23" EstimateCPU="0.000137463" EstimateIO="0.0112613" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="8" LogicalOp="Sort" NodeId="7" Parallel="false" PhysicalOp="Sort" EstimatedTotalSubtreeCost="0.0184775">
+                                          <OutputList>
+                                            <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                            <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                                            <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                            <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="Numeric"/>
+                                          </OutputList>
+                                          <MemoryFractions Input="1" Output="0.5"/>
+                                          <RunTimeInformation>
+                                            <RunTimeCountersPerThread Thread="0" ActualRebinds="1" ActualRewinds="0" ActualRows="8" ActualEndOfScans="1" ActualExecutions="1"/>
+                                          </RunTimeInformation>
+                                          <Sort Distinct="false">
+                                            <OrderBy>
+                                              <OrderByColumn Ascending="true">
+                                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                              </OrderByColumn>
+                                              <OrderByColumn Ascending="true">
+                                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                              </OrderByColumn>
+                                            </OrderBy>
+                                            <RelOp AvgRowSize="23" EstimateCPU="0.0001463" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="8" LogicalOp="Left Outer Join" NodeId="8" Parallel="false" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="0.0070788">
+                                              <OutputList>
+                                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                                <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="Numeric"/>
+                                              </OutputList>
+                                              <RunTimeInformation>
+                                                <RunTimeCountersPerThread Thread="0" ActualRows="8" ActualEndOfScans="1" ActualExecutions="1"/>
+                                              </RunTimeInformation>
+                                              <NestedLoops Optimized="false">
+                                                <Predicate>
+                                                  <ScalarOperator ScalarString="[tempdb].[dbo].[#Real].[RealID] as [r].[RealID]=[tempdb].[dbo].[#Backup].[RealID] as [b].[RealID]">
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="RealID"/>
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                </Predicate>
+                                                <RelOp AvgRowSize="15" EstimateCPU="0.0001625" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="5" LogicalOp="Table Scan" NodeId="9" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="0.0032875" TableCardinality="5">
+                                                  <OutputList>
+                                                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                                                  </OutputList>
+                                                  <RunTimeInformation>
+                                                    <RunTimeCountersPerThread Thread="0" ActualRows="5" ActualEndOfScans="1" ActualExecutions="1"/>
+                                                  </RunTimeInformation>
+                                                  <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false">
+                                                    <DefinedValues>
+                                                      <DefinedValue>
+                                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="RealID"/>
+                                                      </DefinedValue>
+                                                      <DefinedValue>
+                                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" Column="Numeric"/>
+                                                      </DefinedValue>
+                                                    </DefinedValues>
+                                                    <Object Database="[tempdb]" Schema="[dbo]" Table="[#Real]" Alias="[r]" IndexKind="Heap"/>
+                                                  </TableScan>
+                                                </RelOp>
+                                                <RelOp AvgRowSize="19" EstimateCPU="8.62E-05" EstimateIO="0.0032035" EstimateRebinds="0" EstimateRewinds="4" EstimatedExecutionMode="Row" EstimateRows="7" LogicalOp="Table Scan" NodeId="10" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="0.0036345" TableCardinality="7">
+                                                  <OutputList>
+                                                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="RealID"/>
+                                                    <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="Numeric"/>
+                                                  </OutputList>
+                                                  <RunTimeInformation>
+                                                    <RunTimeCountersPerThread Thread="0" ActualRows="35" ActualEndOfScans="5" ActualExecutions="5"/>
+                                                  </RunTimeInformation>
+                                                  <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false">
+                                                    <DefinedValues>
+                                                      <DefinedValue>
+                                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="BackupID"/>
+                                                      </DefinedValue>
+                                                      <DefinedValue>
+                                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="RealID"/>
+                                                      </DefinedValue>
+                                                      <DefinedValue>
+                                                        <ColumnReference Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" Column="Numeric"/>
+                                                      </DefinedValue>
+                                                    </DefinedValues>
+                                                    <Object Database="[tempdb]" Schema="[dbo]" Table="[#Backup]" Alias="[b]" IndexKind="Heap"/>
+                                                  </TableScan>
+                                                </RelOp>
+                                              </NestedLoops>
+                                            </RelOp>
+                                          </Sort>
+                                        </RelOp>
+                                      </Segment>
+                                    </RelOp>
+                                  </Segment>
+                                </RelOp>
+                              </WindowSpool>
+                            </RelOp>
+                          </StreamAggregate>
+                        </RelOp>
+                      </ComputeScalar>
+                    </RelOp>
+                  </ComputeScalar>
+                </RelOp>
+              </Sort>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

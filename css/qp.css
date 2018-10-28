@@ -187,7 +187,7 @@ div[class|='qp-icon'] {
 .qp-icon-StmtCursor{background: url('qp_icons.png') -96px -256px }
 .qp-icon-StmtCond{background: url('qp_icons.png') -0px -224px }
 .qp-icon-FastForward{background: url('qp_icons.png') -96px -0px }
-.qp-icon-WindowAggregate{background: url('qp_icons.png') -96px -0px }
+.qp-icon-WindowAggregate{background: url('qp_icons.png') -160px -256px }
 .qp-icon-AdaptiveJoin{background: url('qp_icons.png') -288px -224px }
 .qp-icon-IndexSpool{background: url('qp_icons.png') -160px -96px }
 .qp-icon-IndexInsert{background: url('qp_icons.png') -64px -96px }

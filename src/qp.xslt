@@ -615,6 +615,8 @@
   The following section contains templates used to determine the first (main) label for a node.
   -->
 
+  <xsl:template match="s:RelOp[s:ScalarInsert/s:Object/@Storage='ColumnStore']" mode="NodeLabel">Columnstore Index Insert</xsl:template>
+  <xsl:template match="s:RelOp[s:Update/s:Object/@Storage='ColumnStore']" mode="NodeLabel">Columnstore Index <xsl:value-of select="@LogicalOp"/></xsl:template>
   <xsl:template match="s:RelOp[s:IndexScan]" mode="NodeLabel">
     <xsl:choose>
       <xsl:when test="s:IndexScan/@Storage='ColumnStore'">Columnstore Index Scan</xsl:when>

@@ -96,33 +96,37 @@ describe("Query Plan Icon", () => {
     it("Shows ColumnStoreIndexInsert icon for Columnstore Index Insert nodes", () => {
 
         let container = helper.showPlan(plan.columnstore_index_insert);
-        let cond = helper.findNodeById(container, "0");
-        assert.notEqual(null, cond.element.querySelector(".qp-icon-ColumnStoreIndexInsert"));
+        let insert = helper.findNodeById(container, "0");
+        assert.notEqual(null, insert.element.querySelector(".qp-icon-ColumnStoreIndexInsert"));
+        assert.equal('Columnstore Index Insert', helper.getNodeLabel(insert));
 
     });
 
     it("Shows ColumnStoreIndexDelete icon for Columnstore Index Delete nodes", () => {
 
         let container = helper.showPlan(plan.columnstore_index_delete);
-        let cond = helper.findNodeById(container, "0");
-        assert.notEqual(null, cond.element.querySelector(".qp-icon-ColumnStoreIndexDelete"));
+        let del = helper.findNodeById(container, "0");
+        assert.notEqual(null, del.element.querySelector(".qp-icon-ColumnStoreIndexDelete"));
+        assert.equal('Columnstore Index Delete', helper.getNodeLabel(del));
 
     });
 
     it("Shows ColumnStoreIndexUpdate icon for Columnstore Index Update nodes", () => {
 
         let container = helper.showPlan(plan.columnstore_index_update);
-        let cond = helper.findNodeById(container, "1");
-        assert.notEqual(null, cond.element.querySelector(".qp-icon-ColumnStoreIndexUpdate"));
+        let update = helper.findNodeById(container, "1");
+        assert.notEqual(null, update.element.querySelector(".qp-icon-ColumnStoreIndexUpdate"));
+        assert.equal('Columnstore Index Update', helper.getNodeLabel(update));
 
     });
 
     it("Shows ColumnStoreIndexMerge icon for Columnstore Index Merge nodes", () => {
 
         let container = helper.showPlan(plan.columnstore_index_merge);
-        let cond = helper.findNodeById(container, "1");
-        assert.notEqual(null, cond.element.querySelector(".qp-icon-ColumnStoreIndexMerge"));
-
+        let merge = helper.findNodeById(container, "1");
+        assert.notEqual(null, merge.element.querySelector(".qp-icon-ColumnStoreIndexMerge"));
+        assert.equal('Columnstore Index Merge', helper.getNodeLabel(merge));
+        
     });
 
     it("Shows ClustredIndexMerge icon for Clustered Index Merge nodes", () => {

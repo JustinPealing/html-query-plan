@@ -219,6 +219,14 @@ div[class|='qp-icon'] {
     left: 16px;
 }
 
+.qp-iconbatch {
+    background: url('qp_icons.png') -288px -193px;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    top: 16px;
+}
+
 /* Layout - can't touch this */
 .qp-tt {
     position: absolute;

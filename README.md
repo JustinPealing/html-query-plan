@@ -56,7 +56,15 @@ Should work just fine in any modern browser. Tested in Chrome, Firefox and IE9+.
 
 ## Icons
 
-The icons used are adapted from the Fat Cow "Farm Fresh" web icons pack, which can be found at http://www.fatcow.com/free-icons.
+Meaning of the "overlay" icons for nodes:
+
+| Icon | Description | 
+| --- | --- | 
+| ![Batch Icon](images/iconbatch.png) | Either the actual execution mode was "Batch" (for actual execution plans), or the estimated execution mode was "Batch" (for estimated plans). | 
+| ![Parallel Icon](images/iconpar.png) | The node was executed in parallel. |
+| ![Warning Icon](images/iconwarn.png) | There are one or more warnings on the node. |
+
+All icons are adapted from the Fat Cow "Farm Fresh" web icons pack, which can be found at http://www.fatcow.com/free-icons.
 
 ## Building
 

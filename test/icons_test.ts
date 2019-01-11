@@ -169,4 +169,41 @@ describe("Query Plan Icon", () => {
 
     });
 
+    describe("Batch Icon", () => {
+
+        it("shows if @EstimatedExecutionMode is Batch", () => {
+
+            let container = helper.showPlan(plan.adaptive_join_estimated);
+            let scan = helper.findNodeById(container, "2");
+            assert.notEqual(null, scan.element.querySelector(".qp-iconbatch"));
+
+        });
+
+        it("dDoes not show if @EstimatedExecutionMode is not Batch", () => {
+
+            let container = helper.showPlan(plan.adaptive_join_estimated);
+            let scan = helper.findNodeById(container, "0");
+            assert.equal(null, scan.element.querySelector(".qp-iconbatch"));
+
+        });
+
+        it("does not show if actual execution mode is not batch", () => {
+
+            // The actual execution should "override" if estimated exectuon mode, if present
+            let container = helper.showPlan(plan.adaptive_join);
+            let scan = helper.findNodeById(container, "7");
+            assert.equal(null, scan.element.querySelector(".qp-iconbatch"));
+
+        });
+
+        it("shows if actual execution mode is batch", () => {
+
+            let container = helper.showPlan(plan.columnstore_index_update);
+            let scan = helper.findNodeById(container, "4");
+            assert.notEqual(null, scan.element.querySelector(".qp-iconbatch"));
+
+        });
+
+    });
+
 });

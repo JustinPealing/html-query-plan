@@ -123,7 +123,7 @@
                         <ActionColumn>
                           <ColumnReference Column="Act1009" />
                         </ActionColumn>
-                        <RelOp AvgRowSize="31" EstimateCPU="1E-08" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="4" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.00314082">
+                        <RelOp AvgRowSize="31" EstimateCPU="1E-08" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="4" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="0.00314082">
                           <OutputList>
                             <ColumnReference Column="ColStoreLoc1000" />
                             <ColumnReference Database="[Test]" Schema="[dbo]" Table="[T1]" Column="OrderDateKey" />

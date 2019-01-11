@@ -601,11 +601,19 @@
         <xsl:otherwise>Catchall</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="executionMode">
+      <xsl:choose>
+        <xsl:when test="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutionMode">
+          <xsl:value-of select="s:RunTimeInformation/s:RunTimeCountersPerThread/@ActualExecutionMode" />
+        </xsl:when>
+        <xsl:otherwise><xsl:value-of select="@EstimatedExecutionMode" /></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:element name="div">
       <xsl:attribute name="class">qp-icon-<xsl:value-of select="$iconName" /></xsl:attribute>
       <xsl:if test="s:Warnings or s:QueryPlan/s:Warnings"><div class="qp-iconwarn" /></xsl:if>
       <xsl:if test="@Parallel='1' or @Parallel='true'"><div class="qp-iconpar" /></xsl:if>
-      <xsl:if test="@EstimatedExecutionMode='Batch'"><div class="qp-iconbatch" /></xsl:if>
+      <xsl:if test="$executionMode='Batch'"><div class="qp-iconbatch" /></xsl:if>
     </xsl:element>
   </xsl:template>
 

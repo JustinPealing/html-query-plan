@@ -112,7 +112,7 @@
                     </Predicate>
                   </Filter>
                 </RelOp>
-                <RelOp AvgRowSize="9" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="9" EstimateRewinds="2.12452E-06" EstimatedExecutionMode="Row" EstimateRows="1.0001" EstimatedRowsRead="1.0001" LogicalOp="Index Seek" NodeId="7" Parallel="false" PhysicalOp="Index Seek" EstimatedTotalSubtreeCost="0.0292068" TableCardinality="100000">
+                <RelOp AvgRowSize="9" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="9" EstimateRewinds="2.12452E-06" EstimatedExecutionMode="Batch" EstimateRows="1.0001" EstimatedRowsRead="1.0001" LogicalOp="Index Seek" NodeId="7" Parallel="false" PhysicalOp="Index Seek" EstimatedTotalSubtreeCost="0.0292068" TableCardinality="100000">
                   <OutputList />
                   <RunTimeInformation>
                     <RunTimeCountersPerThread Thread="0" ActualRows="10" ActualRowsRead="10" Batches="0" ActualEndOfScans="10" ActualExecutions="10" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" ActualScans="10" ActualLogicalReads="20" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />

@@ -12,9 +12,9 @@ module.exports = {
         filename: development ? 'qp.js' : 'qp.min.js',
         path: path.join(__dirname, 'dist')
     },
-    plugins: development ? [] : [
-        new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
-    ],
+    optimization: {
+      minimize: !development
+    },
     resolve: {
       extensions: ['.ts', '.js']
     },

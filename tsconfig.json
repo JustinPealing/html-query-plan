@@ -3,9 +3,11 @@
         "noEmitOnError": true,
         "module": "commonjs",
         "sourceMap": true,
-        "allowJs": true,
-        "target": "es5"
+        "target": "es5",
+        "declaration": true,
+        "outDir": "dist"
     },
+    "include": ["src"],
     "exclude": [
         "node_modules"
     ]

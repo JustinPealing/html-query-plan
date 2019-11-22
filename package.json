@@ -36,6 +36,7 @@
   "author": "Justin Pealing",
   "license": "MIT",
   "main": "dist/qp.js",
+  "types": "dist/index.d.ts",
   "bugs": {
     "url": "https://github.com/JustinPealing/html-query-plan/issues"
   },

@@ -120,13 +120,15 @@ class Node {
      * Gets the xml for the whole query plan.
      */
     get queryPlanXml(): Element {
-        return findAncestor(this.element, "qp-root").parentElement["xml"];
+        const root = findAncestor(this.element, "qp-root");
+        return root == null ? null : root.parentElement["xml"];
     }
 
     /**
      * Gets the xml element corresponding to this node from the query plan xml.
      */
     get nodeXml(): Element {
+        if (this.queryPlanXml == null) return null;
         return getNodeXml(this.queryPlanXml, this.statementId, this.nodeId);
     }
 

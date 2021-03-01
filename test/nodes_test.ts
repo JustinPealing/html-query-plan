@@ -112,6 +112,16 @@ describe("Node", () => {
 
         });
 
+        it("Returns null if the nodeXml is not set", () => {
+
+            let element = document.createElement("div");
+            element.className = "qp-node";
+            let node = new Node(element);
+
+            assert.isNull(node.nodeXml);
+
+        });
+
     });
     
 });
